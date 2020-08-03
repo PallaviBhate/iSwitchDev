@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Jobzilla - Login</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+<!--link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" /-->
+
+<link rel="stylesheet" type="text/css" href="assets/bootstrap-4.0.0-dist/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="Style.css">
+</head>
+<body>
+<div class="container-fluid pl-0 pr-0">
+
+	<!--Side Navigation Bar-->
+	<div class="SideNav" id="mySidenav">
+		<a href="javascript:void(0)" class="hamburger" id="hamburger" onclick="openNav()">&#9776;</a>
+		<div id="sidenavOptions" style="display:none;">
+			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+			<a href="#">About</a>
+			<a href="#">Services</a>
+			<a href="#">Clients</a>
+			<a href="#">Contact</a>
+		</div>
+	</div>
+	<!--Side Navigation Bar-->
+	
+	<div class="Main_Container row ml-0" id="main">
+		<div class="Header login_header_bottom">
+			<ul>
+				<li><img src="assets/login/iconfinder_phone.svg"/><span class="header_telephone marL5">58000 45000</span></li>
+				<li class="marL0 marR0">|</li>
+				<li><img src="assets/login/iconfinder_icon-email_211660.svg"/><span class="header_email marL5">info@jobzilla.com</span></li>
+			</ul>
+		</div>
+		<div class="Login_Content">
+			<div class="Login-form">
+				<img src="assets/login/logo.png"/>
+				<h4>Welcome back! Please login to your account</h4>
+				<form class="">
+					<div id="" class="marT10 float-container form-group">
+						<label for="login_email_floatField">Email ID</label>
+						<input type="text" id="login_email_floatField" class="" name=""  data-placeholder="Email ID" />
+					</div>
+					<div id="" class="marT10 float-container form-group">
+						<label for="login_pwd_floatField">Password</label>
+						<input type="password" id="login_pwd_floatField" class="" name="" data-placeholder="Password" />
+					</div>
+					
+					<div class="col-xl-6 float-left marT20 pl-0">
+						<input type="checkbox" class="" id="" /> 
+						<label class="remember_me_text ml-1" for="">Remember me</label>
+					</div>
+					<div class="col-xl-6 float-left marT20">
+						<a class="forgot_PWD_Link">Forgot Password</a>
+					</div>
+					<div class="wid100 float-left marT30 marB20">
+						<button class="btn btn_login mr-4" name="">Login</button>
+						<button class=" btn btn_signup ml-4" name="">Sign Up</button>
+					</div>
+					<h6>Terms of use. Privacy Policy</h6>
+				</form>
+			</div>
+			<div class="Login-image d-none d-sm-none d-lg-block">
+				<img src="assets/login/login-img.png" />
+			</div>
+		</div>
+	</div>
+
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="assets/bootstrap-4.0.0-dist/js/bootstrap.min.js"></script>
+<script>
+function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+  document.getElementById("hamburger").style.display = "none";
+  document.getElementById("sidenavOptions").style.display = "block";
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "70px";
+  document.getElementById("sidenavOptions").style.display = "none";
+  document.getElementById("hamburger").style.display = "block";
+}
+
+
+const FloatLabel = (() => {
+  
+  // add active class
+  const handleFocus = (e) => {
+    const target = e.target;
+    target.parentNode.classList.add('active');
+    target.setAttribute('placeholder', target.getAttribute('data-placeholder'));
+  };
+  
+  // remove active class
+  const handleBlur = (e) => {
+    const target = e.target;
+    if(!target.value) {
+      target.parentNode.classList.remove('active');
+    }
+    target.removeAttribute('placeholder');
+  };
+  
+  // register events
+  const bindEvents = (element) => {
+    const login_email_floatField = element.querySelector('input');
+	login_email_floatField.addEventListener('focus', handleFocus);
+    login_email_floatField.addEventListener('blur', handleBlur);  
+	
+	const login_pwd_floatField = element.querySelector('input');
+    login_pwd_floatField.addEventListener('focus', handleFocus);
+    login_pwd_floatField.addEventListener('blur', handleBlur);
+	
+	
+	};
+  
+  // get DOM elements
+  const init = () => {
+    const floatContainers = document.querySelectorAll('.float-container');
+
+    floatContainers.forEach((element) => {
+
+      if (element.querySelector('input').value) {
+        element.classList.add('active');
+      }
+
+      bindEvents(element);
+    });
+  };
+  
+  return {
+    init: init
+  };
+})();
+
+FloatLabel.init();
+</script>
+</body>
+</html>
