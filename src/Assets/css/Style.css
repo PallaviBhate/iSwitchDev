@@ -1,6 +1,6 @@
 @font-face {
   font-family: Roboto-Regular;
-  src: url(assets/fonts/Roboto-Regular.ttf) format("truetype");
+  src: url(../fonts/Roboto-Regular.ttf) format("truetype");
 }
 
 html, body{
@@ -365,9 +365,9 @@ meter{
 	font-size:18px;
 	padding:10px 50px;
 }
-input[type="file"]#file-upload-button{
-	background:# 000;
-}
+/* input[type="file"]#file-upload-button{
+	background: #000;
+} */
 
 
 /*Dashboard Page*/
