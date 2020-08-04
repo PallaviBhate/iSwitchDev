@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import'bootstrap/dist/css/bootstrap.min.css';
-import './Style.css'
+// import'bootstrap/dist/css/bootstrap.min.css';
+// import './Style.css'
 // import { Bar } from 'react-chartjs-2';
 
 const state = {

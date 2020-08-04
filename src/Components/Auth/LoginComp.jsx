@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import 'E:/JobzillaClone/JobzillaDev/src/Assets/bootstrap-4.0.0-dist/css/bootstrap.css'
+// import 'E:/JobzillaClone/JobzillaDev/src/Assets/bootstrap-4.0.0-dist/css/bootstrap.css'
+import Header from '../CommonComp/Header'
 class LoginComp extends Component{
     constructor(props){
         super(props);
@@ -139,16 +140,17 @@ class LoginComp extends Component{
           return (
             <div class="container-fluid pl-0 pr-0">
               <div class="Main_Container row ml-0" id="main">
-		            <div class="Header login_header_bottom">
+                <Header></Header>
+		            {/* <div class="Header login_header_bottom">
 			            <ul>
 				            <li><img src="../Assets/images/login/iconfinder_phone.svg"/><span class="header_telephone marL5">58000 45000</span></li>
 				            <li class="marL0 marR0">|</li>
 				            <li><img src="../Assets/images/login/iconfinder_icon-email_211660.svg"/><a href="https://mail.google.com/mail/?view=cm&fs=1&to=info@jobzilla.com&su=SUBJECT&body=BODY" target="_blank"><span class="header_email marL5"></span>info@jobzilla.com</a></li>
 			            </ul>
-		            </div>
+		            </div> */}
 		            <div class="Login_Content">
 			            <div class="Login-form">
-				            <img src="../Assets/images/login/logo.png"/>
+				            <img src="../images/login/logo.png"/>
 				            <h4>Welcome back! Please login to your account</h4>
 				              <form class="">
                  {/* <FormErrors formErrors={this.state.formErrors} /> */}
@@ -175,7 +177,8 @@ class LoginComp extends Component{
 			 	              </form>
                   </div>
 			            <div class="Login-image d-none d-sm-none d-lg-block">
-				              <img src="../Assets/images/login/login-img.png" />
+				              <img src= "../images/login/login-img.png"/>
+                      
 			            </div>
 		            </div>
 	            </div>
