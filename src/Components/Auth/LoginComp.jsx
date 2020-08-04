@@ -1,23 +1,36 @@
 import React, { Component } from "react";
-// import 'E:/JobzillaClone/JobzillaDev/src/Assets/bootstrap-4.0.0-dist/css/bootstrap.css'
 import Header from '../CommonComp/Header'
+import validators from '../CommonComp/ValidateForm'
+import 'bootstrap/dist/css/bootstrap.css'
 class LoginComp extends Component{
     constructor(props){
         super(props);
         this.state={
+          userInfo:{
             emailId:'',
             password:'',
-            rememberMe:false,
-            formErrors: {email: '', password: ''},
-            emailValid: false,
-            passwordValid: false,
-            formValid: false
+            rememberMe:false
+          }
         }
+        this.validators = validators;
+        // Correctly Bind class methods to reacts class instance
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.displayValidationErrors = this.displayValidationErrors.bind(this);
+        this.updateValidators = this.updateValidators.bind(this);
+       
+       this.isFormValid = this.isFormValid.bind(this);
+      
     }
 
   //  store data to localstorage and redirect to dashboard
     onLogin = () => {
         const {emailId,password,rememberMe}=this.state
+        //api call
+        //const response
+        //if(response true){ localStorage.setItem('rememberMe',rememberMe);
+        //localStorage.setItem('emailId',rememberMe ? emailId:'')
+        //this.props.history.push('/dashboard')}
+        //else{error}
         localStorage.setItem('rememberMe',rememberMe);
         localStorage.setItem('emailId',rememberMe ? emailId:'')
         this.props.history.push('/dashboard')
@@ -86,55 +99,79 @@ class LoginComp extends Component{
         const value=input.type==='checkbox' ? input.checked :input.value
         this.setState({
             [input.name]:value}, 
-        //  () => { this.validateField(input.name, value)}
+        
         );
     }
+    
+  /*
+   * This function is called whenever a form input is changed
+   * Which in turn updates the state of this component and validators
+   * 
+   */
 
-  // email and password validation//
+  handleInputChange(event, inputPropName) {
+      const newState = Object.assign({}, this.state);
+      newState.userInfo[inputPropName] = event.target.value;
+      this.setState(newState);
+      this.updateValidators(inputPropName, event.target.value);
+      const input=event.target;
+      const value=input.type==='checkbox' ? input.checked :input.value
+      this.setState({
+      [input.name]:value});
+  }
 
-  //   validateField(fieldName, value) {
-  //       let fieldValidationErrors = this.state.formErrors;
-  //       let emailValid = this.state.emailValid;
-  //       let passwordValid = this.state.passwordValid;
-  //       let rememberMeValid=this.state.rememberMeValid
+  /** 
+   * This function updates the state of the validator for the specified validator
+   */
+  updateValidators(fieldName, value) {
+      this.validators[fieldName].errors = [];
+      this.validators[fieldName].state = value;
+      this.validators[fieldName].valid = true;
+      this.validators[fieldName].rules.forEach((rule) => {
+        if (rule.test instanceof RegExp) {
+          if (!rule.test.test(value)) {
+            this.validators[fieldName].errors.push(rule.message);
+            this.validators[fieldName].valid = false;
+          }
+        } else if (typeof rule.test === 'function') {
+        if (!rule.test(value)) {
+          this.validators[fieldName].errors.push(rule.message);
+          this.validators[fieldName].valid = false;
+        }
+      }
+    });
+  }
+  // This function displays the validation errors for a given input field
+  displayValidationErrors(fieldName) {
+    const validator = this.validators[fieldName];
+    const result = '';
+    if (validator && !validator.valid) {
+      const errors = validator.errors.map((info, index) => {
+        return <span className="error" key={index}>* {info}</span>;
+      });
 
-  //       switch(fieldName) {
-  //           case 'emailId':
-  //           emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
-  //           fieldValidationErrors.email = emailValid ? '' : ' is invalid';
-  //           break;
-
-  //         case 'password':
-  //           passwordValid=value.match("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})") 
-  //           fieldValidationErrors.password = passwordValid ? '': ' is invalid,include special charactor and';
-  //           break;
-
-  //         default:
-  //           break;
-  //       }
-  // //email and password validation//
-
-  //   this.setState({formErrors: fieldValidationErrors,
-  //                 emailValid: emailValid,
-  //                 passwordValid: passwordValid,
-  //                }, this.validateForm);
-  //   }
+      return (
+        <div>
+          {errors}
+        </div>
+      );
+    }
+    return result;
+  }
   
-   
+  // This method checks to see if the validity of all validators are true
+  isFormValid() {
+    let status = true;
+    Object.keys(this.validators).forEach((field) => {
+      if (!this.validators[field].valid) {
+        status = false;
+      }
+    });
+    return status;
+  }
+  
 
-  //   validateForm() {
-  //       if(localStorage.rememberMe==='true'){
-  //           this.setState({formValid: this.state.emailValid || this.state.passwordValid});
-  //       }else{
-  //           this.setState({formValid: this.state.emailValid && this.state.passwordValid});
-  //       }
-  //   }
-
-  //   errorClass(error) {
-  //     return(error.length === 0 ? '' : 'has-error');
-  //   }
-   
-
+  
     render(){
         this.FloatLabel.init()
           return (
@@ -153,14 +190,16 @@ class LoginComp extends Component{
 				            <img src="../images/login/logo.png"/>
 				            <h4>Welcome back! Please login to your account</h4>
 				              <form class="">
-                 {/* <FormErrors formErrors={this.state.formErrors} /> */}
+                 
 			 		              <div id="" class="marT10 float-container form-group">
+                            {this.displayValidationErrors('emailId') }
 			 			                <label for="login_email_floatField">Email ID</label>
-			 			                <input type="text" id="login_email_floatField" value={this.state.emailId} className="form-control" onChange={this.rememberMeHandle} name="emailId" class=""   data-placeholder="Email ID" />
+			 			                <input type="text" id="login_email_floatField" value={this.state.emailId} className="form-control" onChange={event => this.handleInputChange(event, 'emailId')} name="emailId" class=""   data-placeholder="Email ID" />
 			 		              </div>
 			 		              <div id="" class="marT10 float-container form-group">
+                            {this.displayValidationErrors('password') }
 			 			                <label for="login_pwd_floatField">Password</label>
-			 			                <input type="password" id="login_pwd_floatField"  value={this.state.password} onChange={this.rememberMeHandle} name="password"class="" data-placeholder="Password" />
+			 			                <input type="password" id="login_pwd_floatField"  value={this.state.password} onChange={event => this.handleInputChange(event, 'password')} name="password"class="" data-placeholder="Password" />
 			 		              </div>
 			 		              <div class="col-xl-6 float-left marT20 pl-0">
 			 			                  <input type="checkbox" checked={this.state.rememberMe} onChange={this.rememberMeHandle} name="rememberMe" class="" id="" /> 
@@ -170,7 +209,7 @@ class LoginComp extends Component{
 			 			                  <a class="forgot_PWD_Link" href="">Forgot Password</a>
 			 		                </div>
 			 		                <div class="wid100 float-left marT30 marB20" >
-			 			                  <button class=" btn btn_login mr-4" onClick={ this.onLogin}  name="">Login</button>
+			 			                  <button class=" btn btn_login mr-4"onClick={() => this.onLogin()} disabled={!this.isFormValid()} name="">Login</button>
 			 			                  <button class=" btn btn_signup ml-4"onClick={ this.onSignUp} name="">Sign Up</button>
 			 		                </div>
 			 		                <h6><a href="">Terms of use. Privacy Policy</a></h6>
