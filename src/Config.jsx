@@ -1,0 +1,1 @@
+var apiBaseUrl = "http://localhost:3000/jobzilla";
