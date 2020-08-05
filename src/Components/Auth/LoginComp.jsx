@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Header from '../CommonComp/Header'
 import validators from '../CommonComp/ValidateForm'
-import 'bootstrap/dist/css/bootstrap.css'
+
+
 class LoginComp extends Component{
     constructor(props){
         super(props);
@@ -14,12 +15,15 @@ class LoginComp extends Component{
           }
         }
         this.validators = validators;
+        // This resets our form when navigating between views
+         this.resetValidators();
+
         // Correctly Bind class methods to reacts class instance
         this.handleInputChange = this.handleInputChange.bind(this);
         this.displayValidationErrors = this.displayValidationErrors.bind(this);
         this.updateValidators = this.updateValidators.bind(this);
-       
-       this.isFormValid = this.isFormValid.bind(this);
+        this.resetValidators = this.resetValidators.bind(this);
+        this.isFormValid = this.isFormValid.bind(this);
       
     }
 
@@ -34,7 +38,7 @@ class LoginComp extends Component{
         //else{error}
         localStorage.setItem('rememberMe',rememberMe);
         localStorage.setItem('emailId',rememberMe ? emailId:'')
-        this.props.history.push('/dashboard')
+        this.props.history.push('/settingPassword')
     };  
    // store data to localstorage and redirect to dashboard//
 
@@ -159,15 +163,24 @@ class LoginComp extends Component{
     }
     return result;
   }
+
+  
+  // This function resets all validators for this form to the default state
+  resetValidators() {
+    Object.keys(this.validators).forEach((fieldName) => {
+      this.validators[fieldName].errors = [];
+      this.validators[fieldName].state = '';
+      this.validators[fieldName].valid = false;
+    });
+  }
   
   // This method checks to see if the validity of all validators are true
   isFormValid() {
     let status = true;
-    Object.keys(this.validators).forEach((field) => {
-      if (!this.validators[field].valid) {
+  
+      if (!this.validators['password'].valid) {
         status = false;
       }
-    });
     return status;
   }
   
@@ -179,13 +192,6 @@ class LoginComp extends Component{
             <div class="container-fluid pl-0 pr-0">
               <div class="Main_Container row ml-0" id="main">
                 <Header></Header>
-		            {/* <div class="Header login_header_bottom">
-			            <ul>
-				            <li><img src="../Assets/images/login/iconfinder_phone.svg"/><span class="header_telephone marL5">58000 45000</span></li>
-				            <li class="marL0 marR0">|</li>
-				            <li><img src="../Assets/images/login/iconfinder_icon-email_211660.svg"/><a href="https://mail.google.com/mail/?view=cm&fs=1&to=info@jobzilla.com&su=SUBJECT&body=BODY" target="_blank"><span class="header_email marL5"></span>info@jobzilla.com</a></li>
-			            </ul>
-		            </div> */}
 		            <div class="Login_Content">
 			            <div class="Login-form">
                     <h1>LOGIN</h1>
@@ -211,8 +217,7 @@ class LoginComp extends Component{
 			 		                </div>
 			 		                <div class="wid100 float-left marT30 marB20" >
 			 			                  <button class=" btn btn_login mr-4"onClick={() => this.onLogin()} disabled={!this.isFormValid()} name="">Login</button>
-			 			                  {/* <button class=" btn btn_signup ml-4"onClick={ this.onSignUp} name="">Sign Up</button> */}
-                               <Link to = '/signup' class=" btn btn_signup ml-4"  name="">Sign Up</Link>
+			 			                  <Link to = '/signup' class=" btn btn_signup ml-4"  name="">Sign Up</Link>
 			 		                </div>
 			 		                <h6><a href="">Terms of use.</a><a href=""> Privacy Policy</a></h6>
 			 	              </form>
