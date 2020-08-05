@@ -55,7 +55,7 @@ class LoginComp extends Component{
         const handleFocus = (e) => {
         const target = e.target;
         target.parentNode.classList.add('active');
-        target.setAttribute('placeholder', target.getAttribute('data-placeholder'));
+        //target.setAttribute('placeholder', target.getAttribute('data-placeholder'));
     };
   
     // remove active class
@@ -188,16 +188,16 @@ class LoginComp extends Component{
 		            </div> */}
 		            <div class="Login_Content">
 			            <div class="Login-form">
-				            <img src="../images/login/logo.png"/>
+                    <h1>LOGIN</h1>
 				            <h4>Welcome back! Please login to your account</h4>
 				              <form class="">
                  
-			 		              <div id="" class="marT10 float-container form-group">
+			 		              <div id="" class="marT10 float-container form-group pl-0">
                             {this.displayValidationErrors('emailId') }
 			 			                <label for="login_email_floatField">Email ID</label>
 			 			                <input type="text" id="login_email_floatField" value={this.state.emailId} className="form-control" onChange={event => this.handleInputChange(event, 'emailId')} name="emailId" class=""   data-placeholder="Email ID" />
 			 		              </div>
-			 		              <div id="" class="marT10 float-container form-group">
+			 		              <div id="" class="marT10 float-container form-group pl-0">
                             {this.displayValidationErrors('password') }
 			 			                <label for="login_pwd_floatField">Password</label>
 			 			                <input type="password" id="login_pwd_floatField"  value={this.state.password} onChange={event => this.handleInputChange(event, 'password')} name="password"class="" data-placeholder="Password" />
@@ -214,14 +214,17 @@ class LoginComp extends Component{
 			 			                  {/* <button class=" btn btn_signup ml-4"onClick={ this.onSignUp} name="">Sign Up</button> */}
                                <Link to = '/signup' class=" btn btn_signup ml-4"  name="">Sign Up</Link>
 			 		                </div>
-			 		                <h6><a href="">Terms of use. Privacy Policy</a></h6>
+			 		                <h6><a href="">Terms of use.</a><a href=""> Privacy Policy</a></h6>
 			 	              </form>
                   </div>
 			            <div class="Login-image d-none d-sm-none d-lg-block">
 				              <img src= "../images/login/login-img.png"/>
-                      
-			            </div>
+                  </div>
+                  
 		            </div>
+                <footer class="login_Signup_footer">
+                      <p class="text-center">Copyright &copy; 2020 | Jobzilla Pvt. Ltd.</p>
+                  </footer>
 	            </div>
             </div>
        //Referance from Login html
