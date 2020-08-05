@@ -22,7 +22,7 @@ const state = {
     ]
 }
 
-export default class Dashboard extends Component {
+export default class ProviderDashboard extends Component {
     render() {
         return (
             <div>

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Header from '../CommonComp/Header'
 import validators from '../CommonComp/ValidateForm'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -26,7 +27,7 @@ class LoginComp extends Component{
     onLogin = () => {
         const {emailId,password,rememberMe}=this.state
         //api call
-        //const response
+        //const respons
         //if(response true){ localStorage.setItem('rememberMe',rememberMe);
         //localStorage.setItem('emailId',rememberMe ? emailId:'')
         //this.props.history.push('/dashboard')}
@@ -210,7 +211,8 @@ class LoginComp extends Component{
 			 		                </div>
 			 		                <div class="wid100 float-left marT30 marB20" >
 			 			                  <button class=" btn btn_login mr-4"onClick={() => this.onLogin()} disabled={!this.isFormValid()} name="">Login</button>
-			 			                  <button class=" btn btn_signup ml-4"onClick={ this.onSignUp} name="">Sign Up</button>
+			 			                  {/* <button class=" btn btn_signup ml-4"onClick={ this.onSignUp} name="">Sign Up</button> */}
+                               <Link to = '/signup' class=" btn btn_signup ml-4"  name="">Sign Up</Link>
 			 		                </div>
 			 		                <h6><a href="">Terms of use. Privacy Policy</a></h6>
 			 	              </form>
