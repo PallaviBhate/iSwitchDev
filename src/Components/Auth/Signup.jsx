@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Header from '../CommonComp/Header'
+import Footer from '../CommonComp/Footer'
 
 export default class Signup extends Component {
 	constructor() {
@@ -12,8 +13,8 @@ export default class Signup extends Component {
 		this.handleChange = this.handleChange.bind(this);
 		this.submituserRegistrationForm = this.submituserRegistrationForm.bind(this);
 		// this.isSubmitEnabled = this.isSubmitEnabled.bind(this);
-		this.openNav = this.openNav.bind(this);
-		this.closeNav = this.closeNav.bind(this);
+		// this.openNav = this.openNav.bind(this);
+		// this.closeNav = this.closeNav.bind(this);
 	}
 	handleChange = (e) => {
 		let fields = this.state.fields;
@@ -130,28 +131,28 @@ export default class Signup extends Component {
 	// 	}
 	// 	return false;
 	//   }
-	openNav() {
-		document.getElementById("mySidenav").style.width = "250px";
-		document.getElementById("hamburger").style.display = "none";
-		document.getElementById("sidenavOptions").style.display = "block";
-	  }
+	// openNav() {
+	// 	document.getElementById("mySidenav").style.width = "250px";
+	// 	document.getElementById("hamburger").style.display = "none";
+	// 	document.getElementById("sidenavOptions").style.display = "block";
+	//   }
 
-	  closeNav() {
-		document.getElementById("mySidenav").style.width = "70px";
-		document.getElementById("sidenavOptions").style.display = "none";
-		document.getElementById("hamburger").style.display = "block";
-	  }
+	//   closeNav() {
+	// 	document.getElementById("mySidenav").style.width = "70px";
+	// 	document.getElementById("sidenavOptions").style.display = "none";
+	// 	document.getElementById("hamburger").style.display = "block";
+	//   }
 
 	   FloatLabel = (() => {
   
-		// add active class
+		// add active className
           const handleFocus = (e) => {
 		  const target = e.target;
 		  target.parentNode.classList.add('active');
 		  target.setAttribute('placeholder', target.getAttribute('data-placeholder'));
 		};
 		
-		// remove active class
+		// remove active className
           const handleBlur = (e) => {
 		  const target = e.target;
 		  if(!target.value) {
@@ -214,75 +215,70 @@ export default class Signup extends Component {
 	render() {
 		this.FloatLabel.init();
 		return (
-			<div class="container-fluid pl-0 pr-0">
+			<div className="container-fluid pl-0 pr-0">
 
-			<div class="Main_Container row ml-0" id="main">
-				<div class="Header login_header_bottom">
-					<ul>
-						<li><img src="../images/login/iconfinder_phone.svg"/><span class="header_telephone marL5">58000 45000</span></li>
-						<li class="marL0 marR0">|</li>
-						<li><img src="../images/login/iconfinder_icon-email_211660.svg"/><span class="header_email marL5">info@jobzilla.com</span></li>
-					</ul>
-				</div>
-				<div class="Signup_Content col pl-0 pr-0">
-					<div class="Signup-form float-left col-lg-12 mt-5">
+			<div className="Main_Container row ml-0" id="main">
+				<Header></Header>
+				<div className="Signup_Content col pl-0 pr-0">
+					<div className="Signup-form float-left col-lg-12 mt-5">
 						<h1>SIGN UP</h1>
 						<h4>Welcome to Jobzilla</h4>
-						<form class="" onSubmit={this.submituserRegistrationForm}>
-							<div class="signUp_left">
-								<div id="" class="marT10 float-container form-group">
-									<label for="signup_OrgName_floatField">Organization Name</label>
-									<input type="text" id="signup_OrgName_floatField" class="" name="org_name"  data-placeholder="Organization Name" value={this.state.fields.org_name} onChange={this.handleChange} />
+						<form className="" onSubmit={this.submituserRegistrationForm}>
+							<div className="signUp_left">
+								<div id="" className="marT10 float-container form-group">
+									<label htmlFor="signup_OrgName_floatField">Organization Name</label>
+									<input type="text" id="signup_OrgName_floatField" className="" name="org_name"  data-placeholder="Organization Name" value={this.state.fields.org_name} onChange={this.handleChange} />
 									<div className="errorMsg">{this.state.errors.org_name}</div>
 								</div>
-								<div id="" class="marT10 float-container form-group">
-									<label for="signup_email_floatField">Official Email</label>
-									<input type="text" id="signup_email_floatField" class="" name="email" data-placeholder="Official Email" value={this.state.fields.email} onChange={this.handleChange} />
+								<div id="" className="marT10 float-container form-group">
+									<label htmlFor="signup_email_floatField">Official Email</label>
+									<input type="text" id="signup_email_floatField" className="" name="email" data-placeholder="Official Email" value={this.state.fields.email} onChange={this.handleChange} />
 									<div className="errorMsg">{this.state.errors.email}</div>
 								</div>
-								<div id="" class="marT10 float-container form-group">
-									<label for="signup_mobilenumber_floatField">Mobile/Landline</label>
-									<input type="number" id="signup_mobilenumber_floatField" class="" name="mobile"  data-placeholder="Mobile/Landline" value={this.state.fields.mobile} onChange={this.handleChange} />
+								<div id="" className="marT10 float-container form-group">
+									<label htmlFor="signup_mobilenumber_floatField">Mobile/Landline</label>
+									<input type="number" id="signup_mobilenumber_floatField" className="" name="mobile"  data-placeholder="Mobile/Landline" value={this.state.fields.mobile} onChange={this.handleChange} />
 									<div className="errorMsg">{this.state.errors.mobile}</div>
 								</div>
-								<div id="" class="marT10 float-container form-group">
-									<label for="signup_name_floatField">Contact Person's Name</label>
-									<input type="text" id="signup_name_floatField" class="" name="contact_person_name" data-placeholder="Contact Person's Name" value={this.state.fields.contact_person_name} onChange={this.handleChange} />
+								<div id="" className="marT10 float-container form-group">
+									<label htmlFor="signup_name_floatField">Contact Person's Name</label>
+									<input type="text" id="signup_name_floatField" className="" name="contact_person_name" data-placeholder="Contact Person's Name" value={this.state.fields.contact_person_name} onChange={this.handleChange} />
 									<div className="errorMsg">{this.state.errors.contact_person_name}</div>
 								</div>
 							</div>
-							<div class="signUp_right">
-								<div id="" class="marT10 float-container form-group">
-									<label for="signup_gstin_floatField">GSTIN (optional)</label>
-									<input type="text" id="signup_gstin_floatField" class="" name="gstin"  data-placeholder="GSTIN (optional)" value={this.state.fields.gstin} onChange={this.handleChange} />
+							<div className="signUp_right">
+								<div id="" className="marT10 float-container form-group">
+									<label htmlFor="signup_gstin_floatField">GSTIN (optional)</label>
+									<input type="text" id="signup_gstin_floatField" className="" name="gstin"  data-placeholder="GSTIN (optional)" value={this.state.fields.gstin} onChange={this.handleChange} />
 									
 								</div>
-								<div id="" class="marT10 float-container form-group">
-									<label for="signup_pwd_floatField">Password</label>
-									<input type="password" id="signup_pwd_floatField" class="" name="password" data-placeholder="Password" value={this.state.fields.password} onChange={this.handleChange}/>
+								<div id="" className="marT10 float-container form-group">
+									<label htmlFor="signup_pwd_floatField">Password</label>
+									<input type="password" id="signup_pwd_floatField" className="" name="password" data-placeholder="Password" value={this.state.fields.password} onChange={this.handleChange}/>
 									<div className="errorMsg">{this.state.errors.password}</div>
 								</div>
-								<div id="" class="marT10 float-container form-group">
-									<label for="signup_cnfpwd_floatField">Confirm Password</label>
-									<input type="password" id="signup_cnfpwd_floatField" class="" name="confirm_password" data-placeholder="Confirm Password" value={this.state.fields.confirm_password} onChange={this.handleChange}/>
+								<div id="" className="marT10 float-container form-group">
+									<label htmlFor="signup_cnfpwd_floatField">Confirm Password</label>
+									<input type="password" id="signup_cnfpwd_floatField" className="" name="confirm_password" data-placeholder="Confirm Password" value={this.state.fields.confirm_password} onChange={this.handleChange}/>
 									<div className="errorMsg">{this.state.errors.confirm_password}</div>
 								</div>
-								<div class="float-left marT30">
-									<input type="checkbox" /> <span class="remember_me_text">i agree to terms and conditions and privacy policy of Jobzilla</span>
+								<div className="float-left marT30">
+									<input type="checkbox" /> <span className="remember_me_text">i agree to terms and conditions and privacy policy of Jobzilla</span>
 								</div>
-								<div class="wid100 float-left marT30 marB20">
-									<button class="btn btn_login" name="">Activate</button>
+								<div className="wid100 float-left marT30 marB20">
+									<button className="btn btn_login" name="">Activate</button>
 								</div>
-								<h6 class="wid100 float-left">Terms of use. Privacy Policy</h6>
-								<img src="../images/login/signup-img.png" class="float-left d-none d-sm-none d-lg-block" />
+								<h6 className="wid100 float-left">Terms of use. Privacy Policy</h6>
+								<img src="../images/login/signup-img.png" className="float-left d-none d-sm-none d-lg-block" />
 							</div>
 							
 							
 						</form>
 					</div>
 				</div>
+				<Footer></Footer>
 			</div>
-		
+			
 		</div>
 		
 		)

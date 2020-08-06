@@ -21,6 +21,7 @@ const saveSignupDetails= (signUpDetails)=>{
     )
 }
 
+
 //3. UploadProfileCSV 
 const uploadCSV= (csvFileDetails)=>{
     return(
@@ -30,3 +31,5 @@ const uploadCSV= (csvFileDetails)=>{
         .catch(error=>{console.log(error)})  
     )
 }
+
+//4. Sending Dashboard details to backend

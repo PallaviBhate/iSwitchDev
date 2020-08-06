@@ -11,7 +11,7 @@ class RouterSettings extends Component{
   return (
     <Router>
       <div>
-           
+          
         <Switch>
             <Route  path="/signup" component={Signup} />
             <Route exact path="/" component={LoginComp} />

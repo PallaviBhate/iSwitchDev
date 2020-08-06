@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+
 import Header from '../CommonComp/Header'
+import Footer from '../CommonComp/Footer' 
 import validators from '../CommonComp/ValidateForm'
 
 
@@ -18,7 +19,7 @@ class LoginComp extends Component{
         // This resets our form when navigating between views
          this.resetValidators();
 
-        // Correctly Bind class methods to reacts class instance
+        // Correctly Bind className methods to reacts className instance
         this.handleInputChange = this.handleInputChange.bind(this);
         this.displayValidationErrors = this.displayValidationErrors.bind(this);
         this.updateValidators = this.updateValidators.bind(this);
@@ -55,18 +56,18 @@ class LoginComp extends Component{
   
 
     FloatLabel = (() =>{  
-      // add active class
+      // add active className
         const handleFocus = (e) => {
         const target = e.target;
-        target.parentNode.classList.add('active');
+        target.parentNode.classNameList.add('active');
         //target.setAttribute('placeholder', target.getAttribute('data-placeholder'));
     };
   
-    // remove active class
+    // remove active className
     const handleBlur = (e) => {
         const target = e.target;
             if(!target.value) {
-            target.parentNode.classList.remove('active');
+            target.parentNode.classNameList.remove('active');
         }
         target.removeAttribute('placeholder');
     };
@@ -87,7 +88,7 @@ class LoginComp extends Component{
         const floatContainers = document.querySelectorAll('.float-container');
         floatContainers.forEach((element) => {
             if (element.querySelector('input').value) {
-                element.classList.add('active');
+                element.classNameList.add('active');
             }
         bindEvents(element);
       });
@@ -152,7 +153,7 @@ class LoginComp extends Component{
     const result = '';
     if (validator && !validator.valid) {
       const errors = validator.errors.map((info, index) => {
-        return <span className="error" key={index}>* {info}</span>;
+        return <span classNameName="error" key={index}>* {info}</span>;
       });
 
       return (
@@ -189,47 +190,45 @@ class LoginComp extends Component{
     render(){
         this.FloatLabel.init()
           return (
-            <div class="container-fluid pl-0 pr-0">
-              <div class="Main_Container row ml-0" id="main">
+            <div className="container-fluid pl-0 pr-0">
+              <div className="Main_Container row ml-0" id="main">
                 <Header></Header>
-		            <div class="Login_Content">
-			            <div class="Login-form">
+		            <div className="Login_Content">
+			            <div className="Login-form">
                     <h1>LOGIN</h1>
 				            <h4>Welcome back! Please login to your account</h4>
-				              <form class="">
+				              <form className="">
                  
-			 		              <div id="" class="marT10 float-container form-group pl-0">
+			 		              <div id="" className="marT10 float-container form-group pl-0">
                             {this.displayValidationErrors('emailId') }
-			 			                <label for="login_email_floatField">Email ID</label>
-			 			                <input type="text" id="login_email_floatField" value={this.state.emailId} className="form-control" onChange={event => this.handleInputChange(event, 'emailId')} name="emailId" class=""   data-placeholder="Email ID" />
+			 			                <label htmlFor="login_email_floatField">Email ID</label>
+			 			                <input type="text" id="login_email_floatField" value={this.state.emailId} className="form-control" onChange={event => this.handleInputChange(event, 'emailId')} name="emailId" data-placeholder="Email ID" />
 			 		              </div>
-			 		              <div id="" class="marT10 float-container form-group pl-0">
+			 		              <div id="" className="marT10 float-container form-group pl-0">
                             {this.displayValidationErrors('password') }
-			 			                <label for="login_pwd_floatField">Password</label>
-			 			                <input type="password" id="login_pwd_floatField"  value={this.state.password} onChange={event => this.handleInputChange(event, 'password')} name="password"class="" data-placeholder="Password" />
+			 			                <label htmlFor="login_pwd_floatField">Password</label>
+			 			                <input type="password" id="login_pwd_floatField"  value={this.state.password} onChange={event => this.handleInputChange(event, 'password')} name="password"className="" data-placeholder="Password" />
 			 		              </div>
-			 		              <div class="col-xl-6 float-left marT20 pl-0">
-			 			                  <input type="checkbox" checked={this.state.rememberMe} onChange={this.rememberMeHandle} name="rememberMe" class="" id="" /> 
-			 			                  <label class="remember_me_text ml-1">Remember me</label>
+			 		              <div className="col-xl-6 float-left marT20 pl-0">
+			 			                  <input type="checkbox" checked={this.state.rememberMe} onChange={this.rememberMeHandle} name="rememberMe" className="" id="" /> 
+			 			                  <label className="remember_me_text ml-1">Remember me</label>
 			 		                </div>
-			 		                <div class="col-xl-6 float-left marT20">
-			 			                  <a class="forgot_PWD_Link" href="">Forgot Password</a>
+			 		                <div className="col-xl-6 float-left marT20">
+			 			                  <a className="forgot_PWD_Link" href="">Forgot Password</a>
 			 		                </div>
-			 		                <div class="wid100 float-left marT30 marB20" >
-			 			                  <button class=" btn btn_login mr-4"onClick={() => this.onLogin()} disabled={!this.isFormValid()} name="">Login</button>
-			 			                  <Link to = '/signup' class=" btn btn_signup ml-4"  name="">Sign Up</Link>
+			 		                <div className="wid100 float-left marT30 marB20" >
+			 			                  <button className=" btn btn_login mr-4"onClick={() => this.onLogin()} disabled={!this.isFormValid()} name="">Login</button>
+			 			                  <button className=" btn btn_login mr-4"onClick={() => this.onSignUp()}  className=" btn btn_signup ml-4"  name="">Sign Up</button>
 			 		                </div>
 			 		                <h6><a href="">Terms of use.</a><a href=""> Privacy Policy</a></h6>
 			 	              </form>
                   </div>
-			            <div class="Login-image d-none d-sm-none d-lg-block">
+			            <div className="Login-image d-none d-sm-none d-lg-block">
 				              <img src= "../images/login/login-img.png"/>
                   </div>
                   
 		            </div>
-                <footer class="login_Signup_footer">
-                      <p class="text-center">Copyright &copy; 2020 | Jobzilla Pvt. Ltd.</p>
-                  </footer>
+               <Footer></Footer>
 	            </div>
             </div>
        //Referance from Login html
