@@ -76,7 +76,7 @@
   }
   .Header ul li{
 	  display: inline-block;
-	  float: left;
+	
 	  margin:25px 15px;
   }
   
@@ -639,5 +639,10 @@
   }*/
   
   /*for xs devices*/
+
+  .errorMsg {
+	color: #cc0000;
+	margin-bottom: 12px;
+  }
   
   
