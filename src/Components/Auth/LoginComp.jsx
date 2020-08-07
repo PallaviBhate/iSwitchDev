@@ -39,7 +39,7 @@ class LoginComp extends Component{
         //else{error}
         localStorage.setItem('rememberMe',rememberMe);
         localStorage.setItem('emailId',rememberMe ? emailId:'')
-        this.props.history.push('/settingPassword')
+        this.props.history.push('/providerDashboard')
     };  
    // store data to localstorage and redirect to dashboard//
 
@@ -59,7 +59,7 @@ class LoginComp extends Component{
       // add active className
         const handleFocus = (e) => {
         const target = e.target;
-        target.parentNode.classNameList.add('active');
+        target.parentNode.classList.add('active');
         //target.setAttribute('placeholder', target.getAttribute('data-placeholder'));
     };
   
@@ -67,7 +67,7 @@ class LoginComp extends Component{
     const handleBlur = (e) => {
         const target = e.target;
             if(!target.value) {
-            target.parentNode.classNameList.remove('active');
+            target.parentNode.classList.remove('active');
         }
         target.removeAttribute('placeholder');
     };
@@ -88,7 +88,7 @@ class LoginComp extends Component{
         const floatContainers = document.querySelectorAll('.float-container');
         floatContainers.forEach((element) => {
             if (element.querySelector('input').value) {
-                element.classNameList.add('active');
+                element.classList.add('active');
             }
         bindEvents(element);
       });
@@ -153,7 +153,7 @@ class LoginComp extends Component{
     const result = '';
     if (validator && !validator.valid) {
       const errors = validator.errors.map((info, index) => {
-        return <span classNameName="error" key={index}>* {info}</span>;
+        return <span className="error" key={index}>* {info}</span>;
       });
 
       return (
@@ -185,8 +185,6 @@ class LoginComp extends Component{
     return status;
   }
   
-
-  
     render(){
         this.FloatLabel.init()
           return (
@@ -217,7 +215,7 @@ class LoginComp extends Component{
 			 			                  <a className="forgot_PWD_Link" href="">Forgot Password</a>
 			 		                </div>
 			 		                <div className="wid100 float-left marT30 marB20" >
-			 			                  <button className=" btn btn_login mr-4"onClick={() => this.onLogin()} disabled={!this.isFormValid()} name="">Login</button>
+			 			                  <button className=" btn btn_login mr-4" disabled={!this.isFormValid()} onClick={() => this.onLogin()}  name="">Login</button>
 			 			                  <button className=" btn btn_login mr-4"onClick={() => this.onSignUp()}  className=" btn btn_signup ml-4"  name="">Sign Up</button>
 			 		                </div>
 			 		                <h6><a href="">Terms of use.</a><a href=""> Privacy Policy</a></h6>

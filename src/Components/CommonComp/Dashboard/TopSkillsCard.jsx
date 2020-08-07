@@ -5,52 +5,52 @@ export default class TopSkillsCard extends Component {
         return (
             <div>
                 {/* <!--TOP Skills section--> */}
-                <div class="row ml-0 mr-1">
+                <div className="row ml-0 mr-1">
                     {/* <!--TOP Skills published section--> */}
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 pr-0">
-                        <h4 class="wid100 ml-3 marT30">TOP SKILLS Required</h4>
-                        <section class="skillPosted_section">
-                            <table class="table border-top-0">
+                    <div className="col-12 col-sm-12 col-md-12 col-lg-6 pr-0">
+                        <h4 className="wid100 ml-3 marT30">TOP SKILLS Required</h4>
+                        <section className="skillPosted_section">
+                            <table className="table border-top-0">
                                 <thead>
                                     <tr>
-                                        <th class="border-top-0 border-light">SKILLS</th>
-                                        <th class="border-top-0 border-light"> Number of jobs posted</th>
+                                        <th className="border-top-0 border-light">SKILLS</th>
+                                        <th className="border-top-0 border-light"> Number of jobs posted</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td class="border-top-0">
-                                            <img src="images/dashboard-assets/java_logo.jpg" width="30" height="30" class="rounded-circle" />
-                                            <span class="">JAVA</span>
+                                        <td className="border-top-0">
+                                            <img src="images/dashboard-assets/java_logo.jpg" width="30" height="30" className="rounded-circle" />
+                                            <span className="">JAVA</span>
                                         </td>
-                                        <td class="border-top-0">
+                                        <td className="border-top-0">
                                             <meter value="6" min="0" max="10">6 out of 10</meter>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="border-top-0">
-                                            <img src="images/dashboard-assets/angular_logo.png" width="30" height="30" class="rounded-circle" />
-                                            <span class="">Angular</span>
+                                        <td className="border-top-0">
+                                            <img src="images/dashboard-assets/angular_logo.png" width="30" height="30" className="rounded-circle" />
+                                            <span className="">Angular</span>
                                         </td>
-                                        <td class="border-top-0">
+                                        <td className="border-top-0">
                                             <meter value="6" min="0" max="10">6 out of 10</meter>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="border-top-0">
-                                            <img src="images/dashboard-assets/nodejs_logo.png" width="30" height="30" class="rounded-circle" />
-                                            <span class="">Node JS</span>
+                                        <td className="border-top-0">
+                                            <img src="images/dashboard-assets/nodejs_logo.png" width="30" height="30" className="rounded-circle" />
+                                            <span className="">Node JS</span>
                                         </td>
-                                        <td class="border-top-0">
+                                        <td className="border-top-0">
                                             <meter value="6" min="0" max="10">6 out of 10</meter>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="border-top-0">
-                                            <img src="images/dashboard-assets/android_logo.png" width="30" height="30" class="rounded-circle" />
-                                            <span class="">Android</span>
+                                        <td className="border-top-0">
+                                            <img src="images/dashboard-assets/android_logo.png" width="30" height="30" className="rounded-circle" />
+                                            <span className="">Android</span>
                                         </td>
-                                        <td class="border-top-0">
+                                        <td className="border-top-0">
                                             <meter value="6" min="0" max="10">6 out of 10</meter>
                                         </td>
                                     </tr>
@@ -61,50 +61,50 @@ export default class TopSkillsCard extends Component {
                     {/* <!--TOP Skills published section-->	 */}
 
                     {/* <!--TOP Skills Unfulfilled section-->	 */}
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 pl-0">
-                        <h4 class="wid100 ml-3 marT30">TOP SKILLS Unfulfilled</h4>
-                        <section class="skillsUnfulfilled_section">
-                            <table class="table">
+                    <div className="col-12 col-sm-12 col-md-12 col-lg-6 pl-0">
+                        <h4 className="wid100 ml-3 marT30">TOP SKILLS Unfulfilled</h4>
+                        <section className="skillsUnfulfilled_section">
+                            <table className="table">
                                 <thead>
                                     <tr>
-                                        <th class="border-top-0 border-light">SKILLS</th>
-                                        <th class="border-top-0 border-light"> Number of jobs posted</th>
+                                        <th className="border-top-0 border-light">SKILLS</th>
+                                        <th className="border-top-0 border-light"> Number of jobs posted</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td class="border-top-0">
-                                            <img src="images/dashboard-assets/mongodb_logo.png" width="30" height="30" class="rounded-circle" />
-                                            <span class="">MONGO DB</span>
+                                        <td className="border-top-0">
+                                            <img src="images/dashboard-assets/mongodb_logo.png" width="30" height="30" className="rounded-circle" />
+                                            <span className="">MONGO DB</span>
                                         </td>
-                                        <td class="border-top-0">
+                                        <td className="border-top-0">
                                             <meter value="6" min="0" max="10">6 out of 10</meter>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="border-top-0">
-                                            <img src="images/dashboard-assets/python_logo.png" width="30" height="30" class="rounded-circle" />
-                                            <span class="">PYTHON</span>
+                                        <td className="border-top-0">
+                                            <img src="images/dashboard-assets/python_logo.png" width="30" height="30" className="rounded-circle" />
+                                            <span className="">PYTHON</span>
                                         </td>
-                                        <td class="border-top-0">
+                                        <td className="border-top-0">
                                             <meter value="6" min="0" max="10">6 out of 10</meter>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="border-top-0">
-                                            <img src="images/dashboard-assets/php_logo.png" width="30" height="30" class="rounded-circle" />
-                                            <span class="">PHP</span>
+                                        <td className="border-top-0">
+                                            <img src="images/dashboard-assets/php_logo.png" width="30" height="30" className="rounded-circle" />
+                                            <span className="">PHP</span>
                                         </td>
-                                        <td class="border-top-0">
+                                        <td className="border-top-0">
                                             <meter value="6" min="0" max="10">6 out of 10</meter>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="border-top-0">
-                                            <img src="images/dashboard-assets/swift_logo.png" width="30" height="30" class="rounded-circle" />
-                                            <span class="">SWIFT</span>
+                                        <td className="border-top-0">
+                                            <img src="images/dashboard-assets/swift_logo.png" width="30" height="30" className="rounded-circle" />
+                                            <span className="">SWIFT</span>
                                         </td>
-                                        <td class="border-top-0">
+                                        <td className="border-top-0">
                                             <meter value="6" min="0" max="10">6 out of 10</meter>
                                         </td>
                                     </tr>

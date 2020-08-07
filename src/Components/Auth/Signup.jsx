@@ -266,10 +266,10 @@ export default class Signup extends Component {
 									<input type="checkbox" /> <span className="remember_me_text">i agree to terms and conditions and privacy policy of Jobzilla</span>
 								</div>
 								<div className="wid100 float-left marT30 marB20">
-									<button className="btn btn_login" name="">Activate</button>
+									<button className="btn btn_login" name="">Create</button>
 								</div>
 								<h6 className="wid100 float-left">Terms of use. Privacy Policy</h6>
-								<img src="../images/login/signup-img.png" className="float-left d-none d-sm-none d-lg-block" />
+								<img src="../images/login/signup-img.png" className="float-right d-none d-sm-none d-lg-block" />
 							</div>
 							
 							
