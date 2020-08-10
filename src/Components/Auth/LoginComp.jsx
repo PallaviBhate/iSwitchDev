@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-
+import { Link } from 'react-router-dom'
 import Header from '../CommonComp/Header'
 import Footer from '../CommonComp/Footer' 
 import validators from '../CommonComp/ValidateForm'
-
+import TermsOfUse from '../Auth/TermsOfUse'
+import PrivacyPolicy from '../Auth/PrivacyPolicy'
 
 class LoginComp extends Component{
     constructor(props){
@@ -218,7 +219,8 @@ class LoginComp extends Component{
 			 			                  <button className=" btn btn_login mr-4" disabled={!this.isFormValid()} onClick={() => this.onLogin()}  name="">Login</button>
 			 			                  <button className=" btn btn_login mr-4"onClick={() => this.onSignUp()}  className=" btn btn_signup ml-4"  name="">Sign Up</button>
 			 		                </div>
-			 		                <h6><a href="">Terms of use.</a><a href=""> Privacy Policy</a></h6>
+			 		                {/* <h6><a href="">Terms of use.</a><a href=""> Privacy Policy</a></h6> */}
+                          <h6><Link to="/termsofUse">Terms of use</Link>.<Link to="/privacyPolicy">Privacy Policy</Link></h6>
 			 	              </form>
                   </div>
 			            <div className="Login-image d-none d-sm-none d-lg-block">

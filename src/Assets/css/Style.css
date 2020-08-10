@@ -181,7 +181,7 @@ body {
     padding: 15px 35px;
     /* background: #0a3674; */
     background: #0A3673;
-    color: #fff;
+    color: #1d2022;
     border-radius: 5px;
 }
 
@@ -782,7 +782,8 @@ table.dataTable tr.selected td.select-checkbox:after {
 
 /*for xs devices*/
 
-.errorMsg {
-    color: #cc0000;
+.errorMsg,
+.error {
+    color: red;
     margin-bottom: 12px;
 }

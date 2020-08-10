@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import Header from '../CommonComp/Header'
 import Footer from '../CommonComp/Footer'
+import TermsOfUse from '../Auth/TermsOfUse'
+import PrivacyPolicy from '../Auth/PrivacyPolicy'
+
 
 export default class Signup extends Component {
 	constructor() {
@@ -268,7 +272,8 @@ export default class Signup extends Component {
 								<div className="wid100 float-left marT30 marB20">
 									<button className="btn btn_login" name="">Create</button>
 								</div>
-								<h6 className="wid100 float-left">Terms of use. Privacy Policy</h6>
+								{/* <h6 className="wid100 float-left">Terms of use. Privacy Policy</h6> */}
+								<h6 className="wid100 float-left" ><Link to="/termsofUse">Terms of use</Link>.<Link to="/privacyPolicy">Privacy Policy</Link></h6>
 								<img src="../images/login/signup-img.png" className="float-right d-none d-sm-none d-lg-block" />
 							</div>
 							
