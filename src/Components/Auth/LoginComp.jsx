@@ -179,12 +179,23 @@ class LoginComp extends Component{
   // This method checks to see if the validity of all validators are true
   isFormValid() {
     let status = true;
-  
-      if (!this.validators['password'].valid) {
-        status = false;
+    if(localStorage.rememberMe==='true'){
+        if (!this.validators['password'].valid) {
+              status = false;
+        }else{
+            return status
+        }
+    }else{
+        Object.keys(this.validators).forEach((field) => {
+            if (!this.validators[field].valid) {
+                status = false;
+            }
+          }
+      );
+      return status;
       }
-    return status;
   }
+  
   
     render(){
         this.FloatLabel.init()
@@ -199,15 +210,17 @@ class LoginComp extends Component{
 				              <form className="">
                  
 			 		              <div id="" className="marT10 float-container form-group pl-0">
-                            {this.displayValidationErrors('emailId') }
+                            
 			 			                <label htmlFor="login_email_floatField">Email ID</label>
 			 			                <input type="text" id="login_email_floatField" value={this.state.emailId} className="form-control" onChange={event => this.handleInputChange(event, 'emailId')} name="emailId" data-placeholder="Email ID" />
 			 		              </div>
+                            {this.displayValidationErrors('emailId') }
 			 		              <div id="" className="marT10 float-container form-group pl-0">
-                            {this.displayValidationErrors('password') }
+                           
 			 			                <label htmlFor="login_pwd_floatField">Password</label>
 			 			                <input type="password" id="login_pwd_floatField"  value={this.state.password} onChange={event => this.handleInputChange(event, 'password')} name="password"className="" data-placeholder="Password" />
 			 		              </div>
+                            {this.displayValidationErrors('password') }
 			 		              <div className="col-xl-6 float-left marT20 pl-0">
 			 			                  <input type="checkbox" checked={this.state.rememberMe} onChange={this.rememberMeHandle} name="rememberMe" className="" id="" /> 
 			 			                  <label className="remember_me_text ml-1">Remember me</label>
