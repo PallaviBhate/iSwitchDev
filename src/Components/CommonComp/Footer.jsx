@@ -2,8 +2,8 @@ import React from 'react'
 
 const Footer =()=>{
     return(
-<footer className="login_Signup_footer">
-<p className="text-center">Copyright &copy; 2020 | Jobzilla Pvt. Ltd.</p>
-</footer>)
+    <footer>
+    <div className="login_Signup_footer align-self-center text-center py-3">Copyright &copy; 2020 | Jobzilla Pvt. Ltd.</div>
+    </footer>)
 }
 export default Footer 

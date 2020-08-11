@@ -179,29 +179,18 @@ class LoginComp extends Component{
   // This method checks to see if the validity of all validators are true
   isFormValid() {
     let status = true;
-    if(localStorage.rememberMe==='true'){
-        if (!this.validators['password'].valid) {
-              status = false;
-        }else{
-            return status
-        }
-    }else{
-        Object.keys(this.validators).forEach((field) => {
-            if (!this.validators[field].valid) {
-                status = false;
-            }
-          }
-      );
-      return status;
-      }
-  }
   
+      if (!this.validators['password'].valid) {
+        status = false;
+      }
+    return status;
+  }
   
     render(){
         this.FloatLabel.init()
           return (
-            <div className="container-fluid pl-0 pr-0">
-              <div className="Main_Container row ml-0" id="main">
+            <div className="container-fluid  pl-0 pr-0">
+              <div className="Main_Container row ml-0 main " id="main">
                 <Header></Header>
 		            <div className="Login_Content">
 			            <div className="Login-form">
@@ -210,17 +199,15 @@ class LoginComp extends Component{
 				              <form className="">
                  
 			 		              <div id="" className="marT10 float-container form-group pl-0">
-                            
-			 			                <label htmlFor="login_email_floatField">Email ID</label>
-			 			                <input type="text" id="login_email_floatField" value={this.state.emailId} className="form-control" onChange={event => this.handleInputChange(event, 'emailId')} name="emailId" data-placeholder="Email ID" />
-			 		              </div>
                             {this.displayValidationErrors('emailId') }
+			 			                <label htmlFor="login_email_floatField">Email ID</label>
+			 			                <input type="text" id="login_email_floatField" value={this.state.emailId} onChange={event => this.handleInputChange(event, 'emailId')} name="emailId" data-placeholder="Email ID" />
+			 		              </div>
 			 		              <div id="" className="marT10 float-container form-group pl-0">
-                           
+                            {this.displayValidationErrors('password') }
 			 			                <label htmlFor="login_pwd_floatField">Password</label>
 			 			                <input type="password" id="login_pwd_floatField"  value={this.state.password} onChange={event => this.handleInputChange(event, 'password')} name="password"className="" data-placeholder="Password" />
 			 		              </div>
-                            {this.displayValidationErrors('password') }
 			 		              <div className="col-xl-6 float-left marT20 pl-0">
 			 			                  <input type="checkbox" checked={this.state.rememberMe} onChange={this.rememberMeHandle} name="rememberMe" className="" id="" /> 
 			 			                  <label className="remember_me_text ml-1">Remember me</label>
@@ -241,8 +228,8 @@ class LoginComp extends Component{
                   </div>
                   
 		            </div>
-               <Footer></Footer>
-	            </div>
+              </div>
+              <Footer></Footer>
             </div>
        //Referance from Login html
        );

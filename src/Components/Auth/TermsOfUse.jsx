@@ -3,9 +3,11 @@ import Header from '../CommonComp/Header'
 import Footer from '../CommonComp/Footer'
 const TermsofUse =()=>{
     return(
-        <div>
+        <div className="content">
         <Header></Header>
-        <h3>Welcome to TermsofUse Page</h3>
+        <div className="main">
+            <h3>Welcome to TermsofUse Page</h3>
+        </div>
         <Footer></Footer>
         </div>
     )

@@ -219,66 +219,67 @@ export default class Signup extends Component {
 	render() {
 		this.FloatLabel.init();
 		return (
-			<div className="container-fluid pl-0 pr-0">
-
-			<div className="Main_Container row ml-0" id="main">
+			<div className="content container-fluid pl-0 pr-0">
+			<div className="Main_Container content ml-0" id="main">
 				<Header></Header>
-				<div className="Signup_Content col pl-0 pr-0">
-					<div className="Signup-form float-left col-lg-12 mt-5">
-						<h1>SIGN UP</h1>
+				<div className="Signup_Content main pl-0 pr-0">
+					<div className="Signup-form float-left col mt-5">
+						<h1 className="mb-0">SIGN UP</h1>
 						<h4>Welcome to Jobzilla</h4>
-						<form className="" onSubmit={this.submituserRegistrationForm}>
+						<form className="mt-4" onSubmit={this.submituserRegistrationForm}>
 							<div className="signUp_left">
 								<div id="" className="marT10 float-container form-group">
 									<label htmlFor="signup_OrgName_floatField">Organization Name</label>
 									<input type="text" id="signup_OrgName_floatField" className="" name="org_name"  data-placeholder="Organization Name" value={this.state.fields.org_name} onChange={this.handleChange} />
-									<div className="errorMsg">{this.state.errors.org_name}</div>
 								</div>
+								<div className="errorMsg">{this.state.errors.org_name}</div>
 								<div id="" className="marT10 float-container form-group">
 									<label htmlFor="signup_email_floatField">Official Email</label>
 									<input type="text" id="signup_email_floatField" className="" name="email" data-placeholder="Official Email" value={this.state.fields.email} onChange={this.handleChange} />
-									<div className="errorMsg">{this.state.errors.email}</div>
 								</div>
+								<div className="errorMsg">{this.state.errors.email}</div>
 								<div id="" className="marT10 float-container form-group">
 									<label htmlFor="signup_mobilenumber_floatField">Mobile/Landline</label>
 									<input type="number" id="signup_mobilenumber_floatField" className="" name="mobile"  data-placeholder="Mobile/Landline" value={this.state.fields.mobile} onChange={this.handleChange} />
-									<div className="errorMsg">{this.state.errors.mobile}</div>
 								</div>
+								<div className="errorMsg">{this.state.errors.mobile}</div>
 								<div id="" className="marT10 float-container form-group">
 									<label htmlFor="signup_name_floatField">Contact Person's Name</label>
 									<input type="text" id="signup_name_floatField" className="" name="contact_person_name" data-placeholder="Contact Person's Name" value={this.state.fields.contact_person_name} onChange={this.handleChange} />
-									<div className="errorMsg">{this.state.errors.contact_person_name}</div>
 								</div>
+								<div className="errorMsg">{this.state.errors.contact_person_name}</div>
 							</div>
 							<div className="signUp_right">
 								<div id="" className="marT10 float-container form-group">
 									<label htmlFor="signup_gstin_floatField">GSTIN (optional)</label>
 									<input type="text" id="signup_gstin_floatField" className="" name="gstin"  data-placeholder="GSTIN (optional)" value={this.state.fields.gstin} onChange={this.handleChange} />
-									
 								</div>
+								<div className="errorMsg"></div>
 								<div id="" className="marT10 float-container form-group">
 									<label htmlFor="signup_pwd_floatField">Password</label>
 									<input type="password" id="signup_pwd_floatField" className="" name="password" data-placeholder="Password" value={this.state.fields.password} onChange={this.handleChange}/>
-									<div className="errorMsg">{this.state.errors.password}</div>
 								</div>
+								<div className="errorMsg">{this.state.errors.password}</div>
 								<div id="" className="marT10 float-container form-group">
 									<label htmlFor="signup_cnfpwd_floatField">Confirm Password</label>
 									<input type="password" id="signup_cnfpwd_floatField" className="" name="confirm_password" data-placeholder="Confirm Password" value={this.state.fields.confirm_password} onChange={this.handleChange}/>
-									<div className="errorMsg">{this.state.errors.confirm_password}</div>
 								</div>
-								<div className="float-left marT30">
-									<input type="checkbox" /> <span className="remember_me_text">i agree to terms and conditions and privacy policy of Jobzilla</span>
+								<div className="errorMsg">{this.state.errors.confirm_password}</div>
+								<div className="float-left marT20">
+									<input type="checkbox" /> <span className="remember_me_text pl-2">i agree to terms and conditions and privacy policy of Jobzilla</span>
 								</div>
 								<div className="wid100 float-left marT30 marB20">
 									<button className="btn btn_login" name="">Create</button>
 								</div>
 								{/* <h6 className="wid100 float-left">Terms of use. Privacy Policy</h6> */}
-								<h6 className="wid100 float-left" ><Link to="/termsofUse">Terms of use</Link>.<Link to="/privacyPolicy">Privacy Policy</Link></h6>
-								<img src="../images/login/signup-img.png" className="float-right d-none d-sm-none d-lg-block" />
+								<h6 className="wid100 float-left terms" ><Link to="/termsofUse">Terms of use</Link>.<Link to="/privacyPolicy">Privacy Policy</Link></h6>
+								
 							</div>
-							
-							
+							<div className="signUpImg">
+								<img src="../images/login/signup-img.png" className="float-right d-none d-sm-none d-lg-block" />
+							</div>					
 						</form>
+						
 					</div>
 				</div>
 				<Footer></Footer>

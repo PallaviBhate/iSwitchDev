@@ -8,6 +8,34 @@ body {
     margin: 0;
     padding: 0;
     font-family: Roboto-Regular;
+    color: #888!important;
+    height: 100%!important;
+    position: relative!important;
+}
+
+
+/* Added by Urvashi */
+
+
+/* .form-group{
+    margin-bottom: 0.9rem!important;
+} */
+
+.content {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.main {
+    flex: 1 0 auto;
+}
+
+footer {
+    flex-shrink: 0;
+    text-align: center;
+    color: #fff;
+    font-size: 0.8rem;
 }
 
 
@@ -100,7 +128,18 @@ body {
 
 .Header ul li {
     display: inline-block;
-    margin: 25px 15px;
+    margin: 15px 15px;
+}
+
+.Header .nav li {
+    margin: 0;
+    display: block;
+}
+
+.Header li.nav-item,
+.Header li.nav-item:hover {
+    width: auto;
+    background: none;
 }
 
 .login_header_bottom {
@@ -114,6 +153,7 @@ body {
 .Login_Content,
 .Signup_Content {
     margin-left: 70px;
+    margin-bottom: 70px;
 }
 
 .Login-form {
@@ -131,8 +171,8 @@ body {
     font-size: 16px;
     color: #c8c9cd;
     font-family: 'Roboto-Regular';
-    font-weight: 100;
-    margin-top: 10px;
+    font-weight: 100!important;
+    /*  margin-top: 10px; */
 }
 
 .Login-form input[type=text],
@@ -146,7 +186,7 @@ body {
     border-left: 0;
     border-right: 0;
     margin: 5px 10px 5px 0;
-    font-size: 16px;
+    font-size: 0.8rem;
     font-family: 'Roboto-Regular';
     font-weight: 100;
     height: 25px;
@@ -171,8 +211,8 @@ body {
 
 .btn {
     border-color: #6c757d !important;
-    line-height: 2 !important;
-    font-size: 1.1rem !important;
+    line-height: 1.8 !important;
+    font-size: 1rem !important;
     color: #0A3673 !important;
 }
 
@@ -216,17 +256,17 @@ body {
 .header_email,
 .remember_me_text,
 .forgot_PWD_Link {
-    font-size: 15px;
+    font-size: 0.8rem;
     font-family: Roboto-Regular;
     font-weight: 100;
     transform: none;
 }
 
 .login_Signup_footer {
-    width: 100%;
+    /*  width: 100%; */
     border-top: 1px solid #eee;
-    margin: 4% 14%;
-    padding: 1%;
+    /* margin: 4% 14%;
+    padding: 1%; */
     color: #818181;
 }
 
@@ -241,7 +281,7 @@ login_Signup_footer p {
 
 .signUp_left,
 .signUp_right {
-    width: 40%;
+    width: 35%;
     float: left;
 }
 
@@ -255,12 +295,25 @@ login_Signup_footer p {
 .Signup-form h1 {
     color: #1858b1;
     font-size: 32px;
-    font-weight: 700;
+    font-weight: 500;
+    position: relative;
 }
 
-.signUp_right img {
+
+/* .signUp_right img {
     margin: -22% 70px;
     width: 90%;
+} */
+
+.signUpImg {
+    position: absolute;
+    right: 14%;
+    bottom: -15%;
+    z-index: -99999;
+}
+
+.signUpImg img {
+    height: 200px;
 }
 
 
@@ -337,9 +390,10 @@ nav a {
     position: relative;
 }
 
-.Header ul.profile_section li {
+
+/* .Header ul.profile_section li {
     margin: 9px 15px;
-}
+} */
 
 .profile_btn,
 .chart_section_btn {
@@ -424,7 +478,7 @@ meter {
 .logo {
     width: 100px;
     height: auto;
-    margin: 26px 35px;
+    margin: 15px 35px;
 }
 
 .BulkUpload_section {
@@ -486,7 +540,7 @@ meter {
 }
 
 label {
-    font-size: 15px;
+    font-size: 0.8rem;
     position: absolute;
     transform-origin: top left;
     transform: translate(0, 14px) scale(1);
@@ -496,7 +550,7 @@ label {
 }
 
 .float-container.active label {
-    transform: translate(0, -4px) scale(.75);
+    transform: translate(0, -10px) scale(.85);
 }
 
 
@@ -785,5 +839,44 @@ table.dataTable tr.selected td.select-checkbox:after {
 .errorMsg,
 .error {
     color: red;
-    margin-bottom: 12px;
+    /*  margin-bottom: 12px; */
+}
+
+.terms {
+    font-size: 0.7rem!important;
+}
+
+
+/* Header All */
+
+.Header .btn-group .btn {
+    padding: 3px 16px;
+    font-size: 0.8rem!important;
+    color: #fff!important;
+    border: none;
+}
+
+
+/* .Header .btn-group .btn.focus{
+    box-shadow: none;
+} */
+
+.darkBlue {
+    background-color: #0650BB!important;
+}
+
+.lightBlue {
+    background-color: #3683EF!important;
+}
+
+.fontBlue {
+    color: #798DA7;
+}
+
+.fontMiddle {
+    font-size: 0.8rem!important;
+}
+
+.fontLightBlue {
+    color: #ACACB2!important;
 }

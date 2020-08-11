@@ -1,22 +1,33 @@
 import React, { Component } from 'react'
+import {Link} from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import '../../Assets/css/Style.css'
 import OverviewCard from '../CommonComp/Dashboard/OverviewCard'
 import TopSkillsCard from '../CommonComp/Dashboard/TopSkillsCard';
 import BarGraph from '../CommonComp/Dashboard/BarGraph';
-import Header from '../CommonComp/Header'
+import HeaderAll from '../CommonComp/HeaderAll'
 import UploadProfile from '../ProviderComp/UploadProfile'
 
 //import { Link } from 'react-router-dom';
 
 export default class ProviderDashboard extends Component {
+	constructor(props){
+        super(props)
+        this.state = {
+        }
+    }
+    onClick = () => {
+        this.props.history.push("/");
+      };
+  
 
 	render() {
+		const details= localStorage.getItem('emaildetails')
 		return (
 			<div>
-				<Header></Header>
-				<UploadProfile/>
+				<HeaderAll></HeaderAll>
+				{/* <UploadProfile/> */}
 				<div className="container-fluid">
 					<div className="row flex-xl-nowrap">
 						{/* Side Navigation Bar */}
@@ -32,23 +43,23 @@ export default class ProviderDashboard extends Component {
 										<li className="nav-item active">
 											<a className="nav-link">
 												{/* <Link to="/"> */}
-												<img src="images/dashboard-assets/dashboard-ico.svg" className="mr-2 float-left" />
+												<img src="images/Dashboard-assets/dashboard-ico.svg" className="mr-2 float-left" />
 												<span className="float-left">Dashboard</span>
 												{/* </Link> */}
 											</a>
 										</li>
 										<li className="nav-item">
 											<a className="nav-link">
-												{/* <Link to="/uploadProfile"> */}
-												<img src="images/dashboard-assets/upload-profile-ico.svg" className="mr-2 float-left" />
+												<Link to="/uploadProfile">
+												<img src="images/Dashboard-assets/upload-profile-ico.svg" className="mr-2 float-left" />
 												<span className="float-left">Upload Profile</span>
-												{/* </Link> */}
+												</Link>
 											</a>
 										</li>
 										<li className="nav-item">
 											<a className="nav-link">
 												{/* <Link to="/manageUsers"> */}
-												<img src="images/dashboard-assets/manage-profile-ico.svg" className="mr-2 float-left" />
+												<img src="images/Dashboard-assets/manage-profile-ico.svg" className="mr-2 float-left" />
 												<span className="float-left">Manage User</span>
 												{/* </Link> */}
 											</a>
@@ -62,7 +73,8 @@ export default class ProviderDashboard extends Component {
 
 						<section className="content_section col-12 col-md-9 col-xl-10 py-md-3 pl-md-4 bd-content">
 							{/* Importing Overview Cards, Top skills card and monthly Report Bar Graph */}
-							 
+							 {/* To display login User Details */}
+<h6>Welcome {details}</h6>
 							<OverviewCard />
 							<TopSkillsCard />
 							<BarGraph />

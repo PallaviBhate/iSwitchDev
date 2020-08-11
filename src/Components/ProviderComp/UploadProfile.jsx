@@ -24,40 +24,33 @@ class UploadProfile extends Component {
                 //window.location.href = response.url;
         });
     }
-
     state = { 
-  
-        // Initially, no file is selected 
+          // Initially, no file is selected 
         selectedFile: null
       }; 
        
       // On file select (from the pop up) 
-      onFileChange = event => { 
-       
+      onFileChange = event => {   
         // Update the state 
-        this.setState({ selectedFile: event.target.files[0] }); 
-       
+        this.setState({ selectedFile: event.target.files[0] });     
       };        
         // On file upload (click the upload button) 
-        onFileUpload = () => { 
-       
+        onFileUpload = () => {      
         // Create an object of formData 
-        const formData = new FormData(); 
-       
+        const formData = new FormData();   
         // Update the formData object 
         formData.append( 
           "myFile", 
           this.state.selectedFile, 
           this.state.selectedFile.name 
-        ); 
-       
+        );   
         // Details of the uploaded file 
-        console.log(this.state.selectedFile); 
-       
+        console.log(this.state.selectedFile);   
         // Request made to the backend api 
         // Send formData object 
         //axios.post("api/uploadfile", formData); 
       }; 
+
         // Csv validation check on upload button
         fileValidation = () =>{
         var fileInput = document.getElementById('myFile');
@@ -79,81 +72,41 @@ class UploadProfile extends Component {
     render() {
         return(
           <Fragment>
-            
-        
-        <header className="Header">
-            <div className="float-left logo_container col-xl-2">
-                <img src="assets/dashboard-assets/logo-white.png" className="logo"/>
-            </div>
-            
-            <div className="float-left mt-2"/>
-                <label className="ml-4 mt-3">JOB :</label>
-                <div className="btn-group btn-group-toggle" data-toggle="buttons"/>
-                  <label className="btn btn_job_profile active"/>
-                    <input type="radio" name="options" id="option1"/> PROVIDER
-                  <label className="btn btn_job_profile"/>
-                    <input type="radio" name="options" id="option2"/> RECRUITER 
-            
-            <ul className="profile_section">
-                <li className="mr-0">
-                    <div className="dropdown">
-                      <button className="btn profile_btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Rosa Dodson
-                      </button>
-                      <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a className="dropdown-item" href="#">Profile</a>
-                        <a className="dropdown-item" href="#">Setting</a>
-                        <a className="dropdown-item" href="#">Logout</a>
-                      </div>
-                    </div>
-                </li>
-                <li className="ml-0">
-                    <img src="assets/dashboard-assets/user-f.jpg" className="rounded-circle mt-1" width="40" height="40" />
-                </li>
-            </ul>
-            
-        </header>
-        
-        
     <div className="container-fluid">
         <div className="row flex-xl-nowrap">
-            
             <div className="col-12 col-md-3 col-xl-2 pl-0 pr-0">
                 <nav className="">
                     <button className="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                   </button>
-
                   <div className="" id="navbarSupportedContent">
                     <ul className="navbar-nav flex-column mr-auto">
                         <li className="nav-item">
                             <a className="nav-link" href="#">
-                                <img src="assets/dashboard-assets/dashboard-ico.svg" className="mr-2 float-left"/>
+                                <img src="images/Dashboard-assets/dashboard-ico.svg" className="mr-2 float-left"/>
                                 <span className="float-left">Dashboard</span>
                             </a>
                         </li>
                         <li className="nav-item active">
                             <a className="nav-link" href="#">
-                                <img src="assets/dashboard-assets/upload-profile-ico.svg" className="mr-2 float-left"/>
+                                <img src="images/Dashboard-assets/upload-profile-ico.svg" className="mr-2 float-left"/>
                                 <span className="float-left">Upload Profile</span>
                             </a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" href="#">
-                                <img src="assets/dashboard-assets/manage-profile-ico.svg" className="mr-2 float-left"/>
+                                <img src="images/Dashboard-assets/manage-profile-ico.svg" className="mr-2 float-left"/>
                                 <span className="float-left">Manage User</span>
                             </a>
                         </li>
                     </ul>
                   </div>
-                  
                 </nav>
             </div>
 
     
         
         <section className="content_section col-12 col-md-9 col-xl-10 py-md-3 pl-md-4 bd-content">
-        
             <div className="row ml-0 mr-1">
                 <h5 className="wid100 ml-2 marT20">Bulk Profile Upload</h5>
                 <h6 className="marT20 ml-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
@@ -161,27 +114,27 @@ class UploadProfile extends Component {
                 <div className="col-12 col-sm-12 col-md-12 col-lg-12 marT20 pl-0 pr-0">
                     <section className="BulkUpload_section float-left">
                         <div className="wid50 float-left border-right p-4">
-                            <img src="assets/dashboard-assets/cloud-upload.svg" className="cloud_upload_logo"/>
+                            <img src="images/Dashboard-assets/cloud-upload.svg" className="cloud_upload_logo"/>
                             <p className="text-center">Drag and Drop a file here</p>
                             <p className="text-center">or</p>
                             <form action="">
                                 <div className="text-center"/>
                                     <input type="file" id="myFile" name="filename" accept=".csv" files multiple onChange={this.onFileChange}/> 
-                                    <img src="assets/dashboard-assets/csv.svg" />
+                                    <img src="images/Dashboard-assets/csv.svg" />
                                     <span>CSV File</span>
                             </form>
                             <p className="text-center mt-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                             <a className="download_sample_link d-block text-center" href="#" onClick={this.downloadEmployeeData}>Download CSV file template</a>
                         </div>
                         <div className="wid50 float-left p-4">
-                            <img src="assets/dashboard-assets/cloud-upload.svg" className="cloud_upload_logo"/>
+                            <img src="images/Dashboard-assets/cloud-upload.svg" className="cloud_upload_logo"/>
                             <p className="text-center">Drag and Drop a file here</p>
                             <p className="text-center">or</p>
                             <form action="">
                                 <div className="text-center"/>
                                     <label className="myLabel" />
                                         <input type="file" id="myFile" name="filename" accept=".csv" files multiple/>
-                                    <img src="assets/dashboard-assets/csv.svg" />
+                                    <img src="images/Dashboard-assets/csv.svg" />
                                     <span>ZIP File</span>
                             </form>
                             <p className="text-center mt-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
@@ -193,12 +146,8 @@ class UploadProfile extends Component {
                     </div>
                 </div>
             </div>
-        
-        
-        
-            </section>
-        
-         </div>
+           </section>
+        </div>
         </div>
          </Fragment>
         );
