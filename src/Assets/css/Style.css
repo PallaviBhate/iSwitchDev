@@ -16,11 +16,6 @@ body {
 
 /* Added by Urvashi */
 
-
-/* .form-group{
-    margin-bottom: 0.9rem!important;
-} */
-
 .content {
     display: flex;
     flex-direction: column;
@@ -36,6 +31,8 @@ footer {
     text-align: center;
     color: #fff;
     font-size: 0.8rem;
+    border-top: 1px solid #eee;
+    color: #818181;
 }
 
 
@@ -159,7 +156,7 @@ footer {
 .Login-form {
     width: 40%;
     float: left;
-    margin: 80px 0px 50px 120px;
+    margin: 50px 0px 50px 120px;
 }
 
 .Login-form img {
@@ -168,7 +165,7 @@ footer {
 
 .Login-form h4,
 .Signup-form h4 {
-    font-size: 16px;
+    font-size: 14px;
     color: #c8c9cd;
     font-family: 'Roboto-Regular';
     font-weight: 100!important;
@@ -252,6 +249,10 @@ footer {
     margin-top: 20px;
 }
 
+.remember_me_text {
+    padding-top: 4px;
+}
+
 .header_telephone,
 .header_email,
 .remember_me_text,
@@ -262,11 +263,12 @@ footer {
     transform: none;
 }
 
-.login_Signup_footer {
-    /*  width: 100%; */
+
+/* .login_Signup_footer {
+   width: 100%; 
     border-top: 1px solid #eee;
-    /* margin: 4% 14%;
-    padding: 1%; */
+    margin: 4% 14%;
+    padding: 1%; 
     color: #818181;
 }
 
@@ -274,7 +276,7 @@ login_Signup_footer p {
     font-weight: normal;
     line-height: 50px;
     height: 12px;
-}
+} */
 
 
 /*Sign up Page*/
@@ -304,6 +306,9 @@ login_Signup_footer p {
     margin: -22% 70px;
     width: 90%;
 } */
+
+
+/* ADded by Urvashi */
 
 .signUpImg {
     position: absolute;
@@ -529,7 +534,7 @@ meter {
 
 .float-container input {
     border: none;
-    font-size: 15px;
+    font-size: 12px;
     outline: 0 !important;
     padding: 16px 0 10px;
     font-family: Roboto-Regular;
@@ -855,11 +860,6 @@ table.dataTable tr.selected td.select-checkbox:after {
     color: #fff!important;
     border: none;
 }
-
-
-/* .Header .btn-group .btn.focus{
-    box-shadow: none;
-} */
 
 .darkBlue {
     background-color: #0650BB!important;

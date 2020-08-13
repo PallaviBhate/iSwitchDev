@@ -2,9 +2,10 @@
 import axios from 'axios'; 
 
 import React,{Component, Fragment} from 'react'; 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import $ from 'jquery';
 
+import Toast from 'light-toast';
+import HeaderAll from '../CommonComp/HeaderAll'
+import Footer from '../CommonComp/Footer'
 class UploadProfile extends Component {
 
     constructor(props) {
@@ -55,16 +56,32 @@ class UploadProfile extends Component {
         fileValidation = () =>{
         var fileInput = document.getElementById('myFile');
         var filePath = fileInput.value;
-        var allowedExtensions = /(\.csv)$/i;
-        if(!allowedExtensions.exec(filePath)){
-            alert('Please upload file having extensions .csv only.');
-            fileInput.value = '';
-            return false;
-        }
-        else{
-              this.onFileUpload()
+        if(filePath!=''){
+            var allowedExtensions = /(\.csv)$/i;
+            if(!allowedExtensions.exec(filePath)){
+                Toast.info('Please upload file having extensions .csv only.',4000);
+                fileInput.value = '';
+                return false;
             }
-        }
+            else{
+                  this.onFileUpload()
+                }   
+            }
+            else{
+                return Toast.info('Please select file first.',4000);
+            }
+            }
+
+        // var allowedExtensions = /(\.csv)$/i;
+        // if(!allowedExtensions.exec(filePath)){
+        //     alert('Please upload file having extensions .csv only.');
+        //     fileInput.value = '';
+        //     return false;
+        // }
+        // else{
+        //       this.onFileUpload()
+        //     }
+        // }
        
 
  
@@ -72,6 +89,7 @@ class UploadProfile extends Component {
     render() {
         return(
           <Fragment>
+              <HeaderAll></HeaderAll>
     <div className="container-fluid">
         <div className="row flex-xl-nowrap">
             <div className="col-12 col-md-3 col-xl-2 pl-0 pr-0">
@@ -149,6 +167,7 @@ class UploadProfile extends Component {
            </section>
         </div>
         </div>
+        <Footer></Footer>
          </Fragment>
         );
     }

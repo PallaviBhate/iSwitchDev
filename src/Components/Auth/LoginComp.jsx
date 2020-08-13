@@ -189,10 +189,10 @@ class LoginComp extends Component{
     render(){
         this.FloatLabel.init()
           return (
-            <div className="container-fluid  pl-0 pr-0">
-              <div className="Main_Container row ml-0 main " id="main">
+            <div className="container-fluid content pl-0 pr-0">
+              <div className="Main_Container row ml-0 " id="main">
                 <Header></Header>
-		            <div className="Login_Content">
+		            <div className="Login_Content main">
 			            <div className="Login-form">
                     <h1>LOGIN</h1>
 				            <h4>Welcome back! Please login to your account</h4>
@@ -208,19 +208,24 @@ class LoginComp extends Component{
 			 			                <label htmlFor="login_pwd_floatField">Password</label>
 			 			                <input type="password" id="login_pwd_floatField"  value={this.state.password} onChange={event => this.handleInputChange(event, 'password')} name="password"className="" data-placeholder="Password" />
 			 		              </div>
-			 		              <div className="col-xl-6 float-left marT20 pl-0">
-			 			                  <input type="checkbox" checked={this.state.rememberMe} onChange={this.rememberMeHandle} name="rememberMe" className="" id="" /> 
-			 			                  <label className="remember_me_text ml-1">Remember me</label>
-			 		                </div>
-			 		                <div className="col-xl-6 float-left marT20">
-			 			                  <a className="forgot_PWD_Link" href="">Forgot Password</a>
-			 		                </div>
-			 		                <div className="wid100 float-left marT30 marB20" >
-			 			                  <button className=" btn btn_login mr-4" disabled={!this.isFormValid()} onClick={() => this.onLogin()}  name="">Login</button>
-			 			                  <button className=" btn btn_login mr-4"onClick={() => this.onSignUp()}  className=" btn btn_signup ml-4"  name="">Sign Up</button>
-			 		                </div>
+                        <div className="row mt-5">
+                          <div className="col">                 
+                              <label className="remember_me_text mb-0 d-inline-flex align-items-center">
+                                <input type="checkbox" className="mr-1" checked={this.state.rememberMe} onChange={this.rememberMeHandle} name="rememberMe"  /> 
+                                Remember me 
+                              </label> 
+                          </div>
+                          <div className="col">
+                              <a className="forgot_PWD_Link" href="#">Forgot Password</a>
+                          </div>
+                        </div>
+                        <div className="wid100 float-left mt-5 mb-3" >
+                            <button className=" btn btn_login mr-4" disabled={!this.isFormValid()} onClick={() => this.onLogin()}  name="">Login</button>
+                            <button className=" btn btn_login mr-4"onClick={() => this.onSignUp()}  className=" btn btn_signup ml-4"  name="">Sign Up</button>
+                        </div>
+                           
 			 		                {/* <h6><a href="">Terms of use.</a><a href=""> Privacy Policy</a></h6> */}
-                          <h6><Link to="/termsofUse">Terms of use</Link>.<Link to="/privacyPolicy">Privacy Policy</Link></h6>
+                          <h6 className="terms"><Link to="/termsofUse">Terms of use</Link>.<Link to="/privacyPolicy">Privacy Policy</Link></h6>
 			 	              </form>
                   </div>
 			            <div className="Login-image d-none d-sm-none d-lg-block">
