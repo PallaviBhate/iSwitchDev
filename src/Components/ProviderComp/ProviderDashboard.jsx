@@ -8,7 +8,7 @@ import TopSkillsCard from '../CommonComp/Dashboard/TopSkillsCard';
 import BarGraph from '../CommonComp/Dashboard/BarGraph';
 import HeaderAll from '../CommonComp/HeaderAll'
 import Footer from '../CommonComp/Footer'
-
+import UploadProfile from '../ProviderComp/UploadProfile'
 
 //import { Link } from 'react-router-dom';
 
@@ -29,9 +29,8 @@ export default class ProviderDashboard extends Component {
 			<div>
 				<HeaderAll></HeaderAll>
 				{/* <UploadProfile/> */}
-				<div className="container-fluid content">
-						
-					<div className="row flex-xl-nowrap main">
+				<div className="container-fluid">
+					<div className="row flex-xl-nowrap">
 						{/* Side Navigation Bar */}
 
 						<div className="col-12 col-md-3 col-xl-2 pl-0 pr-0">
@@ -44,10 +43,10 @@ export default class ProviderDashboard extends Component {
 									<ul className="navbar-nav flex-column mr-auto">
 										<li className="nav-item active">
 											<a className="nav-link">
-												{/* <Link to="/"> */}
+												<Link to="/">
 												<img src="images/Dashboard-assets/dashboard-ico.svg" className="mr-2 float-left" />
 												<span className="float-left">Dashboard</span>
-												{/* </Link> */}
+												</Link>
 											</a>
 										</li>
 										<li className="nav-item">
@@ -76,7 +75,7 @@ export default class ProviderDashboard extends Component {
 						<section className="content_section col-12 col-md-9 col-xl-10 py-md-3 pl-md-4 bd-content">
 							{/* Importing Overview Cards, Top skills card and monthly Report Bar Graph */}
 							 {/* To display login User Details */}
-							<h6>Welcome {details}</h6>
+<h6>Welcome {details}</h6>
 							<OverviewCard />
 							<TopSkillsCard />
 							<BarGraph />
@@ -84,9 +83,8 @@ export default class ProviderDashboard extends Component {
 
 						</section>
 					</div>
-					<Footer></Footer>
 				</div>
-				
+				<Footer></Footer>
 			</div>
 		)
 	}

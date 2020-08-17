@@ -1,1 +1,1 @@
-var apiBaseUrl = "http://localhost:3000/jobzilla";
+var apiBaseUrl = "https://techm-jobzilla.herokuapp.com/jobs";

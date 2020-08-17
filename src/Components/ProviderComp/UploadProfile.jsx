@@ -2,29 +2,29 @@
 import axios from 'axios'; 
 
 import React,{Component, Fragment} from 'react'; 
-
+import {Link} from 'react-router-dom'
 import Toast from 'light-toast';
 import HeaderAll from '../CommonComp/HeaderAll'
 import Footer from '../CommonComp/Footer'
 class UploadProfile extends Component {
 
-    constructor(props) {
-        super(props);
-    }
+    // constructor(props) {
+    //     super(props);
+    // }
     
-    downloadEmployeeData = () => {
-        fetch('http://localhost:8080/https://www.pexels.com/photo/wood-field-animal-cute-4492255//download')
-            .then(response => {
-                response.blob().then(blob => {
-                    let url = window.URL.createObjectURL(blob);
-                    let a = document.createElement('a');
-                    a.href = url;
-                    a.download = 'aa.png';
-                    a.click();
-                });
-                //window.location.href = response.url;
-        });
-    }
+    // downloadEmployeeData = () => {
+    //     fetch('http://localhost:8080/https://www.pexels.com/photo/wood-field-animal-cute-4492255//download')
+    //         .then(response => {
+    //             response.blob().then(blob => {
+    //                 let url = window.URL.createObjectURL(blob);
+    //                 let a = document.createElement('a');
+    //                 a.href = url;
+    //                 a.download = 'aa.png';
+    //                 a.click();
+    //             });
+    //             //window.location.href = response.url;
+    //     });
+    // }
     state = { 
           // Initially, no file is selected 
         selectedFile: null
@@ -49,7 +49,18 @@ class UploadProfile extends Component {
         console.log(this.state.selectedFile);   
         // Request made to the backend api 
         // Send formData object 
-        //axios.post("api/uploadfile", formData); 
+        const options = { 
+            headers: { 
+            'Content-Type':'multipart/form-data',
+            // 'Content-Type': 'application/json', 
+            } 
+            };
+            
+        axios
+        .post("https://techm-jobzilla.herokuapp.com/jobs/user/uploadcsv", formData , options) 
+        .then(Response=>{console.log(Response)})
+        .catch(error=>{console.log(error)})
+
       }; 
 
         // Csv validation check on upload button
@@ -99,12 +110,14 @@ class UploadProfile extends Component {
                   </button>
                   <div className="" id="navbarSupportedContent">
                     <ul className="navbar-nav flex-column mr-auto">
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">
-                                <img src="images/Dashboard-assets/dashboard-ico.svg" className="mr-2 float-left"/>
-                                <span className="float-left">Dashboard</span>
-                            </a>
-                        </li>
+                    <li className="nav-item active">
+											<a className="nav-link">
+												<Link to="/providerDashboard">
+												<img src="images/Dashboard-assets/dashboard-ico.svg" className="mr-2 float-left" />
+												<span className="float-left">Dashboard</span>
+												</Link>
+											</a>
+										</li>
                         <li className="nav-item active">
                             <a className="nav-link" href="#">
                                 <img src="images/Dashboard-assets/upload-profile-ico.svg" className="mr-2 float-left"/>
@@ -133,7 +146,7 @@ class UploadProfile extends Component {
                     <section className="BulkUpload_section float-left">
                         <div className="wid50 float-left border-right p-4">
                             <img src="images/Dashboard-assets/cloud-upload.svg" className="cloud_upload_logo"/>
-                            <p className="text-center">Drag and Drop a file here</p>
+                             <p className="text-center">Drag and Drop a file here</p>
                             <p className="text-center">or</p>
                             <form action="">
                                 <div className="text-center"/>
@@ -142,7 +155,7 @@ class UploadProfile extends Component {
                                     <span>CSV File</span>
                             </form>
                             <p className="text-center mt-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                            <a className="download_sample_link d-block text-center" href="#" onClick={this.downloadEmployeeData}>Download CSV file template</a>
+                            <a className="download_sample_link d-block text-center" href="Samples/JobZilla.csv">Download CSV file template</a>
                         </div>
                         <div className="wid50 float-left p-4">
                             <img src="images/Dashboard-assets/cloud-upload.svg" className="cloud_upload_logo"/>

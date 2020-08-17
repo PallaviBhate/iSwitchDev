@@ -506,9 +506,9 @@ meter {
     color: #007bff !important;
 }
 
-.btn_bulkUpload {
+.btn_bulkUpload.btn {
     background: #3683ee;
-    color: #fff;
+    color: #fff !important;
     border-radius: 5px;
     font-size: 18px;
     padding: 10px 50px;

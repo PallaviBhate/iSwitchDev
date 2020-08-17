@@ -1,11 +1,12 @@
 import axios from 'axios'
 import apiBaseUrl from '../Config.jsx'
-import { configure } from '@testing-library/react'
+
+
 //1. checking User is registerd user before Login:-   
-const checkUser= (loginParas)=>{
+export const checkUser= (emailID, password)=>{
     return(
  axios    
-    .post( apiBaseUrl+ "/user/login", loginParas)
+    .post( apiBaseUrl+ "/user/login", {data: userName=emailID, password=password})
     .then(Response=>{console.log(Response)})
     .catch(error=>{console.log(error)})
     )
@@ -31,5 +32,5 @@ const uploadCSV= (csvFileDetails)=>{
         .catch(error=>{console.log(error)})  
     )
 }
-
+}
 //4. Sending Dashboard details to backend
