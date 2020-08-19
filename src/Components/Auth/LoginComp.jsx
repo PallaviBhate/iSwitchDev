@@ -23,7 +23,7 @@ class LoginComp extends Component{
        
         handleInputChange(e) {
             let fields = this.state.fields;
-            console.log("dfddf",e.target.name,e.target.value);
+           // console.log("dfddf",e.target.name,e.target.value);
             fields[e.target.name] = e.target.value;
             this.setState({
               fields
@@ -37,8 +37,9 @@ class LoginComp extends Component{
                  this.setState({
                   touched
                 });
+              }
             }
-          }
+          
           
           onChangeCheckbox = event => {
             this.setState({
@@ -57,6 +58,7 @@ class LoginComp extends Component{
                 fields["emailid"] = "";
                 fields["password"] = "";
                 this.setState({ fields: fields});
+                console.log(this.state.emailid)
 
               // Adding axios code
                 const options = { 
@@ -65,11 +67,11 @@ class LoginComp extends Component{
                   } 
                   };
                 axios
-                .put( "https://techm-jobzilla.herokuapp.com/jobs/user/login?userName=" + this.state.fields.emailid +'&password='+ this.state.fields.password, options)
+                .put( "https://herokuapp.com/https://techm-jobzilla.herokuapp.com/jobs/user/login?userName=" + this.state.fields.emailid +'&password='+ this.state.fields.password, options)
                 .then(Response=>{
                   if(Response){
                     localStorage.setItem('rememberme',this.state.isChecked)
-                    localStorage.setItem('emailId',this.state.isChecked ? this.state.fields['emalid'] :'')
+                    localStorage.setItem('emailId',this.state.isChecked ? Response.data.responseObject['userName'] :'')
                     this.props.history.push('/providerDashboard')
                     console.log(Response)
                 }
@@ -89,7 +91,7 @@ class LoginComp extends Component{
           /* Retrive Data from localstorage*/  
           componentDidMount(){
             if(localStorage.rememberme=='true'){
-            const email= localStorage.getItem('emailId')
+            const email=localStorage.getItem('emailId')
             alert(email)
             this.setState({
                 isChecked:true,
@@ -105,7 +107,7 @@ class LoginComp extends Component{
             let fields = this.state.fields;
             let errors = {};
             let formIsValid = true;
-            console.log(fields, "fields");
+            //console.log(fields, "fields");
           
             if (!fields["emailid"] ) {
                 formIsValid=false
@@ -197,7 +199,7 @@ class LoginComp extends Component{
                  
 			 		                <div id="" className="marT10 float-container form-group pl-0">
                                         <label htmlFor="login_email_floatField">Email ID</label>
-			 			                <input type="text" id="login_email_floatField" value={this.state.fields.emailid}   name="emailid" className="" data-placeholder="Email ID" 
+			 			                <input type="text" id="login_email_floatField" value={this.state.fields.emailid}   name="emailid" class="" data-placeholder="Email ID" 
                                         onChange={ (e) => {this.handleInputChange(e);this.validateForm();} }
                                         onBlur = {(e) => {this.handleTouch(e);this.validateForm();} } />
                                     </div>
@@ -223,8 +225,7 @@ class LoginComp extends Component{
                         </div>
                        
                         <div className="wid100 float-left mt-5 mb-3" >
-                           <button className=" btn btn_login mr-4"  onClick={this.onLogin} disabled={this.state.submitDisabled}
-value="Register"  name="">Login</button>
+                           <button className=" btn btn_login mr-4"  onClick={this.onLogin} disabled={this.state.submitDisabled}value="Register"  name="">Login</button>
                             <button className=" btn btn_login mr-4" onClick={() => this.onSignUp()}  className=" btn btn_signup ml-4"  name="">Sign Up</button>
                         </div>
                            

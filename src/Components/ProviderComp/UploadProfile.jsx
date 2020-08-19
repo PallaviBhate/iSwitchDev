@@ -41,18 +41,28 @@ class UploadProfile extends Component {
         const formData = new FormData();   
         // Update the formData object 
         formData.append( 
-          "myFile", 
+          "file", 
+          //this.state.selectedFile[0],
           this.state.selectedFile, 
-          this.state.selectedFile.name 
+          //this.state.selectedFile.name 
         );   
         // Details of the uploaded file 
-        console.log(this.state.selectedFile);   
+        console.log(this.state.selectedFile);  
+        console.log(formData); 
         // Request made to the backend api 
         // Send formData object 
         const options = { 
             headers: { 
+            // Accept: 'application/json',
+            // 'Data-Type': 'file',
             'Content-Type':'multipart/form-data',
-            // 'Content-Type': 'application/json', 
+        //     'charset' : 'UTF-8',
+        //   'Access-Control-Allow-Origin' : "*",
+            //'Content-Type': 'application/json', 
+            //'Content-Type': 'application/x-www-form-urlencoded'
+            // 'Content-Type': 'multipart/form-data;charset=UTF-8',
+            // 'Access-Control-Allow-Origin': '*',
+            //'Content-Type': 'application/csv',
             } 
             };
             
