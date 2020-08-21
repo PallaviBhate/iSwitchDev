@@ -212,6 +212,7 @@ footer {
     line-height: 1.8 !important;
     font-size: 1rem !important;
     color: #0A3673 !important;
+    padding: 0.275rem 0.85rem!important;
 }
 
 .btn_login {
@@ -813,6 +814,7 @@ table.dataTable tr.selected td.select-checkbox:after {
 
 .lightBlue {
     background-color: #3683EF!important;
+    color:#fff!important;
     
 }
 
@@ -991,3 +993,13 @@ label{
       border-bottom: 2px solid #dee2e6; 
   }
 /* ------------------------------- */
+/* datatable css primereact*/
+
+.p-datatable .p-datatable-header{
+    border: 0;
+    background:#fff!important;
+}
+
+/* .p-datatable .p-datatable-thead > tr > th{
+    background: #fff;
+} */

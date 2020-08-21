@@ -9,6 +9,7 @@ import TermsOfUse from '../Components/Auth/TermsOfUse'
 import PrivacyPolicy from '../Components/Auth/PrivacyPolicy'
 import AddUser from '../Components/ProviderComp/AddUser'
 import Setting from '../Components/CommonComp/Setting'
+import ManageUser from "../Components/ProviderComp/ManageUser";
  
 class RouterSettings extends Component{
   
@@ -26,6 +27,8 @@ class RouterSettings extends Component{
         <Route path="/uploadProfile" component={UploadProfile}/>
         <Route path="/addUser" component={AddUser}/>
         <Route path="/setting" component={Setting}/>
+        <Route path="/ManageUser" component={ManageUser}/>
+
 
              {/*<Route path="/forgotPassword" component={ForgotPassword}/>
             <Route path="/settingPassword" component={SetPassword}/>
