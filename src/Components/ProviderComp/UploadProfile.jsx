@@ -134,7 +134,7 @@ class UploadProfile extends Component {
                                             </div>
                                             </form>
                                             <p className="text-center mt-4">Upload the CSV file with candidate details here. All fields in the CSV file are mandatory for successful creation of Candidate profile.</p>
-                                            <a className="download_sample_link d-block text-center" href="#" onClick={this.downloadEmployeeData}>Download Sample file</a>
+                                            <a className="download_sample_link d-block text-center" href="Samples/JobZilla.csv">Download CSV file template</a>
                                         </div>
                                         {/* ZIp file upload section */}
                                         {/* <div className="col-md-6  p-4">
