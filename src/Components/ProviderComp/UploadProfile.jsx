@@ -27,7 +27,7 @@ class UploadProfile extends Component {
     // }
     state = { 
           // Initially, no file is selected 
-        selectedFile: null
+        selectedFile: ''
       }; 
        
       // On file select (from the pop up) 
@@ -42,29 +42,18 @@ class UploadProfile extends Component {
         // Update the formData object 
         formData.append( 
           "file", 
-          //this.state.selectedFile[0],
-          this.state.selectedFile, 
-          //this.state.selectedFile.name 
+            this.state.selectedFile, 
+         
         );   
         // Details of the uploaded file 
-        console.log(this.state.selectedFile);  
-        console.log(formData); 
+       
         // Request made to the backend api 
         // Send formData object 
         const options = { 
             headers: { 
-            // Accept: 'application/json',
-            // 'Data-Type': 'file',
             'Content-Type':'multipart/form-data',
-        //     'charset' : 'UTF-8',
-        //   'Access-Control-Allow-Origin' : "*",
-            //'Content-Type': 'application/json', 
-            //'Content-Type': 'application/x-www-form-urlencoded'
-            // 'Content-Type': 'multipart/form-data;charset=UTF-8',
-            // 'Access-Control-Allow-Origin': '*',
-            //'Content-Type': 'application/csv',
             } 
-            };
+        };
             
         axios
         .post("https://techm-jobzilla.herokuapp.com/jobs/user/uploadcsv", formData , options) 
@@ -103,95 +92,87 @@ class UploadProfile extends Component {
         //       this.onFileUpload()
         //     }
         // }
-       
-
- 
-
+   
     render() {
         return(
-          <Fragment>
-              <HeaderAll></HeaderAll>
-    <div className="container-fluid">
-        <div className="row flex-xl-nowrap">
-            <div className="col-12 col-md-3 col-xl-2 pl-0 pr-0">
-                <nav className="">
-                    <button className="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                  </button>
-                  <div className="" id="navbarSupportedContent">
-                    <ul className="navbar-nav flex-column mr-auto">
-                    <li className="nav-item active">
-											<a className="nav-link">
-												<Link to="/providerDashboard">
-												<img src="images/Dashboard-assets/dashboard-ico.svg" className="mr-2 float-left" />
-												<span className="float-left">Dashboard</span>
-												</Link>
-											</a>
-										</li>
-                        <li className="nav-item active">
-                            <a className="nav-link" href="#">
-                                <img src="images/Dashboard-assets/upload-profile-ico.svg" className="mr-2 float-left"/>
-                                <span className="float-left">Upload Profile</span>
-                            </a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">
-                                <img src="images/Dashboard-assets/manage-profile-ico.svg" className="mr-2 float-left"/>
-                                <span className="float-left">Manage User</span>
-                            </a>
-                        </li>
-                    </ul>
-                  </div>
-                </nav>
-            </div>
-
-    
-        
-        <section className="content_section col-12 col-md-9 col-xl-10 py-md-3 pl-md-4 bd-content">
-            <div className="row ml-0 mr-1">
-                <h5 className="wid100 ml-2 marT20">Bulk Profile Upload</h5>
-                <h6 className="marT20 ml-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                </h6>
-                <div className="col-12 col-sm-12 col-md-12 col-lg-12 marT20 pl-0 pr-0">
-                    <section className="BulkUpload_section float-left">
-                        <div className="wid50 float-left border-right p-4">
-                            <img src="images/Dashboard-assets/cloud-upload.svg" className="cloud_upload_logo"/>
-                             <p className="text-center">Drag and Drop a file here</p>
-                            <p className="text-center">or</p>
-                            <form action="">
-                                <div className="text-center"/>
-                                    <input type="file" id="myFile" name="filename" accept=".csv" files multiple onChange={this.onFileChange}/> 
-                                    <img src="images/Dashboard-assets/csv.svg" />
-                                    <span>CSV File</span>
-                            </form>
-                            <p className="text-center mt-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                            <a className="download_sample_link d-block text-center" href="Samples/JobZilla.csv">Download CSV file template</a>
-                        </div>
-                        <div className="wid50 float-left p-4">
-                            <img src="images/Dashboard-assets/cloud-upload.svg" className="cloud_upload_logo"/>
-                            <p className="text-center">Drag and Drop a file here</p>
-                            <p className="text-center">or</p>
-                            <form action="">
-                                <div className="text-center"/>
-                                    <label className="myLabel" />
-                                        <input type="file" id="myFile" name="filename" accept=".csv" files multiple/>
-                                    <img src="images/Dashboard-assets/csv.svg" />
-                                    <span>ZIP File</span>
-                            </form>
-                            <p className="text-center mt-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                            <a className="download_sample_link d-block text-center">Download sample file</a>
-                        </div>
-                    </section>
-                    <div className="ml-2 marT20 float-left">
-                        <button type="button" className="btn btn_bulkUpload" onClick={this.fileValidation}>Upload</button>
+            <Fragment>
+                <HeaderAll></HeaderAll>
+                <div className="container-fluid">
+                    <div className="row  main">
+                        {/* Content on the page */}
+                        <section className="content_section">
+                            <div className="ml-0 mr-1">
+                                <h5 className="font-weight-400 mt-3">Bulk Profile Upload</h5>
+                                <h6 className="mt-3 font-weight-400">
+                                    Bulk Upload provides the ability to add Candidate profiles who are getting released from their current organization to the digital workplace. Bulk uploading requires you to provide the Candidate information in a CSV formatted text file and also upload the resumes in zip file only.
+                                </h6>
+                                <section className="white-middle-section mt-5">
+                                    <div className="row">
+                                        {/* CSV file upload */}
+                                        {/* <div className="col-md-6 border-right p-4"> */}
+                                        <div className="col-md-6 offset-md-3 p-4">
+                                            <img src="images/Dashboard-assets/cloud-upload.svg" alt="cloud upload" className="cloud_upload_logo"/>
+                                            <p className="text-center pt-4 mb-0">Drag and drop a file here</p>
+                                            <p className="text-center">or</p>
+                                            <form action="">
+                                                <div className="text-center d-flex justify-content-center">
+                                                <div class="file-field d-flex-inline">
+                                                    <div class="btn btn-primary btn-sm float-left waves-effect waves-light">
+                                                        <span>Choose file</span>
+                                                        <input type="file" id="myFile" name="filename" accept=".csv" files multiple onChange={this.onFileChange} />
+                                                    
+                                                    </div>
+                                                    <div class="file-path-wrapper">
+                                                        <input class="file-path validate" type="text" value={this.state.selectedFile.name} placeholder="No file choosen"/> 
+                                                    </div>
+                                                </div>
+                                                <div className="d-flex-inline">
+                                                    <img src="images/Dashboard-assets/csv.svg" className="pt-1" alt="csv icon" />
+                                                    <span class="pl-2 fontMiddle">CSV File</span>
+                                                </div>
+                                            
+                                            </div>
+                                            </form>
+                                            <p className="text-center mt-4">Upload the CSV file with candidate details here. All fields in the CSV file are mandatory for successful creation of Candidate profile.</p>
+                                            <a className="download_sample_link d-block text-center" href="#" onClick={this.downloadEmployeeData}>Download Sample file</a>
+                                        </div>
+                                        {/* ZIp file upload section */}
+                                        {/* <div className="col-md-6  p-4">
+                                            <img src="images/Dashboard-assets/cloud-upload.svg" alt="cloud upload icon" className="cloud_upload_logo"/>
+                                            <p className="text-center pt-4 mb-0">Drag and Drop a file here</p>
+                                            <p className="text-center">or</p>                                        
+                                            <div className="text-center d-flex justify-content-center">
+                                                <div class="file-field d-flex-inline">
+                                                    <div class="btn btn-primary btn-sm float-left waves-effect waves-light">
+                                                        <span>Choose file</span>
+                                                        <input type="file" id="myFile" name="filename" accept=".csv" files multiple onChange={this.onFileChange} />
+                                                    
+                                                    </div>
+                                                    <div class="file-path-wrapper">
+                                                        <input class="file-path validate" type="text" value={this.state.selectedFile.name} placeholder="No file choosen"/> 
+                                                    </div>
+                                                </div>
+                                                <div className="d-flex-inline">
+                                                    <img src="images/Dashboard-assets/csv.svg" className="pt-1" alt="csv icon" />
+                                                    <span class="pl-2 fontMiddle">ZIP File</span>
+                                                </div>
+                                            
+                                            </div>
+                                            <p className="text-center mt-4">Upload the Zip file with candidate resumes here.</p>
+                                            <a className="download_sample_link d-block text-center">Download sample file</a>
+                                            
+                                        </div> */}
+                                    </div>    
+                                </section>
+                                <div className="ml-2 marT20">
+                                    <button type="button" className="btn btn_bulkUpload" onClick={this.fileValidation}>Upload</button>
+                                </div>
+                            </div>
+                        </section>
                     </div>
                 </div>
-            </div>
-           </section>
-        </div>
-        </div>
-        <Footer></Footer>
-         </Fragment>
+                <Footer></Footer>
+            </Fragment>
         );
     }
 }

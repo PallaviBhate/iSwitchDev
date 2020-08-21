@@ -7,6 +7,8 @@ import ProviderDashboard from '../Components/ProviderComp/ProviderDashboard'
 import UploadProfile from '../Components/ProviderComp/UploadProfile'
 import TermsOfUse from '../Components/Auth/TermsOfUse'
 import PrivacyPolicy from '../Components/Auth/PrivacyPolicy'
+import AddUser from '../Components/ProviderComp/AddUser'
+import Setting from '../Components/CommonComp/Setting'
  
 class RouterSettings extends Component{
   
@@ -22,6 +24,8 @@ class RouterSettings extends Component{
         <Route exact path="/" component={LoginComp} />
         <Route  path="/providerDashboard" component={ProviderDashboard}/>
         <Route path="/uploadProfile" component={UploadProfile}/>
+        <Route path="/addUser" component={AddUser}/>
+        <Route path="/setting" component={Setting}/>
 
              {/*<Route path="/forgotPassword" component={ForgotPassword}/>
             <Route path="/settingPassword" component={SetPassword}/>

@@ -17,24 +17,24 @@ class HeaderAll extends Component{
                     <ul className="nav mt-2">
                       <li className="nav-item">
                         <a className="nav-link" href="#" data-toggle="dropdown">
-                          <span className="fontMiddle fontLightBlue">Rosa Dodson </span>		
+                          <span className="fontMiddle fontLightBlue">Rosa Dodson <i className="fa fa-angle-down" aria-hidden="true"></i></span>		
                         </a>
                         <ul className="dropdown-menu mt-2">
                           
-                          <li className="dropdown-divider"></li>
+                          
                           <li>
                             <a className="dropdown-item" href="#" >
-                              <i className="fa fa-user" aria-hidden="true"></i> My Profile</a>
+                              <i className="fa fa-user pr-2" aria-hidden="true"></i> My Profile</a>
                           </li>
-                          <li className="dropdown-divider"></li>
+                          
                           <li>
                             <a className="dropdown-item" href="#">
-                              <i className="fa fa-cog" aria-hidden="true"></i> My Settings</a>
+                              <i className="fa fa-cog pr-2" aria-hidden="true"></i> My Settings</a>
                           </li>
-                          <li className="dropdown-divider"></li>
+                          
                           <li>
                             <a className="dropdown-item" href="javascript:;">
-                              <i className="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+                              <i className="fa fa-sign-out pr-2" aria-hidden="true"></i> Logout</a>
                           </li>
                         </ul>
                       </li>
