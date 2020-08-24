@@ -67,13 +67,13 @@ class LoginComp extends Component{
                   } 
                   };
                 axios
-                .put( "https://herokuapp.com/https://techm-jobzilla.herokuapp.com/jobs/user/login?userName=" + this.state.fields.emailid +'&password='+ this.state.fields.password, options)
+                .put( "https://techm-jobzilla.herokuapp.com/jobs/user/login?userName=" + this.state.fields.emailid +'&password='+ this.state.fields.password, options)
                 .then(Response=>{
                   if(Response){
                     localStorage.setItem('rememberme',this.state.isChecked)
                     localStorage.setItem('emailId',this.state.isChecked ? Response.data.responseObject['userName'] :'')
                     this.props.history.push('/providerDashboard')
-                    console.log(Response)
+                   
                 }
                 })
                 .catch(error => {
@@ -199,7 +199,7 @@ class LoginComp extends Component{
                  
 			 		                <div id="" className="marT10 float-container form-group pl-0">
                                         <label htmlFor="login_email_floatField">Email ID</label>
-			 			                <input type="text" id="login_email_floatField" value={this.state.fields.emailid}   name="emailid" class="" data-placeholder="Email ID" 
+			 			                <input type="text" id="login_email_floatField" value={this.state.fields.emailid}   name="emailid"  data-placeholder="Email ID" 
                                         onChange={ (e) => {this.handleInputChange(e);this.validateForm();} }
                                         onBlur = {(e) => {this.handleTouch(e);this.validateForm();} } />
                                     </div>

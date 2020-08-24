@@ -767,10 +767,19 @@ table.dataTable tr.selected td.select-checkbox:after {
 @media only screen and (max-width: 420px) {
     .content_section{
         padding: 1rem 1rem!important;
-}
-.Header{
-    height: auto;
-}
+    }
+    .Header{
+        height: auto;
+    }
+
+    .white-middle-section{
+        padding: 25px!important;
+    }
+
+    .profile .media{
+        display: block;
+        text-align: center;
+    }
 
 }
 

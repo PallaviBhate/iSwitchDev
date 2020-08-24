@@ -33,7 +33,7 @@ class HeaderAll extends Component{
                           </li>
                           
                           <li>
-                            <a className="dropdown-item" href="javascript:;">
+                            <a className="dropdown-item" href="#">
                               <i className="fa fa-sign-out pr-2" aria-hidden="true"></i> Logout</a>
                           </li>
                         </ul>
