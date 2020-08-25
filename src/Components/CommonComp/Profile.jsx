@@ -41,8 +41,8 @@ class Profile extends Component{
                                     <div className="col-sm-8">rosadodson@techmahindra.com</div>
                                 </div>
                                 <div className="form-group row">
-                                    <div className="col-sm-4">Mobile/Landline</div>
-                                    <div className="col-sm-8">: 9854450000</div>
+                                    <div className="col-sm-4">Mobile/Landline : </div>
+                                    <div className="col-sm-8">9854450000</div>
                                 </div>
                             </div>
                             <div className="col-md-6">

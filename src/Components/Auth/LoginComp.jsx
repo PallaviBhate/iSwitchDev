@@ -196,23 +196,22 @@ class LoginComp extends Component{
                         <h1>LOGIN</h1>
 				            <h4>Welcome back! Please login to your account</h4>
 				              <form className="">
-                 
-			 		                <div id="" className="marT10 float-container form-group pl-0">
-                                        <label htmlFor="login_email_floatField">Email ID</label>
+       		                <div id="" className="marT10 float-container form-group pl-0">
+                            <label htmlFor="login_email_floatField">Email ID</label>
 			 			                <input type="text" id="login_email_floatField" value={this.state.fields.emailid}   name="emailid"  data-placeholder="Email ID" 
                                         onChange={ (e) => {this.handleInputChange(e);this.validateForm();} }
                                         onBlur = {(e) => {this.handleTouch(e);this.validateForm();} } />
-                                    </div>
-                                   {this.state.formSubmitted || this.state.touched.emailid?<div className="errorMsg">{this.state.errors.emailid}</div>:''}
+                          </div>
+                          {this.state.formSubmitted || this.state.touched.emailid?<div className="errorMsg">{this.state.errors.emailid}</div>:''}
 			 		                <div id="" className="marT10 float-container form-group pl-0">
-                                        <label htmlFor="login_pwd_floatField">Password</label>
+                            <label htmlFor="login_pwd_floatField">Password</label>
 			 			                <input type="password" id="login_pwd_floatField" value={this.state.fields.password} className=""  name="password" data-placeholder="Password" 
-                                        onChange={ (e) => {this.handleInputChange(e);this.validateForm();} }
-                                        onBlur = {(e) => {this.handleTouch(e);this.validateForm();} } />
-                                    </div>
-                                   {this.state.formSubmitted || this.state.touched.password ?<div className="errorMsg">{this.state.errors.password}</div> : ''}
-                                   <div className="errorMsg">{this.state.errorMsg ? <div>{this.state.errorMsg}</div> : null}</div>
-                        <div className="row mt-5">
+                              onChange={ (e) => {this.handleInputChange(e);this.validateForm();} }
+                              onBlur = {(e) => {this.handleTouch(e);this.validateForm();} } />
+                          </div>
+                          {this.state.formSubmitted || this.state.touched.password ?<div className="errorMsg">{this.state.errors.password}</div> : ''}
+                          <div className="errorMsg">{this.state.errorMsg ? <div>{this.state.errorMsg}</div> : null}</div>
+                          <div className="row mt-5">
                             <div className="col">                 
                               <label className="remember_me_text mb-0 d-inline-flex align-items-center">
                                 <input type="checkbox" className="mr-1"  checked={this.state.isChecked} onChange={this.onChangeCheckbox} name="rememberMe"  /> 
@@ -225,8 +224,8 @@ class LoginComp extends Component{
                         </div>
                        
                         <div className="wid100 float-left mt-5 mb-3" >
-                           <button className=" btn btn_login mr-4"  onClick={this.onLogin} disabled={this.state.submitDisabled}value="Register"  name="">Login</button>
-                            <button className=" btn btn_login mr-4" onClick={() => this.onSignUp()}  className=" btn btn_signup ml-4"  name="">Sign Up</button>
+                           <button className="btn btn-blue mr-3"  onClick={this.onLogin} disabled={this.state.submitDisabled} value="Register">Login</button>
+                            <button className="btn btn-border" onClick={() => this.onSignUp()}>Sign Up</button>
                         </div>
                            
 			 		                {/* <h6><a href="">Terms of use.</a><a href=""> Privacy Policy</a></h6> */}

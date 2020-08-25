@@ -1,4 +1,3 @@
-
 import axios from 'axios'; 
 
 import React,{Component, Fragment} from 'react'; 
@@ -6,6 +5,8 @@ import {Link} from 'react-router-dom'
 import Toast from 'light-toast';
 import HeaderAll from '../CommonComp/HeaderAll'
 import Footer from '../CommonComp/Footer'
+import Dropzone from 'react-dropzone';
+
 class UploadProfile extends Component {
 
     // constructor(props) {
@@ -92,6 +93,28 @@ class UploadProfile extends Component {
         //       this.onFileUpload()
         //     }
         // }
+
+        uploadFile=(acceptedFiles)=> {
+            const formData = new FormData(); 
+           
+             const options = { 
+                headers: { 
+                'Content-Type':'multipart/form-data',
+                } 
+            };
+            formData.append( 
+                "file", 
+                acceptedFiles[0], 
+               
+              );   
+             
+            axios
+            .post("https://techm-jobzilla.herokuapp.com/jobs/user/uploadcsv", formData,options) 
+            .then(Response=>{console.log(Response)})
+            .catch(error=>{console.log(error)})
+            
+           
+          }
    
     render() {
         return(
@@ -112,7 +135,30 @@ class UploadProfile extends Component {
                                         {/* <div className="col-md-6 border-right p-4"> */}
                                         <div className="col-md-6 offset-md-3 p-4">
                                             <img src="images/Dashboard-assets/cloud-upload.svg" alt="cloud upload" className="cloud_upload_logo"/>
-                                            <p className="text-center pt-4 mb-0">Drag and drop a file here</p>
+                                            <div className="text-center mt-5">
+                                            <Dropzone
+                                             onDrop={this.uploadFile}
+                                            accept=".csv"
+                                            >
+                                            {({getRootProps, getInputProps, isDragActive, isDragReject, rejectedFiles}) => {
+                                            /* const isFileTooLarge = rejectedFiles.length > 0 && rejectedFiles[0].size > maxSize; */
+                                            return (
+                                                <div {...getRootProps()}>
+                                                <input {...getInputProps()} />
+                                                {!isDragActive && 'Click here or drop a file to upload!'}
+                                                {isDragActive && !isDragReject && "Drop it like it's hot!"}
+                                                {isDragReject && "File type not accepted, sorry!"}
+                                               {/*  {isFileTooLarge && (
+                                                    <div className="text-danger mt-2">
+                                                    File is too large.
+                                                    </div>
+                                                )} */}
+                                                </div>
+                                            )}
+                                            }
+                                            </Dropzone>
+                                                 </div>
+                                            {/* <p className="text-center pt-4 mb-0">Drag and drop a file here</p> */}
                                             <p className="text-center">or</p>
                                             <form action="">
                                                 <div className="text-center d-flex justify-content-center">
@@ -165,7 +211,7 @@ class UploadProfile extends Component {
                                     </div>    
                                 </section>
                                 <div className="ml-2 marT20">
-                                    <button type="button" className="btn btn_bulkUpload" onClick={this.fileValidation}>Upload</button>
+                                    <button type="button" className="btn btn-blue" onClick={this.fileValidation}>Upload</button>
                                 </div>
                             </div>
                         </section>
@@ -178,5 +224,3 @@ class UploadProfile extends Component {
 }
 
 export default UploadProfile; 
-
-

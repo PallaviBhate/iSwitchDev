@@ -1,17 +1,22 @@
 @font-face {
-    font-family: Roboto-Regular;
-    src: url(../fonts/Roboto-Regular.ttf) format("truetype");
+    font-family: Montserrat-Regular;
+    src: url(../fonts/Montserrat-Regular.ttf) format("truetype");
 }
+
+/* @font-face {
+    font-family: Montserrat-SemiBold;
+    src: url(../fonts/Montserrat-SemiBold.ttf) format("truetype");
+} */
 
 html,
 body {
     margin: 0;
     padding: 0;
-    font-family: Roboto-Regular!important;
-    color: #888!important;
+    font-family: Montserrat-Regular!important;
+    color: rgba(46, 46, 46, 0.9)!important;
     height: 100%!important;
     position: relative!important;
-    font-size:0.95rem!important
+    /* font-size:0.95rem!important */
 }
 
 
@@ -204,27 +209,26 @@ footer {
 .Login-form h6,
 .Signup-form h6 {
     font-size: 12px;
-    font-family: Roboto-Regular;
+   /*  font-family: Roboto-Regular; */
 }
 
-.btn {
+/* .btn {
     border-color: #6c757d !important;
     line-height: 1.8 !important;
     font-size: 1rem !important;
     color: #0A3673 !important;
     padding: 0.275rem 0.85rem!important;
-}
+} */
 
-.btn_login {
+/* .btn_login {
     width: 180px;
     padding: 15px 35px;
-    /* background: #0a3674; */
     background: #0A3673;
     color: #1d2022;
     border-radius: 5px;
-}
+} */
 
-.btn_signup {
+/* .btn_signup {
     width: 180px;
     padding: 15px 35px;
     color: #1d2022;
@@ -232,13 +236,13 @@ footer {
     background-image: none;
     border-radius: 5px;
 }
-
+ 
 .btn_login:hover,
 .btn_signup:hover {
     background: #0A3673;
     color: #fff !important;
     font-size: 16px;
-}
+}*/
 
 .Login-image {
     width: 40%;
@@ -260,7 +264,7 @@ footer {
 .remember_me_text,
 .forgot_PWD_Link {
     font-size: 0.8rem;
-    font-family: Roboto-Regular;
+    /* font-family: Roboto-Regular; */
     font-weight: 100;
     transform: none;
 }
@@ -401,15 +405,16 @@ nav a {
     margin: 8px;
 }
 
-table th,
+/* table th,
 table td {
     font-family: 'Roboto-Regular';
     font-weight: 100;
-}
+} */
 
-table td {
+/* table td {
     font-size: 16px;
-}
+} */  
+
 
 .chart_section span {
     font-family: 'Roboto-Regular';
@@ -425,10 +430,10 @@ table td {
     width: 100%
 }
 
-.content_section h4 {
+/* .content_section h4 {
     font-family: 'Roboto-Regular';
 }
-
+ */
 .uploadedProfile_section,
 .activeProfile_section,
 .hiredProfile_section,
@@ -504,13 +509,13 @@ meter {
     font-weight: 500;
 }
 
-.btn_bulkUpload.btn{ 
+/* .btn_bulkUpload.btn{ 
     background: #3683ee;
     color: #fff!important;
     border-radius: 5px;
     font-size: 18px;
     padding: 10px 50px;
-}
+} */
 
 
 /* input[type="file"]#file-upload-button{
@@ -535,7 +540,7 @@ meter {
     font-size: 12px;
     outline: 0 !important;
     padding: 16px 0 10px;
-    font-family: Roboto-Regular;
+    /* font-family: Roboto-Regular; */
 }
 
 .float-container input:focus {
@@ -548,7 +553,7 @@ meter {
     transform-origin: top left;
     transform: translate(0, 14px) scale(1);
     transition: all .1s ease-in-out;
-    font-family: Roboto-Regular;
+   /*  font-family: Roboto-Regular; */
     color: #888;
 } 
 
@@ -562,7 +567,7 @@ meter {
 
 /*Manage User Page*/
 
-.manageUserTableSection {
+/* .manageUserTableSection {
     background: #fff;
     padding: 15px;
     border-radius: 10px;
@@ -587,17 +592,17 @@ meter {
 #myTable_wrapper label {
     position: relative;
     transform: inherit;
-}
+} */
 
-.dt-button.btn_addUser,
+/* .dt-button.btn_addUser,
 .dt-button.btn_deleteUser {
     background: #3683ee;
     color: #fff;
     padding: 10px 35px;
     margin-right: 10px;
-}
+} */
 
-.dt-button.btn_disabled_delete {
+/* .dt-button.btn_disabled_delete {
     background: #6c757d !important;
     color: #fff !important;
     padding: 10px 45px;
@@ -607,28 +612,33 @@ meter {
 .dt-button.btn_disabled_delete.disabled {
     opacity: 0.5;
     margin-bottom: 20px;
+} */
+
+h4{
+    font-size:24px;
+    color:rgba(22, 22, 22, 0.9);
 }
 
-#myTable_length {
+/* #myTable_length {
     margin-top: 4px;
     margin-right: 10px;
 }
 
 #myTable_length select {
     height: 40px;
-}
+} */
 
-.addUser_content {
+/* .addUser_content {
     margin: 0px 15px 15px;
-}
+} */
 
-table.dataTable tbody>tr.selected,
+/* table.dataTable tbody>tr.selected,
 table.dataTable tbody>tr>.selected {
     background: transparent;
-}
+} 
 
 table.dataTable tbody td.select-checkbox:before {
-    /*background: #3683ee;*/
+   
     width: 17px;
     height: 17px;
     margin-top: -9px;
@@ -636,7 +646,7 @@ table.dataTable tbody td.select-checkbox:before {
 
 table.dataTable tr.selected td.select-checkbox:after {
     text-shadow: none;
-    /*color: #fff;*/
+    
     margin-top: -12px;
     margin-left: -4px;
 }
@@ -650,7 +660,7 @@ table.dataTable tr.selected td.select-checkbox:after {
     outline: none;
     border: none;
     box-shadow: none;
-}
+}*/
 
 
 /*Manage User Page*/
@@ -676,13 +686,13 @@ table.dataTable tr.selected td.select-checkbox:after {
 
 /*float classes*/
 
-.float-left {
+/* .float-left {
     float: left;
 }
 
 .float-right {
     float: right;
-}
+} */
 
 
 /*float classes*/
@@ -788,13 +798,12 @@ table.dataTable tr.selected td.select-checkbox:after {
 	  
       
       /* Added by Urvashi */
-      .BulkUpload_section .border-right{
+     /*  .BulkUpload_section .border-right{
           border-right: none!important;
-      }
+      } */
   }
 
 
-/*for xs devices*/
 
 .errorMsg,
 .error {
@@ -825,6 +834,34 @@ table.dataTable tr.selected td.select-checkbox:after {
     background-color: #3683EF!important;
     color:#fff!important;
     
+}
+
+.btn.btn-blue{
+   background: #007EFF;
+   border: 2px solid transparent;
+   color:#fff;
+}
+
+.btn.btn-blue:hover{
+    background: #66B2FF;
+    border: 2px solid transparent;
+    color:#fff;
+}
+
+.btn.btn-border{
+    border: 2px solid #007EFF;
+    background: #fff;
+    color: #007EFF;    
+}
+
+.btn.btn-border:hover{
+    border: 2px solid #66B2FF;
+    color: #007EFF;
+}
+
+.btn{
+    font-size: 16px!important;
+   
 }
 
 .fontBlue {
@@ -915,6 +952,7 @@ table.dataTable tr.selected td.select-checkbox:after {
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out,-webkit-box-shadow .15s ease-in-out
 }
 /* ----------------- */
+/* Modal css */
 .modal-title{
     font-size:1.1rem!important;
 }
@@ -1005,10 +1043,45 @@ label{
 /* datatable css primereact*/
 
 .p-datatable .p-datatable-header{
-    border: 0;
+    border: 0!important;
     background:#fff!important;
 }
 
-/* .p-datatable .p-datatable-thead > tr > th{
-    background: #fff;
-} */
+.p-datatable-tbody td{
+    font-size:14px;
+}
+
+.p-datatable-tbody .fa{
+    font-size:18px;
+}
+
+.p-paginator .p-paginator-current{
+    display: flex;
+    position: absolute;
+    left: 0;
+    color:#2C3E50!important;
+}
+
+.p-paginator.p-component {
+    justify-content: flex-end!important;
+    font-size: 14px!important;
+} 
+
+.p-component{
+    font-family: Montserrat-Regular!important;
+    
+}
+
+.p-paginator .p-paginator-pages .p-paginator-page{
+    min-width: 1.5rem!important;
+    height: 1.5rem!important;
+}
+
+.p-paginator-bottom .p-inputtext{
+    padding: 0.2rem 0.5rem!important;
+}
+
+.p-paginator .p-dropdown{
+    height: 2rem!important;
+} 
+
