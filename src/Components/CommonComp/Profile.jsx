@@ -11,7 +11,7 @@ class Profile extends Component{
                 <HeaderAll></HeaderAll>
                 {/* Main Content on the page */}
                 <div className="content_section main">
-                    <h5>My Profile</h5>
+                    <h4>My Profile</h4>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed</p>
                     <section className="white-middle-section mt-4">
                         <div className="row profile">

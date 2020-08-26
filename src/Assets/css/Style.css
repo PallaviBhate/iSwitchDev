@@ -615,8 +615,8 @@ meter {
 } */
 
 h4{
-    font-size:24px;
-    color:rgba(22, 22, 22, 0.9);
+    /* font-size:24px!important; */
+    color:rgba(22, 22, 22, 0.9)!important;
 }
 
 /* #myTable_length {
@@ -1085,3 +1085,18 @@ label{
     height: 2rem!important;
 } 
 
+.mt-2rem{
+    margin-top: 2rem;
+}
+
+/* imgwrapper on edit profile */
+
+.img-wrapper{
+    position: relative
+}
+
+.img-wrapper label{
+    position: absolute;
+    bottom: 0%;
+    right: 15%;
+}

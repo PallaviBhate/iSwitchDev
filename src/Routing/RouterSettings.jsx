@@ -11,6 +11,7 @@ import AddUser from '../Components/ProviderComp/AddUser'
 import Setting from '../Components/CommonComp/Setting'
 import ManageUser from "../Components/ProviderComp/ManageUser";
 import Profile from "../Components/CommonComp/Profile"
+import EditProfile from "../Components/CommonComp/EditProfile"
  
 class RouterSettings extends Component{
   
@@ -29,7 +30,8 @@ class RouterSettings extends Component{
         <Route path="/addUser" component={AddUser}/>
         <Route path="/setting" component={Setting}/>
         <Route path="/ManageUser" component={ManageUser}/>
-        <Route pah="/profile" component={Profile}/>
+        <Route path="/profile" component={Profile}/>
+        <Route path="/editProfile" component={EditProfile}/>
 
 
              {/*<Route path="/forgotPassword" component={ForgotPassword}/>

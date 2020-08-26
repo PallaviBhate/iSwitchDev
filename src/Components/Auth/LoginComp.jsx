@@ -67,7 +67,7 @@ class LoginComp extends Component{
                   } 
                   };
                 axios
-                .put( "https://techm-jobzilla.herokuapp.com/jobs/user/login?userName=" + this.state.fields.emailid +'&password='+ this.state.fields.password, options)
+                .get( "https://techm-jobzilla.herokuapp.com/jobs/user/login?userName=" + this.state.fields.emailid +"&password="+ this.state.fields.password, options)
                 .then(Response=>{
                   if(Response){
                     localStorage.setItem('rememberme',this.state.isChecked)
