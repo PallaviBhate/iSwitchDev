@@ -8,7 +8,7 @@ import UploadProfile from '../Components/ProviderComp/UploadProfile'
 import TermsOfUse from '../Components/Auth/TermsOfUse'
 import PrivacyPolicy from '../Components/Auth/PrivacyPolicy'
 import AddUser from '../Components/ProviderComp/AddUser'
-import Setting from '../Components/CommonComp/Setting'
+import EmailSetting from '../Components/ProviderComp/EmailSetting'
 import ManageUser from "../Components/ProviderComp/ManageUser";
 import Profile from "../Components/CommonComp/Profile"
 import EditProfile from "../Components/CommonComp/EditProfile"
@@ -28,7 +28,7 @@ class RouterSettings extends Component{
         <Route  path="/providerDashboard" component={ProviderDashboard}/>
         <Route path="/uploadProfile" component={UploadProfile}/>
         <Route path="/addUser" component={AddUser}/>
-        <Route path="/setting" component={Setting}/>
+        <Route path="/emailsetting" component={EmailSetting}/>
         <Route path="/ManageUser" component={ManageUser}/>
         <Route path="/profile" component={Profile}/>
         <Route path="/editProfile" component={EditProfile}/>
