@@ -173,8 +173,8 @@ class ManageUser extends Component{
      onAddUserClick = () => {
        this.showModal();
      }
-     onEditUserModalRef = ({Model}) => {
-        this.Model = Model;
+     onEditUserModalRef = (obj) => {
+        this.Model = obj&&obj.Model;
      }
      
      editUser =(user)=> {
