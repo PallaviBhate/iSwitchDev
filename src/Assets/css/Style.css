@@ -58,6 +58,12 @@ footer {
     font-family: Montserrat-SemiBold!important;
 }
 
+.sub-title1 {
+    font-size: 0.8rem;
+    color: #25282B;
+    font-family: Montserrat-SemiBold!important;
+}
+
 h4 {
     /* font-size:24px!important; */
     color: #25282B!important;
@@ -117,6 +123,37 @@ label {
     font-size: 0.875rem!important;
     padding: .6rem 1.75rem!important;
     font-family: Montserrat-Medium!important;
+}
+
+.Header .btn-group.btn-group-toggle {
+    border: 2px solid #007EFF;
+    border-radius: 3rem;
+    padding: 1px;
+}
+
+.Header .btn-group .btn:focus {
+    box-shadow: none!important;
+}
+
+.Header .btn-group .btn.btn-toggler {
+    color: #333333!important;
+    border-radius: 3rem;
+    padding: .2rem 2.5rem!important;
+}
+
+.Header .btn-group .btn-toggler.active {
+    background: #007EFF;
+    color: #fff!important;
+    border-top-right-radius: 3rem!important;
+    border-bottom-right-radius: 3rem!important;
+}
+
+.font-blue {
+    color: #007EFF!important;
+}
+
+.text-small {
+    font-size: 0.85rem!important;
 }
 
 

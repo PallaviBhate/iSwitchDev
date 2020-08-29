@@ -76,6 +76,7 @@ class UploadProfile extends Component {
             }
             else{
                   this.onFileUpload()
+                  Toast.info('File Uploaded Successfully',4000);
                 }   
             }
             else{

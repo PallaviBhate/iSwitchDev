@@ -70,6 +70,7 @@ class LoginComp extends Component{
                 .get( "https://techm-jobzilla.herokuapp.com/jobs/user/login?userName=" + this.state.fields.emailid +"&password="+ this.state.fields.password, options)
                 .then(Response=>{
                   if(Response){
+                    localStorage.setItem('candidateId',Response.data.responseObject['id'])
                     localStorage.setItem('rememberme',this.state.isChecked)
                     localStorage.setItem('emailId',this.state.isChecked ? Response.data.responseObject['userName'] :'')
                     this.props.history.push('/providerDashboard')

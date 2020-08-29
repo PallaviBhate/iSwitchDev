@@ -10,6 +10,7 @@ import PrivacyPolicy from '../Components/Auth/PrivacyPolicy'
 import AddUser from '../Components/ProviderComp/AddUser'
 import EmailSetting from '../Components/ProviderComp/EmailSetting'
 import ManageUser from "../Components/ProviderComp/ManageUser";
+import EditUser from "../Components/ProviderComp/EditUser";
 import Profile from "../Components/CommonComp/Profile"
 import EditProfile from "../Components/CommonComp/EditProfile"
  
@@ -28,6 +29,7 @@ class RouterSettings extends Component{
         <Route  path="/providerDashboard" component={ProviderDashboard}/>
         <Route path="/uploadProfile" component={UploadProfile}/>
         <Route path="/addUser" component={AddUser}/>
+        <Route path="/editUser" component={EditUser}/>
         <Route path="/emailsetting" component={EmailSetting}/>
         <Route path="/ManageUser" component={ManageUser}/>
         <Route path="/profile" component={Profile}/>

@@ -38,14 +38,14 @@ class EmailSetting extends Component {
         //If allow notifications toggler is disabled then all child togglers are disabled
 
         if (!this.state.allowNotification === false) {
-          this.setState({
-            allowNotification:false,
-            successfulJobPost: false,
-            newApplicationOnPostedJobs: false,
-            interviewAcceptedDeclined: false,
-            offerAcceptedDeclined: false,
-            newMatchesAlert: false,
-          })
+            this.setState({
+                allowNotification: false,
+                successfulJobPost: false,
+                newApplicationOnPostedJobs: false,
+                interviewAcceptedDeclined: false,
+                offerAcceptedDeclined: false,
+                newMatchesAlert: false,
+            })
         }
     }
     // To Post data to api
@@ -65,39 +65,97 @@ class EmailSetting extends Component {
             })
     }
 
+    //To get Previous state
+    componentDidMount() {
+        const options = {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        };
+        axios
+            .get("https://techm-jobzilla.herokuapp.com/jobs/user/notificationSetting?candidateId=" + this.state.candidateId, options)
+            .then(Response => {
+                if (Response) {
+                    this.setState({
+                        allowNotification: Response.data.responseObject['allowNotification'],
+                        successfulJobPost: Response.data.responseObject['successfulJobPost'],
+                        newApplicationOnPostedJobs: Response.data.responseObject['newApplicationOnPostedJobs'],
+                        interviewAcceptedDeclined: Response.data.responseObject['interviewAcceptedDeclined'],
+                        offerAcceptedDeclined: Response.data.responseObject['offerAcceptedDeclined'],
+                        newMatchesAlert: Response.data.responseObject['newMatchesAlert'],
+                    })
+                    //console.log(this.state)
+                }
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+
     //To handle Successful Job Post
     handleJobPost = () => {
         this.setState(initialState => ({
             successfulJobPost: !initialState.successfulJobPost,
         }));
+        //If successful Job Post is disabled then allow notification is also disabled
+        if (!this.state.successfulJobPost === false) {
+            this.setState({
+                allowNotification: false
+            })
+        }
     }
 
     //To handle New App Posted Job
     handleNewAppPostedJob = () => {
         this.setState(initialState => ({
             newApplicationOnPostedJobs: !initialState.newApplicationOnPostedJobs
-        }));
+        }))
+        //If new Application Job Post is disabled then allow notification is also disabled
+        if (!this.state.newApplicationOnPostedJobs === false) {
+            this.setState({
+                allowNotification: false
+            })
+        }
+
     }
 
     //To handle interview accepted or declined
     handleInterviewAccepted = () => {
         this.setState(initialState => ({
             interviewAcceptedDeclined: !initialState.interviewAcceptedDeclined,
-        }));
+        }))
+        //If interview Accepted/Declined is disabled then allow notification is also disabled
+        if (!this.state.interviewAcceptedDeclined === false) {
+            this.setState({
+                allowNotification: false
+            })
+        }
     }
 
     //To handle offers Accepted or Declined
     handleOffersAccepted = () => {
         this.setState(initialState => ({
             offerAcceptedDeclined: !initialState.offerAcceptedDeclined,
-        }));
+        }))
+        //If offers Accepted/Declined is disabled then allow notification is also disabled
+        if (!this.state.offerAcceptedDeclined === false) {
+            this.setState({
+                allowNotification: false
+            })
+        }
     }
 
     //To handle New Match alert
     handleNewMatchesAlert = () => {
         this.setState(initialState => ({
             newMatchesAlert: !initialState.newMatchesAlert,
-        }));
+        }))
+        //If new matches alert is disabled then allow notification is also disabled
+        if (!this.state.newMatchesAlert === false) {
+            this.setState({
+                allowNotification: false
+            })
+        }
     }
 
     render() {
@@ -121,8 +179,8 @@ class EmailSetting extends Component {
                                             <div>
                                                 <label className="switch " >
                                                     <input type="checkbox" className="primary"
-                                                        defaultChecked={this.state.allowNotification}
-                                                        onClick={this.onToggle} />
+                                                        checked={this.state.allowNotification}
+                                                        onChange={this.onToggle} />
                                                     <span className="slider round"></span>
                                                 </label>
                                             </div>
@@ -210,4 +268,5 @@ class EmailSetting extends Component {
         )
     }
 }
+
 export default EmailSetting
