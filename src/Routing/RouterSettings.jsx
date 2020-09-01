@@ -13,6 +13,7 @@ import ManageUser from "../Components/ProviderComp/ManageUser";
 import EditUser from "../Components/ProviderComp/EditUser";
 import Profile from "../Components/CommonComp/Profile"
 import EditProfile from "../Components/CommonComp/EditProfile"
+import Logout from "../Components/Auth/Logout";
  
 class RouterSettings extends Component{
   
@@ -34,7 +35,7 @@ class RouterSettings extends Component{
         <Route path="/ManageUser" component={ManageUser}/>
         <Route path="/profile" component={Profile}/>
         <Route path="/editProfile" component={EditProfile}/>
-
+        <Route path="/logout" component={Logout}/>
 
              {/*<Route path="/forgotPassword" component={ForgotPassword}/>
             <Route path="/settingPassword" component={SetPassword}/>

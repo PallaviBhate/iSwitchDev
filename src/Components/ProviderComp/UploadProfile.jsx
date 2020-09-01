@@ -1,7 +1,6 @@
 import axios from 'axios'; 
 
 import React,{Component, Fragment} from 'react'; 
-import {Link} from 'react-router-dom'
 import Toast from 'light-toast';
 import HeaderAll from '../CommonComp/HeaderAll'
 import Footer from '../CommonComp/Footer'
@@ -9,23 +8,25 @@ import Dropzone from 'react-dropzone';
 import LeftNav from '../CommonComp/LeftNav'
 class UploadProfile extends Component {
 
-    // constructor(props) {
-    //     super(props);
-    // }
+    constructor(props) {
+        super(props);
+    }
     
-    // downloadEmployeeData = () => {
-    //     fetch('http://localhost:8080/https://www.pexels.com/photo/wood-field-animal-cute-4492255//download')
-    //         .then(response => {
-    //             response.blob().then(blob => {
-    //                 let url = window.URL.createObjectURL(blob);
-    //                 let a = document.createElement('a');
-    //                 a.href = url;
-    //                 a.download = 'aa.png';
-    //                 a.click();
-    //             });
-    //             //window.location.href = response.url;
-    //     });
-    // }
+    //Code to download sample csv template with API
+    downloadEmployeeData = () => {
+        fetch('https://techm-jobzilla.herokuapp.com/jobs/user/csvdownload')
+            .then(response => {
+                response.blob().then(blob => {
+                    let url = window.URL.createObjectURL(blob);
+                    let a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'sample.csv';
+                    a.click();
+                });
+                
+        });
+    }
+
     state = { 
           // Initially, no file is selected 
         selectedFile: ''
@@ -63,7 +64,7 @@ class UploadProfile extends Component {
 
       }; 
 
-        // Csv validation check on upload button
+        // Csv extention validation check on upload button
         fileValidation = () =>{
         var fileInput = document.getElementById('myFile');
         var filePath = fileInput.value;
@@ -84,17 +85,7 @@ class UploadProfile extends Component {
             }
             }
 
-        // var allowedExtensions = /(\.csv)$/i;
-        // if(!allowedExtensions.exec(filePath)){
-        //     alert('Please upload file having extensions .csv only.');
-        //     fileInput.value = '';
-        //     return false;
-        // }
-        // else{
-        //       this.onFileUpload()
-        //     }
-        // }
-
+        //Dragging csv file to upload
         uploadFile=(acceptedFiles)=> {
             const formData = new FormData(); 
            
@@ -106,15 +97,12 @@ class UploadProfile extends Component {
             formData.append( 
                 "file", 
                 acceptedFiles[0], 
-               
-              );   
+               );   
              
             axios
             .post("https://techm-jobzilla.herokuapp.com/jobs/user/uploadcsv", formData,options) 
             .then(Response=>{console.log(Response)})
             .catch(error=>{console.log(error)})
-            
-           
           }
    
     render() {
@@ -136,7 +124,7 @@ class UploadProfile extends Component {
                                 <section className="white-middle-section mt-5">
                                     <div className="row">
                                         {/* CSV file upload */}
-                                        {/* <div className="col-md-6 border-right p-4"> */}
+                                       
                                         <div className="col-md-6 offset-md-3 p-4">
                                             <img src="images/Dashboard-assets/cloud-upload.svg" alt="cloud upload" className="cloud_upload_logo"/>
                                             <div className="text-center mt-5">
@@ -184,7 +172,11 @@ class UploadProfile extends Component {
                                             </div>
                                             </form>
                                             <p className="text-center mt-4">Upload the CSV file with candidate details here. All fields in the CSV file are mandatory for successful creation of Candidate profile.</p>
-                                            <a className="download_sample_link d-block text-center" href="Samples/JobZilla.csv">Download CSV file template</a>
+                                            {/* Download sample file with API input */}
+                                            <a className="download_sample_link d-block text-center" href="#" onClick={this.downloadEmployeeData}>Download CSV file template</a>
+
+                                            {/* Download sample file from applicatin level
+                                            <a className="download_sample_link d-block text-center" href="Samples/JobZilla.csv">Download CSV file template</a> */}
                                         </div>
                                         {/* ZIp file upload section */}
                                         {/* <div className="col-md-6  p-4">

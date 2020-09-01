@@ -1,5 +1,6 @@
 import React,{Component} from 'react'
 import {Link} from 'react-router-dom'
+import Toast from 'light-toast';
 
 class HeaderAll extends Component{
   render(){
@@ -39,8 +40,12 @@ class HeaderAll extends Component{
                           </li>
                           
                           <li>
-                            <a className="dropdown-item" href="#">
-                              <i className="fa fa-sign-out pr-2" aria-hidden="true"></i> Logout</a>
+                          <Link className="dropdown-item" to="/">
+                          {/* Toast.info("User Logout Successfully") */}
+                          <i className="fa fa-sign-out pr-2" aria-hidden="true"></i> Logout
+                          </Link>
+                            {/* <a className="dropdown-item" href="#">
+                              <i className="fa fa-sign-out pr-2" aria-hidden="true"></i> Logout</a> */}
                           </li>
                         </ul>
                       </li>

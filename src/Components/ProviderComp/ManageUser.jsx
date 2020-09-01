@@ -91,61 +91,32 @@ class ManageUser extends Component{
     hideDeleteUserDialog() {
         this.setState({ deleteUserDialog: false });
     }
+    
     deleteUser() {
         const options = {
 
             headers:{
-
                 'Content-Type':'application/json'
-
             }
-
         };
-        axios.delete("https://techm-jobzilla.herokuapp.com/jobs/user/userById?userId=" +this.state.user.id,options).then(Response=>{console.log("Success..",Response)
+        //API call to delete single data
+       
+        axios
+        .delete("https://techm-jobzilla.herokuapp.com/jobs/user/userById?userId=" +this.state.user.id, options)
+        .then(Response=> {console.log("Success..",Response)})
+        .catch(error=>{console.log("Error Occured...",error)})
 
-    }).catch(error=>{console.log("Error Occured...",error)})
     let users = this.state.users.filter(val => val.id !== this.state.user.id);
-
     this.setState({
-
         users,
-
         deleteUserDialog: false,
- 
-
     });
-
-
-    
-
-    // this.toast.show({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
-
 }
 
-
-    // deleteUser() {
-    //     let users = this.state.users.filter(val => val.id !== this.state.user.id);
-    //     this.setState({
-    //         users,
-    //         deleteUserDialog: false,
-    //         user: this.emptyUser
-    //     });
-    //     // this.toast.show({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
-    // }
 
     hideDeleteUsersDialog() {
         this.setState({ deleteUsersDialog: false });
     }
-
-    // deleteSelectedUsers() {
-    //     let users = this.state.users.filter(val => !this.state.selectedUsers.includes(val));
-    //     this.setState({
-    //         users,
-    //         deleteUsersDialog: false,
-    //         selectedUsers: null
-    //     });
-    //     // this.toast.show({ severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000 });
-    // }
 
     deleteSelectedUsers() {
         const updatedUserId=[]
@@ -155,18 +126,17 @@ class ManageUser extends Component{
         console.log(updatedUserId)
 
         const options = {
-
-            headers:{
-
+       headers:{
                 'Content-Type':'application/json'
-
             }
-
         };
-        
-        axios.delete("https://techm-jobzilla.herokuapp.com/jobs/user/multipleUsersById?userIds=" +updatedUserId,options).then(Response=>{console.log("Success..",Response)
+        //API call for multiple delete
+        axios
+        .delete("https://techm-jobzilla.herokuapp.com/jobs/user/multipleUsersById" , {params: {userIds: updatedUserId}}) 
+        .then(Response=>{console.log("Success..",Response)})
+        .catch(error=>{console.log("Error Occured...",error)})
 
-    }).catch(error=>{console.log("Error Occured...",error)})
+
     let users = this.state.users.filter(val => 
         !this.state.selectedUsers.includes(val));
     this.setState({
