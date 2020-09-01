@@ -6,7 +6,7 @@ import Toast from 'light-toast';
 import HeaderAll from '../CommonComp/HeaderAll'
 import Footer from '../CommonComp/Footer'
 import Dropzone from 'react-dropzone';
-
+import LeftNav from '../CommonComp/LeftNav'
 class UploadProfile extends Component {
 
     // constructor(props) {
@@ -123,6 +123,9 @@ class UploadProfile extends Component {
                 <HeaderAll></HeaderAll>
                 <div className="container-fluid">
                     <div className="row  main">
+                        {/* Side Navigation Bar */}
+						<LeftNav></LeftNav>
+						{/* Side Navigation Bar */}
                         {/* Content on the page */}
                         <section className="content_section">
                             <div className="ml-0 mr-1">

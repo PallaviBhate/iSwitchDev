@@ -1,42 +1,58 @@
-import React, {useState} from 'react';
-import {Sidebar} from 'primereact/sidebar';
-import {Button} from 'primereact/button';
-import 'primeicons/primeicons.css';
-import 'primereact/resources/themes/nova-light/theme.css';
-import 'primereact/resources/primereact.css';
-import 'primeflex/primeflex.css';
+import React  from 'react';
+import $ from 'jquery'
 import { Link } from "react-router-dom";
 
-const LeftNav =()=>{
-      const [visibleLeft, setVisibleLeft] = useState(false);
-    return(
-        <div>
-              <Sidebar visible={visibleLeft} style={{background : 'blue'}} baseZIndex={1000000} onHide={() => setVisibleLeft(false)}>
-                <h2 style={{fontWeight:'normal', color:'white'}}>Left Sidebar</h2>
-                {/* Add Jobzilla Side Nav Here */}
-                {/* <Button type="button" onClick={(e) => setVisibleLeft(false)} label="Save" className="p-button-success" style={{marginRight:'.25em'}} />
-                <Button type="button" onClick={(e) => setVisibleLeft(false)} label="Cancel" className="p-button-secondary"/> */}
-                 <div className="" id="navbarSupportedContent">
-                    <ul className="navbar-nav flex-column mr-auto">
-                        <li className="nav-item" className="mb-4">
-                            <a className="nav-link">
-                                <img src="images/Dashboard-assets/dashboard-ico.svg" className="mr-2 float-left"/>
-                                {/* <span className="float-left" style={{color:'white'}}>Dashboard</span> */}  
-                            </a>
-                            <Link to={'/providerDashboard'} className="float-left" style={{color:'white'}}>Dashboard</Link>
-                        </li>
-                        <li className="nav-item active" className="mb-4">
-                            <a className="nav-link">
-                                <img src="images/Dashboard-assets/upload-profile-ico.svg" className="mr-2 float-left"/>
-                            </a>
-                            <Link to={'/uploadProfile'} className="float-left" style={{color:'white'}}>UploadProfile</Link>
-                        </li>
-                    </ul>
-                  </div>
 
-            </Sidebar>
-            <Button icon="pi pi-arrow-left" onClick={(e) => setVisibleLeft(true)}  style={{marginRight:'.25em'}} />
+const LeftNav = ()=>{
+    // this.menuClass = '';
+    /* off-canvas sidebar toggle */
+    // $('[data-toggle=offcanvas]').click(function(e) {
+    //     e.preventDefault()
+    //     $('.row-offcanvas').toggleClass('active');
+    //     $('.collapse').toggleClass('in').toggleClass('hidden-xs').toggleClass('visible-xs');
+    
+    // });
+    /* off-canvas sidebar toggle */
+
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    
+    function toggleMenu()
+    {
+        console.log(this.menuClass.length);
+        this.menuClass = (this.menuClass.length === 0) ? 'collapsed' : '';
+        console.log(this.menuClass);
+        console.log(this.menuClass.length);
+      
+    }
+      
+    return(
+            
+        <div id="wrapper">
+
+        <div id="sidebar-wrapper">
+            <ul className="sidebar-nav" >
+                <li className="sidebar-brand">
+                    
+                        <a href="#menu-toggle"  id="menu-toggle" style={{float:"right"}} >
+                         <i className="fa fa-bars "  aria-hidden="true" aria-hidden="true"></i> 
+                    </a>
+                </li>
+                <li> 
+                <Link to = {'/providerDashboard'}><i className="fa fa-dashboard " aria-hidden="true"> </i> <span >Dashboard</span></Link>                    
+                </li>
+                <li>
+                <Link to = {'/uploadProfile'}><i className="fa fa-user " aria-hidden="true"> </i> <span > Upload Profile</span></Link>
+                </li>
+                <li>
+                <Link to = {'/ManageUser'}> <i className="fa fa-user-plus" aria-hidden="true"> </i> <span > Manage User</span></Link>
+                </li>               
+            </ul>
         </div>
+        </div>
+        
     )
 }
 

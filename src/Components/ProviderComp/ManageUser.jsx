@@ -7,7 +7,7 @@ import AddUser from '../ProviderComp/AddUser'
 import EditUser from '../ProviderComp/EditUser'
 import {DataTable} from 'primereact/datatable';
 import {Column} from 'primereact/column';
-
+import LeftNav from '../CommonComp/LeftNav'
  
 
 //  import { Toast } from 'primereact/toast';
@@ -115,6 +115,7 @@ class ManageUser extends Component{
 
     });
 
+
     
 
     // this.toast.show({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
@@ -136,16 +137,45 @@ class ManageUser extends Component{
         this.setState({ deleteUsersDialog: false });
     }
 
-    deleteSelectedUsers() {
-        let users = this.state.users.filter(val => !this.state.selectedUsers.includes(val));
-        this.setState({
-            users,
-            deleteUsersDialog: false,
-            selectedUsers: null
-        });
-        // this.toast.show({ severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000 });
-    }
+    // deleteSelectedUsers() {
+    //     let users = this.state.users.filter(val => !this.state.selectedUsers.includes(val));
+    //     this.setState({
+    //         users,
+    //         deleteUsersDialog: false,
+    //         selectedUsers: null
+    //     });
+    //     // this.toast.show({ severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000 });
+    // }
 
+    deleteSelectedUsers() {
+        const updatedUserId=[]
+        // console.log(this.state.selectedUsers)
+        const data = this.state.selectedUsers.map((user)=>
+        updatedUserId.push(user.id))
+        console.log(updatedUserId)
+
+        const options = {
+
+            headers:{
+
+                'Content-Type':'application/json'
+
+            }
+
+        };
+        
+        axios.delete("https://techm-jobzilla.herokuapp.com/jobs/user/multipleUsersById?userIds=" +updatedUserId,options).then(Response=>{console.log("Success..",Response)
+
+    }).catch(error=>{console.log("Error Occured...",error)})
+    let users = this.state.users.filter(val => 
+        !this.state.selectedUsers.includes(val));
+    this.setState({
+        //arr:{...selectedUsers},
+        users,
+        deleteUsersDialog: false,
+        selectedUsers: null
+    });
+}
     confirmDeleteSelected(User) {
         this.setState({ 
             deleteUsersDialog: true });
@@ -224,6 +254,9 @@ class ManageUser extends Component{
             <div className="content">
                 {/*  Header */}
                 <HeaderAll></HeaderAll>
+                {/* Side Navigation Bar */}
+						<LeftNav></LeftNav>
+						{/* Side Navigation Bar */}
                 {/* Main Content on the page */}
                 <div className="content_section main">
                     <div className="mt-3">
