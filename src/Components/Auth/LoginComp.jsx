@@ -71,7 +71,7 @@ class LoginComp extends Component{
         if(Response){
           localStorage.setItem('candidateId',Response.data.responseObject['id'])
           localStorage.setItem('rememberme',this.state.isChecked)
-          localStorage.setItem('emailId',this.state.isChecked ? Response.data.responseObject['userName'] :'')
+          localStorage.setItem('emailId',this.state.isChecked ? Response.data.responseObject['emailId'] :'')
           this.props.history.push('/providerDashboard')          
         }
       })
@@ -169,10 +169,10 @@ class LoginComp extends Component{
                 <div className="errorMsg">{this.state.errorMsg ? <div>{this.state.errorMsg}</div> : null}</div>
                 {/* Remember and forget password link */}
                 <div className="form-group clearfix">
-                  <div class="float-left">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="rememberMe" checked={this.state.isChecked} onChange={this.onChangeCheckbox} name="rememberMe"/>
-                      <label class="form-check-label" for="rememberMe">
+                  <div className="float-left">
+                    <div className="form-check">
+                      <input className="form-check-input" type="checkbox" id="rememberMe" checked={this.state.isChecked} onChange={this.onChangeCheckbox} name="rememberMe"/>
+                      <label className="form-check-label" htmlFor="rememberMe">
                         Remember me
                       </label>
                     </div>

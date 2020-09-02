@@ -133,7 +133,7 @@ class ManageUser extends Component{
         //API call for multiple delete  {data: {userIds: updatedUserId}}, options)
         console.log("https://techm-jobzilla.herokuapp.com/jobs/user/multipleUsersById",updatedUserId)
         axios
-        .delete("https://techm-jobzilla.herokuapp.com/jobs/user/multipleUsersById",{updatedUserId}, options)
+        .delete("https://techm-jobzilla.herokuapp.com/jobs/user/multipleUsersById",{data:updatedUserId})
         .then(Response=>{console.log("Success..",Response)})
         .catch(error=>{console.log("Error Occured...",error)})
 
