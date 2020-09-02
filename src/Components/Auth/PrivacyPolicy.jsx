@@ -4,9 +4,11 @@ import Footer from '../CommonComp/Footer'
 
 const PrivacyPolicy =()=>{
     return(
-        <div>
+        <div className="content">
         <Header></Header>
+        <div className="main">
         <h3>Welcome to Privacy Policy Page Page</h3>
+        </div>
         <Footer></Footer>
         </div>
     )

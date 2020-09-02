@@ -71,7 +71,7 @@ class LoginComp extends Component{
         if(Response){
           localStorage.setItem('candidateId',Response.data.responseObject['id'])
           localStorage.setItem('rememberme',this.state.isChecked)
-          localStorage.setItem('emailId',this.state.isChecked ? Response.data.responseObject['emailId'] :'')
+          localStorage.setItem('emailId',this.state.isChecked ? Response.data.responseObject['email'] :'')
           this.props.history.push('/providerDashboard')          
         }
       })
@@ -128,7 +128,7 @@ class LoginComp extends Component{
     if (typeof fields["password"] !== "undefined") {
       if (!fields["password"].match(/^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&]).*$/)) {
         formIsValid = false;
-        // errors["password"] = "*Please enter secure and strong password.";
+        errors["password"] = "*Please enter secure and strong password.";
       }
     }
     this.setState({
@@ -211,7 +211,6 @@ class LoginComp extends Component{
   }
 }
 export default LoginComp
-
 
 
 

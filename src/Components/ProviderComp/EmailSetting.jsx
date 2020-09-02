@@ -1,7 +1,10 @@
+
 import React, { Component, Fragment } from 'react'
 import HeaderAll from '../CommonComp/HeaderAll'
 import Footer from '../CommonComp/Footer'
 import axios from 'axios'
+import { Toast } from 'primereact/toast';
+import LeftNav from '../CommonComp/LeftNav'
 
 class EmailSetting extends Component {
     constructor(props) {
@@ -25,7 +28,7 @@ class EmailSetting extends Component {
         this.handleNewMatchesAlert = this.handleNewMatchesAlert.bind(this)
     }
 
-    //To handle child notifications enabled or disabled
+    /* To handle child notifications enabled or disabled */
     onToggle = (e) => {
         this.setState({
             allowNotification: true,
@@ -35,8 +38,8 @@ class EmailSetting extends Component {
             offerAcceptedDeclined: true,
             newMatchesAlert: true,
         })
-        //If allow notifications toggler is disabled then all child togglers are disabled
 
+        /*If allow notifications toggler is disabled then all child togglers are disabled*/
         if (!this.state.allowNotification === false) {
             this.setState({
                 allowNotification: false,
@@ -48,8 +51,9 @@ class EmailSetting extends Component {
             })
         }
     }
-    // To Post data to api
-    componentDidUpdate() {
+
+    /* To save data On button click*/
+    saveData = () => {
         const options = {
             headers: {
                 'Content-Type': 'application/json',
@@ -59,13 +63,15 @@ class EmailSetting extends Component {
             .put("https://techm-jobzilla.herokuapp.com/jobs/user/notificationSetting", this.state, options)
             .then(Response => {
                 console.log("Success..", Response)
+                this.toast.show({ severity: 'success', detail: 'Data Saved Successfully', life: 2000 });
             })
             .catch(error => {
                 console.log("Error Occured..", error)
+                this.toast.show({ severity: 'error', detail: 'Something Went Wrong', life: 2000 });
             })
     }
 
-    //To get Previous state
+    /* To get Previous state of toggle switches */
     componentDidMount() {
         const options = {
             headers: {
@@ -92,12 +98,13 @@ class EmailSetting extends Component {
             })
     }
 
-    //To handle Successful Job Post
+    /* To handle Successful Job Post */
     handleJobPost = () => {
         this.setState(initialState => ({
             successfulJobPost: !initialState.successfulJobPost,
         }));
-        //If successful Job Post is disabled then allow notification is also disabled
+
+        /* If successful Job Post is disabled then allow notification is also disabled */
         if (!this.state.successfulJobPost === false) {
             this.setState({
                 allowNotification: false
@@ -105,26 +112,27 @@ class EmailSetting extends Component {
         }
     }
 
-    //To handle New App Posted Job
+    /* To handle New App Posted Job */
     handleNewAppPostedJob = () => {
         this.setState(initialState => ({
             newApplicationOnPostedJobs: !initialState.newApplicationOnPostedJobs
         }))
-        //If new Application Job Post is disabled then allow notification is also disabled
+
+        /* If new Application Job Post is disabled then allow notification is also disabled*/
         if (!this.state.newApplicationOnPostedJobs === false) {
             this.setState({
                 allowNotification: false
             })
         }
-
     }
 
-    //To handle interview accepted or declined
+    /* To handle interview accepted or declined */
     handleInterviewAccepted = () => {
         this.setState(initialState => ({
             interviewAcceptedDeclined: !initialState.interviewAcceptedDeclined,
         }))
-        //If interview Accepted/Declined is disabled then allow notification is also disabled
+
+        /* If interview Accepted/Declined is disabled then allow notification is also disabled */
         if (!this.state.interviewAcceptedDeclined === false) {
             this.setState({
                 allowNotification: false
@@ -132,12 +140,13 @@ class EmailSetting extends Component {
         }
     }
 
-    //To handle offers Accepted or Declined
+    /* To handle offers Accepted or Declined */
     handleOffersAccepted = () => {
         this.setState(initialState => ({
             offerAcceptedDeclined: !initialState.offerAcceptedDeclined,
         }))
-        //If offers Accepted/Declined is disabled then allow notification is also disabled
+
+        /* If offers Accepted/Declined is disabled then allow notification is also disabled */
         if (!this.state.offerAcceptedDeclined === false) {
             this.setState({
                 allowNotification: false
@@ -145,12 +154,13 @@ class EmailSetting extends Component {
         }
     }
 
-    //To handle New Match alert
+    /* To handle New Match alert */
     handleNewMatchesAlert = () => {
         this.setState(initialState => ({
             newMatchesAlert: !initialState.newMatchesAlert,
         }))
-        //If new matches alert is disabled then allow notification is also disabled
+
+        /* If new matches alert is disabled then allow notification is also disabled */
         if (!this.state.newMatchesAlert === false) {
             this.setState({
                 allowNotification: false
@@ -161,6 +171,9 @@ class EmailSetting extends Component {
     render() {
         return (
             <Fragment>
+                <LeftNav></LeftNav>
+				<div className="maincontent toggled">
+                <Toast ref={(el) => this.toast = el} />
                 <div className="content">
                     <HeaderAll></HeaderAll>
                     <div className="content_section main">
@@ -185,8 +198,8 @@ class EmailSetting extends Component {
                                                 </label>
                                             </div>
                                         </div>
-                                        {/* Successful job post */}
 
+                                        {/* Successful job post */}
                                         <div>
                                             <div className="d-flex justify-content-between mb-3">
                                                 <div>Successful job post</div>
@@ -200,8 +213,8 @@ class EmailSetting extends Component {
                                                     </label>
                                                 </div>
                                             </div>
-                                            {/* New Application */}
 
+                                            {/* New Application */}
                                             <div className="d-flex justify-content-between mb-3">
                                                 <div> New application posted job</div>
                                                 <div>
@@ -214,8 +227,8 @@ class EmailSetting extends Component {
                                                     </label>
                                                 </div>
                                             </div>
-                                            {/* Interview accepted/declined */}
 
+                                            {/* Interview accepted/declined */}
                                             <div className="d-flex justify-content-between mb-3">
                                                 <div>Interview accepted/declined</div>
                                                 <div>
@@ -228,8 +241,8 @@ class EmailSetting extends Component {
                                                     </label>
                                                 </div>
                                             </div>
-                                            {/* Offers accepted/declined */}
 
+                                            {/* Offers accepted/declined */}
                                             <div className="d-flex justify-content-between mb-3">
                                                 <div>Offers accepted/declined</div>
                                                 <div>
@@ -242,8 +255,8 @@ class EmailSetting extends Component {
                                                     </label>
                                                 </div>
                                             </div>
-                                            {/* New matches alert */}
 
+                                            {/* New matches alert */}
                                             <div className="d-flex justify-content-between mb-3">
                                                 <div>New matches alert</div>
                                                 <div>
@@ -257,6 +270,11 @@ class EmailSetting extends Component {
                                                 </div>
                                             </div>
                                         </div>
+
+                                        {/* Save button */}
+                                        <div className="text-right pt-3">
+                                            <button className="btn btn-blue" onClick={this.saveData}>Save</button>
+                                        </div>
                                     </div>
                                 </div>
                             </section>
@@ -264,9 +282,14 @@ class EmailSetting extends Component {
                     </div>
                     <Footer></Footer>
                 </div>
+                </div>
             </Fragment>
         )
     }
 }
-
 export default EmailSetting
+
+
+
+
+

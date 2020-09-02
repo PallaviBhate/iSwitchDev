@@ -222,12 +222,11 @@ class ManageUser extends Component{
         );
            return(
             <Fragment>
+                <LeftNav></LeftNav>
+				<div className="maincontent toggled">
             <div className="content">
                 {/*  Header */}
                 <HeaderAll></HeaderAll>
-                {/* Side Navigation Bar */}
-						<LeftNav></LeftNav>
-						{/* Side Navigation Bar */}
                 {/* Main Content on the page */}
                 <div className="content_section main">
                     <div className="mt-3">
@@ -277,6 +276,7 @@ class ManageUser extends Component{
                     </div>
                     <Footer></Footer>
                 </div>  
+                </div>
             </Fragment>
         )
     }

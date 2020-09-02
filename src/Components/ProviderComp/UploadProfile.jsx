@@ -108,12 +108,11 @@ class UploadProfile extends Component {
     render() {
         return(
             <Fragment>
+                <LeftNav></LeftNav>
+				<div className="maincontent toggled">
                 <HeaderAll></HeaderAll>
                 <div className="container-fluid">
                     <div className="row  main">
-                        {/* Side Navigation Bar */}
-						<LeftNav></LeftNav>
-						{/* Side Navigation Bar */}
                         {/* Content on the page */}
                         <section className="content_section">
                             <div className="ml-0 mr-1">
@@ -213,7 +212,9 @@ class UploadProfile extends Component {
                         </section>
                     </div>
                 </div>
+                
                 <Footer></Footer>
+                </div>
             </Fragment>
         );
     }

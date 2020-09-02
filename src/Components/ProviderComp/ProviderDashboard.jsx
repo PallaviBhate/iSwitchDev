@@ -28,14 +28,12 @@ export default class ProviderDashboard extends Component {
 		const details= localStorage.getItem('emaildetails')
 		return (
 			<div>
+				<LeftNav></LeftNav>
+				<div className="maincontent toggled">
 				<HeaderAll></HeaderAll>
 				{/* <UploadProfile/> */}
 				<div className="container-fluid">
 					<div className="row flex-xl-nowrap">
-						{/* Side Navigation Bar */}
-						<LeftNav></LeftNav>
-						{/* Side Navigation Bar */}
-
 						<section className="content_section col-12 col-md-9 col-xl-10 py-md-3 pl-md-4 bd-content">
 							{/* Importing Overview Cards, Top skills card and monthly Report Bar Graph */}
 							 {/* To display login User Details */}
@@ -48,7 +46,9 @@ export default class ProviderDashboard extends Component {
 						</section>
 					</div>
 				</div>
+			
 				<Footer></Footer>
+				</div>
 			</div>
 		)
 	}

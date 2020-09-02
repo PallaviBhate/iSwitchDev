@@ -1,11 +1,10 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import Header from '../CommonComp/Header'
 import Footer from '../CommonComp/Footer'
 import TermsOfUse from '../Auth/TermsOfUse'
 import PrivacyPolicy from '../Auth/PrivacyPolicy'
 import axios from 'axios'
-
 
 export default class Signup extends Component {
     constructor() {
@@ -109,15 +108,15 @@ export default class Signup extends Component {
             }
         }
 
-        if (!fields["phoneNumber"]) {
+        if (!fields["mobile"]) {
             formIsValid = false;
-            errors["phoneNumber"] = "*Please enter your mobile no.";
+            errors["mobile"] = "*Please enter your mobile no.";
         }
 
-        if (typeof fields["phoneNumber"] !== "undefined") {
-            if (!fields["phoneNumber"].match(/^[0-9]{10}$/)) {
+        if (typeof fields["mobile"] !== "undefined") {
+            if (!fields["mobile"].match(/^[0-9]{10}$/)) {
                 formIsValid = false;
-                errors["phoneNumber"] = "*Please enter valid mobile/landline no.";
+                errors["mobile"] = "*Please enter valid mobile/landline no.";
             }
         }
 
@@ -250,122 +249,122 @@ export default class Signup extends Component {
         };
       })();
 
-        
-    render() {       
+    render() {
+        this.FloatLabel.init();
         const {org_name,email,mobile,contact_person_name,gstin,password,confirm_password} = this.state.fields
         return (
-            <Fragment>
-                <div className="content">
-                    {/*  Header */}
-                    <Header></Header>
-                    {/* Main Content on the page */}
-                    <div className="content_section main login">
-                        <h2>Sign Up</h2>
-                        <p className="small-title">Welcome to Jobzilla</p>
-                        {/* Form */}
-                        <div className="row">
-                            <div className="col-md-5">
-                                {/* Organization Name */}
-                                <div className="form-group">
-                                    <label htmlFor="signup_OrgName">Organization Name</label>
-                                    <input type="text" id="signup_OrgName" className="form-control" name="org_name"
-                                        value={this.state.fields.org_name} onChange={ (e) => {this.handleChange(e);this.validateForm();} }
-                                        onBlur = {(e) => {this.handleTouch(e);this.validateForm();} } />
+            <div className="content container-fluid pl-0 pr-0">
+            <div className="Main_Container content ml-0" id="main">
+                <Header></Header>
+                <div className="Signup_Content main pl-0 pr-0">
+                    <div className="Signup-form float-left col mt-5">
+                        <h1 className="mb-0">SIGN UP</h1>
+                        <h4>Welcome to Jobzilla</h4>
+                        <form className="mt-4" onSubmit={this.submituserRegistrationForm} autoComplete="off">
+                            <div className="signUp_left">
+                                <div id="" className="marT10 float-container form-group">
+                                    <label htmlFor="signup_OrgName_floatField">Organization Name </label>
+                                    <input type="text" id="signup_OrgName_floatField" className="" name="org_name"  data-placeholder="Organization Name" value={this.state.fields.org_name} onChange={ (e) => {this.handleChange(e);this.validateForm();} }
+                                     onBlur = {(e) => {this.handleTouch(e);this.validateForm();} } />
                                         {
-                                            this.state.formSubmitted || this.state.touched.org_name?<div className="errorMsg">{this.state.errors.org_name}</div>:''                   
+                                            this.state.formSubmitted || this.state.touched.org_name?
+                                               <div className="errorMsg">{this.state.errors.org_name}</div>:''                   
                                         }
                                 </div>
-                                {/* Official Email */}
-                                <div className="form-group">
-                                    <label htmlFor="signup_email">Official Email</label>
-                                    <input type="text" id="signup_email" className="form-control" name="email" 
-                                        value={this.state.fields.email} onChange={ (e) => {this.handleChange(e);this.validateForm();} }
-                                        onBlur = {(e) => {this.handleTouch(e);this.validateForm();} }  />
-                                        {
-                                            this.state.formSubmitted || this.state.touched.email?<div className="errorMsg">{this.state.errors.email}</div>:''                  
-                                        }
-                                </div>
-                                {/* Mobile/Landline */}
-                                <div className="form-group">
-                                    <label htmlFor="signup_mobilenumber">Mobile/Landline</label>
-                                    <input type="number" id="signup_mobilenumber" className="form-control" name="phoneNumber"  value={this.state.fields.phoneNumber}  onChange={ (e) => {this.handleChange(e);this.validateForm();} }
-                                        onBlur = {(e) => {this.handleTouch(e);this.validateForm();} }   />
-                                        {
-                                            this.state.formSubmitted || this.state.touched.phoneNumber?<div className="errorMsg">{this.state.errors.phoneNumber}</div>:''                     
-                                        }
-                                </div>
-                                {/* Contact Person's Name */}
-                                <div className="form-group">
-                                    <label htmlFor="signup_name">Contact Person's Name</label>
-                                    <input type="text" id="signup_name" className="form-control" name="contact_person_name" value={this.state.fields.contactPerson} onChange={ (e) => {this.handleChange(e);this.validateForm();} } 
-                                    onBlur = {(e) => {this.handleTouch(e);this.validateForm();} }/>
-                                    {
-                                       this.state.formSubmitted || this.state.touched.contactPerson?<div className="errorMsg">{this.state.errors.contactPerson}</div>:''                     
-                                    }
-                                </div>
-                            </div>
-                            <div className="col-md-5">
-                                {/* GSTIN */}
-                                <div className="form-group">
-                                    <label htmlFor="signup_gstin">GSTIN (optional)</label>
-                                    <input type="text" id="signup_gstin" className="form-control" name="gstin" value={this.state.fields.gstin} onChange={ (e) => {this.handleChange(e);this.validateForm();} } 
+                                <p></p>
+                                
+                                <div id="" className="marT10 float-container form-group">
+                                    <label htmlFor="signup_email_floatField">Official Email </label>
+                                    <input type="text" id="signup_email_floatField" className="" name="email" data-placeholder="Official Email" value={this.state.fields.email} onChange={ (e) => {this.handleChange(e);this.validateForm();} }
                                     onBlur = {(e) => {this.handleTouch(e);this.validateForm();} }  />
-                                    {
-                                    this.state.formSubmitted || this.state.touched.contactPerson?
-                                        <div className="errorMsg">{this.state.errors.contactPerson}</div>:''                     
-                                    }
+                                     {
+                                            this.state.formSubmitted || this.state.touched.email?
+                                               <div className="errorMsg">{this.state.errors.email}</div>:''                  
+                                     }
                                 </div>
-                                {/* Password */}
-                                <div className="form-group">
-                                    <label htmlFor="signup_pwd">Password</label>
-                                    <input type="password" id="signup_pwd" className="form-control" name="password"  value={this.state.fields.password}  onChange={ (e) => {this.handleChange(e);this.validateForm();} } 
+                                <p></p>
+                                
+                                <div id="" className="marT10 float-container form-group">
+                                    <label htmlFor="signup_mobilenumber_floatField">Mobile/Landline </label>
+                                    <input type="number" id="signup_mobilenumber_floatField" className="" name="mobile"  data-placeholder="Mobile/Landline " value={this.state.fields.mobile}  onChange={ (e) => {this.handleChange(e);this.validateForm();} }
+                                         onBlur = {(e) => {this.handleTouch(e);this.validateForm();} }   />
+                                            {
+                                               this.state.formSubmitted || this.state.touched.mobile?
+                                               <div className="errorMsg">{this.state.errors.mobile}</div>:''                     
+                                           }
+                                </div>
+                                <p></p>
+                                
+                                
+                                <div id="" className="marT10 float-container form-group">
+                                    <label htmlFor="signup_name_floatField">Contact Person's Name </label>
+                                    <input type="text" id="signup_name_floatField" className="" name="contactPerson" data-placeholder="Contact Person's Name" value={this.state.fields.contactPerson} onChange={ (e) => {this.handleChange(e);this.validateForm();} } 
                                     onBlur = {(e) => {this.handleTouch(e);this.validateForm();} }   />
                                     {
-                                       this.state.formSubmitted || this.state.touched.password?<div className="errorMsg">{this.state.errors.password}</div>:''                    
+                                       this.state.formSubmitted || this.state.touched.contactPerson?
+                                          <div className="errorMsg">{this.state.errors.contactPerson}</div>:''                     
+                                   }
+                                </div>
+                                <p></p>
+                                
+                            </div>
+                            <div className="signUp_right">
+                                <div id="" className="marT10 float-container form-group">
+                                    <label htmlFor="signup_gstin_floatField">GSTIN (optional)</label>
+                                    <input type="text" id="signup_gstin_floatField" className="" name="gstin"  data-placeholder="GSTIN (optional)" value={this.state.fields.gstin} onChange={ (e) => {this.handleChange(e);this.validateForm();} } 
+                                    onBlur = {(e) => {this.handleTouch(e);this.validateForm();} }   />
+                                    {
+                                       this.state.formSubmitted || this.state.touched.contactPerson?
+                                          <div className="errorMsg">{this.state.errors.contactPerson}</div>:''                     
                                     }
                                 </div>
-                                {/* Confirm Password */}
-                                <div className="form-group">
-                                    <label htmlFor="signup_cnfpwd">Confirm Password</label>
-                                    <input type="password" id="signup_cnfpwd" className="form-control" name="confirm_password"  value={this.state.fields.confirm_password} onChange={ (e) => {this.handleChange(e);this.validateForm();} } 
+                                <div className="errorMsg"></div>
+
+                                <div id="" className="marT10 float-container form-group">
+                                    <label htmlFor="signup_pwd_floatField">Password </label>
+                                    <input type="password" id="signup_pwd_floatField" className="" name="password" data-placeholder="Password" value={this.state.fields.password}  onChange={ (e) => {this.handleChange(e);this.validateForm();} } 
                                     onBlur = {(e) => {this.handleTouch(e);this.validateForm();} }   />
                                     {
                                        this.state.formSubmitted || this.state.touched.password?
                                           <div className="errorMsg">{this.state.errors.password}</div>:''                    
                                     }
                                 </div>
-                            </div>
-                        </div>  
-                        {/* button and checkbox */}
-                        <div className="row">
-                            <div className="col-md-5">
-                                {/* Terms checkbox */}
-                                <div className="form-group">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="agreeTerms" required/>
-                                        <label class="form-check-label" for="agreeTerms">
-                                        I agree to terms and conditions and privacy policy of Jobzilla
-                                        </label>
-                                    </div>  
+                                <p></p>
+                                
+                                
+                                <div id="" className="marT10 float-container form-group">
+                                    <label htmlFor="signup_cnfpwd_floatField">Confirm Password </label>
+                                    <input type="password" id="signup_cnfpwd_floatField" className="" name="confirm_password" data-placeholder="Confirm Password" value={this.state.fields.confirm_password} onChange={ (e) => {this.handleChange(e);this.validateForm();} } 
+                                    onBlur = {(e) => {this.handleTouch(e);this.validateForm();} }   />
+                                    {
+                                       this.state.formSubmitted || this.state.touched.password?
+                                          <div className="errorMsg">{this.state.errors.password}</div>:''                    
+                                    }
+                                   </div>
+                                <p></p>
+
+                                <div className="float-left marT20">
+                                    <input type="checkbox" required/> <span className="remember_me_text pl-2">I agree to terms and conditions and privacy policy of Jobzilla</span>
                                 </div>
-                                {/* Create Button */}
-                                <div className="form-group mt-5">
-                                    <button className="btn btn-blue w-50">Create</button>
-                                </div>  
-                                <div className="terms" ><Link to="/termsofUse">Terms of use</Link>.<Link to="/privacyPolicy">Privacy Policy</Link></div> 
+                                <div className="wid100 float-left marT30 marB20">
+                                    <button className="btn btn-blue" name="">Create</button>
+                                </div>
+                                {/* <h6 className="wid100 float-left">Terms of use. Privacy Policy</h6> */}
+                                <h6 className="wid100 float-left terms" ><Link to="/termsofUse">Terms of use</Link>.<Link to="/privacyPolicy">Privacy Policy</Link></h6>
+                                
                             </div>
-                            {/* image on sign up */}
-                            <div className="col-md-7">
-                                <div className="d-none d-md-block float-right signUpImg">
-                                    <img src="../images/login/signup-img.png" alt="sign-up" className="img-fluid" />
-                                </div> 
-                            </div>
-                        </div>                      
+                            <div className="signUpImg">
+                                <img src="../images/login/signup-img.png" className="float-right d-none d-sm-none d-lg-block" />
+                            </div>                  
+                        </form>
+                        
                     </div>
-                    {/* Footer */}
-                    <Footer></Footer>
                 </div>
-            </Fragment>        
+                <Footer></Footer>
+            </div>
+            
+        </div>
+        
         )
     }
 }
