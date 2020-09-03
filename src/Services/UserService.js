@@ -4,7 +4,10 @@ import React, { Component } from 'react';
 class UserService extends Component {
 
     getAllUser() {
-        return axios.get('https://techm-jobzilla.herokuapp.com/jobs/user/allUsersByRole').then(res => res.data.responseObject);
+        const orgID = localStorage.getItem('orgnaizationId')
+        return axios
+            .get('https://techm-jobzilla.herokuapp.com/jobs/user/allUsersByRole/' + orgID)
+            .then(res => res.data.responseObject);
 
     }
 

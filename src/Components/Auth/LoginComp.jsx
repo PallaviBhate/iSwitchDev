@@ -70,6 +70,7 @@ class LoginComp extends Component{
         console.log(Response)
         if(Response){
           localStorage.setItem('candidateId',Response.data.responseObject['id'])
+          localStorage.setItem('organizationId',Response.data.responseObject['orgnaizationId'] )
           localStorage.setItem('rememberme',this.state.isChecked)
           localStorage.setItem('emailId',this.state.isChecked ? Response.data.responseObject['email'] :'')
           this.props.history.push('/providerDashboard')          

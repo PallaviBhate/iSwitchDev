@@ -26,7 +26,7 @@ class Profile extends Component{
                                 </div>
                             </div>
                             <div className="col-md-4 align-self-end mb-3 text-center text-sm-right">
-                            <button className="btn darkBlue float-sm-right float-none mt-3 mt-sm-0">Edit Profile</button>
+                            <button className="btn btn-blue float-sm-right float-none mt-3 mt-sm-0">Edit Profile</button>
                             </div>
                         </div>
                         <h6 className="mt-4 pt-3 border-top">Profile Details</h6>

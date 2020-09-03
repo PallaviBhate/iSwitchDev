@@ -181,7 +181,7 @@ class EmailSetting extends Component {
                         {/* Content on the page */}
                         <div className="mt-3">
                             <p className="mb-0">Email Notification Preferences</p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed </p>
+                            <p>Email Notifications options can be enabled/disabled from here. </p>
                             <section className="white-middle-section mt-4">
                                 <div className="row">
                                     <div className="col-md-6 offset-md-3">

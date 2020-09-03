@@ -21,7 +21,7 @@ const LeftNav = ()=>{
                    <img src="images/NavBar/logo.png" alt="" className="ml-4"/>                                 
                 </li>
                 <li className="sidebar-brand">                    
-                        <a href="#menu-toggle"  id="menu-toggle">
+                        <a href="#"  id="menu-toggle">
                          <i className="fa fa-bars "  aria-hidden="true"></i> 
                     </a>
                 </li>

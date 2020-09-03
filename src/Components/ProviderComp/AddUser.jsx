@@ -164,7 +164,7 @@ showError= (e) => {
                   <div className="form-group">
                   <Messages ref={(el) => this.messages = el} />
                       <label htmlFor="userName">Name</label>
-                      <input type="text" id="userName" name="userName" placeholder="joe doe" className="form-control"   onChange={ (e) => {this.handleChange(e);this.validateForm();} } 
+                      <input type="text" id="userName" name="userName"  className="form-control"   onChange={ (e) => {this.handleChange(e);this.validateForm();} } 
                       onBlur = {(e) => {this.handleTouch(e);this.validateForm();} } />
                       {
                           this.state.formSubmitted || this.state.touched.userName?
@@ -174,7 +174,7 @@ showError= (e) => {
                   
                   <div className="form-group">
                       <label htmlFor="userEmail">Official Email</label>
-                      <input type="email" id="email" name="email" placeholder="joedoe@example.com" className="form-control"   onChange={ (e) => {this.handleChange(e);this.validateForm();} }
+                      <input type="email" id="email" name="email"  className="form-control"   onChange={ (e) => {this.handleChange(e);this.validateForm();} }
                       onBlur = {(e) => {this.handleTouch(e);this.validateForm();} } />
                       {
                           this.state.formSubmitted || this.state.touched.userEmail?
@@ -184,7 +184,7 @@ showError= (e) => {
                    
                   <div className="form-group">
                       <label htmlFor="userMobile">Mobile/Landline</label>
-                      <input type="text" id="contactNumber" name="contactNumber" placeholder="98500 00000" className="form-control"   onChange={ (e) => {this.handleChange(e);this.validateForm();} }
+                      <input type="text" id="contactNumber" name="contactNumber"  className="form-control"   onChange={ (e) => {this.handleChange(e);this.validateForm();} }
                       onBlur = {(e) => {this.handleTouch(e);this.validateForm();} } />
                       {
                           this.state.formSubmitted || this.state.touched.contactNumber?
@@ -207,7 +207,7 @@ showError= (e) => {
                       </select>
                   </div> 
                   
-                  <button className="btn darkBlue float-right px-4" disabled={this.state.submitDisabled}  onClick={this.onAddUser}>Add User</button> 
+                  <button className="btn btn-blue float-right px-4" disabled={this.state.submitDisabled}  onClick={this.onAddUser}>Add User</button> 
                   
           </form>
 

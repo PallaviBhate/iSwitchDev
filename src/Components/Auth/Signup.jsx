@@ -5,7 +5,7 @@ import Footer from '../CommonComp/Footer'
 import TermsOfUse from '../Auth/TermsOfUse'
 import PrivacyPolicy from '../Auth/PrivacyPolicy'
 import axios from 'axios'
-
+import Toast from 'light-toast';
 
 export default class Signup extends Component {
     constructor() {
@@ -72,8 +72,8 @@ export default class Signup extends Component {
               this.props.history.push('/')})
               .catch(error=>{console.log("Error Occured..",error)})
         	
-            alert("You have Signup Successfully");
-            
+            // alert("You have Signup Successfully");
+            Toast.info('User Signup successfully',4000);
             //console.log(this.state.fields)
             localStorage.setItem('jobzilla',JSON.stringify(this.state.fields));         
           }
@@ -252,7 +252,7 @@ export default class Signup extends Component {
 
         
     render() {       
-        const {org_name,email,mobile,contact_person_name,gstin,password,confirm_password} = this.state.fields
+        const {org_name,email,mobile,contactPerson,gstin,password,confirm_password} = this.state.fields
         return (
             <Fragment>
                 <div className="content">
@@ -263,6 +263,7 @@ export default class Signup extends Component {
                         <h2>Sign Up</h2>
                         <p className="small-title">Welcome to Jobzilla</p>
                         {/* Form */}
+                        <form>
                         <div className="row">
                             <div className="col-md-5">
                                 {/* Organization Name */}
@@ -297,7 +298,7 @@ export default class Signup extends Component {
                                 {/* Contact Person's Name */}
                                 <div className="form-group">
                                     <label htmlFor="signup_name">Contact Person's Name</label>
-                                    <input type="text" id="signup_name" className="form-control" name="contact_person_name" value={this.state.fields.contactPerson} onChange={ (e) => {this.handleChange(e);this.validateForm();} } 
+                                    <input type="text" id="signup_name" className="form-control" name="contactPerson" value={this.state.fields.contactPerson} onChange={ (e) => {this.handleChange(e);this.validateForm();} } 
                                     onBlur = {(e) => {this.handleTouch(e);this.validateForm();} }/>
                                     {
                                        this.state.formSubmitted || this.state.touched.contactPerson?<div className="errorMsg">{this.state.errors.contactPerson}</div>:''                     
@@ -341,16 +342,16 @@ export default class Signup extends Component {
                             <div className="col-md-5">
                                 {/* Terms checkbox */}
                                 <div className="form-group">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="agreeTerms" required/>
-                                        <label class="form-check-label" for="agreeTerms">
-                                        I agree to terms and conditions and privacy policy of Jobzilla
-                                        </label>
-                                    </div>  
-                                </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="agreeTerms" required/>
+                                            <label class="form-check-label" for="agreeTerms">
+                                                I agree to terms and conditions and privacy policy of Jobzilla
+                                            </label>
+                                        </div>  
+                                    </div>
                                 {/* Create Button */}
                                 <div className="form-group mt-5">
-                                    <button className="btn btn-blue w-50">Create</button>
+                                    <button className="btn btn-blue w-50" onClick={this.submituserRegistrationForm} >Create</button>
                                 </div>  
                                 <div className="terms" ><Link to="/termsofUse">Terms of use</Link>.<Link to="/privacyPolicy">Privacy Policy</Link></div> 
                             </div>
@@ -359,12 +360,17 @@ export default class Signup extends Component {
                                 <div className="d-none d-md-block float-right signUpImg">
                                     <img src="../images/login/signup-img.png" alt="sign-up" className="img-fluid" />
                                 </div> 
+                                
                             </div>
+                            
                         </div>                      
+                        </form>
                     </div>
+                    
                     {/* Footer */}
                     <Footer></Footer>
                 </div>
+
             </Fragment>        
         )
     }

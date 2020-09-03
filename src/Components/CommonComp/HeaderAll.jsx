@@ -53,7 +53,7 @@ class HeaderAll extends Component{
                     <ul className="nav mt-2">
                       <li className="nav-item">
                         <a className="nav-link" href="#" data-toggle="dropdown">
-                          <span className="font-blue text-small">{this.state.userData.userName}<i className="fa fa-angle-down" aria-hidden="true"></i></span>   
+                          <span className="font-blue text-small">{this.state.userData.userName}<i className="fa fa-angle-down pl-2" aria-hidden="true"></i></span>   
                         </a>
                         <ul className="dropdown-menu mt-2">
                           

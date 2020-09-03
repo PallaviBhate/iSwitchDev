@@ -28,55 +28,43 @@ class UploadProfile extends Component {
     }
 
     state = { 
-          // Initially, no file is selected 
-        selectedFile: ''
+           
+        selectedFile: '',
+        DraggedFile:''
       }; 
        
-      // On file select (from the pop up) 
+      
       onFileChange = event => {   
-        // Update the state 
-        this.setState({ selectedFile: event.target.files[0] });     
-      };        
-        // On file upload (click the upload button) 
-        onFileUpload = () => {      
-        // Create an object of formData 
-        const formData = new FormData();   
-        // Update the formData object 
-        formData.append( 
-          "file", 
-            this.state.selectedFile, 
          
-        );   
-        // Details of the uploaded file 
-       
-        // Request made to the backend api 
-        // Send formData object 
-        const options = { 
-            headers: { 
-            'Content-Type':'multipart/form-data',
-            } 
-        };
-            
-        axios
-        .post("https://techm-jobzilla.herokuapp.com/jobs/user/uploadcsv", formData , options) 
-        .then(Response=>{console.log(Response)})
-        .catch(error=>{console.log(error)})
+        this.setState({ selectedFile: event.target.files[0] });     
+      };  
 
-      }; 
-
+      onFileChange1 = event => {   
+        
+        this.setState({ DraggedFile: event.target.files[0] });     
+      };    
+         
+        
         // Csv extention validation check on upload button
         fileValidation = () =>{
-        var fileInput = document.getElementById('myFile');
-        var filePath = fileInput.value;
-        if(filePath!=''){
+        //    var fileInput = document.getElementById('myFile1');
+            //var filePath = fileInput.value;
+           var filemode1= this.state.DraggedFile
+           var filemode2= this.state.selectedFile
+            
+  if (filemode1!=''){ var fileInput= filemode1}
+  else {var fileInput= filemode2}
+    console.log(fileInput.name)
+        if(fileInput!=''){
             var allowedExtensions = /(\.csv)$/i;
-            if(!allowedExtensions.exec(filePath)){
+            if(!allowedExtensions.exec(fileInput.name)){
                 Toast.info('Please upload file having extensions .csv only.',4000);
                 fileInput.value = '';
                 return false;
+                
             }
             else{
-                  this.onFileUpload()
+                  this.uploadFile()
                   Toast.info('File Uploaded Successfully',4000);
                 }   
             }
@@ -86,7 +74,8 @@ class UploadProfile extends Component {
             }
 
         //Dragging csv file to upload
-        uploadFile=(acceptedFiles)=> {
+        uploadFile=()=> {
+           
             const formData = new FormData(); 
            
              const options = { 
@@ -94,15 +83,23 @@ class UploadProfile extends Component {
                 'Content-Type':'multipart/form-data',
                 } 
             };
+
+            if(this.state.DraggedFile){
             formData.append( 
                 "file", 
-                acceptedFiles[0], 
+                this.state.DraggedFile,
                );   
-             
+            }
+            else{
+                formData.append( 
+                    "file", 
+                    this.state.selectedFile,
+                   ); 
+            }
             axios
             .post("https://techm-jobzilla.herokuapp.com/jobs/user/uploadcsv", formData,options) 
-            .then(Response=>{console.log(Response)})
-            .catch(error=>{console.log(error)})
+            .then(Response=>{console.log("Success",Response)})
+            .catch(error=>{console.log("Error",error)})
           }
    
     render() {
@@ -128,44 +125,47 @@ class UploadProfile extends Component {
                                             <img src="images/Dashboard-assets/cloud-upload.svg" alt="cloud upload" className="cloud_upload_logo"/>
                                             <div className="text-center mt-5">
                                             <Dropzone
-                                             onDrop={this.uploadFile}
+                                             //onDrop={this.fileValidation}
                                             accept=".csv"
                                             >
                                             {({getRootProps, getInputProps, isDragActive, isDragReject, rejectedFiles}) => {
                                             /* const isFileTooLarge = rejectedFiles.length > 0 && rejectedFiles[0].size > maxSize; */
                                             return (
                                                 <div {...getRootProps()}>
-                                                <input {...getInputProps()} />
+                                                <input {...getInputProps() } id="myFile1" files multiple onChange={this.onFileChange1} />
+                                                
                                                 {!isDragActive && 'Click here or drop a file to upload!'}
+                                                <div className="file-path-wrapper font-blue">
+                                                        <input className="file-path validate" type="text" value={this.state.DraggedFile.name} placeholder=""/> 
+                                                        
+                                                </div>
+                                                
                                                 {isDragActive && !isDragReject && "Drop it like it's hot!"}
                                                 {isDragReject && "File type not accepted, sorry!"}
-                                               {/*  {isFileTooLarge && (
-                                                    <div className="text-danger mt-2">
-                                                    File is too large.
-                                                    </div>
-                                                )} */}
+                                               
                                                 </div>
                                             )}
                                             }
                                             </Dropzone>
+                                            
                                                  </div>
                                             {/* <p className="text-center pt-4 mb-0">Drag and drop a file here</p> */}
                                             <p className="text-center">or</p>
                                             <form action="">
                                                 <div className="text-center d-flex justify-content-center">
-                                                <div class="file-field d-flex-inline">
-                                                    <div class="btn btn-primary btn-sm float-left waves-effect waves-light">
+                                                <div className="file-field d-flex-inline">
+                                                    <div className="btn btn-primary btn-sm float-left waves-effect waves-light">
                                                         <span>Choose file</span>
                                                         <input type="file" id="myFile" name="filename" accept=".csv" files multiple onChange={this.onFileChange} />
                                                     
                                                     </div>
-                                                    <div class="file-path-wrapper">
-                                                        <input class="file-path validate" type="text" value={this.state.selectedFile.name} placeholder="No file choosen"/> 
+                                                    <div className="file-path-wrapper">
+                                                        <input className="file-path validate" type="text" value={this.state.selectedFile.name} placeholder="No file choosen"/> 
                                                     </div>
                                                 </div>
                                                 <div className="d-flex-inline">
                                                     <img src="images/Dashboard-assets/csv.svg" className="pt-1" alt="csv icon" />
-                                                    <span class="pl-2 fontMiddle">CSV File</span>
+                                                    <span className="pl-2 fontMiddle">CSV File</span>
                                                 </div>
                                             
                                             </div>
@@ -205,7 +205,7 @@ class UploadProfile extends Component {
                                         </div> */}
                                     </div>    
                                 </section>
-                                <div className="ml-2 marT20">
+                                <div className="ml-2 mt-4">
                                     <button type="button" className="btn btn-blue" onClick={this.fileValidation}>Upload</button>
                                 </div>
                             </div>

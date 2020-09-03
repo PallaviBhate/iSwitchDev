@@ -34,7 +34,7 @@ export default class ProviderDashboard extends Component {
 				{/* <UploadProfile/> */}
 				<div className="container-fluid">
 					<div className="row flex-xl-nowrap">
-						<section className="content_section col-12 col-md-9 col-xl-10 py-md-3 pl-md-4 bd-content">
+						<section className="content_section col py-md-3 pl-md-4 bd-content">
 							{/* Importing Overview Cards, Top skills card and monthly Report Bar Graph */}
 							 {/* To display login User Details */}
 <h6>Welcome {details}</h6>
