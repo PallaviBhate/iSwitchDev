@@ -1,7 +1,8 @@
 import axios from 'axios'; 
 
 import React,{Component, Fragment} from 'react'; 
-import Toast from 'light-toast';
+// import Toast from 'light-toast';
+import { Toast } from 'primereact/toast';
 import HeaderAll from '../CommonComp/HeaderAll'
 import Footer from '../CommonComp/Footer'
 import Dropzone from 'react-dropzone';
@@ -10,6 +11,7 @@ class UploadProfile extends Component {
 
     constructor(props) {
         super(props);
+        
     }
     
     //Code to download sample csv template with API
@@ -39,9 +41,10 @@ class UploadProfile extends Component {
         this.setState({ selectedFile: event.target.files[0] });     
       };  
 
-      onFileChange1 = event => {   
+      onFileChange1 = (fileAccept) => {   
         
-        this.setState({ DraggedFile: event.target.files[0] });     
+        this.setState({ DraggedFile: fileAccept[0] });   
+        this.fileValidation()  
       };    
          
         
@@ -58,27 +61,22 @@ class UploadProfile extends Component {
         if(fileInput!=''){
             var allowedExtensions = /(\.csv)$/i;
             if(!allowedExtensions.exec(fileInput.name)){
-                Toast.info('Please upload file having extensions .csv only.',4000);
+                this.toast.show({severity: 'warn', summary: 'Error', detail: 'Please upload file having extensions .csv only.'},50000);
+                // Toast.info('Please upload file having extensions .csv only.',4000);
                 fileInput.value = '';
                 return false;
-                
-            }
-            else{
-                  this.uploadFile()
-                  Toast.info('File Uploaded Successfully',4000);
-                }   
-            }
-            else{
-                return Toast.info('Please select file first.',4000);
-            }
-            }
+            }  
+        }
+            
+    }
 
         //Dragging csv file to upload
         uploadFile=()=> {
            
+            this.fileValidation()
             const formData = new FormData(); 
-           
-             const options = { 
+
+            const options = { 
                 headers: { 
                 'Content-Type':'multipart/form-data',
                 } 
@@ -98,8 +96,14 @@ class UploadProfile extends Component {
             }
             axios
             .post("https://techm-jobzilla.herokuapp.com/jobs/user/uploadcsv", formData,options) 
-            .then(Response=>{console.log("Success",Response)})
-            .catch(error=>{console.log("Error",error)})
+
+            .then(Response=>{console.log("Success",Response)
+                          this.toast.show({severity: 'success', summary: 'Success Message', detail: 'File uploaded Successfully'},50000);
+                        // this.selectedFile.name= ""
+                    })
+
+            .catch(error=>{console.log("Error",error)
+                        this.toast.show({severity: 'error', summary: 'Error', detail: 'Server Error '},50000);})
           }
    
     render() {
@@ -109,6 +113,7 @@ class UploadProfile extends Component {
 				<div className="maincontent toggled">
                 <HeaderAll></HeaderAll>
                 <div className="container-fluid">
+                <Toast ref={(el) => this.toast = el} />
                     <div className="row  main">
                         {/* Content on the page */}
                         <section className="content_section">
@@ -122,17 +127,19 @@ class UploadProfile extends Component {
                                         {/* CSV file upload */}
                                        
                                         <div className="col-md-6 offset-md-3 p-4">
-                                            <img src="images/Dashboard-assets/cloud-upload.svg" alt="cloud upload" className="cloud_upload_logo"/>
+                                            
                                             <div className="text-center mt-5">
                                             <Dropzone
-                                             //onDrop={this.fileValidation}
+                                             onDrop={this.onFileChange1}
                                             accept=".csv"
                                             >
                                             {({getRootProps, getInputProps, isDragActive, isDragReject, rejectedFiles}) => {
                                             /* const isFileTooLarge = rejectedFiles.length > 0 && rejectedFiles[0].size > maxSize; */
                                             return (
-                                                <div {...getRootProps()}>
-                                                <input {...getInputProps() } id="myFile1" files multiple onChange={this.onFileChange1} />
+
+                                                <div {...getRootProps({className:"dropzone"})}>
+                                                    <img src="images/Dashboard-assets/cloud-upload.svg" alt="cloud upload" className="cloud_upload_logo pb-2" />
+                                                <input {...getInputProps() }   />
                                                 
                                                 {!isDragActive && 'Click here or drop a file to upload!'}
                                                 <div className="file-path-wrapper font-blue">
@@ -206,7 +213,7 @@ class UploadProfile extends Component {
                                     </div>    
                                 </section>
                                 <div className="ml-2 mt-4">
-                                    <button type="button" className="btn btn-blue" onClick={this.fileValidation}>Upload</button>
+                                    <button type="button" className="btn btn-blue" onClick={this.uploadFile}>Upload</button>
                                 </div>
                             </div>
                         </section>

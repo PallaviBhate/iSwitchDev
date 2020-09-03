@@ -62,6 +62,9 @@ class EditUser extends Component{
       this.setState({ 
         fields: fields,
       });
+      this.state.fields['orgnaizationId'] = localStorage.getItem('organizationId');
+      // this.state.fields['supervisorId']=0;
+      this.state.fields['password']= "Test@1234";
       this.hideModal()
       localStorage.setItem("Jobzilla",JSON.stringify([this.state.fields]))
       window.location.reload()

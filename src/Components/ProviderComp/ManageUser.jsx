@@ -231,7 +231,8 @@ class ManageUser extends Component{
                 <div className="content_section main">
                     <div className="mt-3">
                         <h4>Manage Users</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed</p>
+                        <p className="mb-0">Recruitment is not a one-person job; therefore, we have got you covered! </p>
+                        <p>The organization representative can create accounts here whom they want managing their roles and permission as admin/user.</p>
                         <section className="white-middle-section mt-4">                               
                             <div>                                
                             

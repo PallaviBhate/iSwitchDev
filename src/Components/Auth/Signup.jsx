@@ -263,7 +263,7 @@ export default class Signup extends Component {
                         <h2>Sign Up</h2>
                         <p className="small-title">Welcome to Jobzilla</p>
                         {/* Form */}
-                        <form>
+                        <form onSubmit={this.submituserRegistrationForm}>
                         <div className="row">
                             <div className="col-md-5">
                                 {/* Organization Name */}
@@ -351,7 +351,7 @@ export default class Signup extends Component {
                                     </div>
                                 {/* Create Button */}
                                 <div className="form-group mt-5">
-                                    <button className="btn btn-blue w-50" onClick={this.submituserRegistrationForm} >Create</button>
+                                    <button className="btn btn-blue w-50"  >Create</button>
                                 </div>  
                                 <div className="terms" ><Link to="/termsofUse">Terms of use</Link>.<Link to="/privacyPolicy">Privacy Policy</Link></div> 
                             </div>

@@ -1,8 +1,9 @@
-import { Button,Modal } from 'react-bootstrap'
+import { Modal } from 'react-bootstrap'
 import React,{ Component } from 'react';
 import {Messages} from 'primereact/messages'
 import Toast from 'light-toast';
 import axios from 'axios'
+
 class AddUser extends Component{
   constructor(props) {
     super(props);
@@ -25,7 +26,7 @@ showSuccess= () =>  {
 showError= (e) => {
   this.messages.show({severity: 'error', summary: 'Something went wrong..', detail: ''});
 }
- /**Show toaster message */
+/**Show toaster message */
 
   
   showModal = () => {
@@ -66,26 +67,36 @@ showError= (e) => {
       fields["email"] = "";
       fields["contactNumber"] = "";
       fields["userRole"] = "";
+      
+
       this.setState({ 
-        fields: fields,
+        fields:fields,
+            
       });
+
+      this.state.fields['orgnaizationId'] = localStorage.getItem('organizationId');
+      // this.state.fields['supervisorId']=0;
+      this.state.fields['password']= "Test@1234";
         // Adding axios code
           const options = { 
             headers: { 
             'Content-Type': 'application/json', 
             } 
             };
+
+            console.log(this.state.fields);
           axios
          .post("https://techm-jobzilla.herokuapp.com/jobs/user/user", this.state.fields, options)
          .then(Response=>{console.log("Success..",Response)
+         Toast.info("User Added Successfully")
          this.hideModal()
          window.location.reload()
           }
           )
          
-         .catch(error=>{console.log("Error Occured..",error)})
+         .catch(error=>{console.log("Error Occured..",error)}) 
         //  this.showSuccess()
-         Toast.info("User Added Successfully")
+        
          localStorage.setItem("hobzilla",JSON.stringify(this.state.fields))
     }
     
@@ -101,7 +112,7 @@ showError= (e) => {
       errors["userName"] = "*Please enter  name";
     }
 
-    if (typeof fields["userName"] !== "undefined") {
+   if (typeof fields["userName"] !== "undefined") {
       if (!fields["userName"].match(/^[a-zA-Z ]*$/)) {
         formIsValid = false;
         errors["userName"] = "*Please enter alphabet characters only.";
@@ -141,7 +152,7 @@ showError= (e) => {
     this.setState({
       errors: errors,
       submitDisabled: !formIsValid
-    });
+   });
     return formIsValid;
   }
 
@@ -161,7 +172,7 @@ showError= (e) => {
           </Modal.Header>
           <Modal.Body>
           <form>
-                  <div className="form-group">
+            <div className="form-group">
                   <Messages ref={(el) => this.messages = el} />
                       <label htmlFor="userName">Name</label>
                       <input type="text" id="userName" name="userName"  className="form-control"   onChange={ (e) => {this.handleChange(e);this.validateForm();} } 
@@ -210,9 +221,6 @@ showError= (e) => {
                   <button className="btn btn-blue float-right px-4" disabled={this.state.submitDisabled}  onClick={this.onAddUser}>Add User</button> 
                   
           </form>
-
-
-        
           </Modal.Body>
       </Modal>
       </>

@@ -69,6 +69,10 @@ class LoginComp extends Component{
       .then(Response=>{
         console.log(Response)
         if(Response){
+          //userDetails: response from API
+          localStorage.setItem('userDetails',JSON.stringify(Response.data.responseObject)); 
+          
+          //fieldwise response
           localStorage.setItem('candidateId',Response.data.responseObject['id'])
           localStorage.setItem('organizationId',Response.data.responseObject['orgnaizationId'] )
           localStorage.setItem('rememberme',this.state.isChecked)
