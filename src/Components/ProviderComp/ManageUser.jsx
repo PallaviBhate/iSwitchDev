@@ -244,7 +244,7 @@ class ManageUser extends Component{
                     
 
 <Column selectionMode="multiple" headerStyle={{ width: '3rem' }}></Column>
-<Column field="id" header="#"  style={{width:'6%'}}  sortable></Column>
+{/* <Column field="id" header="#"  style={{width:'6%'}}  sortable></Column> */}
 <Column field="userName" header="Name" style={{width:'15%'}} sortable></Column>
  <Column field="email" header="EmailId" style={{width:'25%'}} sortable></Column>
                        

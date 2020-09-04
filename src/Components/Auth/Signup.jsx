@@ -5,7 +5,8 @@ import Footer from '../CommonComp/Footer'
 import TermsOfUse from '../Auth/TermsOfUse'
 import PrivacyPolicy from '../Auth/PrivacyPolicy'
 import axios from 'axios'
-import Toast from 'light-toast';
+// import Toast from 'light-toast';
+import { Toast } from 'primereact/toast';
 
 export default class Signup extends Component {
     constructor() {
@@ -69,11 +70,12 @@ export default class Signup extends Component {
               axios
               .post("https://techm-jobzilla.herokuapp.com/jobs/user/signup", this.state.fields, options)
               .then(Response=>{console.log("Success..",Response)
-              this.props.history.push('/')})
+                                this.props.history.push('/')})
               .catch(error=>{console.log("Error Occured..",error)})
-        	
+              
+              this.toast.show({severity: 'success', summary: 'Success Message', detail: 'User Signup Successfully'},4000)
             // alert("You have Signup Successfully");
-            Toast.info('User Signup successfully',4000);
+            // Toast.info('User Signup successfully',4000);
             //console.log(this.state.fields)
             localStorage.setItem('jobzilla',JSON.stringify(this.state.fields));         
           }
@@ -259,6 +261,7 @@ export default class Signup extends Component {
                     {/*  Header */}
                     <Header></Header>
                     {/* Main Content on the page */}
+                    <Toast ref={(el) => this.toast = el} />
                     <div className="content_section main login">
                         <h2>Sign Up</h2>
                         <p className="small-title">Welcome to Jobzilla</p>
@@ -310,11 +313,11 @@ export default class Signup extends Component {
                                 <div className="form-group">
                                     <label htmlFor="signup_gstin">GSTIN (optional)</label>
                                     <input type="text" id="signup_gstin" className="form-control" name="gstin" value={this.state.fields.gstin} onChange={ (e) => {this.handleChange(e);this.validateForm();} } 
-                                    onBlur = {(e) => {this.handleTouch(e);this.validateForm();} }  />
-                                    {
+                                     />
+                                    {/* {
                                     this.state.formSubmitted || this.state.touched.contactPerson?
                                         <div className="errorMsg">{this.state.errors.contactPerson}</div>:''                     
-                                    }
+                                    } */}
                                 </div>
                                 {/* Password */}
                                 <div className="form-group">
