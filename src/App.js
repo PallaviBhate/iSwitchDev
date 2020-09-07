@@ -1,12 +1,12 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
+import './Assets/css/Style.css'
+import RouterSettings from './Routing/RouterSettings';
 
 function App() {
   return (
     <div className="App">
-     <h1>Jobzilla</h1>
+     <RouterSettings></RouterSettings>
+   
     </div>
   );
 }

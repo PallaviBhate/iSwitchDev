@@ -1,0 +1,1 @@
+var apiBaseUrl = "https://techm-jobzilla.herokuapp.com/jobs";
