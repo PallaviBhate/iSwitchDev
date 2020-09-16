@@ -1,64 +1,93 @@
-import React  from 'react';
+import React from 'react';
 import $ from 'jquery'
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
-const CandidateLeftNav = ()=>{
-    
-    $("#menu-toggle").click(function(e) {
+const CandidateLeftNav = () => {
+
+    $("#menu-toggle").click(function (e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
         $(".maincontent").toggleClass("toggled");
     });
-       
-          
-    return(
-              
-        <div id="wrapper" className="toggled">
 
-        <div id="sidebar-wrapper">
-            <ul className="sidebar-nav" > 
-                <li> 
-                   <img src="/images/NavBar/logo.png" alt="" className="ml-4"/>                                 
-                </li>
-                <li className="sidebar-brand">                    
-                        <a href="#"  id="menu-toggle">
-                         <i className="fa fa-bars "  aria-hidden="true"></i> 
-                    </a>
-                </li>
-                
-                <li> 
-                <Link to = {'/candidate/dashboard'}> <img src="/images/NavBar/dashboard_icon.png" alt="" className="left-nav-icon ml-4 mr-2"/> <span > Dashboard</span></Link>
-                {/* <Link to = {'/providerDashboard'}><img src={dashboardlogo} alt="" className="mr-0"/> <span >Dashboard</span></Link>                     */}
-                </li>
-                {/* <li>
-                <Link to = {'/uploadProfile'} className="dropdown-toggle" data-toggle="dropdown"><i className="fa fa-user mr-1" aria-hidden="true"> </i> Interviews <b class="caret"></b></Link>
-                <ul className="dropdown-menu">
-                    <li><Link to = {'/uploadProfile'}>Invites</Link></li>
-                    <li><Link to = {'/uploadProfile'}>Accepted</Link></li>
+    //To move dot to active page
+    const isActive = (path, match, location) => !!(match || path === location.pathname);
+    return (
+        <div id="wrapper" className="toggled">
+            <div id="sidebar-wrapper">
+                <ul className="sidebar-nav" >
+                    <li className="sidebar-brand">
+                        <img src="/images/NavBar/logo.png" alt="" className="ml-3" />
+                    </li>
+                    <li>
+                        <a href="#" id="menu-toggle">
+                            <i className="fa fa-bars mr-1" aria-hidden="true"></i>
+                            <span className="menuText">Menu</span>
+                        </a>
+                    </li>
+                    <li data-toggle="tooltip" data-placement="right" title="Dashboard">
+                        <NavLink to={'/candidate/Dashboard'} 
+                                 activeClassName="active"
+                                 isActive={isActive.bind(this, '/candidate/Dashboard')}>
+                            <i><img src="/images/Candidate-Navbar-assets/dashboard-icon.svg" aria-hidden="true" /></i>
+                            <span className="menuText">Dashboard</span>
+                        </NavLink>
+                    </li>
+                     <li data-toggle="tooltip" data-placement="right" title="Interviews">
+                        <Link class="subMenu" id="navbarDropdown" role="button"
+                            data-toggle="collapse" data-target="#submenu1sub1">
+                            <i><img src="/images/Candidate-Navbar-assets/interviews-icon.svg" aria-hidden="true" /></i>
+                             <span className="menuText">Interviews</span>
+                        </Link>
+                        <div className="collapse" id="submenu1sub1" aria-expanded="false">
+                            <ul className="flex-column nav submenuLink">
+                                <li data-toggle="tooltip" data-placement="right" title="Invites">
+                                    <NavLink class="dropdown-item" to={"/candidate/invites"} 
+                                    activeClassName="active"
+                                    isActive={isActive.bind(this,'/candidate/invites')}>
+                                        <i aria-hidden="true"></i>
+                                        <span className="menuText">Invites</span>
+                                    </NavLink>
+                                </li>
+                                <li data-toggle="tooltip" data-placement="right" title="Accepted">
+                                    <NavLink class="dropdown-item" to={"/candidate/Invites"}
+                                    activeClassName="active"
+                                    isActive={isActive.bind(this, '/candidate/Invites')}>
+                                    <i aria-hidden="true"></i>
+                                    <span className="menuText">Accepted</span>
+                                    </NavLink>
+                                </li>                              
+                            </ul>   
+                        </div>
+                    </li>
+                     
+                    <li data-toggle="tooltip" data-placement="right" title="Job Offers">
+                        <NavLink to={'/candidate/jobOffers'}
+                        activeClassName="active"
+                        isActive={isActive.bind(this, '/jobOffers')}>
+                            <i><img src="/images/Candidate-Navbar-assets/job-offers.svg" aria-hidden="true" /></i>
+                            <span className="menuText">Job Offers</span></NavLink>   
+                    </li>
+
+                    <li data-toggle="tooltip" data-placement="right" title="Search Jobs">
+                        <NavLink to={'/candidate/searchJob'}
+                        activeClassName="active"
+                        isActive={isActive.bind(this,'/searchJob')}>
+                           <i><img src="/images/Candidate-Navbar-assets/job-search.svg" aria-hidden="true"></img></i>
+                            <span className="menuText">Search Jobs</span></NavLink>   
+                    </li>
+                    <li data-toggle="tooltip" data-placement="right" title="Profile">
+                        <NavLink to={'/candidate/profile'}
+                        activeClassName="active"
+                        isActive={isActive.bind(this,'/profile')}>
+                            <i><img src="/images/Candidate-Navbar-assets/profile.svg" aria-hidden="true"></img></i>
+                            <span className="menuText">Profile</span></NavLink>   
+                    </li>
                 </ul>
-                </li> */}
-                <li class="nav-item">
-                    <a class="dropdown-toggle" href="#submenu1" data-toggle="collapse" data-target="#submenu1"><img src="/images/NavBar/interviews.png" alt="" className="left-nav-icon ml-4 mr-2"/> <span class="d-none d-sm-inline">Interviews</span></a>
-                    <div class="collapse" id="submenu1" aria-expanded="false">
-                        <ul class="flex-column pl-2 nav">
-                            <li class="nav-item"><a class="nav-link py-0" href="/candidate/interviews/invites"><img src="/images/NavBar/invites.png" alt="" className="left-nav-icon ml-4 mr-2" /><span className="ml-1">Invites</span></a></li>
-                            <li class="nav-item"><a class="nav-link py-0" href="/candidate/interviews/accepted"><img src="/images/NavBar/accepted.png" alt="" className="left-nav-icon ml-4 mr-2"/><span className="ml-1">Accepted</span></a></li>
-                        </ul>
-                    </div>
-                </li>
-                <li>
-                <Link to = {'/candidate/jobOffers'}> <img src="/images/NavBar/job_offer.png" alt="" className="left-nav-icon ml-4 mr-2"/> <span > Job Offer</span></Link>
-                </li>     
-                <li>
-                <Link to = {'/candidate/searchJobs'}> <img src="/images/NavBar/job-search.png" alt="" className="left-nav-icon ml-4 mr-2"/> <span > Search Job</span></Link>
-                </li>      
-                <li>
-                <Link to = {'/candidate/profile'}> <img src="/images/NavBar/profile.png" alt="" className="left-nav-icon ml-4 mr-2"/> <span > Profile</span></Link>
-                </li>      
-            </ul>
-        </div>
-        </div>
+            </div>
         
+        </div>
+
     )
 }
 
