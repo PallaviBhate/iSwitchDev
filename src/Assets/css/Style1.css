@@ -47,15 +47,15 @@ footer {
 }
 
 .sub-title {
-    font-size: 1.25rem;
-    color: rgba(22, 22, 22, 0.9);
-    font-family: Montserrat-Medium  !important;
+    font-size: 1rem;
+    color: #25282B;
+    font-family: Montserrat-SemiBold!important;
 }
 
 .sub-title1 {
     font-size: 0.8rem;
     color: #25282B;
-    font-family: Montserrat-SemiBold !important;
+    font-family: Montserrat-SemiBold!important;
 }
 
 h2 {
@@ -435,13 +435,13 @@ nav ul {
     padding: 10px 0px;
 }
 
-li.nav-item.active,
+/* li.nav-item.active,
 li.nav-item:hover {
     width: 100%;
-    background: #fff;
+    background: #0650BB;
     border-left: 5px solid #fff !important;
-    color: #0650BB!important;
-}
+    color: #fff!important;
+} */
 
 
 /* li.nav-item a:hover{
@@ -450,13 +450,28 @@ li.nav-item:hover {
  */
 
 .nav-link span {
-    display: contents;
+    display: block;
 }
 
 nav a {
     float: left;
     width: 100%;
     color: #fff;
+}
+
+.subMenu:after{
+    content: "\f107";
+    font-family: FontAwesome;
+    position: absolute;
+    right: 15px;
+}
+
+.toggled .subMenu:after{
+    display: none;
+}
+
+.sidebar-nav .submenuLink li a{
+    padding-left:20px;
 }
 
 .Main_Container {
@@ -942,10 +957,10 @@ table.dataTable tr.selected td.select-checkbox:after {
 } */
 
 
-.lightBlue {
+/* .lightBlue {
     background-color: #3683EF!important;
     color: #fff!important;
-}
+} */
 
 .fontBlue {
     color: #798DA7;
@@ -1045,7 +1060,7 @@ table.dataTable tr.selected td.select-checkbox:after {
 /* Modal css */
 
 .modal-title {
-    font-size: 1.25rem!important;
+    font-size: 1.1rem!important;
 }
 
 .modal-header {
@@ -1053,7 +1068,7 @@ table.dataTable tr.selected td.select-checkbox:after {
 }
 
 .modal-body {
-    padding: 1.4rem 3rem 3rem!important
+    padding: 0.7rem 3rem 4rem!important
 }
 
 .nav-item .dropdown-item {
@@ -1236,13 +1251,17 @@ input:checked+.slider:before {
 
 /* Side nav bar Ram **/
 
+
+/* 
 body {
     overflow-x: hidden;
-}
+} */
 
 
 /* Toggle Styles */
 
+
+/* 
 #wrapper {
     padding-left: 0;
     -webkit-transition: all 0.6s ease;
@@ -1321,30 +1340,15 @@ body {
 .sidebar-nav li a {
     display: block;
     text-decoration: none;
-    color: white !important;
+    color: white;
 }
-
-.sidebar-nav li ul li a {
-    text-decoration: none;
-    color: #007EFF !important;
-    background: white;
-}
-
 
 .sidebar-nav li a:hover {
     text-decoration: none;
-    color: #007EFF !important;
+    color: #007EFF;
     background: white;
 }
-.sidebar-nav .dropdown-toggle::after {
-    display: inline-block;
-    margin-left: 1.255em;
-    vertical-align: 0.255em;
-    content: "";
-    border-top: 0.3em solid;
-    border-right: 0.3em solid transparent;
-    border-bottom: 0;
-}
+
 .sidebar-nav li a:active,
 .sidebar-nav li a:focus {
     text-decoration: none;
@@ -1372,7 +1376,9 @@ body {
     /* #wrapper.toggled {
         padding-left: 0;
     } */
-    #sidebar-wrapper {
+
+
+/* #sidebar-wrapper {
         width: 200px;
     }
     #wrapper.toggled #sidebar-wrapper {
@@ -1442,17 +1448,10 @@ body {
     #wrapper.toggled #page-content-wrapper {
         position: relative;
         margin-right: 0;
-    }
-}
+    }} */
 
 
-.nav-link[data-toggle].collapsed:before {
-    content: " ▾";
-}
-.nav-link[data-toggle]:not(.collapsed):before {
-    content: " ▴";
-}
-/* Side nav bar Ram **/
+/* Side nav bar Ram * */
 
 
 /*Urvashi- Dragging CSV **/
@@ -1466,429 +1465,250 @@ body {
 }
 
 
-/* =================== (START) CSS ADD by PRASHANT */
-.col-md-3 {
-    background: #fff;
-}
-.col-md-3:nth-child(2n) {
-    background: #ccc;
-}
-.recent_matches_section .row {
-    background: #FFF;
-    padding: 30px 20px;
-}
-.recent_matches_section .row:nth-child(odd) {
-    background: #F4F4F6;
-}
-.recent_matches_section .row .job-title-header {
-    margin-bottom: 20px;
-}
+/* Side nav bar Ram **/
 
-.recent_matches_section .row .job-title-header .job-title-text {
-    font-size: 16px;
-    color: #2E2E2E;
-    font-family: 'Montserrat, SemiBold';
-}
-.recent_matches_section .row .job-title-header .job-posted-time-text, .recent_matches_section .row .job-content .job-content-attributes {
-    font-size: 12px;
-    color: #2E2E2E;
-    font-family: 'Montserrat, Medium';
+body {
+    overflow-x: hidden;
 }
 
 
+/* Toggle Styles */
 
-
-.interviews-section .row-sec {
-    padding: 25px;
-    background-color: #FFF;
+#wrapper {
+    padding-left: 0;
+    -webkit-transition: all 0.6s ease;
+    -moz-transition: all 0.6s ease;
+    -o-transition: all 0.6s ease;
+    transition: all 0.6s ease;
 }
 
-.interviews-section .row-sec .job-title-header .job-title-text {
-    font-size: 20px;
-    color: #2E2E2E;
-    font-family: 'Montserrat, SemiBold';
-}
-.interviews-section .row-sec .job-title-header .job-posted-time-text, .interviews-section .row-sec .job-content .job-content-attributes {
-    font-size: 14px;
-    color: #2E2E2E;
-    font-family: 'Montserrat, Medium';
-}
-.interviews-section .row-sec .job-title-header {
-    margin-bottom: 30px;
-}
-
-@media (min-width: 576px) {
-    .interviews-section .card-columns {
-       column-count: 2 !important;
-   }
-}
-
-.interviews-section .card-columns {
-    margin-top: 20px;
-}
-.skill-set {
-    padding: 7px 20px;
-    background-color: #E5F2FF;
-    border-color: #CCE5FF;
-    margin-right: 15px;
-    border-radius: 5px;
-}
-.skill-set-text {
-    font-size: 14px;
-    color: #2E2E2E;
-    font-family: 'Montserrat, Medium';
-}
-
-.interviews-section .heading-text {
-    font-size: 16px;
-    color: #2E2E2E;
-    font-family: 'Montserrat, SemiBold';
-}
-
-.recent_matches_section {
-    background: #fff;
-    border-radius: 10px;
-    padding: 15px;
-    margin: 10px;
-}
-
-
-textarea.form-control {
-    height: auto !important; 
-}
-
-.left-nav-icon {
-    position: relative;
-    top: -2px;
-    height: 15px;
-    width: 15px;
-}
-
-/* =================== (END) CSS ADD by PRASHANT  */
-
-
-
-.right-panel {
-    background-color: #F1F1F1;
-}
-.section-divider {
-    margin-bottom: 1px;
-}
-.rwt__tablist {
-    padding: 0px 30px;
-    background-color: white;
-}
-
-.dropzone {
-    text-align: center;
-    padding: 20px;
-    border: none;
-    background-color: #FAFCFF;
-    color: #bdbdbd;
-}
-
-.react-tel-input .form-control {
-    width: 100% !important;
-    padding-left: 48px !important;
-}
-
-/* .rwt__tab {
-    padding: 13px 0px;
-    margin-right: 22px;
-} */
-/**
- * <div class="react-tags">
- *   <div class="react-tags__selected">
- *     <button class="react-tags__selected-tag">
- *       <span class="react-tags__selected-tag-name" />
- *     </button>
- *   </div>
- *   <div class="react-tags__search">
- *     <div class="react-tags__search-wrapper">
- *       <input class="react-tags__search-input" />
- *       <div />
- *     </div>
- *     <div class="react-tags__suggestions">
- *       <ul>
- *         <li class="is-active">
- *           <mark />
- *         </li>
- *         <li class="is-disabled">
- *           <mark />
- *         </li>
- *       </ul>
- *     </div>
- *   </div>
- */
- /*tag style */
- .react-tags {
-    position: relative;
-    padding: 6px 0 0 6px;
-    border: 1px solid #D1D1D1;
-    border-radius: 1px;
-  
-    /* shared font styles */
-    font-size: 1em;
-    line-height: 1.2;
-  
-    /* clicking anywhere will focus the input */
-    cursor: text;
-  }
-  
-  .react-tags.is-focused {
-    border-color: #B1B1B1;
-  }
-  
-  .react-tags__selected {
-    display: inline;
-  }
-  
-  .react-tags__selected-tag {
-    display: inline-block;
-    box-sizing: border-box;
-    margin: 0 6px 6px 0;
-    padding: 6px 8px;
-    border: 1px solid #D1D1D1;
-    border-radius: 2px;
-    background: #3683ef2e;
-  
-    /* match the font styles */
-    font-size: inherit;
-    line-height: inherit;
-  }
-  
-  .react-tags__selected-tag:after {
-    content: '\2715';
-    color: #AAA;
-    margin-left: 8px;
-  }
-  
-  .react-tags__selected-tag:hover,
-  .react-tags__selected-tag:focus {
-    border-color: #B1B1B1;
-  }
-  
-  .react-tags__search {
-    display: inline-block;
-  
-    /* match tag layout */
-    padding: 7px 2px;
-    margin-bottom: 6px;
-  
-    /* prevent autoresize overflowing the container */
-    max-width: 100%;
-  }
-  
-  @media screen and (min-width: 30em) {
-  
-    .react-tags__search {
-      /* this will become the offsetParent for suggestions */
-      position: relative;
-    }
-  
-  }
-  
-  .react-tags__search-input {
-    /* prevent autoresize overflowing the container */
-    max-width: 100%;
-    width: 100% !important;
-    /* remove styles and layout from this element */
-    margin: 0;
-    padding: 0;
-    border: 0;
-    outline: none;
-  
-    /* match the font styles */
-    font-size: inherit;
-    line-height: inherit;
-  }
-  
-  .react-tags__search-input::-ms-clear {
-    display: none;
-  }
-  
-  .react-tags__suggestions {
-    position: absolute;
-    top: 100%;
-    left: 0;
+.wrapper1 {
+    display: flex;
     width: 100%;
-  }
-  
-  @media screen and (min-width: 30em) {
-  
-    .react-tags__suggestions {
-      width: 240px;
-    }
-  
-  }
-  
-  .react-tags__suggestions ul {
-    margin: 4px -1px;
+    align-items: stretch;
+}
+
+.maincontent {
+    width: 100%;
+    padding-left: 200px;
+    min-height: 100vh;
+    transition: all 0.3s;
+}
+
+#wrapper.toggled {
+    padding-left: 200px;
+}
+
+#wrapper.toggled .maincontent {
+    padding: 20px !important;
+}
+
+#sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    left: 250px;
+    top: 0px;
+    width: 0;
+    height: 100%;
+    margin-left: -250px;
+    overflow-y: auto;
+    background-color: #042B63 !Important;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    width: 0;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    position: absolute;
+    padding: 10px;
+}
+
+#wrapper.toggled #page-content-wrapper {
+    position: absolute;
+    margin-left: -250px;
+}
+
+.sidebar-nav {
+    position: absolute;
+    top: 0;
+    right: 0px;
+    width: 200px;
+    margin: 0;
     padding: 0;
     list-style: none;
-    background: white;
-    border: 1px solid #D1D1D1;
-    border-radius: 2px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-  }
-  
-  .react-tags__suggestions li {
-    border-bottom: 1px solid #ddd;
-    padding: 6px 8px;
-  }
-  
-  .react-tags__suggestions li mark {
-    text-decoration: underline;
-    background: none;
-    font-weight: 600;
-  }
-  
-  .react-tags__suggestions li:hover {
-    cursor: pointer;
-    background: #eee;
-  }
-  
-  .react-tags__suggestions li.is-active {
-    background: #b7cfe0;
-  }
-  
-  .react-tags__suggestions li.is-disabled {
-    opacity: 0.5;
-    cursor: auto;
-  }
-/*close tag style */
-  /****datepicker**/
-  .react-date-picker {
-    display: inline-flex;
-    position: relative;
-  }
-  .react-date-picker,
-  .react-date-picker *,
-  .react-date-picker *:before,
-  .react-date-picker *:after {
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-  }
-  .react-date-picker--disabled {
-    background-color: #f0f0f0;
-    color: #6d6d6d;
-  }
-  .react-date-picker__wrapper {
-    display: flex;
-    flex-grow: 1;
-    flex-shrink: 0;
-    border: 1px solid #ced4da !important;
-    border-radius: 0.25rem !important;
-    padding:0.300rem 0.50rem !important;
-  }
-  .react-date-picker__inputGroup {
-    min-width: calc((4px * 3) +  0.54em * 8  +  0.217em * 2);
-    flex-grow: 1;
-    padding: 0 2px;
-    box-sizing: content-box;
-  }
-  .react-date-picker__inputGroup__divider {
-    padding: 1px 0;
-    white-space: pre;
-  }
-  .react-date-picker__inputGroup__input {
-    min-width: 0.54em;
-    height: 100%;
-    position: relative;
-    padding: 0 1px;
-    border: 0;
-    background: none;
-    font: inherit;
-    box-sizing: content-box;
-    -moz-appearance: textfield;
-  }
-  .react-date-picker__inputGroup__input::-webkit-outer-spin-button,
-  .react-date-picker__inputGroup__input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-  .react-date-picker__inputGroup__input:invalid {
-    background:transparent
-  }
-  .react-date-picker__inputGroup__input--hasLeadingZero {
-    margin-left: -0.54em;
-    padding-left: calc(1px +  0.54em);
-  }
-  .react-date-picker__button {
-    border: 0;
-    background: transparent;
-    padding: 4px 6px;
-  }
-  .react-date-picker__button:enabled {
-    cursor: pointer;
-  }
-  .react-date-picker__button:enabled:hover .react-date-picker__button__icon,
-  .react-date-picker__button:enabled:focus .react-date-picker__button__icon {
-    stroke: #0078d7;
-  }
-  .react-date-picker__button:disabled .react-date-picker__button__icon {
-    stroke: #6d6d6d;
-  }
-  .react-date-picker__button svg {
-    display: inherit;
-  }
-  .react-date-picker__calendar {
-    width: 350px;
-    max-width: 100vw;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    z-index: 1;
-  }
-  .react-date-picker__calendar--closed {
-    display: none;
-  }
-  .react-date-picker__calendar .react-calendar {
-    border-width: thin;
-  }
-  .react-calendar__tile--now{
-      background: transparent !important;
-  }
-  .react-calendar__tile--active{
-      color:#000 !important;
-  }
-  .react-calendar__tile--active{
-    background: #006edc !important;;
-    color: white !important;;
-  }
-/*close*/  
-
-.text-ctc{
-    color:#707070d6 !important;
 }
 
-/* Ram */
-.required {
-    color: red !important;
-  }
+/* .sidebar-nav li {
+     text-indent: 10px;
+    line-height: 40px; 
+    margin-bottom: 15px;
+    
+} */
 
-  /* modal css*/
-  .modal-label{
-    font-size: 1rem;
-    color: #3E3E3E!important;
-    font-family: Montserrat-Medium!important;
-  }
-  .modal-fade{
-    opacity: 50%;
-  }
-  .modal-header{
-    padding: 1.4rem 1.8rem 1rem 1.48rem!important;
-  }
-  .modal-title{
-    padding: 0rem 0.6rem!important;
-  }
-  .popup-header-row{
-    display: flex;
-    width: 440px;
-  }
-  .header-close-popup{
-    width: 12px;
-    height: 12px;
-  }
-  /* close modal css*/
+.sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    color: #FFFFFF!important;
+    padding: 15px 10px;
+}
+
+.toggled .sidebar-nav li a{
+    padding:10px 15px 10px 10px;
+}
+
+.menuText{
+    display: block;
+    padding-left: .5rem;
+}
+
+/* .toggled .sidebar-nav li a:hover {
+    background: none;
+} */
+
+.sidebar-nav li a:hover,
+.sidebar-nav li a.active {
+    text-decoration: none;
+    /* color: #007EFF!important; */
+    background: #031C3E;
+}
+
+.sidebar-nav .fa {
+    font-size: 1.1rem;
+}
+
+/* .sidebar-nav li span {
+    padding-left: .5rem;
+} */
+
+.toggled .sidebar-nav {
+    /* right: 15px; */
+    margin: 0;
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+    text-decoration: none;
+}
+
+.sidebar-nav li{
+    position: relative;
+}
+
+
+.sidebar-nav li .active::after{
+    content: "";
+    width: 6px;
+    height: 6px;
+    position: absolute;
+    right: 17px;
+    background: #fff;
+    border-radius:50%;
+    top: 22px;
+}
+
+.toggled .sidebar-nav li .active::after{
+    display: none;
+}
+
+.sidebar-nav>.sidebar-brand {
+    height: 50px;
+     font-size: 18px;
+    line-height: 50px;
+}
+
+.sidebar-nav>.sidebar-brand a {
+    color: #999999;
+}
+
+.sidebar-nav>.sidebar-brand a:hover {
+    color: #fff;
+   /*  background:  #031C3E; */
+}
+
+@media(min-width:768px) {
+    #wrapper {
+        padding-left: 220px;
+    }
+    /* #wrapper.toggled {
+        padding-left: 0;
+    } */
+    #sidebar-wrapper {
+        width: 200px;
+    }
+    #wrapper.toggled #sidebar-wrapper {
+        width: 40px;
+    }
+    .maincontent.toggled {
+        padding-left: 40px;
+    }
+    .maintcontent {
+        padding-left: 220px;
+    }
+    .menuText {
+        display: inline-block;
+    }
+    #wrapper.toggled i {
+        float: right;
+    }
+    #page-content-wrapper {
+        padding: 20px;
+        position: relative;
+    }
+    #wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+    }
+}
+
+@media(max-width:414px) {
+    #wrapper.toggled #page-content-wrapper {
+        position: absolute;
+        margin-right: 60px;
+    }
+    #wrapper.toggled {
+        padding-right: 60px;
+    }
+    #wrapper {
+        padding-left: 20px;
+    }
+    #wrapper.toggled {
+        padding-left: 0;
+    }
+    #sidebar-wrapper {
+        width: 50px;
+    }
+    #wrapper.toggled #sidebar-wrapper {
+        width: 140px;
+    }
+
+    #wrapper.toggled .sidebar-nav span {
+        display: block;
+        position: relative;
+        left: 70px;
+        bottom: 13px;
+    }
+    .menuText {
+        
+        display: none;
+    }
+    #wrapper.toggled i {
+        float: right;
+    }
+    #wrapper i {
+        float: right;
+    }
+    #page-content-wrapper {
+        padding: 5px;
+        position: relative;
+    }
+    #wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+    }
+}
