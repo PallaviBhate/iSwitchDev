@@ -32,5 +32,4 @@ const uploadCSV= (csvFileDetails)=>{
         .catch(error=>{console.log(error)})  
     )
 }
-}
 //4. Sending Dashboard details to backend
