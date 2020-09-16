@@ -37,7 +37,7 @@ export default class ProviderDashboard extends Component {
 						<section className="content_section col py-md-3 pl-md-4 bd-content">
 							{/* Importing Overview Cards, Top skills card and monthly Report Bar Graph */}
 							 {/* To display login User Details */}
-<h6>Welcome {details}</h6>
+							<h6>Welcome {details}</h6>
 							<OverviewCard />
 							<TopSkillsCard />
 							<BarGraph />

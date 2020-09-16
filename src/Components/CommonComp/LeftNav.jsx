@@ -18,23 +18,23 @@ const LeftNav = ()=>{
         <div id="sidebar-wrapper">
             <ul className="sidebar-nav" > 
                 <li> 
-                   <img src="images/NavBar/logo.png" alt="" className="ml-3"/>                                 
+                   <img src="images/NavBar/logo.png" alt="" className="ml-4"/>                                 
                 </li>
                 <li className="sidebar-brand">                    
                         <a href="#"  id="menu-toggle">
-                         <i className="fa fa-bars mr-1  "  aria-hidden="true"></i><span>Menu</span>
+                         <i className="fa fa-bars "  aria-hidden="true"></i> 
                     </a>
                 </li>
                 
                 <li> 
-                    <Link to = {'/providerDashboard'}><i className="fa fa-dashboard" aria-hidden="true"></i> <span>Dashboard</span></Link>                    
+                <Link to = {'/providerDashboard'}><i className="fa fa-dashboard mr-1" aria-hidden="true"> </i> <span >Dashboard</span></Link>                    
                 {/* <Link to = {'/providerDashboard'}><img src={dashboardlogo} alt="" className="mr-0"/> <span >Dashboard</span></Link>                     */}
                 </li>
                 <li>
-                    <Link to = {'/uploadProfile'}><i className="fa fa-user mr-1" aria-hidden="true"></i><span>Upload Profile</span></Link>
+                <Link to = {'/uploadProfile'}><i className="fa fa-user mr-1" aria-hidden="true"> </i> <span > Upload Profile</span></Link>
                 </li>
                 <li>
-                    <Link to = {'/ManageUser'}> <i className="fa fa-user-plus" aria-hidden="true"></i><span>Manage User</span></Link>
+                <Link to = {'/ManageUser'}> <i className="fa fa-user-plus mr-1" aria-hidden="true"> </i> <span > Manage User</span></Link>
                 </li>               
             </ul>
         </div>

@@ -20,7 +20,7 @@ export default class TopSkillsCard extends Component {
                                 <tbody>
                                     <tr>
                                         <td className="border-top-0">
-                                            <img src="images/dashboard-assets/java_logo.jpg" width="30" height="30" className="rounded-circle" />
+                                            <img src="/images/dashboard-assets/java_logo.jpg" width="30" height="30" className="rounded-circle" />
                                             <span className="">JAVA</span>
                                         </td>
                                         <td className="border-top-0">
@@ -29,7 +29,7 @@ export default class TopSkillsCard extends Component {
                                     </tr>
                                     <tr>
                                         <td className="border-top-0">
-                                            <img src="images/dashboard-assets/angular_logo.png" width="30" height="30" className="rounded-circle" />
+                                            <img src="/images/dashboard-assets/angular_logo.png" width="30" height="30" className="rounded-circle" />
                                             <span className="">Angular</span>
                                         </td>
                                         <td className="border-top-0">
@@ -38,7 +38,7 @@ export default class TopSkillsCard extends Component {
                                     </tr>
                                     <tr>
                                         <td className="border-top-0">
-                                            <img src="images/dashboard-assets/nodejs_logo.png" width="30" height="30" className="rounded-circle" />
+                                            <img src="/images/dashboard-assets/nodejs_logo.png" width="30" height="30" className="rounded-circle" />
                                             <span className="">Node JS</span>
                                         </td>
                                         <td className="border-top-0">
@@ -47,7 +47,7 @@ export default class TopSkillsCard extends Component {
                                     </tr>
                                     <tr>
                                         <td className="border-top-0">
-                                            <img src="images/dashboard-assets/android_logo.png" width="30" height="30" className="rounded-circle" />
+                                            <img src="/images/dashboard-assets/android_logo.png" width="30" height="30" className="rounded-circle" />
                                             <span className="">Android</span>
                                         </td>
                                         <td className="border-top-0">
@@ -74,7 +74,7 @@ export default class TopSkillsCard extends Component {
                                 <tbody>
                                     <tr>
                                         <td className="border-top-0">
-                                            <img src="images/dashboard-assets/mongodb_logo.png" width="30" height="30" className="rounded-circle" />
+                                            <img src="/images/dashboard-assets/mongodb_logo.png" width="30" height="30" className="rounded-circle" />
                                             <span className="">MONGO DB</span>
                                         </td>
                                         <td className="border-top-0">
@@ -83,7 +83,7 @@ export default class TopSkillsCard extends Component {
                                     </tr>
                                     <tr>
                                         <td className="border-top-0">
-                                            <img src="images/dashboard-assets/python_logo.png" width="30" height="30" className="rounded-circle" />
+                                            <img src="/images/dashboard-assets/python_logo.png" width="30" height="30" className="rounded-circle" />
                                             <span className="">PYTHON</span>
                                         </td>
                                         <td className="border-top-0">
@@ -92,7 +92,7 @@ export default class TopSkillsCard extends Component {
                                     </tr>
                                     <tr>
                                         <td className="border-top-0">
-                                            <img src="images/dashboard-assets/php_logo.png" width="30" height="30" className="rounded-circle" />
+                                            <img src="/images/dashboard-assets/php_logo.png" width="30" height="30" className="rounded-circle" />
                                             <span className="">PHP</span>
                                         </td>
                                         <td className="border-top-0">
@@ -101,7 +101,7 @@ export default class TopSkillsCard extends Component {
                                     </tr>
                                     <tr>
                                         <td className="border-top-0">
-                                            <img src="images/dashboard-assets/swift_logo.png" width="30" height="30" className="rounded-circle" />
+                                            <img src="/images/dashboard-assets/swift_logo.png" width="30" height="30" className="rounded-circle" />
                                             <span className="">SWIFT</span>
                                         </td>
                                         <td className="border-top-0">

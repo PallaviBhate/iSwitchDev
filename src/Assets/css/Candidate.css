@@ -1,0 +1,236 @@
+
+.mt25 {
+    margin-top: 25px;
+}
+.btn-add {
+    color: #007EFF !important;
+    border-color: #007EFF !important;
+    padding-left: 50px !important;
+    padding-right: 50px !important; 
+}
+.btn-add:hover {
+    background-color: #007EFF !important;
+    color: white !important;
+}
+.row-pad-row {
+    padding-left: 15px !important;
+    padding-right: 0px !important;
+}
+.mt30 {
+    margin-top: 30px;
+}
+
+/* .modal-content * {
+    color: #54575C;
+} */
+
+.content-fashion * {
+    color: #54575C;
+}
+.h4-fashion {
+    font-weight: 600;
+    color: #2E2E2EE5;
+}
+.subtitle-light {
+    font-size: 16px;
+}
+.subtitle-medium {
+    font-size: 16px;
+    font-weight: 300;
+}
+.subtitle-semi-bold {
+    font-size: 16px;
+    font-weight: 600;
+}
+.normal-text-light {
+    font-size: 14px;
+}
+.normal-text-medium {
+    font-size: 14px;
+    font-weight: 300;
+}
+.normal-text-semi-bold {
+    font-size: 14px;
+    font-weight: 600;
+}
+.small-text-light {
+    font-size: 12px;
+}
+
+.border {
+    color: #CCE5FF;
+}
+.content-fashion {
+    background-color: #f1f1f1;
+}
+.container-fashion {
+    padding: 45px 25px;
+}
+.row-fashion {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+    background-color: white;
+    margin-bottom: 20px;
+    padding: 30px 30px
+}
+
+.progress-fashion {
+    margin-top: 50px;
+    height: 10px !important;
+}
+
+.dropzone-input {
+    margin-top: 50px;
+    align-items: center;
+    justify-items: center;
+    text-align: center;
+}
+
+.dropzone-content {
+    margin-top: 20px;
+}
+
+.profile-row-fashion {
+    margin-top: 20px;
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+    background-color: white;
+    padding: 30px 25px 30px 18px
+}
+
+.profile-col-left {
+    flex: 0 0 25%;
+    max-width: 25%;
+}
+.profile-col-right {
+    flex: 0 0 75%;
+    max-width: 75%;
+}
+
+.profile-summary-col-left {
+    flex: 0 0 25%;
+    max-width: 25%;
+}
+.profile-summary-col-right-30 {
+    flex: 0 0 25%;
+    max-width: 25%;
+}
+.profile-summary-col-right {
+    flex: 0 0 75%;
+    max-width: 75%;
+}
+.profile-details {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+    background-color: white;
+    margin-bottom: 20px;
+    padding: 0px 25px 30px 18px;
+    align-items: flex-end;
+}
+.mgl-10 {
+    margin-left: 10px;
+}
+.camera-container {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    background: white;
+    border-radius: 44px;
+    top: 178px;
+    left: 110px;
+}
+.camera-icon {
+    position: relative;
+    top: 3px;
+    left: 7px;
+}
+.fr {
+    float: right;
+}
+.left-sec-heading {
+    padding-left: 15px;
+}
+.left-sec-heading-text {
+    margin-left: 10px;
+}
+.right-sec {
+    padding-left: 20px;
+    padding-top: 3px;
+}
+.edit-icon {
+    float: right;
+    margin-left: 20px;
+    width: 12px;
+    height: 15px;
+}
+.left-sec-icon {
+    position: relative;
+    top: -2px;
+}
+.table-thead {
+    border-top: none;
+}
+.edit-icon-column {
+    padding-right: 0px !important;
+}
+
+.table thead th {
+    border-top: none;
+    padding-top: 4px;
+}
+.table tbody tr:last-child td
+{
+    border-bottom: 1px solid #dee2e6;
+}
+.table thead tr th:first-child, .table tbody tr td:first-child {
+    padding-left: 20px;
+}
+.employment .employment-col:nth-child(2) {
+    border-left: 1px solid #0000000A;
+    padding-left: 25px;
+}
+.employment .employment-col:nth-child(1) {
+    padding-right: 35px;
+}
+
+.dropzone-box {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: #FAFCFF;
+    margin-top: 25px;
+    padding: 25px;
+}
+.choose-file {
+    padding-left: 35px !important;
+    padding-right: 35px !important;
+    margin-top: 10px;
+}
+.pad-left {
+    padding-left: 35px;
+}
+.progress .bg-success {
+    background-color: #28C567 !important;
+}
+
+.profie-description {
+    padding-right: 30px
+}
+.pdr-zero {
+    padding-right: 0px !important;
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: transparent;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+  background-repeat: no-repeat;
+  background-position-x: 100%;
+  background-position-y: 5px;
+  border: 1px solid #dfdfdf;
+  border-radius: 2px;
+  margin-right: 2rem;
+  padding: 1rem;
+  padding-right: 2rem;
+}
