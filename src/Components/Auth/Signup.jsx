@@ -2,14 +2,19 @@ import React, { Component, Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import Header from '../CommonComp/Header'
 import Footer from '../CommonComp/Footer'
-import TermsOfUse from '../Auth/TermsOfUse'
-import PrivacyPolicy from '../Auth/PrivacyPolicy'
-import axios from 'axios'
-import Toast from 'light-toast';
+import ApiServicesOrg from '../../Services/ApiServicesOrg'
+import { Toast } from 'primereact/toast';
+
+//import TermsOfUse from '../Auth/TermsOfUse'
+//import PrivacyPolicy from '../Auth/PrivacyPolicy'
+//import axios from 'axios'
+// import Toast from 'light-toast';
+
 
 export default class Signup extends Component {
     constructor() {
         super()
+        this.signupService = new ApiServicesOrg()
         this.state = {
             fields: {},
             errors: {},
@@ -19,9 +24,6 @@ export default class Signup extends Component {
         }
         this.handleChange = this.handleChange.bind(this);
         this.submituserRegistrationForm = this.submituserRegistrationForm.bind(this);
-        // this.isSubmitEnabled = this.isSubmitEnabled.bind(this);
-        // this.openNav = this.openNav.bind(this);
-        // this.closeNav = this.closeNav.bind(this);
     }
     handleChange = (e) => {
         let fields = this.state.fields;
@@ -66,18 +68,17 @@ export default class Signup extends Component {
                 'Content-Type': 'application/json', 
                 } 
                 };
-              axios
-              .post("https://techm-jobzilla.herokuapp.com/jobs/user/signup", this.state.fields, options)
-              .then(Response=>{console.log("Success..",Response)
-              this.props.history.push('/')})
-              .catch(error=>{console.log("Error Occured..",error)})
-        	
-            // alert("You have Signup Successfully");
-            Toast.info('User Signup successfully',4000);
-            //console.log(this.state.fields)
-            localStorage.setItem('jobzilla',JSON.stringify(this.state.fields));         
-          }
-    }
+    // Calling Signup Service from Service file:-
+    
+            this.signupService.postSignup(this.state.fields)
+            .then(Response=> {this.props.history.push('/')
+                localStorage.setItem('jobzilla',JSON.stringify(this.state.fields));
+            })
+          .catch(error=>{this.toast.show({severity: 'error', summary: 'Error', detail: 'Server Error'},50000);
+            })
+            this.toast.show({severity: 'success', summary: 'Success Message', detail: 'User is Signed up Successfully'},50000); 
+        }
+        }
     validateForm = () => {
         let fields = this.state.fields;
         let errors = {};
@@ -162,94 +163,8 @@ export default class Signup extends Component {
         });
         return formIsValid;
     }
-    // isSubmitEnabled() {
-    //  const fields = this.state.fields;
-    //  if(fields){
-    //     return true;
-    //  }
-    //  return false;
-    //   }
-    // openNav() {
-    //  document.getElementById("mySidenav").style.width = "250px";
-    //  document.getElementById("hamburger").style.display = "none";
-    //  document.getElementById("sidenavOptions").style.display = "block";
-    //   }
-
-    //   closeNav() {
-    //  document.getElementById("mySidenav").style.width = "70px";
-    //  document.getElementById("sidenavOptions").style.display = "none";
-    //  document.getElementById("hamburger").style.display = "block";
-    //   }
-
-       FloatLabel = (() => {
-  
-        // add active className
-          const handleFocus = (e) => {
-          const target = e.target;
-          target.parentNode.classList.add('active');
-          target.setAttribute('placeholder', target.getAttribute('data-placeholder'));
-        };
-        
-        // remove active className
-          const handleBlur = (e) => {
-          const target = e.target;
-          if(!target.value) {
-            target.parentNode.classList.remove('active');
-          }
-          target.removeAttribute('placeholder');
-        };
-        
-        // register events
-          const bindEvents = (element) => {
-          const signup_OrgName_floatField = element.querySelector('input');
-          signup_OrgName_floatField.addEventListener('focus', handleFocus);
-          signup_OrgName_floatField.addEventListener('blur', handleBlur);  
-          
-          const signup_email_floatField = element.querySelector('input');
-          signup_email_floatField.addEventListener('focus', handleFocus);
-          signup_email_floatField.addEventListener('blur', handleBlur);
-          
-          const signup_mobilenumber_floatField = element.querySelector('input');
-          signup_mobilenumber_floatField.addEventListener('focus', handleFocus);
-          signup_mobilenumber_floatField.addEventListener('blur', handleBlur);
-          
-          const signup_name_floatField = element.querySelector('input');
-          signup_name_floatField.addEventListener('focus', handleFocus);
-          signup_name_floatField.addEventListener('blur', handleBlur);
-          
-          const signup_gstin_floatField = element.querySelector('input');
-          signup_gstin_floatField.addEventListener('focus', handleFocus);
-          signup_gstin_floatField.addEventListener('blur', handleBlur);
-          
-          const signup_pwd_floatField = element.querySelector('input');
-          signup_pwd_floatField.addEventListener('focus', handleFocus);
-          signup_pwd_floatField.addEventListener('blur', handleBlur);
-          
-          const signup_cnfpwd_floatField = element.querySelector('input');
-          signup_cnfpwd_floatField.addEventListener('focus', handleFocus);
-          signup_cnfpwd_floatField.addEventListener('blur', handleBlur);
-          
-          
-          };
-        
-        // get DOM elements
-          const init = () => {
-          const floatContainers = document.querySelectorAll('.float-container');
-          floatContainers.forEach((element) => {
-      
-            if (element.querySelector('input').value) {
-              element.classList.add('active');
-            }
-      
-            bindEvents(element);
-          });
-        };
-        
-        return {
-          init: init
-        };
-      })();
-
+    
+       
         
     render() {       
         const {org_name,email,mobile,contactPerson,gstin,password,confirm_password} = this.state.fields
@@ -259,6 +174,7 @@ export default class Signup extends Component {
                     {/*  Header */}
                     <Header></Header>
                     {/* Main Content on the page */}
+                    <Toast ref={(el) => this.toast = el} />
                     <div className="content_section main login">
                         <h2>Sign Up</h2>
                         <p className="small-title">Welcome to Jobzilla</p>
@@ -310,11 +226,7 @@ export default class Signup extends Component {
                                 <div className="form-group">
                                     <label htmlFor="signup_gstin">GSTIN (optional)</label>
                                     <input type="text" id="signup_gstin" className="form-control" name="gstin" value={this.state.fields.gstin} onChange={ (e) => {this.handleChange(e);this.validateForm();} } 
-                                    onBlur = {(e) => {this.handleTouch(e);this.validateForm();} }  />
-                                    {
-                                    this.state.formSubmitted || this.state.touched.contactPerson?
-                                        <div className="errorMsg">{this.state.errors.contactPerson}</div>:''                     
-                                    }
+                                     />
                                 </div>
                                 {/* Password */}
                                 <div className="form-group">

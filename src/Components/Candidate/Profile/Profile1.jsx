@@ -18,7 +18,7 @@ import './profile.css';
 import { EDIT_PROFILE_NAME, EDIT_ABOUT, EDIT_CTC, EDIT_SKILL, EDIT_CERTIFICATE, EDIT_EMPLOYMENT, EDIT_EDUCATION, EDIT_PERSONAL, EDIT_DESIRED_PROFILE, EDIT_LANGUAGE } from '../../../Utils/AppConst';
 import Footer from '../../CommonComp/Footer';
 import HeaderAll from '../../CommonComp/HeaderAll';
-import CandidateLeftNav from '../../CommonComp/CandidateLeftNav';
+import LeftNavCandidate from '../../CommonComp/LeftNavCandidate';
 import ScrollUpButton from "react-scroll-up-button";
 class Profile extends Component {
 
@@ -557,7 +557,7 @@ class Profile extends Component {
     const details = localStorage.getItem('emaildetails');
     return (
       <div>
-        <CandidateLeftNav></CandidateLeftNav>
+        <LeftNavCandidate></LeftNavCandidate>
         <div className="maincontent toggled">
         <HeaderAll isCandidate={true}></HeaderAll>
           {/* <UploadProfile/> */}

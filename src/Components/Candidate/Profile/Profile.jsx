@@ -1,5 +1,5 @@
 import React from 'react'
-import CandidateLeftNav from '../../CommonComp/CandidateLeftNav'
+import LeftNavCandidate from '../../CommonComp/LeftNavCandidate'
 import HeaderAll from '../../CommonComp/HeaderAll'
 import { Information, NavBar, LanguageKnown } from './details';
 import { Breadcrumbs } from '../../CommonComp/breadcrumbs/index';
@@ -17,7 +17,7 @@ export const Profile = () => {
     }
     return (
         <div>
-            <CandidateLeftNav />
+            <LeftNavCandidate />
             <div className="maincontent toggled">
                 <HeaderAll isCandidate={true} />
                 <div class='container-fluid px-5 py-4 right-panel'>
