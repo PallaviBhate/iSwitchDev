@@ -1232,10 +1232,13 @@ input:checked+.slider:before {
     right: 0;
 }
 
-
+<<<<<<< HEAD
 /* Side nav bar Urvashi-Sakshi **/
 
-body {
+=======
+/* Side nav bar Ram **/
+
+>>>>>>>0b70ad1f8e3a3dacafa5af11ccf2ad6db7357b67 body {
     overflow-x: hidden;
 }
 
@@ -1335,6 +1338,16 @@ body {
     display: block;
     padding-left: .5rem;
 }
+
+.menuText {
+    display: block;
+    padding-left: .5rem;
+}
+
+
+/* .toggled .sidebar-nav li a:hover {
+    background: none;
+} */
 
 
 /* .toggled .sidebar-nav li a:hover {
