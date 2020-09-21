@@ -29,7 +29,7 @@ const LeftNavCandidate = () => {
                         <NavLink to={'/candidate/dashboard'} 
                                  activeClassName="active"
                                  isActive={isActive.bind(this, '/candidate/dashboard')}>
-                            <i><img src="images/Candidate-Navbar-assets/dashboard-icon.svg" aria-hidden="true" /></i>
+                            <i><img src="/images/Candidate-Navbar-assets/dashboard-icon.svg" aria-hidden="true" /></i>
                             <span className="menuText">Dashboard</span>
                         </NavLink>
                     </li>
@@ -38,7 +38,7 @@ const LeftNavCandidate = () => {
                            activeClassName="active"
                            isActive={isActive.bind(this, '/jobOffers')}
                             data-toggle="collapse" data-target="#submenu1sub1">
-                            <i><img src="images/Candidate-Navbar-assets/interviews-icon.svg" aria-hidden="true" /></i>
+                            <i><img src="/images/Candidate-Navbar-assets/interviews-icon.svg" aria-hidden="true" /></i>
                              <span className="menuText">Interviews</span>
                         </Link>
                         <div className="collapse" id="submenu1sub1" aria-expanded="false">
@@ -47,7 +47,7 @@ const LeftNavCandidate = () => {
                                     <NavLink class="dropdown-item" exact to="/recruiterDashboard" 
                                     activeClassName="active"
                                     >
-                                        {/* <i aria-hidden="true"></i> */}
+                                        <i><img src="/images/Candidate-Navbar-assets/Group538.svg" aria-hidden="true" /></i>
                                         <span className="menuText">Invites</span>
                                     </NavLink>
                                 </li>
@@ -55,7 +55,7 @@ const LeftNavCandidate = () => {
                                     <NavLink class="dropdown-item" to={"/emailSetting"}
                                     activeClassName="active"
                                     >
-                                    <i aria-hidden="true"></i>
+                                    <i><img src="/images/Candidate-Navbar-assets/Group538.svg" aria-hidden="true" /></i>
                                     <span className="menuText">Accepted</span>
                                     </NavLink>
                                 </li>                              
@@ -67,7 +67,7 @@ const LeftNavCandidate = () => {
                         <NavLink to={'/jobOffers'}
                         activeClassName="active"
                         isActive={isActive.bind(this, '/jobOffers')}>
-                            <i><img src="images/Candidate-Navbar-assets/job-offers.svg" aria-hidden="true" /></i>
+                            <i><img src="/images/Candidate-Navbar-assets/job-offers.svg" aria-hidden="true" /></i>
                             <span className="menuText">Job Offers</span></NavLink>   
                     </li>
 
@@ -75,13 +75,13 @@ const LeftNavCandidate = () => {
                         <NavLink to={'/searchJob'}
                         activeClassName="active"
                         isActive={isActive.bind(this,'/searchJob')}>
-                           <i><img src="images/Candidate-Navbar-assets/job-search.svg" aria-hidden="true"></img></i>
+                           <i><img src="/images/Candidate-Navbar-assets/job-search.svg" aria-hidden="true"></img></i>
                             <span className="menuText">Search Jobs</span></NavLink>   
                     </li>
                     <li data-toggle="tooltip" data-placement="right" title="Profile">
                     <NavLink to={'/candidate/profile'}                        activeClassName="active"
                         isActive={isActive.bind(this,'/candidate/profile')}>
-                            <i><img src="images/Candidate-Navbar-assets/profile.svg" aria-hidden="true"></img></i>
+                            <i><img src="/images/Candidate-Navbar-assets/profile.svg" aria-hidden="true"></img></i>
                             <span className="menuText">Profile</span></NavLink>   
                     </li>
                 </ul>

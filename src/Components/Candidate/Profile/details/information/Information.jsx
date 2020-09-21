@@ -1,7 +1,9 @@
 import React from 'react'
 import { EDIT_PROFILE_NAME } from '../../../../../Utils/AppConst'
 
-export const Information = ({showPopup}) => {
+export const Information = ({ showPopup, candidateProfile }) => {
+  const { firstName, lastName, currentRole, company, address, mobileNumber, emailId } = candidateProfile;
+  console.log(candidateProfile)
   return (
     <div class="bg-white pl-3 pr-5 py-5 section-divider align-items-center">
       <div class="row align-items-center">
@@ -10,22 +12,22 @@ export const Information = ({showPopup}) => {
         </div>
         <div class="col col-md-9 col-xs-12 align-items-center">
           <div>
-            <h3 class="mb-2">John Doe</h3>
+            <h3 class="mb-2">{firstName} {lastName}</h3>
           </div>
-          <span class="visible-lg-inline">Software Developer at TCS</span>
-          <hr class="mb-4"/>
+          <span class="visible-lg-inline">{currentRole} at {company}</span>
+          <hr class="mb-4" />
           <div class="row">
             <div class="col col-md-4 col-xs-12">
               <img src="/images/Dashboard-assets/candidate/location.png" alt="Cinque Terre" />
-              <span class="normal-text-medium mgl-10">Mumbai, India</span>
+              <span class="normal-text-medium mgl-10">{address}</span>
             </div>
             <div class="col col-md-4 col-xs-12">
               <img src="/images/Dashboard-assets/candidate/mobile.png" alt="Cinque Terre" />
-              <span class="normal-text-medium mgl-10">+91 1234567890</span>
+              <span class="normal-text-medium mgl-10">{mobileNumber}</span>
             </div>
             <div class="col col-md-4 col-xs-12">
               <img src="/images/Dashboard-assets/candidate/message.png" alt="Cinque Terre" />
-              <span class="normal-text-medium mgl-10">Johndoe@tcs.com</span>
+              <span class="normal-text-medium mgl-10">{emailId}</span>
             </div>
           </div>
           <div class="col-9 pl-0">

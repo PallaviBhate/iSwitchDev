@@ -16,7 +16,7 @@ export const Resume = () => {
         <span>Last updated on 10 sept 2020</span>
       </div>
       <div class="col">
-        <UploadFile />
+        <UploadFile isCandidate={true}/>
       </div>
     </div>
   )

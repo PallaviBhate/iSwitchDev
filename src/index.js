@@ -8,10 +8,11 @@ import '../node_modules/font-awesome/css/font-awesome.min.css';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
-
+import { ProfileProvider } from './Context/ProfileContext'
 ReactDOM.render(
-
+  <ProfileProvider>
     <App />
+  </ProfileProvider>
   ,
   document.getElementById('root')
 );
