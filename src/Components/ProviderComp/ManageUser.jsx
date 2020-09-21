@@ -7,10 +7,9 @@ import AddUser from '../ProviderComp/AddUser'
 import EditUser from '../ProviderComp/EditUser'
 import {DataTable} from 'primereact/datatable';
 import {Column} from 'primereact/column';
-import LeftNav from '../CommonComp/LeftNav'
- 
+import LeftNavProvider from '../CommonComp/LeftNavProvider'
+import { Toast } from 'primereact/toast';
 
-//  import { Toast } from 'primereact/toast';
 import { Button } from 'primereact/button';
 
 import { InputTextarea } from 'primereact/inputtextarea';
@@ -99,13 +98,14 @@ class ManageUser extends Component{
                 'Content-Type':'application/json'
             }
         };
+
         //API call to delete single data
        
         axios
         .delete(`https://techm-jobzilla.herokuapp.com/jobs/user/userById/${this.state.user.id}`, options)
         .then(Response=> {console.log("Success..",Response)})
         .catch(error=>{console.log("Error Occured...",error)})
-
+this.toast.show({severity: 'success', summary: 'Success Message', detail: 'User deleted Successfully'},50000);
     let users = this.state.users.filter(val => val.id !== this.state.user.id);
     this.setState({
         users,
@@ -137,7 +137,8 @@ class ManageUser extends Component{
         .then(Response=>{console.log("Success..",Response)})
         .catch(error=>{console.log("Error Occured...",error)})
 
-
+        this.toast.show({severity: 'success', summary: 'Success Message', detail: 'User deleted Successfully'},50000);
+        
     let users = this.state.users.filter(val => 
         !this.state.selectedUsers.includes(val));
     this.setState({
@@ -222,13 +223,14 @@ class ManageUser extends Component{
         );
            return(
             <Fragment>
-                <LeftNav></LeftNav>
+                <LeftNavProvider></LeftNavProvider>
 				<div className="maincontent toggled">
             <div className="content">
                 {/*  Header */}
                 <HeaderAll></HeaderAll>
                 {/* Main Content on the page */}
                 <div className="content_section main">
+                <Toast ref={(el) => this.toast = el} />
                     <div className="mt-3">
                         <h4>Manage Users</h4>
                         <p className="mb-0">Recruitment is not a one-person job; therefore, we have got you covered! </p>
@@ -244,7 +246,7 @@ class ManageUser extends Component{
                     
 
 <Column selectionMode="multiple" headerStyle={{ width: '3rem' }}></Column>
-<Column field="id" header="#"  style={{width:'6%'}}  sortable></Column>
+{/* <Column field="id" header="#"  style={{width:'6%'}}  sortable></Column> */}
 <Column field="userName" header="Name" style={{width:'15%'}} sortable></Column>
  <Column field="email" header="EmailId" style={{width:'25%'}} sortable></Column>
                        

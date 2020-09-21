@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
-import OverviewCard from '../CommonComp/Dashboard/OverviewCard';
-import TopSkillsCard from '../CommonComp/Dashboard/TopSkillsCard';
-import RecentMatches from '../CommonComp/Dashboard/RecentMatches';
+import OverviewCard from '../CommonComp/DashboardComp/OverviewCard';
+import TopSkillsCard from '../CommonComp/DashboardComp/TopSkillsCard';
+import RecentMatches from '../CommonComp/DashboardComp/RecentMatches';
 import Footer from '../CommonComp/Footer';
-import CandidateLeftNav from '../CommonComp/CandidateLeftNav';
+import LeftNavCandidate from '../CommonComp/LeftNavCandidate'
 import HeaderAll from '../CommonComp/HeaderAll';
 import ScrollUpButton from "react-scroll-up-button";
+
 class Dashboard extends Component {
 	render() {
 		const details = localStorage.getItem('emaildetails')
 		return (
 			<div>
-				<CandidateLeftNav></CandidateLeftNav>
+				<LeftNavCandidate></LeftNavCandidate>
 				<div className="maincontent toggled">
 					<HeaderAll isCandidate={true}></HeaderAll>
 					{/* <UploadProfile/> */}

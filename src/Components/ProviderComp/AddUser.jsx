@@ -1,7 +1,8 @@
 import { Modal } from 'react-bootstrap'
 import React,{ Component } from 'react';
 import {Messages} from 'primereact/messages'
-import Toast from 'light-toast';
+// import Toast from 'light-toast';
+import { Toast } from 'primereact/toast';
 import axios from 'axios'
 
 class AddUser extends Component{
@@ -88,13 +89,14 @@ showError= (e) => {
           axios
          .post("https://techm-jobzilla.herokuapp.com/jobs/user/user", this.state.fields, options)
          .then(Response=>{console.log("Success..",Response)
-         Toast.info("User Added Successfully")
+        //  Toast.info("User Added Successfully")
          this.hideModal()
-         window.location.reload()
-          }
-          )
+         window.location.reload()})
+          .catch(error=>{console.log("Error Occured..",error)})
+          
+          this.toast.show({severity: 'success', summary: 'Success Message', detail: 'User is added Successfully'},50000);
+
          
-         .catch(error=>{console.log("Error Occured..",error)}) 
         //  this.showSuccess()
         
          localStorage.setItem("hobzilla",JSON.stringify(this.state.fields))
@@ -165,6 +167,7 @@ showError= (e) => {
         show={this.state.show}
         onHide={() => this.hideModal(false)}
         aria-labelledby="contained-modal-title-vcenter"> 
+        <Toast ref={(el) => this.toast = el} />
           <Modal.Header closeButton>
             <Modal.Title className="sub-title" id="contained-modal-title-vcenter">
               Add user

@@ -1,33 +1,38 @@
-import axios from 'axios'; 
-
 import React,{Component, Fragment} from 'react'; 
-// import Toast from 'light-toast';
 import { Toast } from 'primereact/toast';
 import HeaderAll from '../CommonComp/HeaderAll'
 import Footer from '../CommonComp/Footer'
 import Dropzone from 'react-dropzone';
-import LeftNav from '../CommonComp/LeftNav'
+import LeftNavProvider from '../CommonComp/LeftNavProvider'
+import ApiServicesOrg from '../../Services/ApiServicesOrg'
+import axios from 'axios'
+
 class UploadProfile extends Component {
 
     constructor(props) {
         super(props);
+        this.fileService = new ApiServicesOrg()
         
     }
     
-    //Code to download sample csv template with API
-    downloadEmployeeData = () => {
-        fetch('https://techm-jobzilla.herokuapp.com/jobs/user/csvdownload')
-            .then(response => {
-                response.blob().then(blob => {
-                    let url = window.URL.createObjectURL(blob);
-                    let a = document.createElement('a');
-                    a.href = url;
-                    a.download = 'sample.csv';
-                    a.click();
-                });
-                
-        });
-    }
+           downloadEmployeeData = () => {
+
+            // Calling Download Sample File Service from Service file:-
+                this.fileService.fetchSampleFile()
+                .then(response => {
+                    response.blob().then(blob => {
+                        let url = window.URL.createObjectURL(blob);
+                        let a = document.createElement('a');
+                        a.href = url;
+                        a.download = 'sample.csv';
+                        a.click();
+                    })
+                })
+                .catch(error => {
+                    this.toast.show({severity: 'warn', summary: 'Error', detail: 'Please upload file having extensions .csv only.', life:50000})
+                 })   
+            
+        }
 
     state = { 
            
@@ -55,20 +60,20 @@ class UploadProfile extends Component {
            var filemode1= this.state.DraggedFile
            var filemode2= this.state.selectedFile
             
-  if (filemode1!=''){ var fileInput= filemode1}
-  else {var fileInput= filemode2}
-    console.log(fileInput.name)
-        if(fileInput!=''){
-            var allowedExtensions = /(\.csv)$/i;
-            if(!allowedExtensions.exec(fileInput.name)){
-                this.toast.show({severity: 'warn', summary: 'Error', detail: 'Please upload file having extensions .csv only.'},50000);
-                // Toast.info('Please upload file having extensions .csv only.',4000);
-                fileInput.value = '';
-                return false;
-            }  
+    if (filemode1!=''){ var fileInput= filemode1}
+    else {var fileInput= filemode2}
+        console.log(fileInput.name)
+            if(fileInput!=''){
+                var allowedExtensions = /(\.csv)$/i;
+                if(!allowedExtensions.exec(fileInput.name)){
+                    this.toast.show({severity: 'warn', summary: 'Error', detail: 'Please upload file having extensions .csv only.'},50000);
+                    // Toast.info('Please upload file having extensions .csv only.',4000);
+                    fileInput.value = '';
+                    return false;
+                }  
+            }
+                
         }
-            
-    }
 
         //Dragging csv file to upload
         uploadFile=()=> {
@@ -94,6 +99,8 @@ class UploadProfile extends Component {
                     this.state.selectedFile,
                    ); 
             }
+
+
             axios
             .post("https://techm-jobzilla.herokuapp.com/jobs/user/uploadcsv", formData,options) 
 
@@ -109,7 +116,7 @@ class UploadProfile extends Component {
     render() {
         return(
             <Fragment>
-                <LeftNav></LeftNav>
+                <LeftNavProvider></LeftNavProvider>
 				<div className="maincontent toggled">
                 <HeaderAll></HeaderAll>
                 <div className="container-fluid">

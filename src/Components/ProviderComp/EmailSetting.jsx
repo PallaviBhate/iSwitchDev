@@ -4,7 +4,7 @@ import HeaderAll from '../CommonComp/HeaderAll'
 import Footer from '../CommonComp/Footer'
 import axios from 'axios'
 import { Toast } from 'primereact/toast';
-import LeftNav from '../CommonComp/LeftNav'
+// import LeftNav from '../CommonComp/LeftNav'
 
 class EmailSetting extends Component {
     constructor(props) {
@@ -171,7 +171,7 @@ class EmailSetting extends Component {
     render() {
         return (
             <Fragment>
-                <LeftNav></LeftNav>
+               
 				<div className="maincontent toggled">
                 <Toast ref={(el) => this.toast = el} />
                 <div className="content">

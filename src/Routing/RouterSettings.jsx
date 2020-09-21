@@ -14,7 +14,7 @@ import EditUser from "../Components/ProviderComp/EditUser";
 import Profile from "../Components/CommonComp/Profile"
 import EditProfile from "../Components/CommonComp/EditProfile"
 import Logout from "../Components/Auth/Logout";
-import CandidateLeftNav from "../Components/CommonComp/CandidateLeftNav";
+import LeftNavCandidate from "../Components/CommonComp/LeftNavCandidate";
 import Dashboard from "../Components/Candidate/Dashboard";
 import Profile1 from "../Components/Candidate/Profile/Profile1";
 import {Profile as CandidateProfile} from "../Components/Candidate/Profile";
@@ -22,6 +22,7 @@ import Invites from "../Components/Candidate/Interviews/Invites";
 import Accepted from "../Components/Candidate/Interviews/Accepted";
 import JobOffers from "../Components/Candidate/JobOffers";
 import SearchJobs from "../Components/Candidate/SearchJobs";
+import RecruiterDashboard from '../Components/RecruiterComp/RecruiterDashboard'
 
 class RouterSettings extends Component {
 
@@ -43,8 +44,9 @@ class RouterSettings extends Component {
             <Route path="/ManageUser" component={ManageUser} />
             <Route path="/profile" component={Profile} />
             <Route path="/editProfile" component={EditProfile} />
-            <Route path="/candidatenav" component={CandidateLeftNav} />
+            <Route path="/leftnavcandidate" component={LeftNavCandidate} />
             <Route path="/logout" component={Logout} />
+
 
             <Route path="/candidate/dashboard" component={Dashboard} />
             <Route path="/candidate/interviews/invites" component={Invites} />
@@ -54,16 +56,8 @@ class RouterSettings extends Component {
             <Route path="/candidate/profile" component={CandidateProfile} />
             <Route path="/candidate/profile1" component={Profile1} />
 
-            {/*<Route path="/forgotPassword" component={ForgotPassword}/>
-            <Route path="/settingPassword" component={SetPassword}/>
-            <Route  path="/manageUser" component={ManageUser}/>
-            <Route  path="/providerProfile" component={ProviderProfile}/>
-            <Route  path="/editProfile" component={EditProfile}/>
-            <Route  path="/providerSetting" component={ProviderSetting}/>
-            <Route  path="/logout" component={Logout}/> */}
-
-            {/* AddProfile will be popup/Component */}
-            {/*Change password will be popup/Component*/}
+            
+            <Route path="/recruiterDashboard" component={RecruiterDashboard} />
           </Switch>
         </div>
       </Router>

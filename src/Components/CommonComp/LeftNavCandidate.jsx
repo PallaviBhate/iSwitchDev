@@ -2,7 +2,7 @@ import React from 'react';
 import $ from 'jquery'
 import { Link, NavLink } from "react-router-dom";
 
-const CandidateLeftNav = () => {
+const LeftNavCandidate = () => {
 
     $("#menu-toggle").click(function (e) {
         e.preventDefault();
@@ -17,7 +17,7 @@ const CandidateLeftNav = () => {
             <div id="sidebar-wrapper">
                 <ul className="sidebar-nav" >
                     <li className="sidebar-brand">
-                        <img src="/images/NavBar/logo.png" alt="" className="ml-3" />
+                        <img src="images/NavBar/logo.png" alt="" className="ml-3" />
                     </li>
                     <li>
                         <a href="#" id="menu-toggle">
@@ -26,15 +26,17 @@ const CandidateLeftNav = () => {
                         </a>
                     </li>
                     <li data-toggle="tooltip" data-placement="right" title="Dashboard">
-                        <NavLink to={'/candidate/Dashboard'} 
+                        <NavLink to={'/candidate/dashboard'} 
                                  activeClassName="active"
-                                 isActive={isActive.bind(this, '/candidate/Dashboard')}>
+                                 isActive={isActive.bind(this, '/candidate/dashboard')}>
                             <i><img src="/images/Candidate-Navbar-assets/dashboard-icon.svg" aria-hidden="true" /></i>
                             <span className="menuText">Dashboard</span>
                         </NavLink>
                     </li>
                      <li data-toggle="tooltip" data-placement="right" title="Interviews">
                         <Link class="subMenu" id="navbarDropdown" role="button"
+                           activeClassName="active"
+                           isActive={isActive.bind(this, '/jobOffers')}
                             data-toggle="collapse" data-target="#submenu1sub1">
                             <i><img src="/images/Candidate-Navbar-assets/interviews-icon.svg" aria-hidden="true" /></i>
                              <span className="menuText">Interviews</span>
@@ -42,18 +44,18 @@ const CandidateLeftNav = () => {
                         <div className="collapse" id="submenu1sub1" aria-expanded="false">
                             <ul className="flex-column nav submenuLink">
                                 <li data-toggle="tooltip" data-placement="right" title="Invites">
-                                    <NavLink class="dropdown-item" to={"/candidate/invites"} 
+                                    <NavLink class="dropdown-item" exact to="/recruiterDashboard" 
                                     activeClassName="active"
-                                    isActive={isActive.bind(this,'/candidate/invites')}>
-                                        <i aria-hidden="true"></i>
+                                    >
+                                        <i><img src="/images/Candidate-Navbar-assets/Group538.svg" aria-hidden="true" /></i>
                                         <span className="menuText">Invites</span>
                                     </NavLink>
                                 </li>
                                 <li data-toggle="tooltip" data-placement="right" title="Accepted">
-                                    <NavLink class="dropdown-item" to={"/candidate/Invites"}
+                                    <NavLink class="dropdown-item" to={"/emailSetting"}
                                     activeClassName="active"
-                                    isActive={isActive.bind(this, '/candidate/Invites')}>
-                                    <i aria-hidden="true"></i>
+                                    >
+                                    <i><img src="/images/Candidate-Navbar-assets/Group538.svg" aria-hidden="true" /></i>
                                     <span className="menuText">Accepted</span>
                                     </NavLink>
                                 </li>                              
@@ -62,7 +64,7 @@ const CandidateLeftNav = () => {
                     </li>
                      
                     <li data-toggle="tooltip" data-placement="right" title="Job Offers">
-                        <NavLink to={'/candidate/jobOffers'}
+                        <NavLink to={'/jobOffers'}
                         activeClassName="active"
                         isActive={isActive.bind(this, '/jobOffers')}>
                             <i><img src="/images/Candidate-Navbar-assets/job-offers.svg" aria-hidden="true" /></i>
@@ -70,16 +72,15 @@ const CandidateLeftNav = () => {
                     </li>
 
                     <li data-toggle="tooltip" data-placement="right" title="Search Jobs">
-                        <NavLink to={'/candidate/searchJob'}
+                        <NavLink to={'/searchJob'}
                         activeClassName="active"
                         isActive={isActive.bind(this,'/searchJob')}>
                            <i><img src="/images/Candidate-Navbar-assets/job-search.svg" aria-hidden="true"></img></i>
                             <span className="menuText">Search Jobs</span></NavLink>   
                     </li>
                     <li data-toggle="tooltip" data-placement="right" title="Profile">
-                        <NavLink to={'/candidate/profile'}
-                        activeClassName="active"
-                        isActive={isActive.bind(this,'/profile')}>
+                    <NavLink to={'/candidate/profile'}                        activeClassName="active"
+                        isActive={isActive.bind(this,'/candidate/profile')}>
                             <i><img src="/images/Candidate-Navbar-assets/profile.svg" aria-hidden="true"></img></i>
                             <span className="menuText">Profile</span></NavLink>   
                     </li>
@@ -91,4 +92,4 @@ const CandidateLeftNav = () => {
     )
 }
 
-export default CandidateLeftNav
+export default LeftNavCandidate

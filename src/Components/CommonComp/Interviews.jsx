@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../Assets/css/Style.css'
 import Footer from './Footer';
-import CandidateLeftNav from './CandidateLeftNav';
+import LeftNavCandidate from './LeftNavCandidate';
 import HeaderAll from './HeaderAll';
 
 class Interviews extends Component {
@@ -10,7 +10,7 @@ class Interviews extends Component {
     const details = localStorage.getItem('emaildetails')
     return (
       <div>
-        <CandidateLeftNav></CandidateLeftNav>
+        <LeftNavCandidate></LeftNavCandidate>
         <div className="maincontent toggled">
           <HeaderAll></HeaderAll>
           {/* <UploadProfile/> */}
