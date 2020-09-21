@@ -7,6 +7,7 @@ import HeaderAll from '../CommonComp/HeaderAll'
 import Footer from '../CommonComp/Footer'
 import Dropzone from 'react-dropzone';
 import LeftNavProvider from '../CommonComp/LeftNavProvider'
+import LeftNavCandidate from './LeftNavCandidate';
 class UploadProfile extends Component {
 
     constructor(props) {
@@ -113,7 +114,8 @@ class UploadProfile extends Component {
         const { isCandidate } = this.props;
         return (
             <Fragment>
-                <LeftNavProvider></LeftNavProvider>
+                {(isCandidate) ? <LeftNavCandidate></LeftNavCandidate> :
+                    <LeftNavProvider></LeftNavProvider>}
                 <div className="maincontent toggled">
                     {(!isCandidate) ? <HeaderAll></HeaderAll> : null}
                     <div className="container-fluid">
@@ -177,20 +179,20 @@ class UploadProfile extends Component {
                                                         </div>
                                                         <div className="d-flex-inline">
                                                             <img src="/images/Dashboard-assets/csv.svg" className="pt-1" alt="csv icon" />
-                                                            {(!isCandidate) ? <span className="pl-2 fontMiddle">CSV File</span> : null }
+                                                            {(!isCandidate) ? <span className="pl-2 fontMiddle">CSV File</span> : null}
                                                         </div>
-    
+
                                                     </div>
                                                 </form>
-                                                    {(!isCandidate) ? <p className="text-center mt-4">Upload the CSV file with candidate details here. All fields in the CSV file are mandatory for successful creation of Candidate profile.</p> : null}
-                                                    {/* Download sample file with API input */}
-                                                    {(!isCandidate) ? <a className="download_sample_link d-block text-center" href="#" onClick={this.downloadEmployeeData}>Download CSV file template</a> : null}
+                                                {(!isCandidate) ? <p className="text-center mt-4">Upload the CSV file with candidate details here. All fields in the CSV file are mandatory for successful creation of Candidate profile.</p> : null}
+                                                {/* Download sample file with API input */}
+                                                {(!isCandidate) ? <a className="download_sample_link d-block text-center" href="#" onClick={this.downloadEmployeeData}>Download CSV file template</a> : null}
 
-                                                    {/* Download sample file from applicatin level
+                                                {/* Download sample file from applicatin level
                                             <a className="download_sample_link d-block text-center" href="Samples/JobZilla.csv">Download CSV file template</a> */}
                                             </div>
-                                                {/* ZIp file upload section */}
-                                                {/* <div className="col-md-6  p-4">
+                                            {/* ZIp file upload section */}
+                                            {/* <div className="col-md-6  p-4">
                                             <img src="images/Dashboard-assets/cloud-upload.svg" alt="cloud upload icon" className="cloud_upload_logo"/>
                                             <p className="text-center pt-4 mb-0">Drag and Drop a file here</p>
                                             <p className="text-center">or</p>                                        
@@ -215,22 +217,22 @@ class UploadProfile extends Component {
                                             <a className="download_sample_link d-block text-center">Download sample file</a>
                                             
                                         </div> */}
-                                            </div>
-                                    </section>
-                                        <div className="ml-2 mt-4">
-                                            <button type="button" className="btn btn-blue" onClick={this.uploadFile}>Upload</button>
                                         </div>
+                                    </section>
+                                    <div className="ml-2 mt-4">
+                                        <button type="button" className="btn btn-blue" onClick={this.uploadFile}>Upload</button>
+                                    </div>
                                 </div>
                             </section>
                         </div>
-                        </div>
-
-                        <Footer></Footer>
                     </div>
+
+                    <Footer></Footer>
+                </div>
             </Fragment>
-                );
-            }
-        }
-        
-        export default UploadProfile;
-        
+        );
+    }
+}
+
+export default UploadProfile;
+
