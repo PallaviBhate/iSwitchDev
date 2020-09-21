@@ -2,13 +2,16 @@ import React, { Component,Fragment } from "react";
 import { Link } from 'react-router-dom'
 import Header from '../CommonComp/Header'
 import Footer from '../CommonComp/Footer' 
-import TermsOfUse from '../Auth/TermsOfUse'
-import PrivacyPolicy from '../Auth/PrivacyPolicy'
-import axios from 'axios'
+import ApiServicesOrg from '../../Services/ApiServicesOrg'
+
+//import TermsOfUse from '../Auth/TermsOfUse'
+//import PrivacyPolicy from '../Auth/PrivacyPolicy'
+//import axios from 'axios'
 
 class LoginComp extends Component{
   constructor(props){
     super(props);
+    this.loginService = new ApiServicesOrg()
     this.state={
         fields: {},
         errors: {},
@@ -56,39 +59,37 @@ class LoginComp extends Component{
       fields["emailid"] = "";
       fields["password"] = "";
       this.setState({ fields: fields});    
-     /*  console.log(this.state.fields.emailid)  */           
+      // console.log(this.state.fields.emailid)            
       
-      // Adding axios code
-      const options = { 
-        headers:{ 
-          'Content-Type': 'application/json', 
-        } 
-      };
-      axios
-      .put( "https://techm-jobzilla.herokuapp.com/jobs/user/login/"+ this.state.fields.emailid +"/"+ this.state.fields.password, options)
-      .then(Response=>{
-        /* console.log(Response) */
-        if(Response){
-          //userDetails: response from API
-          localStorage.setItem('userDetails',JSON.stringify(Response.data.responseObject)); 
-          
-          //fieldwise response
-          localStorage.setItem('candidateId',Response.data.responseObject['id'])
-          localStorage.setItem('organizationId',Response.data.responseObject['orgnaizationId'] )
-          localStorage.setItem('rememberme',this.state.isChecked)
-          localStorage.setItem('emailId',this.state.isChecked ? Response.data.responseObject['email'] :'')
-          this.props.history.push('/providerDashboard')          
-        }
-      })
-      .catch(error => {
-        /* console.log(error) */
-        if(error){
-          this.setState({errorMsg: 'Invalid Email Or Password'})
-        }
-        setTimeout(() => {
-           window.location.reload(false)
-        }, 3000);
-      })   
+     // Calling Login Service from Service file:-
+
+      this.loginService.putLogin(this.state.fields.emailid, this.state.fields.password)
+          .then(Response=>{
+            if(Response){
+              localStorage.setItem('userDetails',JSON.stringify(Response.data.responseObject)); 
+              
+              //fieldwise response
+              localStorage.setItem('candidateId',Response.data.responseObject['id'])
+              localStorage.setItem('organizationId',Response.data.responseObject['orgnaizationId'] )
+              localStorage.setItem('rememberme',this.state.isChecked)
+              localStorage.setItem('emailId',this.state.isChecked ? Response.data.responseObject['email'] :'')
+              let _redirectTo;
+              if (Response && Response.data && Response.data.responseObject && Response.data.responseObject.userRole === "User") {
+                _redirectTo = '/candidate/dashboard';
+              } else {
+                _redirectTo = '/providerDashboard';
+              }
+              this.props.history.push(_redirectTo);
+            }
+          })
+          .catch(error => {
+            if(error){
+              this.setState({errorMsg: 'Invalid Email Or Password'})
+            }
+            setTimeout(() => {
+              window.location.reload(false)
+            }, 3000);
+          })   
     }
   }
 
@@ -202,7 +203,7 @@ class LoginComp extends Component{
               </div>
               <div className="col-md-7">
                 <div className="text-right d-none d-md-block">
-                      <img src= "../images/login/login-img.png" className="img-fluid"/>
+				              <img src= "../images/login/login-img.png" className="img-fluid"/>
                   </div>
                 </div>
               </div>
@@ -216,4 +217,6 @@ class LoginComp extends Component{
   }
 }
 export default LoginComp
+
+
 

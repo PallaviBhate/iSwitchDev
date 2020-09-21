@@ -1,9 +1,9 @@
 import { Modal } from 'react-bootstrap'
 import React,{ Component } from 'react';
 import {Messages} from 'primereact/messages'
-// import Toast from 'light-toast';
 import { Toast } from 'primereact/toast';
-import axios from 'axios'
+import ApiServicesOrg from '../../Services/ApiServicesOrg'
+//import axios from 'axios'
 
 class AddUser extends Component{
   constructor(props) {
@@ -16,6 +16,7 @@ class AddUser extends Component{
       formSubmitted: false,
       submitDisabled: true    
     }
+    this.addUser= new ApiServicesOrg()
     this.onAddUser = this.onAddUser.bind(this);
     this.showSuccess = this.showSuccess.bind(this);
     this.showError = this.showError.bind(this);
@@ -77,28 +78,17 @@ showError= (e) => {
 
       this.state.fields['orgnaizationId'] = localStorage.getItem('organizationId');
       // this.state.fields['supervisorId']=0;
-      this.state.fields['password']= "Test@1234";
-        // Adding axios code
-          const options = { 
-            headers: { 
-            'Content-Type': 'application/json', 
-            } 
-            };
-
-            console.log(this.state.fields);
-          axios
-         .post("https://techm-jobzilla.herokuapp.com/jobs/user/user", this.state.fields, options)
-         .then(Response=>{console.log("Success..",Response)
-        //  Toast.info("User Added Successfully")
-         this.hideModal()
-         window.location.reload()})
-          .catch(error=>{console.log("Error Occured..",error)})
-          
-          this.toast.show({severity: 'success', summary: 'Success Message', detail: 'User is added Successfully'},50000);
-
-         
-        //  this.showSuccess()
+      //this.state.fields['password']= "Test@1234";
         
+   // Calling Add user Service from Service file:-   
+        this.addUser.postAddUser(this.state.fields)
+         .then(Response=>{
+              this.hideModal()
+         window.location.reload()})
+          .catch(error=>{
+            this.toast.show({severity: 'error', summary: 'Error', detail: 'Server Error '},20000);})
+        this.toast.show({severity: 'success', summary: 'Success Message', detail: 'User is added Successfully'},20000);
+                
          localStorage.setItem("hobzilla",JSON.stringify(this.state.fields))
     }
     
@@ -161,8 +151,6 @@ showError= (e) => {
   render(){
     return (
       <>
-      {/* Below button is used to call the modal popup .please remove once you call this from manage user */}
-       {/* <Button onClick={() =>this.showModal(true)}>Small modal</Button>  */}
       <Modal
         show={this.state.show}
         onHide={() => this.hideModal(false)}

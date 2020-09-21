@@ -1,7 +1,7 @@
 import { Button,Modal } from 'react-bootstrap'
 import React,{ Component } from 'react';
 import axios from 'axios'
-// import Toast from 'light-toast';
+import ApiServicesOrg from '../../Services/ApiServicesOrg'
 import { Toast } from 'primereact/toast';
 class EditUser extends Component{
   constructor(props) {
@@ -15,6 +15,7 @@ class EditUser extends Component{
       formSubmitted: false,
       submitDisabled: true    
     }
+    this.editUserService= new ApiServicesOrg()
     this.onEditUser = this.onEditUser.bind(this);
   }
   
@@ -64,26 +65,19 @@ class EditUser extends Component{
       });
       this.state.fields['orgnaizationId'] = localStorage.getItem('organizationId');
       // this.state.fields['supervisorId']=0;
-      this.state.fields['password']= "Test@1234";
+      //this.state.fields['password']= "Test@1234";
       this.hideModal()
       localStorage.setItem("Jobzilla",JSON.stringify([this.state.fields]))
       window.location.reload()
 
-          //Adding axios code
-               const options = { 
-               headers: { 
-               'Content-Type': 'application/json', 
-               } 
-               };
-             axios
-             .put("https://techm-jobzilla.herokuapp.com/jobs/user/user", this.state.fields, options)
-             .then(Response=>{console.log("Success..",Response)
+       // Calling Edit user Service from Service file:-  
+            this.editUserService.putEditUser(this.state.fields)
+             .then(Response=>{
              this.props.history.push('/')})
-             .catch(error=>{console.log("Error Occured..",error)})
-      
-      // Toast.info('User is edited Successfully',10000);
-      this.toast.show({severity: 'success', summary: 'Success Message', detail: 'User is edited Successfully'},50000);
-      // alert("You have updated Successfully");
+             .catch(error=>{
+              this.toast.show({severity: 'error', summary: 'Error', detail: 'Server Error '},20000);
+             })     
+      this.toast.show({severity: 'success', summary: 'Success Message', detail: 'User is edited Successfully'},20000);
     }
   }
     

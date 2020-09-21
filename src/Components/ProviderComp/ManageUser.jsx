@@ -2,7 +2,7 @@ import React, { Component ,Fragment} from 'react';
 import axios from 'axios';
 import HeaderAll from '../CommonComp/HeaderAll'
 import Footer from '../CommonComp/Footer'
-import UserService from '../../Services/UserService.js';
+import ApiServicesOrg from '../../Services/ApiServicesOrg'
 import AddUser from '../ProviderComp/AddUser'
 import EditUser from '../ProviderComp/EditUser'
 import {DataTable} from 'primereact/datatable';
@@ -21,13 +21,7 @@ import { InputText } from 'primereact/inputtext';
 
 
 class ManageUser extends Component{
-    // emptyUser = {
-    //     id:null,
-    //     userName:'',
-    //     email:'',
-    //     contactNumber:'',
-    //     userRole:''
-    // };
+    
     constructor(){
         super();
 
@@ -50,7 +44,8 @@ class ManageUser extends Component{
             
             
         }
-        this.userService = new UserService();
+        this.userService = new ApiServicesOrg();
+
         this.editUser = this.editUser.bind(this);
         this.confirmDeleteUser = this.confirmDeleteUser.bind(this);
         this.deleteUser = this.deleteUser.bind(this);
@@ -64,13 +59,17 @@ class ManageUser extends Component{
         
         }
         componentDidMount() {
-            this.userService.getAllUser().then(data => this.setState({ users: data }));
-          
+            // Calling Download Sample File Service from Service file:-
+            this.userService.getViewAllUser()
+            .then(Response => this.setState({ users: Response.data.responseObject }
+            ));
        }
 
        componentDidUpdate(){
-
-        this.userService.getAllUser().then(data => this.setState({ users: data }));
+            // Calling Download Sample File Service from Service file:-
+            this.userService.getViewAllUser()
+            .then(Response => this.setState({ users: Response.data.responseObject }
+                ));
 
        }
        editUser(user){
@@ -92,18 +91,10 @@ class ManageUser extends Component{
     }
     
     deleteUser() {
-        const options = {
-
-            headers:{
-                'Content-Type':'application/json'
-            }
-        };
-
+    
         //API call to delete single data
-       
-        axios
-        .delete(`https://techm-jobzilla.herokuapp.com/jobs/user/userById/${this.state.user.id}`, options)
-        .then(Response=> {console.log("Success..",Response)})
+        this.userService.deleteUser(this.state.user.id)
+        .then(Response=> {window.location.reload()})
         .catch(error=>{console.log("Error Occured...",error)})
 this.toast.show({severity: 'success', summary: 'Success Message', detail: 'User deleted Successfully'},50000);
     let users = this.state.users.filter(val => val.id !== this.state.user.id);
@@ -132,8 +123,8 @@ this.toast.show({severity: 'success', summary: 'Success Message', detail: 'User 
         };
         //API call for multiple delete  {data: {userIds: updatedUserId}}, options)
         console.log("https://techm-jobzilla.herokuapp.com/jobs/user/multipleUsersById",updatedUserId)
-        axios
-        .delete("https://techm-jobzilla.herokuapp.com/jobs/user/multipleUsersById",{data:updatedUserId})
+        // axios
+        // .delete("https://techm-jobzilla.herokuapp.com/jobs/user/multipleUsersById",{data:updatedUserId})
         .then(Response=>{console.log("Success..",Response)})
         .catch(error=>{console.log("Error Occured...",error)})
 
