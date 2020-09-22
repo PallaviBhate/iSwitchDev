@@ -8,7 +8,7 @@ class ApiServicesOrgCandidate {
   fetchProfileInfo() {
     return (
       axios
-        .get(apiBaseUrl + "/candidate/profileview/4")
+        .get(apiBaseUrl + "/candidate/profileview/2")
         .then(Response => Response.data.responseObject)
     )
   }

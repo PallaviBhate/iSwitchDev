@@ -14,7 +14,8 @@ export const Profile = () => {
     const [candidateProfile, setCandidateProfile] = React.useState('');
     useEffect(() => {
         ApiServicesOrgCandidate.fetchProfileInfo().then(response => {
-            setCandidateProfile(response.candidateInfo)
+            console.log(response)
+            setCandidateProfile(response)
         }).catch(error => { });
     }, [])
     const showPopup = (title, isVisible) => {

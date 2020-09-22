@@ -30,9 +30,9 @@ export const NavBar = ({ showPopup, candidateProfile }) => {
           </div> :
           <div>
             <TabPanel tabId="one">
-              <About showPopup={showPopup} about={candidateProfile.about} />
-              <CTC showPopup={showPopup} />
-              <DesiredProfile showPopup={showPopup} />
+              <About showPopup={showPopup} about={candidateProfile.candidateInfo.about} />
+              <CTC showPopup={showPopup} ctc={candidateProfile.candidateInfo}/>
+              <DesiredProfile showPopup={showPopup} careerProfile={candidateProfile.careerProfile}/>
             </TabPanel>
             <TabPanel tabId="two">
               <Resume showPopup={showPopup} />
