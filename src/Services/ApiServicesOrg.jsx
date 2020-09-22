@@ -62,6 +62,7 @@ class ApiServicesOrg extends Component {
             return(
                 axios
                 .post(ApiBaseUrl +"/user/user" , fields, ApiHeader)
+                .then(Response => Response)
             )
         }
 
@@ -70,6 +71,7 @@ class ApiServicesOrg extends Component {
             return(
                 axios
                 .put(ApiBaseUrl+ "/user/user", fields, ApiHeader)
+                .then(Response => Response)
             )
         }
 
@@ -78,14 +80,16 @@ class ApiServicesOrg extends Component {
             return(
                 axios
                 .delete(ApiBaseUrl + "/user/userById/"+ userId, ApiHeader)
+                .then(Response => Response)
             )
         }
 
         //4.5 Delete User - Multiple Users- Admin/User
-        deleteMultiUser(){
+        deleteMultiUser(updatedUserId){
             return(
                 axios
-                .delete(ApiBaseUrl+ "/user/multipleUsersById",{data:updatedUserId})
+                .delete(ApiBaseUrl+ "/user/multipleUsersById" , {data:updatedUserId}, ApiHeader)
+                .then(Response => Response)
             )    
     }
 }

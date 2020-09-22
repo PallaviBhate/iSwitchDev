@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { apiBaseUrl } from '../Config.jsx'
+import { ApiBaseUrl } from '../Config.jsx'
 
 import React, { Component } from 'react';
 
@@ -8,7 +8,7 @@ class ApiServicesOrgCandidate {
   fetchProfileInfo() {
     return (
       axios
-        .get(apiBaseUrl + "/candidate/profileview/2")
+        .get(ApiBaseUrl + "/candidate/profileview/2")
         .then(Response => Response.data.responseObject)
     )
   }

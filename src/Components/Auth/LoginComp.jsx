@@ -1,24 +1,16 @@
 import React, { Component, Fragment } from "react";
 import { Link } from 'react-router-dom'
 import Header from '../CommonComp/Header'
-<<<<<<< HEAD
 import Footer from '../CommonComp/Footer' 
 import ApiServicesOrg from '../../Services/ApiServicesOrg'
 
 //import TermsOfUse from '../Auth/TermsOfUse'
 //import PrivacyPolicy from '../Auth/PrivacyPolicy'
 //import axios from 'axios'
-=======
-import Footer from '../CommonComp/Footer'
-import TermsOfUse from '../Auth/TermsOfUse'
-import PrivacyPolicy from '../Auth/PrivacyPolicy'
-import axios from 'axios'
->>>>>>> b3b784f5b0bceb6188f6cd7ade8f093db9bdc8d6
 
 class LoginComp extends Component {
   constructor(props) {
     super(props);
-<<<<<<< HEAD
     this.loginService = new ApiServicesOrg()
     this.state={
         fields: {},
@@ -30,18 +22,6 @@ class LoginComp extends Component {
         submitDisabled: true    
       }
       this.onLogin = this.onLogin.bind(this);
-=======
-    this.state = {
-      fields: {},
-      errors: {},
-      touched: {},
-      isChecked: false,
-      formSubmitted: false,
-      errorMsg: '',
-      submitDisabled: true
-    }
-    this.onLogin = this.onLogin.bind(this);
->>>>>>> b3b784f5b0bceb6188f6cd7ade8f093db9bdc8d6
   }
 
   handleInputChange(e) {
@@ -78,7 +58,6 @@ class LoginComp extends Component {
       let fields = {};
       fields["emailid"] = "";
       fields["password"] = "";
-<<<<<<< HEAD
       this.setState({ fields: fields});    
       // console.log(this.state.fields.emailid)            
       
@@ -111,48 +90,6 @@ class LoginComp extends Component {
               window.location.reload(false)
             }, 3000);
           })   
-=======
-      this.setState({ fields: fields });
-      /*  console.log(this.state.fields.emailid)  */
-
-      // Adding axios code
-      const options = {
-        headers: {
-          'Content-Type': 'application/json',
-        }
-      };
-      axios
-        .put("https://techm-jobzilla.herokuapp.com/jobs/user/login/" + this.state.fields.emailid + "/" + this.state.fields.password, options)
-        .then(Response => {
-          /* console.log(Response) */
-          if (Response) {
-            //userDetails: response from API
-            localStorage.setItem('userDetails', JSON.stringify(Response.data.responseObject));
-
-            //fieldwise response
-            localStorage.setItem('candidateId', Response.data.responseObject['id'])
-            localStorage.setItem('organizationId', Response.data.responseObject['orgnaizationId'])
-            localStorage.setItem('rememberme', this.state.isChecked)
-            localStorage.setItem('emailId', this.state.isChecked ? Response.data.responseObject['email'] : '')
-            let _redirectTo;
-            if (Response && Response.data && Response.data.responseObject && Response.data.responseObject.userRole === "User") {
-              _redirectTo = '/candidate/dashboard';
-            } else {
-              _redirectTo = '/providerDashboard';
-            }
-            this.props.history.push(_redirectTo);
-          }
-        })
-        .catch(error => {
-          /* console.log(error) */
-          if (error) {
-            this.setState({ errorMsg: 'Invalid Email Or Password' })
-          }
-          setTimeout(() => {
-            window.location.reload(false)
-          }, 3000);
-        })
->>>>>>> b3b784f5b0bceb6188f6cd7ade8f093db9bdc8d6
     }
   }
 
@@ -194,12 +131,12 @@ class LoginComp extends Component {
       formIsValid = false;
       errors["password"] = "*Please enter your password.";
     }
-    if (typeof fields["password"] !== "undefined") {
-      if (!fields["password"].match(/^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&]).*$/)) {
-        formIsValid = false;
-        errors["password"] = "*Please enter secure and strong password.";
-      }
-    }
+    // if (typeof fields["password"] !== "undefined") {
+    //   if (!fields["password"].match(/^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&]).*$/)) {
+    //     formIsValid = false;
+    //     errors["password"] = "*Please enter secure and strong password.";
+    //   }
+    //}
     this.setState({
       errors: errors,
       submitDisabled: !formIsValid
@@ -266,21 +203,18 @@ class LoginComp extends Component {
               </div>
               <div className="col-md-7">
                 <div className="text-right d-none d-md-block">
-<<<<<<< HEAD
 				              <img src= "../images/login/login-img.png" className="img-fluid"/>
                   </div>
-=======
-                  <img src="../images/login/login-img.png" className="img-fluid" />
->>>>>>> b3b784f5b0bceb6188f6cd7ade8f093db9bdc8d6
                 </div>
               </div>
             </div>
           </div>
           {/* Footer */}
           <Footer></Footer>
-        </div>
+        
       </Fragment>
-    );
+    )
+    
 
   }
 }

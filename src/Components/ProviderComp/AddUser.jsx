@@ -87,6 +87,7 @@ showError= (e) => {
          window.location.reload()})
           .catch(error=>{
             this.toast.show({severity: 'error', summary: 'Error', detail: 'Server Error '},20000);})
+            
         this.toast.show({severity: 'success', summary: 'Success Message', detail: 'User is added Successfully'},20000);
                 
          localStorage.setItem("hobzilla",JSON.stringify(this.state.fields))

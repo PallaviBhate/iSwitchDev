@@ -92,13 +92,14 @@ class ManageUser extends Component{
     
     deleteUser() {
     
-        //API call to delete single data
+        //Calling  File Service delete single data from Service file:- 
         this.userService.deleteUser(this.state.user.id)
         .then(Response=> {window.location.reload()})
         .catch(error=>{console.log("Error Occured...",error)})
-this.toast.show({severity: 'success', summary: 'Success Message', detail: 'User deleted Successfully'},50000);
-    let users = this.state.users.filter(val => val.id !== this.state.user.id);
-    this.setState({
+        this.toast.show({severity: 'success', summary: 'Success Message', detail: 'User deleted Successfully'},50000);
+        
+        let users = this.state.users.filter(val => val.id !== this.state.user.id);
+        this.setState({
         users,
         deleteUserDialog: false,
     });
@@ -116,15 +117,9 @@ this.toast.show({severity: 'success', summary: 'Success Message', detail: 'User 
         updatedUserId.push(user.id))
         console.log(updatedUserId)
 
-        const options = {
-       headers:{
-                'Content-Type':'application/json'
-            }
-        };
         //API call for multiple delete  {data: {userIds: updatedUserId}}, options)
-        console.log("https://techm-jobzilla.herokuapp.com/jobs/user/multipleUsersById",updatedUserId)
-        // axios
-        // .delete("https://techm-jobzilla.herokuapp.com/jobs/user/multipleUsersById",{data:updatedUserId})
+        //Calling  File Service delete single data from Service file:- 
+        this.userService.deleteMultiUser(updatedUserId)
         .then(Response=>{console.log("Success..",Response)})
         .catch(error=>{console.log("Error Occured...",error)})
 
@@ -155,10 +150,6 @@ this.toast.show({severity: 'success', summary: 'Success Message', detail: 'User 
         );
     }
 
-    // onaAddUSerModalRef = ({showModal}) => {
-    //     this.showModal = showModal;
-
-    //  }
     onaAddUSerModalRef = (obj) => { 
         this.showModal = obj&&obj.showModal 
      }
