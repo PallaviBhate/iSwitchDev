@@ -1,26 +1,17 @@
 import React from 'react'
 import { EDIT_PROFILE_NAME } from '../../../../../Utils/AppConst'
-import Loader from 'react-loader-spinner'
+import RenderLoader from '../../../../CommonComp/Loader';
+
 export const Information = ({ showPopup, candidateProfile }) => {
   const { firstName, lastName, currentRole, company, address, mobileNumber, emailId } = candidateProfile;
   console.log(candidateProfile)
-  const renderLoader = () => {
-    return (
-      <div class="col d-flex justify-content-center"> <Loader
-        type="Oval"
-        color="#042B63"
-        height={50}
-        width={50}
-      /> </div>
-    )
-  }
   return (
     <div class="bg-white pl-3 pr-5 py-5 section-divider align-items-center">
       <div class="row align-items-center">
         <div class="col col-md-3 col-xs-12 align-items-center">
           <img src="/images/Dashboard-assets/candidate/profile-pic.png" class="rounded-circle" alt="usera avatar" />
         </div>
-        {(candidateProfile === '') ?  renderLoader():
+        {(candidateProfile === '') ?  <RenderLoader/>:
           <div class="col col-md-9 col-xs-12 align-items-center">
             <div>
               <h3 class="mb-2">{firstName} {lastName}</h3>

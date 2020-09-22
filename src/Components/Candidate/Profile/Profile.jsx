@@ -38,7 +38,10 @@ export const Profile = () => {
                         showPopup={showPopup}
                         candidateProfile={candidateProfile}
                     />
-                    <NavBar showPopup={showPopup} />
+                    <NavBar
+                        showPopup={showPopup}
+                        candidateProfile={candidateProfile}
+                    />
                     <ScrollUpButton />
                 </div>
             </div>
