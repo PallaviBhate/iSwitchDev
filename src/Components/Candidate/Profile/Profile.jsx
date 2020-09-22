@@ -14,7 +14,8 @@ export const Profile = () => {
     const [candidateProfile, setCandidateProfile] = React.useState('');
     useEffect(() => {
         ApiServicesOrgCandidate.fetchProfileInfo().then(response => {
-            setCandidateProfile(response.candidateInfo)
+            console.log(response)
+            setCandidateProfile(response)
         }).catch(error => { });
     }, [])
     const showPopup = (title, isVisible) => {
@@ -38,7 +39,10 @@ export const Profile = () => {
                         showPopup={showPopup}
                         candidateProfile={candidateProfile}
                     />
-                    <NavBar showPopup={showPopup} />
+                    <NavBar
+                        showPopup={showPopup}
+                        candidateProfile={candidateProfile}
+                    />
                     <ScrollUpButton />
                 </div>
             </div>

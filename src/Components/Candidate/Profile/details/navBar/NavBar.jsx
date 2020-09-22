@@ -7,8 +7,9 @@ import { Skills } from '../skills';
 import { Education, Certifications } from '../education';
 import { Employment } from '../employment';
 import { PersonalDetails, LanguageKnown } from '../personalDetails';
+import RenderLoader from '../../../../CommonComp/Loader';
 
-export const NavBar = ({showPopup}) => {
+export const NavBar = ({ showPopup, candidateProfile }) => {
   return (
     <div class="align-items-center">
       <Tabs
@@ -23,28 +24,35 @@ export const NavBar = ({showPopup}) => {
           <Tab tabFor="five">Employment</Tab>
           <Tab tabFor="six">Personal Details</Tab>
         </TabList>
-        <TabPanel tabId="one">
-          <About showPopup={showPopup}/>
-          <CTC showPopup={showPopup}/>
-          <DesiredProfile showPopup={showPopup}/>
-        </TabPanel>
-        <TabPanel tabId="two">
-          <Resume showPopup={showPopup} />
-        </TabPanel>
-        <TabPanel tabId="three">
-          <Skills showPopup={showPopup}/>
-        </TabPanel>
-        <TabPanel tabId="four">
-          <Education showPopup={showPopup}/>
-          <Certifications showPopup={showPopup}/>
-        </TabPanel>
-        <TabPanel tabId="five">
-          <Employment showPopup={showPopup}/>
-        </TabPanel>
-        <TabPanel tabId="six">
-          <PersonalDetails showPopup={showPopup}/>
-          <LanguageKnown showPopup={showPopup}/>
-        </TabPanel>
+        {(candidateProfile === '') ?
+          <div class="mt-5">
+            <RenderLoader />
+          </div> :
+          <div>
+            <TabPanel tabId="one">
+              <About showPopup={showPopup} about={candidateProfile.candidateInfo.about} />
+              <CTC showPopup={showPopup} ctc={candidateProfile.candidateInfo}/>
+              <DesiredProfile showPopup={showPopup} careerProfile={candidateProfile.careerProfile}/>
+            </TabPanel>
+            <TabPanel tabId="two">
+              <Resume showPopup={showPopup} />
+            </TabPanel>
+            <TabPanel tabId="three">
+              <Skills showPopup={showPopup} />
+            </TabPanel>
+            <TabPanel tabId="four">
+              <Education showPopup={showPopup} />
+              <Certifications showPopup={showPopup} />
+            </TabPanel>
+            <TabPanel tabId="five">
+              <Employment showPopup={showPopup} />
+            </TabPanel>
+            <TabPanel tabId="six">
+              <PersonalDetails showPopup={showPopup} />
+              <LanguageKnown showPopup={showPopup} />
+            </TabPanel>
+          </div>
+        }
       </Tabs>
     </div>
   )

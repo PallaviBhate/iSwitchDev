@@ -1,7 +1,7 @@
 import React from 'react'
 import { EDIT_CTC } from '../../../../../Utils/AppConst'
 
-export const CTC = ({showPopup}) => {
+export const CTC = ({showPopup,ctc}) => {
   return (
     <div class="bg-white section-divider align-items-center row mx-0">
       <div class="col-6 px-4 py-4 section-divider" style={{ borderRight: '1px solid #F1F1F1'}}>
@@ -10,7 +10,7 @@ export const CTC = ({showPopup}) => {
             <span class="subtitle-semi-bold ml-4">Current CTC</span>
           </div>
           <div class="px-4">
-            <span class="normal-text-medium">INR 9 Lakh(s) 00 Thousand</span>
+            <span class="normal-text-medium">{ctc.currencyType} {ctc.currentCTC}</span>
           </div>
         </div>
       </div>
@@ -21,7 +21,7 @@ export const CTC = ({showPopup}) => {
             <span class="subtitle-semi-bold">Expected CTC</span>
           </div>
           <div >
-            <span class="normal-text-medium">INR 10 Lakh(s) 50 Thousand</span>
+            <span class="normal-text-medium">{ctc.currencyType} {ctc.expectedCTC}</span>
           </div>
         </div>
       </div>
