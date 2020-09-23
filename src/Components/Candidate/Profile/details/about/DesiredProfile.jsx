@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { EDIT_DESIRED_PROFILE, EDIT_CAREER_PROFILE } from '../../../../../Utils/AppConst'
+import ProfileContext from '../../../../../Context/ProfileContext';
 
-export const DesiredProfile = ({ showPopup, careerProfile }) => {
-  if (careerProfile) {
-    const { employmentType, preferredLocation, preferredShift } = careerProfile;
+export const DesiredProfile = ({ showPopup, }) => {
+  const profileInfo = useContext(ProfileContext);
+  if (profileInfo.candidateInfo) {
+    const { employmentType, preferredLocation, preferredShift } = profileInfo.candidateInfo;
     return (
       <div class="bg-white px-4 py-4 section-divider align-items-center">
         <div class="col">
