@@ -38,7 +38,7 @@ export class NavBar extends React.Component {
     return (
       <div className='main'>
         <div className='profile__button_group'>
-          {/* <div
+          <div
             class="profileTabs"
             onClick={() =>
               scrollToComponent(this.Indigo, {
@@ -50,7 +50,7 @@ export class NavBar extends React.Component {
             }
           >
             About
-          </div> */}
+          </div>
           <div
             class='profileTabs'
             onClick={() =>
@@ -116,13 +116,13 @@ export class NavBar extends React.Component {
             Personal Details
           </div>
         </div>
-        {this.props.candidateProfile ? (
+        {(!this.props.candidateProfile) ? (
           <div class='mt-5'>
             <RenderLoader />
           </div>
         ) : (
           <div>
-            {/* <section
+            <section
               ref={(section) => {
                 this.Violet = section;
               }}
@@ -139,7 +139,7 @@ export class NavBar extends React.Component {
                 showPopup={this.props.showPopup}
                 careerProfile={this.props.candidateProfile.careerProfile}
               />
-            </section> */}
+            </section>
             <section
               ref={(section) => {
                 this.ResumeSection = section;
