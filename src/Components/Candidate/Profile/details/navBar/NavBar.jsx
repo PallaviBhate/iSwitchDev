@@ -1,59 +1,185 @@
-import React from 'react'
-import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
-// import 'react-web-tabs/dist/react-web-tabs.css';
+import React, { Component } from 'react';
+import scrollToComponent from 'react-scroll-to-component';
+import RenderLoader from '../../../../CommonComp/Loader';
 import { About, CTC, DesiredProfile } from '../about';
+import { Certifications, Education } from '../education';
+import { Employment } from '../employment';
+import { LanguageKnown, PersonalDetails } from '../personalDetails';
 import { Resume } from '../resume';
 import { Skills } from '../skills';
-import { Education, Certifications } from '../education';
-import { Employment } from '../employment';
-import { PersonalDetails, LanguageKnown } from '../personalDetails';
-import RenderLoader from '../../../../CommonComp/Loader';
 
-export const NavBar = ({ showPopup, candidateProfile }) => {
-  return (
-    <div class="align-items-center">
-      <Tabs
-        defaultTab="one"
-        onChange={(tabId) => { console.log(tabId) }}
-      >
-        <TabList>
-          <Tab tabFor="one">About</Tab>
-          <Tab tabFor="two">Resume</Tab>
-          <Tab tabFor="three">Skills</Tab>
-          <Tab tabFor="four">Education & Certifications</Tab>
-          <Tab tabFor="five">Employment</Tab>
-          <Tab tabFor="six">Personal Details</Tab>
-        </TabList>
-        {(candidateProfile === '') ?
-          <div class="mt-5">
-            <RenderLoader />
-          </div> :
-          <div>
-            <TabPanel tabId="one">
-              <About showPopup={showPopup} about={candidateProfile.candidateInfo.about} />
-              <CTC showPopup={showPopup} ctc={candidateProfile.candidateInfo}/>
-              <DesiredProfile showPopup={showPopup} careerProfile={candidateProfile.careerProfile}/>
-            </TabPanel>
-            <TabPanel tabId="two">
-              <Resume showPopup={showPopup} />
-            </TabPanel>
-            <TabPanel tabId="three">
-              <Skills showPopup={showPopup} />
-            </TabPanel>
-            <TabPanel tabId="four">
-              <Education showPopup={showPopup} />
-              <Certifications showPopup={showPopup} />
-            </TabPanel>
-            <TabPanel tabId="five">
-              <Employment showPopup={showPopup} />
-            </TabPanel>
-            <TabPanel tabId="six">
-              <PersonalDetails showPopup={showPopup} />
-              <LanguageKnown showPopup={showPopup} />
-            </TabPanel>
+export class NavBar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.scrollToTopWithCallback = this.scrollToTopWithCallback.bind(this);
+  }
+
+  componentDidMount() {
+    scrollToComponent(this.Blue, {
+      offset: 0,
+      align: 'middle',
+      duration: 500,
+      ease: 'inCirc',
+    });
+  }
+
+  scrollToTopWithCallback() {
+    let scroller = scrollToComponent(this.Violet, {
+      offset: 0,
+      align: 'top',
+      duration: 1500,
+    });
+    scroller.on('end', () => console.log('Scrolling end!'));
+  }
+
+  render() {
+    debugger;
+    console.log('aa', this.props.candidateProfile);
+    return (
+      <div className='main'>
+        <div className='profile__button_group'>
+          {/* <div
+            class="profileTabs"
+            onClick={() =>
+              scrollToComponent(this.Indigo, {
+                offset: 0,
+                align: 'bottom',
+                duration: 500,
+                ease: 'inExpo',
+              })
+            }
+          >
+            About
+          </div> */}
+          <div
+            class='profileTabs'
+            onClick={() =>
+              scrollToComponent(this.ResumeSection, {
+                offset: -200,
+                align: 'middle',
+                duration: 1500,
+                ease: 'inCirc',
+              })
+            }
+          >
+            Resume
           </div>
-        }
-      </Tabs>
-    </div>
-  )
+          <div
+            class='profileTabs'
+            onClick={() =>
+              scrollToComponent(this.SkillsSection, {
+                offset: 0,
+                align: 'middle',
+                duration: 500,
+                ease: 'inExpo',
+              })
+            }
+          >
+            Skills
+          </div>
+          <div
+            class='profileTabs'
+            onClick={() =>
+              scrollToComponent(this.EducationSection, {
+                offset: 0,
+                align: 'top',
+                duration: 1500,
+                ease: 'inCirc',
+              })
+            }
+          >
+            Education & Certifications
+          </div>
+          <div
+            class='profileTabs'
+            onClick={() =>
+              scrollToComponent(this.EmploymentSection, {
+                offset: 0,
+                align: 'top',
+                duration: 500,
+                ease: 'inCirc',
+              })
+            }
+          >
+            Employment
+          </div>
+          <div
+            class='profileTabs'
+            onClick={() =>
+              scrollToComponent(this.PersonalDetailsSection, {
+                offset: 0,
+                align: 'top',
+                duration: 500,
+              })
+            }
+          >
+            Personal Details
+          </div>
+        </div>
+        {this.props.candidateProfile ? (
+          <div class='mt-5'>
+            <RenderLoader />
+          </div>
+        ) : (
+          <div>
+            {/* <section
+              ref={(section) => {
+                this.Violet = section;
+              }}
+            >
+              <About
+                showPopup={this.props.showPopup}
+                about={this.props.candidateProfile.candidateInfo.about}
+              />
+              <CTC
+                showPopup={this.props.showPopup}
+                ctc={this.props.candidateProfile.candidateInfo}
+              />
+              <DesiredProfile
+                showPopup={this.props.showPopup}
+                careerProfile={this.props.candidateProfile.careerProfile}
+              />
+            </section> */}
+            <section
+              ref={(section) => {
+                this.ResumeSection = section;
+              }}
+            >
+              <Resume showPopup={this.props.showPopup} />
+            </section>
+            <section
+              ref={(section) => {
+                this.SkillsSection = section;
+              }}
+            >
+              <Skills showPopup={this.props.showPopup} />
+            </section>
+            <section
+              ref={(section) => {
+                this.EducationSection = section;
+              }}
+            >
+              <Education showPopup={this.props.showPopup} />
+              <Certifications showPopup={this.props.showPopup} />
+            </section>
+            <section
+              ref={(section) => {
+                this.EmploymentSection = section;
+              }}
+            >
+              <Employment showPopup={this.props.showPopup} />
+            </section>
+            <section
+              ref={(section) => {
+                this.PersonalDetailsSection = section;
+              }}
+            >
+              <PersonalDetails showPopup={this.props.showPopup} />
+              <LanguageKnown showPopup={this.props.showPopup} />
+            </section>
+          </div>
+        )}
+      </div>
+    );
+  }
 }

@@ -32,6 +32,7 @@
         "react-scripts": "^3.4.1",
         "react-scroll": "^1.8.1",
         "react-scroll-up-button": "^1.6.4",
+        "react-scroll-to-component": "^1.0.2",
         "react-tag-autocomplete": "^6.1.0",
         "react-toastr": "^3.0.0",
         "react-token-autocomplete": "^0.5.3",
