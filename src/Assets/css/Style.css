@@ -1977,14 +1977,12 @@ textarea.form-control {
 
 /* close modal css*/
 
-<<<<<<< HEAD
 .subMenu:after {
     content: "\f107";
     font-family: FontAwesome;
     position: absolute;
     right: 15px;
 }
-=======
 /* Profile Nav Start */
 .profile__button_group {
     display: flex;
@@ -2018,4 +2016,3 @@ textarea.form-control {
   }
 
 /* Profile Nav End */
->>>>>>> 426d6a102e6240b3f6a80a2f8c036483bde6b670
