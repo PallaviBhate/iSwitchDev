@@ -9,7 +9,6 @@ export const PersonalDetails = ({ showPopup }) => {
     setPersonalInfo(data)
   })
   const { candidateInfo } = personalInfo;
-  console.log(candidateInfo)
   return (
     <div class="bg-white px-4 py-4 section-divider align-items-center">
       <div class="col">
