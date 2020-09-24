@@ -31,20 +31,20 @@ const LeftNavProvider = () => {
                        if Recruiter toggle is active then Recruiter Dashboard will through Navbar 
                       **/}
 
-                    {localStorage.getItem('status') === "provider" ?
+                    {localStorage.getItem('status') === "recruiter" ?
                         (<li data-toggle="tooltip" data-placement="right" title="Dashboard">
-                            <NavLink to={'/providerDashboard'}
+                            <NavLink to={'/recruiterDashboard'}
                                 activeClassName="active"
-                                isActive={isActive.bind(this, '/providerDashboard')}>
+                                isActive={isActive.bind(this, '/recruiterDashboard')}>
                                 <i><img src="images/Candidate-Navbar-assets/dashboard-icon.svg" aria-hidden="true" /></i>
                                 <span className="menuText">Dashboard</span>
                             </NavLink>
                         </li>)
                         :
                         (<li data-toggle="tooltip" data-placement="right" title="Dashboard">
-                            <NavLink to={'/recruiterDashboard'}
+                            <NavLink to={'/providerDashboard'}
                                 activeClassName="active"
-                                isActive={isActive.bind(this, '/recruiterDashboard')}>
+                                isActive={isActive.bind(this, '/providerDashboard')}>
                                 <i><img src="images/Candidate-Navbar-assets/dashboard-icon.svg" aria-hidden="true" /></i>
                                 <span className="menuText">Dashboard</span>
                             </NavLink>
@@ -55,16 +55,7 @@ const LeftNavProvider = () => {
                          if recruiter toggle is active then upload profile is replaced with Jobs dropdown
                          in left navigation bar
                     **/}
-                    {localStorage.getItem('status') === "provider" ?
-                        (<li>
-                            <NavLink to={'/uploadProfile'}
-                                activeClassName="active"
-                                isActive={isActive.bind(this, '/uploadProfile')}>
-                                <i className="fa fa-user mr-1" aria-hidden="true"></i>
-                                <span className="menuText">Upload Profile</span>
-                            </NavLink>
-                        </li>)
-                        :
+                    {localStorage.getItem('status') === "recruiter" ?
                         (
                             <li data-toggle="tooltip" data-placement="right" title="Jobs">
                                 <NavLink class="subMenu" id="navbarDropdown" role="button" to={"#"}
@@ -89,7 +80,17 @@ const LeftNavProvider = () => {
                                     </ul>
                                 </div>
                             </li>
-                        )}
+                        )
+                        :
+                        (<li>
+                            <NavLink to={'/uploadProfile'}
+                                activeClassName="active"
+                                isActive={isActive.bind(this, '/uploadProfile')}>
+                                <i><img src="images/Candidate-Navbar-assets/upload-profile-ico.svg" aria-hidden="true" /></i>
+                                <span className="menuText">Upload Profile</span>
+                            </NavLink>
+                        </li>)
+                        }
                     <li>
                         <NavLink to={'/ManageUser'}
                             activeClassName="active"

@@ -1232,15 +1232,13 @@ input:checked+.slider:before {
     right: 0;
 }
 
-<<<<<<< HEAD
+
 /* Side nav bar Urvashi-Sakshi **/
 
-=======
-/* Side nav bar Ram **/
 
->>>>>>>0b70ad1f8e3a3dacafa5af11ccf2ad6db7357b67 body {
+/* 
     overflow-x: hidden;
-}
+} */
 
 
 /* Toggle Styles */
@@ -1978,3 +1976,10 @@ textarea.form-control {
 
 
 /* close modal css*/
+
+.subMenu:after {
+    content: "\f107";
+    font-family: FontAwesome;
+    position: absolute;
+    right: 15px;
+}
