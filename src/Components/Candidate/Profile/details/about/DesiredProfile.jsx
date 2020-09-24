@@ -1,7 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { EDIT_DESIRED_PROFILE, EDIT_CAREER_PROFILE } from '../../../../../Utils/AppConst'
+import { Context } from '../../../../../Context/ProfileContext';
 
-export const DesiredProfile = ({ showPopup, careerProfile }) => {
+export const DesiredProfile = ({ showPopup }) => {
+  const { state } = useContext(Context);
+  const [careerInfo, setCareerInfo] = React.useState('');
+  state.then((data) => {
+    setCareerInfo(data)
+  })
+  const { candidateInfo } = careerInfo;
   return (
     <div class="bg-white px-4 py-4 section-divider align-items-center">
       <div class="col">
@@ -12,15 +19,15 @@ export const DesiredProfile = ({ showPopup, careerProfile }) => {
         <div class="row col-9 px-4">
           <div class="col-4 mb-4">
             <div><span class="font-weight-bold">Employment Type</span></div>
-            <span class="small-text-light">{careerProfile.employmentType}</span>
+            {(candidateInfo && candidateInfo.employmentType) ? <span class="small-text-light">{candidateInfo.employmentType}</span> : null}
           </div>
           <div class="col-4 mb-4">
             <div><span class="font-weight-bold">Preferred Locations</span></div>
-            <span class="small-text-light">{careerProfile.preferredLocation}</span>
+            {(candidateInfo && candidateInfo.preferredLocation) ? <span class="small-text-light">{candidateInfo.preferredLocation}</span> : null}
           </div>
           <div class="col-4 mb-4">
             <div><span class="font-weight-bold">Preferred Shift</span></div>
-            <div><span class="small-text-light">{careerProfile.preferredShift}</span></div>
+            {(candidateInfo && candidateInfo.preferredShift) ? <div><span class="small-text-light">{candidateInfo.preferredShift}</span></div> : null}
           </div>
         </div>
       </div>

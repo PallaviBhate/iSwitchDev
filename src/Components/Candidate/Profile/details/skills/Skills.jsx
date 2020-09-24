@@ -1,7 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { ADD_NEW_SKILL, EDIT_SKILL } from '../../../../../Utils/AppConst'
+import { Context } from '../../../../../Context/ProfileContext';
 
 export const Skills = ({ showPopup }) => {
+  const { state } = useContext(Context);
+  const [skill, setSkill] = React.useState('');
+  state.then((data) => {
+    setSkill(data)
+  })
   return (
     <div class="bg-white px-4 py-4 section-divider align-items-center">
       <div class="col">
@@ -22,18 +28,19 @@ export const Skills = ({ showPopup }) => {
                 </tr>
               </thead>
               <tbody>
-                {Array(6).fill().map((_, i) => (
+
+                {(skill.skillList) ? skill.skillList.map((skill, i) => (
                   <tr>
-                    <td>Skill {i + 1}</td>
-                    <td>V5.1</td>
-                    <td>{((i + 1) * 3) - 1} Years</td>
-                    <td>Expert</td>
+                    <td>{skill.skillName}</td>
+                    <td>{skill.version}</td>
+                    <td>{skill.experience}</td>
+                    <td>{skill.proficiency}</td>
                     <td class="edit-icon-column">
                       <img src="/images/Dashboard-assets/iconfinder_edit.svg" class="edit-icon" alt="Cinque Terre" onClick={() => showPopup(EDIT_SKILL, true)} />
                       <img src="/images/Dashboard-assets/delete.svg" class="edit-icon" alt="Cinque Terre" />
                     </td>
                   </tr>
-                ))}
+                )) : null}
               </tbody>
             </table>
           </div>

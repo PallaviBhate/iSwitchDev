@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect,useContext } from 'react'
 import LeftNavCandidate from '../../CommonComp/LeftNavCandidate'
 import HeaderAll from '../../CommonComp/HeaderAll'
 import { Information, NavBar, LanguageKnown } from './details';
@@ -8,11 +8,14 @@ import ScrollUpButton from "react-scroll-up-button";
 import './profile.css';
 import '../../../Assets/css/Candidate.css'
 import ApiServicesOrgCandidate from '../../../Services/ApiServicesOrgCandidate'
+import { Context } from '../../../Context/ProfileContext';
 export const Profile = () => {
     const [isPopupVisible, setPopupVisible] = React.useState(false);
     const [popupTitle, setPopupTitle] = React.useState('');
     const [candidateProfile, setCandidateProfile] = React.useState('');
+    const { getProfileInfo } = useContext(Context);
     useEffect(() => {
+        getProfileInfo();
         ApiServicesOrgCandidate.fetchProfileInfo().then(response => {
             console.log(response)
             setCandidateProfile(response)
