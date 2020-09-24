@@ -1985,6 +1985,7 @@ textarea.form-control {
     background: white;
     padding: 0px 60px;
     margin-bottom: 1px;
+    z-index: 999;
 }
 
 .profile__button_group .profileTabs {
@@ -2002,5 +2003,12 @@ textarea.form-control {
     border-bottom: 2px solid #007EFF;
     color: #007EFF
 }
+
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    border-bottom:  2px solid #f1f1f1;
+  }
 
 /* Profile Nav End */
