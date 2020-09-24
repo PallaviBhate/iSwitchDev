@@ -33,7 +33,6 @@ export class NavBar extends React.Component {
   }
 
   render() {
-    console.log('aa', this.props.candidateProfile);
     return (
       <div className='main'>
         <div className='profile__button_group'>
