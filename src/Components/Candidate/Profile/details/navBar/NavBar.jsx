@@ -33,15 +33,13 @@ export class NavBar extends React.Component {
   }
 
   render() {
-    debugger;
-    console.log('aa', this.props.candidateProfile);
     return (
       <div className='main'>
         <div className='profile__button_group'>
           <div
             class="profileTabs"
             onClick={() =>
-              scrollToComponent(this.Indigo, {
+              scrollToComponent(this.AboutSection, {
                 offset: 0,
                 align: 'bottom',
                 duration: 500,
@@ -57,7 +55,7 @@ export class NavBar extends React.Component {
               scrollToComponent(this.ResumeSection, {
                 offset: -200,
                 align: 'middle',
-                duration: 1500,
+                duration: 500,
                 ease: 'inCirc',
               })
             }
@@ -83,7 +81,7 @@ export class NavBar extends React.Component {
               scrollToComponent(this.EducationSection, {
                 offset: 0,
                 align: 'top',
-                duration: 1500,
+                duration: 500,
                 ease: 'inCirc',
               })
             }
@@ -124,7 +122,7 @@ export class NavBar extends React.Component {
           <div>
             <section
               ref={(section) => {
-                this.Violet = section;
+                this.AboutSection = section;
               }}
             >
               <About
