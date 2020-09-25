@@ -6,7 +6,8 @@ export const Skills = ({ showPopup }) => {
   const { state } = useContext(Context);
   const [skill, setSkill] = React.useState('');
   state.then((data) => {
-    setSkill(data)
+    setSkill(data);
+    localStorage.setItem('candidateId', JSON.stringify(data.candidateInfo.candidateId));
   })
   return (
     <div class="bg-white px-4 py-4 section-divider align-items-center">

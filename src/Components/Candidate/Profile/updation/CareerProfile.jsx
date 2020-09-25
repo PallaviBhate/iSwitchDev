@@ -1,17 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import ReactTags from 'react-tag-autocomplete'
 import { CITY_LIST } from '../../../../Utils/AppConst';
+import { Context } from '../../../../Context/ProfileContext';
+import ApiServicesOrgCandidate from '../../../../Services/ApiServicesOrgCandidate';
 
 const CareerProfile = () => {
   const [isPreferredShift, setPreferredShift] = useState('day');
   const [tags, setTags] = useState([]);
-
+  const [employmentType, setEmploymentType] = useState('');
+  const [addPreferredLocation, setAddPreferredLocation] = useState([]);
   const onValueChange = (event) => {
     setPreferredShift(event.target.value);
   }
 
   const onAddition = (tag) => {
     const tagsCnt = [].concat(tags, tag)
+    setAddPreferredLocation(oldArray => [...oldArray, tag.name]);
     setTags(tagsCnt)
   }
   const onDelete = (i) => {
@@ -20,13 +24,27 @@ const CareerProfile = () => {
     setTags(tagsCnt)
   }
 
+  const updateCareerProfile = (e) => {
+    const candidateId = localStorage.getItem('candidateId')
+    let data = {
+      "preferredShift": isPreferredShift,
+      "employmentType": employmentType,
+      "preferredLocation": addPreferredLocation.join(),
+      "candidateId": candidateId
+    }
+    ApiServicesOrgCandidate.updateCareerInfo(data);
+    //e.preventDefault();
+  }
+
   return (
     <>
       <form>
         <div class="mb-4">
           <div className="form-group">
             <label htmlFor="University">Employment Type</label>
-            <select id="University" className="form-control">
+            <select id="University" className="form-control"
+              onChange={(e) => { setEmploymentType(e.target.value) }}
+            >
               <option>Permanent</option>
               <option>Contractual</option>
             </select>
@@ -39,7 +57,8 @@ const CareerProfile = () => {
               tags={tags}
               suggestions={CITY_LIST}
               onDelete={onDelete}
-              onAddition={onAddition} />
+              onAddition={onAddition}
+            />
           </div>
           <div className="form-group">
             <label htmlFor="University">Preferred Shift</label>
@@ -62,12 +81,12 @@ const CareerProfile = () => {
                   <input
                     type="checkbox"
                     class="custom-control-input"
-                    id="afterNoon"
-                    value="afterNoon"
-                    checked={isPreferredShift === 'afterNoon'}
+                    id="AfterNoon"
+                    value="AfterNoon"
+                    checked={isPreferredShift === 'AfterNoon'}
                     onChange={onValueChange}
                   />
-                  <label class="custom-control-label" for="afterNoon">AfterNoon</label>
+                  <label class="custom-control-label" for="AfterNoon">AfterNoon</label>
                 </div>
               </div>
               <div className="col-2.5">
@@ -99,7 +118,7 @@ const CareerProfile = () => {
             </div>
           </div>
         </div>
-        <button class="btn lightBlue float-right px-5">Save</button>
+        <button class="btn lightBlue float-right px-5" onClick={updateCareerProfile}>Save</button>
       </form>
 
     </>
