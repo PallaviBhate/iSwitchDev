@@ -11,7 +11,7 @@ import Employment from './updation/Employment';
 import Education from './updation/Education';
 import Personal from './updation/Personal';
 import CareerProfile from './updation/CareerProfile';
-export const PopupContent = ({ title, showPopup }) => {
+export const PopupContent = ({ title, showPopup, id }) => {
     let bodyComponent;
     switch (title) {
         case EDIT_PROFILE_NAME:
@@ -40,7 +40,7 @@ export const PopupContent = ({ title, showPopup }) => {
             break;
         case ADD_NEW_EMPLOYMENT:
             bodyComponent = <Employment />
-        break;
+            break;
         case EDIT_EDUCATION:
             bodyComponent = <Education />
             break;
@@ -54,7 +54,7 @@ export const PopupContent = ({ title, showPopup }) => {
             bodyComponent = <CareerProfile />
             break;
         case EDIT_LANGUAGE:
-            bodyComponent = <Language />
+            bodyComponent = <Language id={id} />
             break;
         case ADD_NEW_LANGUAGE:
             bodyComponent = <Language />
