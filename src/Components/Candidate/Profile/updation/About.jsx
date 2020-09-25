@@ -23,6 +23,7 @@ const About = () => {
   const handleFormInputData = (e) => {
     return (
       setFormInputData({
+        ...inputData,
         [e.target.name]: e.target.value
       })
     )
