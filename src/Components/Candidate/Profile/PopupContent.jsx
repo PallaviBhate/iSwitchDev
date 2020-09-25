@@ -11,7 +11,7 @@ import Employment from './updation/Employment';
 import Education from './updation/Education';
 import Personal from './updation/Personal';
 import CareerProfile from './updation/CareerProfile';
-export const PopupContent = ({ title, showPopup, id }) => {
+export const PopupContent = ({ title, showPopup, dataAttributes, id }) => {
     let bodyComponent;
     switch (title) {
         case EDIT_PROFILE_NAME:
@@ -24,7 +24,7 @@ export const PopupContent = ({ title, showPopup, id }) => {
             bodyComponent = <CTC />
             break;
         case EDIT_SKILL:
-            bodyComponent = <Skill />
+            bodyComponent = <Skill dataAttributes={dataAttributes} />
             break;
         case ADD_NEW_SKILL:
             bodyComponent = <Skill />
@@ -54,7 +54,7 @@ export const PopupContent = ({ title, showPopup, id }) => {
             bodyComponent = <CareerProfile />
             break;
         case EDIT_LANGUAGE:
-            bodyComponent = <Language id={id} />
+            bodyComponent = <Language id={dataAttributes} />
             break;
         case ADD_NEW_LANGUAGE:
             bodyComponent = <Language />

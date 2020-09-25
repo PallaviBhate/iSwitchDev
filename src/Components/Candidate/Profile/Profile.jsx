@@ -13,6 +13,7 @@ export const Profile = () => {
     const [isPopupVisible, setPopupVisible] = React.useState(false);
     const [popupTitle, setPopupTitle] = React.useState('');
     const [id, setId] = useState('');
+    const [dataAttributes, setDataAttributes] = React.useState('');
     const [candidateProfile, setCandidateProfile] = React.useState('');
     const { getProfileInfo } = useContext(Context);
     useEffect(() => {
@@ -22,10 +23,11 @@ export const Profile = () => {
             setCandidateProfile(response)
         }).catch(error => { });
     }, [])
-    const showPopup = (title, isVisible, id) => {
+    const showPopup = (title, isVisible, data, id) => {
         setId(id);
         setPopupTitle(title);
         setPopupVisible(isVisible);
+        setDataAttributes(data);
     }
     return (
         <div>
@@ -37,6 +39,7 @@ export const Profile = () => {
                         title={popupTitle}
                         showPopup={setPopupVisible}
                         id={id}
+                        dataAttributes={dataAttributes}
                     /> : null}
                     <div class="pb-2 mt-5">
                         <Breadcrumbs />

@@ -4,17 +4,17 @@ import ApiServicesOrgCandidate from '../../../../Services/ApiServicesOrgCandidat
 
 const Language = (id) => {
 
-  const candidateId = localStorage.getItem('candidateId');
   const [isLanguageKnown, setLanguageKnown] = React.useState('read');
   const [inputData, setFormInputData] = React.useState({
     language: '', proficiency: '',
-    canWrite: '', canSpeak: '', canRead: '', "candidateId": candidateId
+    canWrite: '', canSpeak: '', canRead: ''
   });
   const { state } = useContext(Context);
   useEffect(() => {
     state.then((data) => {
-      const candidateLanguage = data.candidateLanguageList.filter((ele => ele.languageId === id.id))
-      setFormInputData(candidateLanguage[0])
+      console.log(id)
+      const candidateLanguage = data.candidateLanguageList.filter((ele => ele.languageId === id.id))[0]
+      setFormInputData(candidateLanguage)
     })
   }, []);
 
@@ -25,6 +25,7 @@ const Language = (id) => {
   const handleFormInputData = (e) => {
     return (
       setFormInputData({
+        ...inputData,
         [e.target.name]: e.target.value
       })
     )
@@ -39,20 +40,21 @@ const Language = (id) => {
       "canWrite": inputData.canWrite,
       "canSpeak": inputData.canSpeak,
       "canRead": inputData.canRead,
-      "candidateId": candidateId
+      "candidateId": candidateId,
+      "languageId": id.id
     }
     console.log(data)
-    ApiServicesOrgCandidate.updateCareerInfo(data);
+    ApiServicesOrgCandidate.updateLanguage(data);
     e.preventDefault();
   }
-
+  console.log('inputData', inputData)
   return (
     <>
       <form>
         <div class="mb-4">
           <div className="form-group">
-            <label htmlFor="Language">Language</label>
-            <select id="Language" className="form-control"
+            <label htmlFor="language">Language</label>
+            <select id="language" name="language" className="form-control"
               value={inputData.language}
               onChange={(e) => handleFormInputData(e)}
             >
@@ -63,8 +65,8 @@ const Language = (id) => {
             </select>
           </div>
           <div className="form-group">
-            <label htmlFor="University">Proficiency</label>
-            <select id="University" className="form-control"
+            <label htmlFor="proficiency">Proficiency</label>
+            <select id="proficiency" name="proficiency" className="form-control"
               value={inputData.proficiency}
               onChange={(e) => handleFormInputData(e)}
             >

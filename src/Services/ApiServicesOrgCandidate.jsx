@@ -38,6 +38,43 @@ class ApiServicesOrgCandidate {
     )
   }
 
+  updateSkill(skillInfo) {
+    console.log(skillInfo)
+    return (
+      axios
+        .put(`${ApiBaseUrl}/candidate/skill/`)
+        .then(resp => {
+        }).catch(error => {
+          console.log(error);
+        })
+    )
+  }
+
+  addSkill(skillInfo) {
+    console.log('skillInfo', skillInfo)
+    return (
+      axios
+        .post(`${ApiBaseUrl}/candidate/skill/`)
+        .then(resp => {
+          console.log(resp)
+        }).catch(error => {
+          console.log(error);
+        })
+    )
+  }
+
+  updateLanguage(updateLanguage) {
+    console.log(updateLanguage)
+    return (
+      axios
+        .put(`${ApiBaseUrl}/candidate/languages/`, updateLanguage)
+        .then(resp => {
+        }).catch(error => {
+          console.log(error);
+        })
+    )
+  }
+
 }
 
 export default new ApiServicesOrgCandidate();
