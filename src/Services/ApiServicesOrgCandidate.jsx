@@ -26,6 +26,18 @@ class ApiServicesOrgCandidate {
     )
   }
 
+  updateProfileInfo(profileInfo) {
+    console.log(profileInfo)
+    return (
+      axios
+        .put(`${ApiBaseUrl}/candidate/candidateinfo/`, profileInfo)
+        .then(resp => {
+        }).catch(error => {
+          console.log(error);
+        })
+    )
+  }
+
 }
 
 export default new ApiServicesOrgCandidate();
