@@ -49,7 +49,8 @@ const About = () => {
               placeholder="Describe Here"
               required name="about"
               value={inputData.about}
-              onChange={(e) => handleFormInputData(e)}></textarea>
+              onChange={(e) => handleFormInputData(e)}
+            ></textarea>
             <div class="invalid-feedback">
               Please enter a message in the textarea.
             </div>

@@ -11,7 +11,7 @@ import Employment from './updation/Employment';
 import Education from './updation/Education';
 import Personal from './updation/Personal';
 import CareerProfile from './updation/CareerProfile';
-export const PopupContent = ({ title, showPopup }) => {
+export const PopupContent = ({ title, showPopup, dataAttributes }) => {
     let bodyComponent;
     switch (title) {
         case EDIT_PROFILE_NAME:
@@ -24,7 +24,7 @@ export const PopupContent = ({ title, showPopup }) => {
             bodyComponent = <CTC />
             break;
         case EDIT_SKILL:
-            bodyComponent = <Skill />
+            bodyComponent = <Skill dataAttributes={dataAttributes}/>
             break;
         case ADD_NEW_SKILL:
             bodyComponent = <Skill />
