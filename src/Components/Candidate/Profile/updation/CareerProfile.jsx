@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import ReactTags from 'react-tag-autocomplete'
 import { CITY_LIST } from '../../../../Utils/AppConst';
 import { Context } from '../../../../Context/ProfileContext';
@@ -9,6 +9,21 @@ const CareerProfile = () => {
   const [tags, setTags] = useState([]);
   const [employmentType, setEmploymentType] = useState('');
   const [addPreferredLocation, setAddPreferredLocation] = useState([]);
+  const { state } = useContext(Context);
+
+  useEffect(() => {
+    state.then((response) => {
+      setEmploymentType(response.candidateInfo.employmentType)
+      setPreferredShift(response.candidateInfo.preferredShift)
+      debugger
+      const preferredLocation = response.candidateInfo.preferredLocation.split(',');
+      let intersection = CITY_LIST.filter(x => preferredLocation.includes(x.name));
+      console.log(intersection)
+      setTags(intersection);
+      intersection.map((val) => setAddPreferredLocation(oldArray => [...oldArray, val.name]))
+    })
+  }, []);
+
   const onValueChange = (event) => {
     setPreferredShift(event.target.value);
   }
@@ -18,13 +33,16 @@ const CareerProfile = () => {
     setAddPreferredLocation(oldArray => [...oldArray, tag.name]);
     setTags(tagsCnt)
   }
+
   const onDelete = (i) => {
     const tagsCnt = tags.slice(0)
     tagsCnt.splice(i, 1)
+    setAddPreferredLocation(Array.prototype.map.call(tagsCnt, s => s.name))
     setTags(tagsCnt)
   }
 
   const updateCareerProfile = (e) => {
+    console.log(addPreferredLocation)
     const candidateId = localStorage.getItem('candidateId')
     let data = {
       "preferredShift": isPreferredShift,
@@ -33,7 +51,7 @@ const CareerProfile = () => {
       "candidateId": candidateId
     }
     ApiServicesOrgCandidate.updateCareerInfo(data);
-    //e.preventDefault();
+    // e.preventDefault();
   }
 
   return (
@@ -42,7 +60,9 @@ const CareerProfile = () => {
         <div class="mb-4">
           <div className="form-group">
             <label htmlFor="University">Employment Type</label>
-            <select id="University" className="form-control"
+            <select id="University"
+              className="form-control"
+              value={employmentType}
               onChange={(e) => { setEmploymentType(e.target.value) }}
             >
               <option>Permanent</option>
@@ -68,12 +88,12 @@ const CareerProfile = () => {
                   <input
                     type="checkbox"
                     class="custom-control-input"
-                    id="day"
-                    value="day"
-                    checked={isPreferredShift === 'day'}
+                    id="Day"
+                    value="Day"
+                    checked={isPreferredShift === 'Day'}
                     onChange={onValueChange}
                   />
-                  <label class="custom-control-label" for="day">Day</label>
+                  <label class="custom-control-label" for="Day">Day</label>
                 </div>
               </div>
               <div className="col-3.5">
@@ -94,12 +114,12 @@ const CareerProfile = () => {
                   <input
                     type="checkbox"
                     class="custom-control-input"
-                    id="night"
-                    value="night"
-                    checked={isPreferredShift === 'night'}
+                    id="Night"
+                    value="Night"
+                    checked={isPreferredShift === 'Night'}
                     onChange={onValueChange}
                   />
-                  <label class="custom-control-label" for="night">Night</label>
+                  <label class="custom-control-label" for="Night">Night</label>
                 </div>
               </div>
               <div className="col-3">
@@ -107,12 +127,12 @@ const CareerProfile = () => {
                   <input
                     type="checkbox"
                     class="custom-control-input"
-                    id="flexible"
-                    value="flexible"
-                    checked={isPreferredShift === 'flexible'}
+                    id="Flexible"
+                    value="Flexible"
+                    checked={isPreferredShift === 'Flexible'}
                     onChange={onValueChange}
                   />
-                  <label class="custom-control-label" for="flexible">Flexible</label>
+                  <label class="custom-control-label" for="Flexible">Flexible</label>
                 </div>
               </div>
             </div>
