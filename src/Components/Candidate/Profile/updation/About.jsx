@@ -1,17 +1,19 @@
-import React, { Component } from 'react';
+import React, { Component, useContext } from 'react';
 import { Button, Modal } from 'react-bootstrap'
 import ApiServicesOrgCandidate from '../../../../Services/ApiServicesOrgCandidate';
 import { Context } from '../../../../Context/ProfileContext';
 
 const About = () => {
-  const [inputData, setFormInputData] = React.useState({about: ''})
+  const [inputData, setFormInputData] = React.useState({ about: '' })
   const [candidateProfile, setCandidateProfile] = React.useState('');
   const { getProfileInfo } = React.useContext(Context);
+  const { state } = useContext(Context);
+
+
   React.useEffect(() => {
-      getProfileInfo();
-      ApiServicesOrgCandidate.fetchProfileInfo().then(response => {
-          setCandidateProfile(response)
-      }).catch(error => { });
+    state.then((response) => {
+      setCandidateProfile(response)
+    })
   }, []);
 
   React.useEffect(() => {
@@ -21,7 +23,7 @@ const About = () => {
   }, [candidateProfile]);
   const handleFormInputData = (e) => {
     return (
-      setFormInputData( {
+      setFormInputData({
         [e.target.name]: e.target.value
       })
     )
@@ -44,7 +46,10 @@ const About = () => {
             <label for="about">Profile Summary</label>
             <textarea class="form-control" rows="10"
               id="about"
-              placeholder="Describe Here" required name="about" value={inputData.about} onChange={(e) => handleFormInputData(e)}></textarea>
+              placeholder="Describe Here"
+              required name="about"
+              value={inputData.about}
+              onChange={(e) => handleFormInputData(e)}></textarea>
             <div class="invalid-feedback">
               Please enter a message in the textarea.
             </div>
