@@ -6,7 +6,6 @@ import { Context } from '../../../../Context/ProfileContext';
 const About = () => {
   const [inputData, setFormInputData] = React.useState({ about: '' })
   const [candidateProfile, setCandidateProfile] = React.useState('');
-  const { getProfileInfo } = React.useContext(Context);
   const { state } = useContext(Context);
 
 
@@ -24,6 +23,7 @@ const About = () => {
   const handleFormInputData = (e) => {
     return (
       setFormInputData({
+        ...inputData,
         [e.target.name]: e.target.value
       })
     )

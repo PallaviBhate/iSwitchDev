@@ -1,32 +1,29 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import ApiServicesOrgCandidate from '../../../../Services/ApiServicesOrgCandidate';
 import { Context } from '../../../../Context/ProfileContext';
 
 const CTC = () => {
-  const [isCurrency, setCurrency] = React.useState('INR');
-
-  const onValueChange = (event) => {
-    setCurrency(event.target.value);
-  }
-
   const [inputData, setFormInputData] = React.useState({ currentCtcInLakh: '', currentCtcInThousand: '', expectedCtcInLakh: '', expectedCtcInThousand: '', currencyType: '' })
   const [candidateProfile, setCandidateProfile] = React.useState('');
-  const { getProfileInfo } = React.useContext(Context);
+  const { state } = useContext(Context);
+
   React.useEffect(() => {
-    getProfileInfo();
-    ApiServicesOrgCandidate.fetchProfileInfo().then(response => {
+    state.then((response) => {
       setCandidateProfile(response)
-    }).catch(error => { });
+    })
   }, []);
 
   React.useEffect(() => {
-    setFormInputData({
-      currencyType: candidateProfile && candidateProfile.candidateInfo && candidateProfile.candidateInfo.currencyType,
-      currentCtcInLakh: candidateProfile && candidateProfile.candidateInfo && candidateProfile.candidateInfo.currentCTC && `${candidateProfile.candidateInfo.currentCTC}`.split('.')[0],
-      currentCtcInThousand: candidateProfile && candidateProfile.candidateInfo && candidateProfile.candidateInfo.currentCTC && `${candidateProfile.candidateInfo.currentCTC}`.split('.')[1],
-      expectedCtcInLakh: candidateProfile && candidateProfile.candidateInfo && candidateProfile.candidateInfo.expectedCTC && `${candidateProfile.candidateInfo.expectedCTC}`.split('.')[0],
-      expectedCtcInThousand: candidateProfile && candidateProfile.candidateInfo && candidateProfile.candidateInfo.expectedCTC && `${candidateProfile.candidateInfo.expectedCTC}`.split('.')[1]
-    });
+    if (candidateProfile && candidateProfile.candidateInfo) {
+      const { currencyType, currentCTC, expectedCTC, } = candidateProfile.candidateInfo;
+      setFormInputData({
+        currencyType: currencyType,
+        currentCtcInLakh: currentCTC && parseFloat(currentCTC).toFixed(2).split('.')[0],
+        currentCtcInThousand: currentCTC && parseFloat(currentCTC).toFixed(2).split('.')[1],
+        expectedCtcInLakh: expectedCTC && parseFloat(expectedCTC).toFixed(2).split('.')[0],
+        expectedCtcInThousand: expectedCTC && parseFloat(expectedCTC).toFixed(2).split('.')[1]
+      });
+    }
   }, [candidateProfile]);
   const handleFormInputData = (e) => {
     return (
@@ -96,10 +93,10 @@ const CTC = () => {
               </div>
               <div className="col  ml-4">
                 <select id="currentCtcInThousand" className="form-control" name="currentCtcInThousand" value={inputData.currentCtcInThousand} onChange={(e) => handleFormInputData(e)} >
-                  <option>0</option>
-                  <option>5</option>
-                  <option>10</option>
-                  <option>15</option>
+                  <option value={"00"}>0</option>
+                  <option value={"05"}>5</option>
+                  <option value={"10"}>10</option>
+                  <option value={"15"}>15</option>
                 </select>
                 <label class="w-100 text-right small-text-light mt-2" htmlFor="University">Thousand</label>
               </div>
@@ -119,10 +116,10 @@ const CTC = () => {
               </div>
               <div className="col ml-4">
                 <select id="expectedCtcInThousand" className="form-control" name="expectedCtcInThousand" value={inputData.expectedCtcInThousand} onChange={(e) => handleFormInputData(e)} >
-                  <option>0</option>
-                  <option>5</option>
-                  <option>10</option>
-                  <option>15</option>
+                  <option value={"00"}>0</option>
+                  <option value={"05"}>5</option>
+                  <option value={"10"}>10</option>
+                  <option value={"15"}>15</option>
                 </select>
                 <label class="w-100 text-right small-text-light mt-2" htmlFor="University">Thousand</label>
               </div>
