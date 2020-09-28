@@ -105,4 +105,5 @@ const Skill = ({dataAttributes}) => {
     </>
   );
 }
+
 export default Skill

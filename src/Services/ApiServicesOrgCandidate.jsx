@@ -75,6 +75,19 @@ class ApiServicesOrgCandidate {
     )
   }
 
+  addLanguage(languageInfo) {
+    const candidateId = localStorage.getItem('candidateId')
+    return (
+      axios
+        .post(`${ApiBaseUrl}/candidate/languages/${candidateId}`, languageInfo)
+        .then(resp => {
+          console.log(resp)
+        }).catch(error => {
+          console.log(error);
+        })
+    )
+  }
+
   addCertification(certificationInfo) {
     const candidateId = localStorage.getItem('candidateId')
     return (
