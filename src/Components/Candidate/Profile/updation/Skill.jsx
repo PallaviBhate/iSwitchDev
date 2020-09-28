@@ -3,7 +3,7 @@ import ApiServicesOrgCandidate from '../../../../Services/ApiServicesOrgCandidat
 import { Context } from '../../../../Context/ProfileContext';
 
 const Skill = ({dataAttributes}) => {
-  const [inputData, setFormInputData] = React.useState({ experience: '', proficiency: '', skillName: '', version: '' })
+  const [inputData, setFormInputData] = React.useState({ experienceInYear: '', experienceInMonth: '', proficiency: '', skillName: '', version: '' })
   const [skillInfo, setSkillInfo] = React.useState('');
   const { state } = useContext(Context);
   const skillId = dataAttributes && dataAttributes.skillId;
@@ -23,7 +23,8 @@ const Skill = ({dataAttributes}) => {
       const { experience, proficiency, skillName, version } = skillInfo;
       console.log(skillId)
       setFormInputData({
-        experience: experience,
+        experienceInYear: experience && parseFloat(experience).toFixed(2).split('.')[0],
+        experienceInMonth: experience && parseFloat(experience).toFixed(2).split('.')[1],
         proficiency: proficiency,
         skillName: skillName,
         version: version,
@@ -39,9 +40,9 @@ const Skill = ({dataAttributes}) => {
     )
   }
   const handleSubmit = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     let data = {
-      "experience": 3,
+      "experience": `${inputData.experienceInYear}.${inputData.experienceInMonth}`,
       "proficiency": inputData.proficiency,
       "skillName": inputData.skillName,
       "version": inputData.version
@@ -74,16 +75,16 @@ const Skill = ({dataAttributes}) => {
           <div class="form-group">
             <div class="form-row">
               <div className="col mr-3">
-                <select id="University" className="form-control">
+                <select id="experienceInYear" className="form-control" name="experienceInYear" value={inputData.experienceInYear} onChange={(e) => handleFormInputData(e)}>
                   {Array(31).fill().map((_, i) => (
-                    <option key={`${i}_years`}>{i} {i === 1 ? 'Year' : 'Years'} </option>
+                    <option value={i} key={`${i}_years`}>{i} {i === 1 ? 'Year' : 'Years'} </option>
                   ))}
                 </select>
               </div>
               <div className="col ml-3">
-                <select id="University" className="form-control">
+              <select id="experienceInMonth" className="form-control" name="experienceInMonth" value={inputData.experienceInMonth} onChange={(e) => handleFormInputData(e)}>
                   {Array(12).fill().map((_, i) => (
-                    <option key={`${i}_months`}>{i} {i === 1 ? 'Month' : 'Months'} </option>
+                    <option value={i < 10 ? `0${i}` : i} key={`${i}_months`}>{i} {i === 1 ? 'Month' : 'Months'} </option>
                   ))}
                 </select>
               </div>

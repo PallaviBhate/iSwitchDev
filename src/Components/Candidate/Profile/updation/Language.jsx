@@ -7,7 +7,7 @@ const Language = (id) => {
   const [isLanguageKnown, setLanguageKnown] = React.useState('read');
   const [inputData, setFormInputData] = React.useState({
     language: '', proficiency: '',
-    canWrite: '', canSpeak: '', canRead: ''
+    canWrite: false, canSpeak: false, canRead: false
   });
   const { state } = useContext(Context);
   useEffect(() => {
@@ -23,29 +23,34 @@ const Language = (id) => {
   }
 
   const handleFormInputData = (e) => {
+    let value = e.target.value;
+    let name = e.target.name;
+    if (name === "canRead" || name === "canWrite" || name === "canSpeak") {
+      value = e.target.checked ? true : false;
+    }
+    console.log(value)
     return (
       setFormInputData({
         ...inputData,
-        [e.target.name]: e.target.value
+        [name]: value
       })
     )
   }
 
   const updateLanguage = (e) => {
-    console.log(inputData)
+    // e.preventDefault();
     const candidateId = localStorage.getItem('candidateId')
     let data = {
       "language": inputData.language,
       "proficiency": inputData.proficiency,
-      "canWrite": inputData.canWrite,
-      "canSpeak": inputData.canSpeak,
-      "canRead": inputData.canRead,
+      "canWrite": Boolean(inputData.canWrite),
+      "canSpeak": Boolean(inputData.canSpeak),
+      "canRead": Boolean(inputData.canRead),
       "candidateId": candidateId,
       "languageId": id.id
     }
     console.log(data)
     ApiServicesOrgCandidate.updateLanguage(data);
-    e.preventDefault();
   }
   console.log('inputData', inputData)
   return (
@@ -83,7 +88,7 @@ const Language = (id) => {
                   <input type="checkbox"
                     class="custom-control-input"
                     id="customControlAutosizing"
-                    // value="read"
+                    name="canRead"
                     checked={inputData.canRead}
                     value={inputData.canRead}
                     onChange={(e) => handleFormInputData(e)}
@@ -97,9 +102,8 @@ const Language = (id) => {
                     type="checkbox"
                     class="custom-control-input"
                     id="customControlAutosizing1"
-                    //value="write"
+                    name="canWrite"
                     checked={inputData.canWrite}
-                    // onChange={onValueChange}
                     value={inputData.canWrite}
                     onChange={(e) => handleFormInputData(e)}
                   />
@@ -112,9 +116,8 @@ const Language = (id) => {
                     type="checkbox"
                     class="custom-control-input"
                     id="customControlAutosizing2"
-                    //value="speak"
+                    name="canSpeak"
                     checked={inputData.canSpeak}
-                    //onChange={onValueChange}
                     value={inputData.canSpeak}
                     onChange={(e) => handleFormInputData(e)}
                   />
