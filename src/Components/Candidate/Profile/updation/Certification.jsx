@@ -56,7 +56,7 @@ const Certification = ({ dataAttributes }) => {
       "credentialURL": inputData.credentialURL
     }
     if (resourceId) {
-      ApiServicesOrgCandidate.updateCertification({ ...data, resourceId: resourceId });
+      ApiServicesOrgCandidate.updateCertification({ ...data, certificationId: resourceId });
     } else {
       ApiServicesOrgCandidate.addCertification(data);
     }
