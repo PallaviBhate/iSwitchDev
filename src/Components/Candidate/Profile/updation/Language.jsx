@@ -11,11 +11,13 @@ const Language = (id) => {
   });
   const { state } = useContext(Context);
   useEffect(() => {
+    if (id && state.candidateLanguageList) {
     state.then((data) => {
       console.log(id)
       const candidateLanguage = data.candidateLanguageList.filter((ele => ele.languageId === id.id))[0]
       setFormInputData(candidateLanguage)
     })
+  }
   }, []);
 
   const onValueChange = (event) => {
