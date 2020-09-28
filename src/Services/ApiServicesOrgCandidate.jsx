@@ -54,7 +54,7 @@ class ApiServicesOrgCandidate {
     const candidateId = skillInfo && skillInfo.candidateId;
     return (
       axios
-        .post(`${ApiBaseUrl}/candidate/skill?candidateId=${candidateId}`, skillInfo)
+        .post(`${ApiBaseUrl}/candidate/skill/${candidateId}`, skillInfo)
         .then(resp => {
           console.log(resp)
         }).catch(error => {
