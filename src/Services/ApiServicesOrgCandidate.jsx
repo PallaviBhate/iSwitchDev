@@ -63,6 +63,31 @@ class ApiServicesOrgCandidate {
     )
   }
 
+  updateCertification(certificationInfo) {
+    const candidateId = localStorage.getItem('candidateId')
+    return (
+      axios
+        .put(`${ApiBaseUrl}/candidate/certificate?candidateId=${candidateId}`, certificationInfo)
+        .then(resp => {
+        }).catch(error => {
+          console.log(error);
+        })
+    )
+  }
+
+  addCertification(certificationInfo) {
+    const candidateId = localStorage.getItem('candidateId')
+    return (
+      axios
+        .post(`${ApiBaseUrl}/candidate/certificate/${candidateId}`, certificationInfo)
+        .then(resp => {
+          console.log(resp)
+        }).catch(error => {
+          console.log(error);
+        })
+    )
+  }
+
   updateLanguage(updateLanguage) {
     const candidateId = localStorage.getItem('candidateId')
     return (

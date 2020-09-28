@@ -19,7 +19,7 @@ export const Certifications = ({ showPopup }) => {
           {(candidateCertificatesList) ? candidateCertificatesList.map((data) => (
             <div class="col-12 px-0 py-3">
               <div>
-                <img src="/images/Dashboard-assets/iconfinder_edit.svg" class="float-right" alt="Cinque Terre" onClick={() => showPopup(EDIT_CERTIFICATE, true)} />
+                <img src="/images/Dashboard-assets/iconfinder_edit.svg" class="float-right" alt="Cinque Terre" onClick={() => showPopup(EDIT_CERTIFICATE, true, {resourceId: data.certificationId})} />
                 <span class="subtitle-semi-bold">{data.certificationName}</span>
               </div>
               <div><span class="normal-text-semi-bold">{data.issuingOrganization}</span></div>
