@@ -64,10 +64,10 @@ class ApiServicesOrgCandidate {
   }
 
   updateLanguage(updateLanguage) {
-    console.log(updateLanguage)
+    const candidateId = localStorage.getItem('candidateId')
     return (
       axios
-        .put(`${ApiBaseUrl}/candidate/languages/`, updateLanguage)
+        .put(`${ApiBaseUrl}/candidate/languages/?candidateId=${candidateId}`, updateLanguage)
         .then(resp => {
         }).catch(error => {
           console.log(error);

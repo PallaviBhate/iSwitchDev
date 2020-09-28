@@ -15,10 +15,12 @@ const CareerProfile = () => {
     state.then((response) => {
       setEmploymentType(response.candidateInfo.employmentType)
       setPreferredShift(response.candidateInfo.preferredShift)
-      const preferredLocation = response.candidateInfo.preferredLocation.split(',');
-      let intersection = CITY_LIST.filter(x => preferredLocation.includes(x.name));
-      setTags(intersection);
-      intersection.map((val) => setAddPreferredLocation(oldArray => [...oldArray, val.name]))
+      if (response.candidateInfo.preferredLocation !== null) {
+        const preferredLocation = response.candidateInfo.preferredLocation.split(',');
+        let intersection = CITY_LIST.filter(x => preferredLocation.includes(x.name));
+        setTags(intersection);
+        intersection.map((val) => setAddPreferredLocation(oldArray => [...oldArray, val.name]))
+      }
     })
   }, []);
 
