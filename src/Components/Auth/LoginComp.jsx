@@ -69,7 +69,7 @@ class LoginComp extends Component {
               localStorage.setItem('userDetails',JSON.stringify(Response.data.responseObject)); 
               localStorage.setItem('userName',Response.data.responseObject['userName'])
               //fieldwise response
-              localStorage.setItem('candidateId',Response.data.responseObject['id'])
+              localStorage.setItem('userId',Response.data.responseObject['id'])
               localStorage.setItem('organizationId',Response.data.responseObject['orgnaizationId'] )
               localStorage.setItem('rememberme',this.state.isChecked)
               localStorage.setItem('emailId',this.state.isChecked ? Response.data.responseObject['email'] :'')

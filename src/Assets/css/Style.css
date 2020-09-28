@@ -2242,9 +2242,25 @@ textarea.form-control {
 
 /* Css added by Amarendra & Swati */
 
+<<<<<<< HEAD
 .matches_navhead {
     padding: 0rem 2rem;
     display: inline-block;
+=======
+.subMenu:after {
+    content: "\f107";
+    font-family: FontAwesome;
+    position: absolute;
+    right: 15px;
+}
+/* Profile Nav Start */
+.profile__button_group {
+    display: flex;
+    background: white;
+    padding: 0px 60px;
+    margin-bottom: 1px;
+    z-index: 999;
+>>>>>>> 997a97ec02141f36c6e297c261545b6b4a74dbd5
 }
 
 .details_list li {
@@ -2498,4 +2514,8 @@ textarea.form-control {
 }
 
 
+<<<<<<< HEAD
 /* close modal css*/
+=======
+/* Profile Nav End */
+>>>>>>> 997a97ec02141f36c6e297c261545b6b4a74dbd5

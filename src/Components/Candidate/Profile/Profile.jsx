@@ -1,4 +1,4 @@
-import React, { useEffect,useContext } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import LeftNavCandidate from '../../CommonComp/LeftNavCandidate'
 import HeaderAll from '../../CommonComp/HeaderAll'
 import { Information, NavBar, LanguageKnown } from './details';
@@ -12,6 +12,8 @@ import { Context } from '../../../Context/ProfileContext';
 export const Profile = () => {
     const [isPopupVisible, setPopupVisible] = React.useState(false);
     const [popupTitle, setPopupTitle] = React.useState('');
+    const [id, setId] = useState('');
+    const [dataAttributes, setDataAttributes] = React.useState('');
     const [candidateProfile, setCandidateProfile] = React.useState('');
     const { getProfileInfo } = useContext(Context);
     useEffect(() => {
@@ -21,9 +23,11 @@ export const Profile = () => {
             setCandidateProfile(response)
         }).catch(error => { });
     }, [])
-    const showPopup = (title, isVisible) => {
+    const showPopup = (title, isVisible, data, id) => {
+        setId(id);
         setPopupTitle(title);
         setPopupVisible(isVisible);
+        setDataAttributes(data);
     }
     return (
         <div>
@@ -34,6 +38,8 @@ export const Profile = () => {
                     {isPopupVisible ? <PopupContent
                         title={popupTitle}
                         showPopup={setPopupVisible}
+                        id={id}
+                        dataAttributes={dataAttributes}
                     /> : null}
                     <div class="pb-2 mt-5">
                         <Breadcrumbs />

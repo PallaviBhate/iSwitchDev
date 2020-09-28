@@ -1,11 +1,51 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import ApiServicesOrgCandidate from '../../../../Services/ApiServicesOrgCandidate';
+import { Context } from '../../../../Context/ProfileContext';
 
 const CTC = () => {
-  const [isCurrency, setCurrency] = React.useState('INR');
+  const [inputData, setFormInputData] = React.useState({ currentCtcInLakh: '', currentCtcInThousand: '', expectedCtcInLakh: '', expectedCtcInThousand: '', currencyType: '' })
+  const [candidateProfile, setCandidateProfile] = React.useState('');
+  const { state } = useContext(Context);
 
-  const onValueChange = (event) => {
-    setCurrency(event.target.value);
+  React.useEffect(() => {
+    state.then((response) => {
+      setCandidateProfile(response)
+    })
+  }, []);
+
+  React.useEffect(() => {
+    if (candidateProfile && candidateProfile.candidateInfo) {
+      const { currencyType, currentCTC, expectedCTC, } = candidateProfile.candidateInfo;
+      setFormInputData({
+        currencyType: currencyType,
+        currentCtcInLakh: currentCTC && parseFloat(currentCTC).toFixed(2).split('.')[0],
+        currentCtcInThousand: currentCTC && parseFloat(currentCTC).toFixed(2).split('.')[1],
+        expectedCtcInLakh: expectedCTC && parseFloat(expectedCTC).toFixed(2).split('.')[0],
+        expectedCtcInThousand: expectedCTC && parseFloat(expectedCTC).toFixed(2).split('.')[1]
+      });
+    }
+  }, [candidateProfile]);
+  const handleFormInputData = (e) => {
+    return (
+      setFormInputData({
+        ...inputData,
+        [e.target.name]: e.target.value
+      })
+    )
   }
+  const handleSubmit = (e) => {
+    const candidateId = localStorage.getItem('candidateId')
+    let data = {
+      "currencyType": inputData.currencyType,
+      "currentCTC": `${inputData.currentCtcInLakh}.${inputData.currentCtcInThousand}`,
+      "expectedCTC": `${inputData.expectedCtcInLakh}.${inputData.expectedCtcInThousand}`,
+      "candidateId": candidateId
+    }
+    console.log(data)
+    ApiServicesOrgCandidate.updateProfileInfo(data);
+    // e.preventDefault();
+  }
+  console.log('inputData', inputData)
 
   return (
     <>
@@ -13,27 +53,27 @@ const CTC = () => {
         <div class="mb-4">
           <div className="form-group">
             <div>
-              <div class={isCurrency === 'INR' ? "modal-label form-check form-check-inline" : "modal-label form-check form-check-inline modal-fade"}>
+              <div class={inputData.currencyType === 'INR' ? "modal-label form-check form-check-inline" : "modal-label form-check form-check-inline modal-fade"}>
                 <input
                   type="radio"
                   class="form-check-input"
-                  id="materialChecked2"
-                  name="materialExample2"
+                  id="currencyType"
+                  name="currencyType"
                   value="INR"
-                  checked={isCurrency === 'INR'}
-                  onChange={onValueChange}
+                  checked={inputData.currencyType === 'INR'}
+                  onChange={handleFormInputData}
                 />
                 <label class="radio-inline form-check-label" for="materialChecked2">INR</label>
               </div>
-              <div class={isCurrency === 'USD' ? "modal-label form-check form-check-inline" : "modal-label form-check form-check-inline modal-fade"}>
+              <div class={inputData.currencyType === 'USD' ? "modal-label form-check form-check-inline" : "modal-label form-check form-check-inline modal-fade"}>
                 <input
                   type="radio"
                   class="form-check-input"
-                  id="materialChecked3"
-                  name="materialExample3"
+                  id="currencyType"
+                  name="currencyType"
                   value="USD"
-                  checked={isCurrency === 'USD'}
-                  onChange={onValueChange}
+                  checked={inputData.currencyType === 'USD'}
+                  onChange={handleFormInputData}
                 />
                 <label class="radio-inline form-check-label" for="materialChecked3">USD</label>
               </div>
@@ -43,7 +83,7 @@ const CTC = () => {
           <div className="form-group">
             <div class="form-row">
               <div className="col mr-4">
-                <select id="University" className="form-control">
+                <select id="currentCtcInLakh" name="currentCtcInLakh" value={inputData.currentCtcInLakh} onChange={(e) => handleFormInputData(e)} className="form-control">
                   <option>1</option>
                   <option>2</option>
                   <option>3</option>
@@ -52,11 +92,11 @@ const CTC = () => {
                 <label class="w-100 text-right small-text-light mt-2" htmlFor="University">Lakhs</label>
               </div>
               <div className="col  ml-4">
-                <select id="University" className="form-control">
-                  <option>0</option>
-                  <option>5</option>
-                  <option>10</option>
-                  <option>15</option>
+                <select id="currentCtcInThousand" className="form-control" name="currentCtcInThousand" value={inputData.currentCtcInThousand} onChange={(e) => handleFormInputData(e)} >
+                  <option value={"00"}>0</option>
+                  <option value={"05"}>5</option>
+                  <option value={"10"}>10</option>
+                  <option value={"15"}>15</option>
                 </select>
                 <label class="w-100 text-right small-text-light mt-2" htmlFor="University">Thousand</label>
               </div>
@@ -66,7 +106,7 @@ const CTC = () => {
           <div className="form-group">
             <div class="form-row">
               <div className="col mr-4">
-                <select id="University" className="form-control">
+                <select id="expectedCtcInLakh" className="form-control" name="expectedCtcInLakh" value={inputData.expectedCtcInLakh} onChange={(e) => handleFormInputData(e)} >
                   <option>1</option>
                   <option>2</option>
                   <option>3</option>
@@ -75,11 +115,11 @@ const CTC = () => {
                 <label class="w-100 text-right small-text-light mt-2" htmlFor="University">Lakhs</label>
               </div>
               <div className="col ml-4">
-                <select id="University" className="form-control">
-                  <option>0</option>
-                  <option>5</option>
-                  <option>10</option>
-                  <option>15</option>
+                <select id="expectedCtcInThousand" className="form-control" name="expectedCtcInThousand" value={inputData.expectedCtcInThousand} onChange={(e) => handleFormInputData(e)} >
+                  <option value={"00"}>0</option>
+                  <option value={"05"}>5</option>
+                  <option value={"10"}>10</option>
+                  <option value={"15"}>15</option>
                 </select>
                 <label class="w-100 text-right small-text-light mt-2" htmlFor="University">Thousand</label>
               </div>
@@ -87,7 +127,7 @@ const CTC = () => {
           </div>
         </div>
 
-        <button class="btn lightBlue float-right px-5">Save</button>
+        <button class="btn lightBlue float-right px-5" onClick={handleSubmit}>Save</button>
       </form>
     </>
   );

@@ -6,7 +6,8 @@ export const Skills = ({ showPopup }) => {
   const { state } = useContext(Context);
   const [skill, setSkill] = React.useState('');
   state.then((data) => {
-    setSkill(data)
+    setSkill(data);
+    localStorage.setItem('candidateId', JSON.stringify(data.candidateInfo.candidateId));
   })
   return (
     <div class="bg-white px-4 py-4 section-divider align-items-center">
@@ -36,7 +37,7 @@ export const Skills = ({ showPopup }) => {
                     <td>{skill.experience}</td>
                     <td>{skill.proficiency}</td>
                     <td class="edit-icon-column">
-                      <img src="/images/Dashboard-assets/iconfinder_edit.svg" class="edit-icon" alt="Cinque Terre" onClick={() => showPopup(EDIT_SKILL, true)} />
+                      <img src="/images/Dashboard-assets/iconfinder_edit.svg" class="edit-icon" alt="Cinque Terre" onClick={() => showPopup(EDIT_SKILL, true, {skillId: skill.skillId})} />
                       <img src="/images/Dashboard-assets/delete.svg" class="edit-icon" alt="Cinque Terre" />
                     </td>
                   </tr>

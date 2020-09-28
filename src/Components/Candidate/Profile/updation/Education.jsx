@@ -54,13 +54,13 @@ class Education extends Component {
       document.getElementById('Xth4').style.display = 'block'
     }
 
-    if (selectedValue == "3" || selectedValue == "4") {
-      document.getElementById('Xth5').style.display = 'none'
+    // if (selectedValue == "3" || selectedValue == "4") {
+    //   document.getElementById('Xth5').style.display = 'none'
 
-    } else {
+    // } else {
 
-      document.getElementById('Xth5').style.display = 'block'
-    }
+    //   document.getElementById('Xth5').style.display = 'block'
+    // }
 
   }
 
@@ -168,7 +168,7 @@ class Education extends Component {
               </div>
             </div>
           </div>
-          <div className="form-group" id="Xth5">
+          {/* <div className="form-group" id="Xth5">
             <label htmlFor="Course">Medium<span class="required">*</span></label>
             <select id="Course" className="form-control">
               <option>Select Medium</option>
@@ -176,7 +176,7 @@ class Education extends Component {
               <option>Hindi</option>
               <option>Marathi</option>
             </select>
-          </div>
+          </div> */}
           <div className="form-group">
             <label htmlFor="University">Marks<span class="required">*</span></label>
 
