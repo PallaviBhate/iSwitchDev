@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20.25" height="27.614" viewBox="0 0 20.25 27.614">
+  <g id="zip" transform="translate(0)">
+    <g id="csv" transform="translate(-37.218 -9.661)" opacity="0.76">
+      <g id="Group_257" data-name="Group 257" transform="translate(37.218 9.661)">
+        <path id="Path_465" data-name="Path 465" d="M57.333,109.21c.532,0,.962-.292.963-.651v-3.908c0-.36-.431-.651-.963-.651H40.963c-.532,0-.962.292-.963.651v3.908c0,.36.431.651.963.651Z" transform="translate(-40 -91.78)"/>
+        <path id="Path_466" data-name="Path 466" d="M65.732,8H49.867A1.856,1.856,0,0,0,48,9.841v8.284h.933V9.841a.928.928,0,0,1,.933-.92H65.732a.928.928,0,0,1,.933.92V29.059a.92.92,0,0,1-.008.112H62.466a1.392,1.392,0,0,0-1.4,1.381v4.135a.96.96,0,0,1-.113.007H49.867a.928.928,0,0,1-.933-.92V27.33H48v6.443a1.856,1.856,0,0,0,1.867,1.841H60.953a1.868,1.868,0,0,0,1.32-.539l4.78-4.714a1.817,1.817,0,0,0,.547-1.3V9.841A1.856,1.856,0,0,0,65.732,8Z" transform="translate(-47.349 -8)"/>
+        <text id="ZIP-2" data-name="ZIP" transform="translate(8.414 16.326)" fill="#fff" font-size="3.5" font-family="Roboto-Medium, Roboto" font-weight="500" letter-spacing="0.06em"><tspan x="-2.876" y="0">ZIP</tspan></text>
+      </g>
+    </g>
+  </g>
+</svg>
