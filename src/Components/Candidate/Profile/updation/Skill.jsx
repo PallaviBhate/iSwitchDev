@@ -11,13 +11,11 @@ const Skill = ({dataAttributes}) => {
     state.then((response) => {
       if (response && response.skillList) {
         const skillInfoObject = response.skillList.filter(skill => {
-          return skill.skillId == skillId
+          return skill.skillId === skillId
         })[0]
         console.log(skillInfoObject)
         setSkillInfo(skillInfoObject)
-        
       }
-      
     })
   }, []);
   React.useEffect(() => {
@@ -42,22 +40,18 @@ const Skill = ({dataAttributes}) => {
   }
   const handleSubmit = (e) => {
     e.preventDefault();
-    const candidateId = localStorage.getItem('candidateId')
     let data = {
       "experience": 3,
       "proficiency": inputData.proficiency,
       "skillName": inputData.skillName,
-      "version": inputData.version,
-      "candidateId": candidateId
+      "version": inputData.version
     }
-    console.log(data)
     if (skillId) {
       ApiServicesOrgCandidate.updateSkill({...data, skillId: skillId});
     } else {
       ApiServicesOrgCandidate.addSkill(data);
     }
   }
-  console.log('inputData', inputData)
 
   return (
     <>

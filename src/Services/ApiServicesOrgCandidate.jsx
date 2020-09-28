@@ -39,7 +39,7 @@ class ApiServicesOrgCandidate {
   }
 
   updateSkill(skillInfo) {
-    const candidateId = skillInfo && skillInfo.candidateId;
+    const candidateId = localStorage.getItem('candidateId')
     return (
       axios
         .put(`${ApiBaseUrl}/candidate/skill?candidateId=${candidateId}`, skillInfo)
@@ -51,7 +51,7 @@ class ApiServicesOrgCandidate {
   }
 
   addSkill(skillInfo) {
-    const candidateId = skillInfo && skillInfo.candidateId;
+    const candidateId = localStorage.getItem('candidateId')
     return (
       axios
         .post(`${ApiBaseUrl}/candidate/skill/${candidateId}`, skillInfo)
