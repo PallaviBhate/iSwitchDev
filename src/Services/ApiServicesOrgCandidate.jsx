@@ -39,10 +39,10 @@ class ApiServicesOrgCandidate {
   }
 
   updateSkill(skillInfo) {
-    console.log(skillInfo)
+    const candidateId = skillInfo && skillInfo.candidateId;
     return (
       axios
-        .put(`${ApiBaseUrl}/candidate/skill/`)
+        .put(`${ApiBaseUrl}/candidate/skill?candidateId=${candidateId}`, skillInfo)
         .then(resp => {
         }).catch(error => {
           console.log(error);
@@ -51,10 +51,10 @@ class ApiServicesOrgCandidate {
   }
 
   addSkill(skillInfo) {
-    console.log('skillInfo', skillInfo)
+    const candidateId = skillInfo && skillInfo.candidateId;
     return (
       axios
-        .post(`${ApiBaseUrl}/candidate/skill/`)
+        .post(`${ApiBaseUrl}/candidate/skill?candidateId=${candidateId}`, skillInfo)
         .then(resp => {
           console.log(resp)
         }).catch(error => {
