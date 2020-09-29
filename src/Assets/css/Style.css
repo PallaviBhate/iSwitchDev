@@ -1764,16 +1764,8 @@ input:checked+.slider:before {
 }
 
 
-/* =================== (START) CSS ADD by PRASHANT */
+/* =================== (START) CSS for recent_matches_section */
 
-
-/* .col-md-3 {
-    background: #fff;
-}
-
-.col-md-3:nth-child(2n) {
-    background: #ccc;
-} */
 
 .recent_matches_section .row {
     background: #FFF;
@@ -1800,6 +1792,13 @@ input:checked+.slider:before {
     color: #2E2E2E;
     font-family: 'Montserrat, Medium';
 }
+
+/* =================== (END) CSS for recent_matches_section  */
+
+
+
+/* =================== (START) CSS for interviews-section */
+
 
 .interviews-section .row-sec {
     padding: 25px;
@@ -1859,6 +1858,9 @@ input:checked+.slider:before {
     padding: 15px;
     margin: 10px;
 }
+/* =================== (END) CSS ADD by CSS for interviews-section  */
+
+
 
 textarea.form-control {
     height: auto !important;
@@ -1871,8 +1873,6 @@ textarea.form-control {
     width: 15px;
 }
 
-
-/* =================== (END) CSS ADD by PRASHANT  */
 
 .right-panel {
     background-color: #F1F1F1;
@@ -2242,11 +2242,11 @@ textarea.form-control {
 
 /* Css added by Amarendra & Swati */
 
-<<<<<<< HEAD
 .matches_navhead {
     padding: 0rem 2rem;
     display: inline-block;
-=======
+}
+
 .subMenu:after {
     content: "\f107";
     font-family: FontAwesome;
@@ -2260,7 +2260,6 @@ textarea.form-control {
     padding: 0px 60px;
     margin-bottom: 1px;
     z-index: 999;
->>>>>>> 997a97ec02141f36c6e297c261545b6b4a74dbd5
 }
 
 .details_list li {
@@ -2512,10 +2511,3 @@ textarea.form-control {
 .advSearch-body {
     padding-bottom: 11px !important;
 }
-
-
-<<<<<<< HEAD
-/* close modal css*/
-=======
-/* Profile Nav End */
->>>>>>> 997a97ec02141f36c6e297c261545b6b4a74dbd5
