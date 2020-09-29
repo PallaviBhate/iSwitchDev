@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import DatePicker from 'react-date-picker';
 import ReactTags from 'react-tag-autocomplete'
 import { COUNTRY_LIST } from '../../../../Utils/AppConst';
 import ApiServicesOrgCandidate from '../../../../Services/ApiServicesOrgCandidate';
-
-
+import { Context } from '../../../../Context/ProfileContext';
+import Moment from 'moment';
 
 const Personal = () => {
   const [inputData, setFormInputData] = React.useState({
@@ -18,11 +18,36 @@ const Personal = () => {
     "state": "",
     "country": "",
     "workPermit": ""
-  })
+  });
+
   const [isGender, setGender] = useState('male');
   const [tags, setTags] = useState([]);
   const [workPermit, setWorkPermit] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
+  const { state } = useContext(Context);
+
+  useEffect(() => {
+    state.then((response) => {
+      setStartDate(new Date(response.candidateInfo.dob))
+      setWorkPermit(response.candidateInfo.workPermit)
+      if (response.candidateInfo.workPermit !== null) {
+        const workPermit = response.candidateInfo.workPermit.split(',');
+        let intersection = COUNTRY_LIST.filter(x => workPermit.includes(x.name));
+        setTags(intersection);
+        intersection.map((val) => setWorkPermit(oldArray => [...oldArray, val.name]))
+      }
+      setFormInputData({
+        "gender": response.candidateInfo.gender,
+        "passportId": response.candidateInfo.passportId,
+        "address": response.candidateInfo.address,
+        "maritalStatus": response.candidateInfo.maritalStatus,
+        "pincode": response.candidateInfo.pincode,
+        "city": response.candidateInfo.city,
+        "state": response.candidateInfo.state,
+        "country": response.candidateInfo.country
+      });
+    })
+  }, []);
 
   const onValueChange = (event) => {
     setGender(event.target.value);
@@ -41,9 +66,10 @@ const Personal = () => {
   }
 
   const handleSubmit = (e) => {
-    const candidateId = localStorage.getItem('candidateId')
+    const candidateId = localStorage.getItem('candidateId');
+    const DOB = Moment(startDate);
     let data = {
-      "dob": startDate,
+      "dob": DOB.format('YYYY-DD-MM'),
       "gender": isGender,
       "passportId": inputData.passportId,
       "address": inputData.address,
@@ -52,12 +78,12 @@ const Personal = () => {
       "city": inputData.city,
       "state": inputData.state,
       "country": inputData.country,
-      "workPermit":  workPermit.join(),
+      "workPermit": workPermit.join(),
       "candidateId": candidateId
     }
     console.log(data)
     ApiServicesOrgCandidate.updateCareerInfo(data);
-    e.preventDefault();
+    //e.preventDefault();
   }
 
   const handleFormInputData = (e) => {
@@ -78,11 +104,9 @@ const Personal = () => {
             <label className="modal-label" htmlFor="University">Date of Birth</label>
             <div>
               <DatePicker
-                // value={startDate}
-                value={inputData.dob}
-                name={"dob"}
-                //onChange={(e) => handleFormInputData(e)}
-                onChange={date => setStartDate(date)}
+                value={startDate}
+                format='y-MM-dd'
+                onChange={date => { setStartDate(date); console.log(date) }}
                 calendarIcon={<img src="../images/profile/calendar.png" style={{ width: '16px' }} />}
                 clearIcon={null}
                 className={"wid100"}

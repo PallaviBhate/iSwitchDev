@@ -12,12 +12,12 @@ const Language = (id) => {
   const { state } = useContext(Context);
   useEffect(() => {
     if (id && state.candidateLanguageList) {
-    state.then((data) => {
-      console.log(id)
-      const candidateLanguage = data.candidateLanguageList.filter((ele => ele.languageId === id.id))[0]
-      setFormInputData(candidateLanguage)
-    })
-  }
+      state.then((data) => {
+        console.log(id)
+        const candidateLanguage = data.candidateLanguageList.filter((ele => ele.languageId === id.id))[0]
+        setFormInputData(candidateLanguage)
+      })
+    }
   }, []);
 
   const onValueChange = (event) => {
@@ -40,19 +40,20 @@ const Language = (id) => {
   }
 
   const updateLanguage = (e) => {
-    // e.preventDefault();
     const candidateId = localStorage.getItem('candidateId')
     let data = {
       "language": inputData.language,
       "proficiency": inputData.proficiency,
       "canWrite": Boolean(inputData.canWrite),
       "canSpeak": Boolean(inputData.canSpeak),
-      "canRead": Boolean(inputData.canRead),
-      "candidateId": candidateId,
-      "languageId": id.id
+      "canRead": Boolean(inputData.canRead)
     }
-    console.log(data)
-    ApiServicesOrgCandidate.updateLanguage(data);
+    if (id.id) {
+      ApiServicesOrgCandidate.updateLanguage({ ...data, languageId: id.id });
+    } else {
+      ApiServicesOrgCandidate.addLanguage(data);
+    }
+    e.preventDefault();
   }
   console.log('inputData', inputData)
   return (
