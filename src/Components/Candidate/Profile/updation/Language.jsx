@@ -2,18 +2,18 @@ import React, { useContext, useEffect } from 'react';
 import { Context } from '../../../../Context/ProfileContext';
 import ApiServicesOrgCandidate from '../../../../Services/ApiServicesOrgCandidate';
 
-const Language = (id) => {
+const Language = ({ id, showPopup }) => {
 
   const [isLanguageKnown, setLanguageKnown] = React.useState('read');
   const [inputData, setFormInputData] = React.useState({
     language: '', proficiency: '',
     canWrite: false, canSpeak: false, canRead: false
   });
-  const { state } = useContext(Context);
+  const { state, getProfileInfo } = useContext(Context);
   useEffect(() => {
-    if (id.id) {
+    if (id) {
       state.then((data) => {
-        const candidateLanguage = data.candidateLanguageList.filter((ele => ele.languageId === id.id))[0]
+        const candidateLanguage = data.candidateLanguageList.filter((ele => ele.languageId === id))[0]
         setFormInputData(candidateLanguage)
       })
     }
@@ -39,6 +39,7 @@ const Language = (id) => {
   }
 
   const updateLanguage = (e) => {
+    e.preventDefault();
     const candidateId = localStorage.getItem('candidateId')
     let data = {
       "language": inputData.language,
@@ -47,12 +48,11 @@ const Language = (id) => {
       "canSpeak": Boolean(inputData.canSpeak),
       "canRead": Boolean(inputData.canRead)
     }
-    if (id.id) {
-      ApiServicesOrgCandidate.updateLanguage({ ...data, languageId: id.id });
+    if (id) {
+      ApiServicesOrgCandidate.updateLanguage({ ...data, languageId: id }, getProfileInfo, showPopup);
     } else {
-      ApiServicesOrgCandidate.addLanguage(data);
+      ApiServicesOrgCandidate.addLanguage(data, getProfileInfo, showPopup);
     }
-    // e.preventDefault();
   }
 
   return (

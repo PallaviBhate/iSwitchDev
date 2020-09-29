@@ -4,11 +4,11 @@ import { Context } from '../../../../Context/ProfileContext';
 import { MONTH_NAMES } from '../../../../Utils/AppConst';
 import { usePrevious } from '../../../../Utils/usePrevious';
 
-const Education = ({ dataAttributes }) => {
+const Education = ({ dataAttributes, showPopup }) => {
   const [inputData, setFormInputData] = React.useState({ educationType: '', board: '', course: '', specialization: '', university: '', courseType: '', passingOutYear: '', medium: '', marks: '' })
   const [educationInfo, setEducationInfo] = React.useState('');
   const [isExpirationDate, setIsExpirationDate] = React.useState(true)
-  const { state } = useContext(Context);
+  const { state, getProfileInfo } = useContext(Context);
   const resourceId = dataAttributes && dataAttributes.resourceId;
   const prevCourse = usePrevious(inputData.course);
   const prevSpecialization = usePrevious(inputData.specialization);
@@ -48,27 +48,27 @@ const Education = ({ dataAttributes }) => {
       });
     }
   }, [educationInfo]);
-  
+
   const handleFormInputData = (e) => {
     if (e.target.name === 'educationType') {
       if (e.target.value === '10th' || e.target.value === '12th') {
         // if (prevEducationType === 'Post Graduate' || prevEducationType === 'Graduate or Diploma' || prevEducationType === '') {
-          inputData.course = null;
-          inputData.specialization = null;
-          inputData.university = null;
-          inputData.courseType = null;
-          inputData.board = prevBoard;
-          inputData.medium = prevMedium;
+        inputData.course = null;
+        inputData.specialization = null;
+        inputData.university = null;
+        inputData.courseType = null;
+        inputData.board = prevBoard;
+        inputData.medium = prevMedium;
         // }
       }
       else {
         // if (prevEducationType === '10th' || prevEducationType === '12th') {
-          inputData.course = prevCourse;
-          inputData.specialization = prevSpecialization;
-          inputData.university = prevUniversity;
-          inputData.courseType = prevCourseType;
-          inputData.board = null;
-          inputData.medium = null;
+        inputData.course = prevCourse;
+        inputData.specialization = prevSpecialization;
+        inputData.university = prevUniversity;
+        inputData.courseType = prevCourseType;
+        inputData.board = null;
+        inputData.medium = null;
         // }
       }
     }
@@ -80,7 +80,7 @@ const Education = ({ dataAttributes }) => {
     )
   }
   const handleSubmit = (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     let data = {
       "educationType": inputData.educationType,
       "board": inputData.board,
@@ -93,9 +93,9 @@ const Education = ({ dataAttributes }) => {
       "marks": inputData.marks
     }
     if (resourceId) {
-      ApiServicesOrgCandidate.updateEducation({ ...data, educationId: resourceId });
+      ApiServicesOrgCandidate.updateEducation({ ...data, educationId: resourceId }, getProfileInfo, showPopup);
     } else {
-      ApiServicesOrgCandidate.addEducation(data);
+      ApiServicesOrgCandidate.addEducation(data, getProfileInfo, showPopup);
     }
   }
 

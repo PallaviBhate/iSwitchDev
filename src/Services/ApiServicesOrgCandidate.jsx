@@ -36,26 +36,23 @@ class ApiServicesOrgCandidate {
     )
   }
 
-  updateSkill(skillInfo) {
+  updateSkill(skillInfo, getProfileRefresh, showPopup) {
     const candidateId = localStorage.getItem('candidateId')
     return (
       axios
         .put(`${ApiBaseUrl}/candidate/skill?candidateId=${candidateId}`, skillInfo)
-        .then(resp => {
-        }).catch(error => {
+        .then(resp => getProfileRefresh(), showPopup(false)).catch(error => {
           console.log(error);
         })
     )
   }
 
-  addSkill(skillInfo) {
-    const candidateId = localStorage.getItem('candidateId')
+  addSkill(skillInfo, getProfileRefresh, showPopup) {
+    const candidateId = localStorage.getItem('candidateId');
     return (
       axios
         .post(`${ApiBaseUrl}/candidate/skill/${candidateId}`, skillInfo)
-        .then(resp => {
-          console.log(resp)
-        }).catch(error => {
+        .then(resp => getProfileRefresh(), showPopup(false)).catch(error => {
           console.log(error);
         })
     )
@@ -85,14 +82,12 @@ class ApiServicesOrgCandidate {
     )
   }
 
-  addLanguage(languageInfo) {
+  addLanguage(languageInfo, getProfileRefresh, showPopup) {
     const candidateId = localStorage.getItem('candidateId')
     return (
       axios
         .post(`${ApiBaseUrl}/candidate/languages/${candidateId}`, languageInfo)
-        .then(resp => {
-          console.log(resp)
-        }).catch(error => {
+        .then(resp => getProfileRefresh(), showPopup(false)).catch(error => {
           console.log(error);
         })
     )
@@ -112,13 +107,12 @@ class ApiServicesOrgCandidate {
     )
   }
 
-  updateLanguage(updateLanguage, data) {
+  updateLanguage(updateLanguage, getProfileRefresh, showPopup) {
     const candidateId = localStorage.getItem('candidateId')
     return (
       axios
         .put(`${ApiBaseUrl}/candidate/languages?candidateId=${candidateId}`, updateLanguage)
-        .then(resp => {
-        }).catch(error => {
+        .then(resp => getProfileRefresh(), showPopup(false)).catch(error => {
           console.log(error);
         })
     )
@@ -158,27 +152,24 @@ class ApiServicesOrgCandidate {
     )
   }
 
-  updateEducation(educationInfo) {
+  updateEducation(educationInfo, getProfileRefresh, showPopup) {
     const candidateId = localStorage.getItem('candidateId')
     console.log(educationInfo);
     return (
       axios
         .put(`${ApiBaseUrl}/candidate/education?candidateId=${candidateId}`, educationInfo)
-        .then(resp => {
-        }).catch(error => {
+        .then(resp => getProfileRefresh(), showPopup(false)).catch(error => {
           console.log(error);
         })
     )
   }
 
-  addEducation(educationInfo) {
+  addEducation(educationInfo, getProfileRefresh, showPopup) {
     const candidateId = localStorage.getItem('candidateId')
     return (
       axios
         .post(`${ApiBaseUrl}/candidate/education/${candidateId}`, educationInfo)
-        .then(resp => {
-          console.log(resp)
-        }).catch(error => {
+        .then(resp => getProfileRefresh(), showPopup(false)).catch(error => {
           console.log(error);
         })
     )

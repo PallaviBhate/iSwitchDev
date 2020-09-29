@@ -4,12 +4,12 @@ import { CITY_LIST } from '../../../../Utils/AppConst';
 import { Context } from '../../../../Context/ProfileContext';
 import ApiServicesOrgCandidate from '../../../../Services/ApiServicesOrgCandidate';
 
-const CareerProfile = () => {
+const CareerProfile = ({ showPopup }) => {
   const [isPreferredShift, setPreferredShift] = useState('day');
   const [tags, setTags] = useState([]);
   const [employmentType, setEmploymentType] = useState('');
   const [addPreferredLocation, setAddPreferredLocation] = useState([]);
-  const { state } = useContext(Context);
+  const { state, getProfileInfo } = useContext(Context);
 
   useEffect(() => {
     state.then((response) => {
@@ -42,7 +42,7 @@ const CareerProfile = () => {
   }
 
   const updateCareerProfile = (e) => {
-    console.log(addPreferredLocation)
+    e.preventDefault();
     const candidateId = localStorage.getItem('candidateId')
     let data = {
       "preferredShift": isPreferredShift,
@@ -50,8 +50,7 @@ const CareerProfile = () => {
       "preferredLocation": addPreferredLocation.join(),
       "candidateId": candidateId
     }
-    ApiServicesOrgCandidate.updateCareerInfo(data);
-    // e.preventDefault();
+    ApiServicesOrgCandidate.updateCareerInfo(data, getProfileInfo, showPopup);
   }
 
   return (

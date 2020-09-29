@@ -2,10 +2,10 @@ import React, { useContext } from 'react';
 import ApiServicesOrgCandidate from '../../../../Services/ApiServicesOrgCandidate';
 import { Context } from '../../../../Context/ProfileContext';
 
-const Skill = ({dataAttributes}) => {
+const Skill = ({ dataAttributes, showPopup }) => {
   const [inputData, setFormInputData] = React.useState({ experienceInYear: '', experienceInMonth: '', proficiency: '', skillName: '', version: '' })
   const [skillInfo, setSkillInfo] = React.useState('');
-  const { state } = useContext(Context);
+  const { state, getProfileInfo } = useContext(Context);
   const skillId = dataAttributes && dataAttributes.skillId;
   React.useEffect(() => {
     state.then((response) => {
@@ -40,7 +40,7 @@ const Skill = ({dataAttributes}) => {
     )
   }
   const handleSubmit = (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     let data = {
       "experience": `${inputData.experienceInYear}.${inputData.experienceInMonth}`,
       "proficiency": inputData.proficiency,
@@ -48,9 +48,9 @@ const Skill = ({dataAttributes}) => {
       "version": inputData.version
     }
     if (skillId) {
-      ApiServicesOrgCandidate.updateSkill({...data, skillId: skillId});
+      ApiServicesOrgCandidate.updateSkill({ ...data, skillId: skillId }, getProfileInfo, showPopup);
     } else {
-      ApiServicesOrgCandidate.addSkill(data);
+      ApiServicesOrgCandidate.addSkill(data, getProfileInfo, showPopup);
     }
   }
 
@@ -60,7 +60,7 @@ const Skill = ({dataAttributes}) => {
         <div class="mb-4">
           <div className="form-group">
             <label htmlFor="skillName">Skill</label>
-            <input class="form-control" type="text" 
+            <input class="form-control" type="text"
               name="skillName"
               value={inputData.skillName}
               onChange={(e) => handleFormInputData(e)} placeholder="Enter Skill" />
@@ -68,8 +68,8 @@ const Skill = ({dataAttributes}) => {
           <div className="form-group">
             <label htmlFor="version">Version</label>
             <input class="form-control" type="text" name="version"
-            value={inputData.version}
-            onChange={(e) => handleFormInputData(e)} placeholder="Enter Version" />
+              value={inputData.version}
+              onChange={(e) => handleFormInputData(e)} placeholder="Enter Version" />
           </div>
           <label htmlFor="University">Experience</label>
           <div class="form-group">
@@ -82,7 +82,7 @@ const Skill = ({dataAttributes}) => {
                 </select>
               </div>
               <div className="col ml-3">
-              <select id="experienceInMonth" className="form-control" name="experienceInMonth" value={inputData.experienceInMonth} onChange={(e) => handleFormInputData(e)}>
+                <select id="experienceInMonth" className="form-control" name="experienceInMonth" value={inputData.experienceInMonth} onChange={(e) => handleFormInputData(e)}>
                   {Array(12).fill().map((_, i) => (
                     <option value={i < 10 ? `0${i}` : i} key={`${i}_months`}>{i} {i === 1 ? 'Month' : 'Months'} </option>
                   ))}
@@ -92,7 +92,7 @@ const Skill = ({dataAttributes}) => {
           </div>
           <div className="form-group">
             <label htmlFor="proficiency">Proficiency</label>
-            <select id="proficiency" className="form-control"  name="proficiency" value={inputData.proficiency} onChange={(e) => handleFormInputData(e)}>
+            <select id="proficiency" className="form-control" name="proficiency" value={inputData.proficiency} onChange={(e) => handleFormInputData(e)}>
               <option>Select Proficiency</option>
               <option>Beginner</option>
               <option>Proficient</option>
