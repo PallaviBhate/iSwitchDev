@@ -29,7 +29,7 @@ const Personal = () => {
   useEffect(() => {
     state.then((response) => {
       setStartDate(new Date(response.candidateInfo.dob))
-      setWorkPermit(response.candidateInfo.workPermit)
+      // setWorkPermit(response.candidateInfo.workPermit)
       if (response.candidateInfo.workPermit !== null) {
         const workPermit = response.candidateInfo.workPermit.split(',');
         let intersection = COUNTRY_LIST.filter(x => workPermit.includes(x.name));
@@ -244,6 +244,7 @@ const Personal = () => {
               name="maritalStatus"
               onChange={(e) => handleFormInputData(e)}
             >
+              <option>Select Marital Status</option>
               <option>Single/unmarried</option>
               <option>Married</option>
               <option>Widowed</option>

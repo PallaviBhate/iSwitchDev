@@ -63,6 +63,18 @@ class ApiServicesOrgCandidate {
     )
   }
 
+  deleteSkill(id) {
+    const candidateId = localStorage.getItem('candidateId')
+    return (
+      axios
+        .delete(`${ApiBaseUrl}/candidate/skill?candidateId=${candidateId}&skillId=${id}`)
+        .then(resp => {
+        }).catch(error => {
+          console.log(error);
+        })
+    )
+  }
+
   updateCertification(certificationInfo) {
     const candidateId = localStorage.getItem('candidateId')
     return (
@@ -101,12 +113,51 @@ class ApiServicesOrgCandidate {
     )
   }
 
-  updateLanguage(updateLanguage) {
+  updateLanguage(updateLanguage, data) {
     const candidateId = localStorage.getItem('candidateId')
     return (
       axios
-        .put(`${ApiBaseUrl}/candidate/languages/?candidateId=${candidateId}`, updateLanguage)
+        .put(`${ApiBaseUrl}/candidate/languages?candidateId=${candidateId}`, updateLanguage)
         .then(resp => {
+        }).catch(error => {
+          console.log(error);
+        })
+    )
+  }
+
+
+  deleteLanguage(id) {
+    const candidateId = localStorage.getItem('candidateId')
+    return (
+      axios
+        .delete(`${ApiBaseUrl}/candidate/languages?langaugeId=${id}&candidateId=${candidateId}`)
+        .then(resp => {
+        }).catch(error => {
+          console.log(error);
+        })
+    )
+  }
+
+  addEmployment(employmentInfo) {
+    const candidateId = localStorage.getItem('candidateId')
+    return (
+      axios
+        .post(`${ApiBaseUrl}/candidate/employment/${candidateId}`, employmentInfo)
+        .then(resp => {
+          console.log(resp)
+        }).catch(error => {
+          console.log(error);
+        })
+    )
+  }
+
+  updateEmployment(employmentInfo) {
+    const candidateId = localStorage.getItem('candidateId')
+    return (
+      axios
+        .put(`${ApiBaseUrl}/candidate/employment?candidateId=${candidateId}`, employmentInfo)
+        .then(resp => {
+          console.log(resp)
         }).catch(error => {
           console.log(error);
         })
