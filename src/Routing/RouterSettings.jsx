@@ -28,7 +28,7 @@ import InvitesJobdetails from "../Components/Candidate/InvitesJobDetails";
 //import JobListing from '../Components/Candidate/JobListing';
 import AcceptedInterviews from "../Components/Candidate/Interviews/AcceptedInterviews";
 //import JobsPipeline from "../Components/Candidate/JobsPipeline";
-
+import ChangePassword from "../Components/Candidate/ChangePassword"
 import RecruiterDashboard from '../Components/RecruiterComp/RecruiterDashboard'
 
 class RouterSettings extends Component {
@@ -66,7 +66,7 @@ class RouterSettings extends Component {
             <Route path="/candidate/interviews/interviewInvites" component={InterviewInvites}/>
             <Route path="/candidate/invitesJobDetails" component={InvitesJobdetails}/> 
              <Route path="/candidate/interviews/acceptedInterviews" component={AcceptedInterviews}/>
-            
+             <Route path="/candidate/changePassword" component={ChangePassword}/>
 
 
             

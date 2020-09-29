@@ -17,24 +17,24 @@ export default class RecentMatches extends Component {
             <section className="recent_matches_section">
               {[1, 2, 3].map((i) => {
                 return (
-                  <div key={i} class="row ml-0 mr-1 align-items-center">
-                    <div class={"col-12 col-sm-12 col-md-8 col-lg-8 pl-0 align-items-center"}>
-                      <div class="job-title-header">
-                        <span class="mr-3 job-title-text">TCS-Sr. Software Engineer</span>
-                        <span class="job-posted-time-text">Posted 1 day ago</span>
+                  <div key={i} className="row align-items-center">
+                    <div className={"col-12 col-sm-12 col-md-8 col-lg-8 pl-0 align-items-center"}>
+                      <div className="job-title-header">
+                        <span className="mr-3 job-title-text font-blue">TCS-Sr. Software Engineer</span>
+                        <span className="job-posted-time-text">Posted 1 day ago</span>
                       </div>
-                      <div class="job-content">
-                        <span class="mr-4 job-content-attributes"><i className="fa fa-bars mr-2" aria-hidden="true"></i>Category</span>
-                        <span class="mr-4 job-content-attributes"><i className="fa fa-bars mr-2" aria-hidden="true"></i>5-6 years</span>
-                        <span class="mr-4 job-content-attributes"><i className="fa fa-bars mr-2" aria-hidden="true"></i>Full Time</span>
-                        <span class="mr-4 job-content-attributes"><i className="fa fa-bars mr-2" aria-hidden="true"></i>Mumbai, India</span>
-                        <span class="mr-4 job-content-attributes"><i className="fa fa-bars mr-2" aria-hidden="true"></i>Infra Operation</span>
-                        <span class="mr-4 job-content-attributes"><i className="fa fa-bars mr-2" aria-hidden="true"></i>2</span>
+                      <div className="job-content">
+                        <span className="mr-34 job-content-attributes"><i><img className="mr-8" src="/images/Dashboard-assets/recent-matches/category.svg" alt="category"></img></i>Category</span>
+                        <span className="mr-34 job-content-attributes"><i><img className="mr-8" src="/images/Dashboard-assets/recent-matches/experience.svg" alt="experience"/></i>5-6 years</span>
+                        <span className="mr-34 job-content-attributes"><i><img className="mr-8" src="/images/Dashboard-assets/recent-matches/job_role.svg" alt="job-role"/></i>Full Time</span>
+                        <span className="mr-34 job-content-attributes"><i><img className="mr-8" src="/images/Dashboard-assets/recent-matches/location.svg" alt="location"/></i>Mumbai, India</span>
+                        <span className="mr-34 job-content-attributes"><i><img className="mr-8" src="/images/Dashboard-assets/recent-matches/technology.svg" alt="infra-oprations"/></i>Infra Operation</span>
+                        <span className="mr-34 job-content-attributes"><i><img className="mr-8" src="/images/Dashboard-assets/recent-matches/vaccency.svg" alt="vaccency"/></i>2</span>
                       </div>
                     </div>
-                    <div class={"col-12 col-sm-12 col-md-4 col-lg-4 d-flex flex-row-reverse align-items-center"}>
-                      <div class="p-2 ml-3"><Link to="#"><span class="mr-2">View Details</span><i className="fa fa-angle-right mr-2" aria-hidden="true"></i></Link></div>
-                      <div class="p-2">
+                    <div className={"col-12 col-sm-12 col-md-4 col-lg-4 d-flex flex-row-reverse align-items-center"}>
+                      <div className="p-2 ml-3"><Link to="#"><span className="mr-2">View Details</span><i className="fa fa-angle-right mr-2" aria-hidden="true"></i></Link></div>
+                      <div className="p-2">
                         <div style={{ width: 65, height: 65 }}>
                           <CircularProgressbarWithChildren styles={{
                             path: {
@@ -44,7 +44,7 @@ export default class RecentMatches extends Component {
                             <strong><span style={{ fontSize: 12 }}>
                               {percentage}%
                             </span></strong>
-                            <span style={{ fontSize: 10, marginTop: -5 }}>
+                            <span className="Circular_ProgressBar_text">
                               Match
                             </span>
                           </CircularProgressbarWithChildren>

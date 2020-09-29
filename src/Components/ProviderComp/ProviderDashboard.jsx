@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
-import OverviewCard from '../CommonComp/DashboardComp/OverviewCard'
+//import OverviewCard from '../CommonComp/DashboardComp/OverviewCard'
 import TopSkillsCard from '../CommonComp/DashboardComp/TopSkillsCard';
 import BarGraph from '../CommonComp/DashboardComp/BarGraph';
 import HeaderAll from '../CommonComp/HeaderAll'
 import Footer from '../CommonComp/Footer'
 import LeftNavProvider from '../CommonComp/LeftNavProvider'
+import OverviewCardProvider from '../CommonComp/DashboardComp/OverviewCardProvider';
 //import UploadProfile from '../ProviderComp/UploadProfile'
-
-
 
 export default class ProviderDashboard extends Component {
 	constructor(props){
@@ -33,8 +32,7 @@ export default class ProviderDashboard extends Component {
 						<section className="content_section col py-md-3 pl-md-4 bd-content">
 							{/* Importing Overview Cards, Top skills card and monthly Report Bar Graph */}
 							 {/* To display login User Details */}
-<h6>Welcome {details}</h6>
-							<OverviewCard />
+							<OverviewCardProvider />
 							<TopSkillsCard />
 							<BarGraph />
 							{/* Importing Overview Cards, Top skills card and monthly Report Bar Graph */}

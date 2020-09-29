@@ -83,7 +83,7 @@ class HeaderAll extends Component {
             </label>
               </div>
             </div> : null}
-          <ul className="nav headerAll">
+          <ul className="nav mr-3">
             <li>
               <img className="rounded-circle profile-icon mr-2" src="/images/Dashboard-assets/user-f.jpg" width="35" height="35"  />
             </li>
@@ -92,22 +92,32 @@ class HeaderAll extends Component {
                 <span className="font-blue text-small marL10" >{userName}<i className="fa fa-angle-down pl-2" aria-hidden="true"></i></span>
               </a>
               <ul className="dropdown-menu">
+              {(!isCandidate) && (!isSetting) ?
                 <li>
                   <Link className="dropdown-item" to="/profile" >
-                    <i className="fa fa-user pr-2" aria-hidden="true"></i> My Profile
+                    {/* <i className="fa fa-user pr-2" aria-hidden="true"></i>*/} Profile 
                     </Link>
                 </li>
+                :
+                <li>
+                <Link className="dropdown-item" to="/candidate/changePassword" >
+                  {/* <i className="fa fa-user pr-2" aria-hidden="true"></i>*/} Change Password 
+                  </Link>
+                </li>}
+
 
                 <li>
                   <Link className="dropdown-item" to="/emailsetting">
-                    <i className="fa fa-cog pr-2" aria-hidden="true"></i> My Email Settings
+                    {/* <i className="fa fa-cog pr-2" aria-hidden="true"></i>  */}
+                    Settings
                   </Link>
                 </li>
 
                 <li>
                   <Link className="dropdown-item" to="/">
                     {/* Toast.info("User Logout Successfully") */}
-                    <i className="fa fa-sign-out pr-2" aria-hidden="true"></i> Logout
+                    {/* <i className="fa fa-sign-out pr-2" aria-hidden="true"></i>  */}
+                    Logout
                           </Link>
 
                   {/* <a className="dropdown-item" href="#">

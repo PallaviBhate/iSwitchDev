@@ -407,7 +407,7 @@ label {
 /*Sign up Page*/
 
 
-/*Dashboard Page*/
+/*Dashboard Page modified by Sakshi 29/09*/
 
 .dash_logo {
     padding: 27px;
@@ -442,6 +442,400 @@ li.nav-item:hover {
     /* border-left: 5px solid #fff !important; */
     color: #0650BB!important;
 }
+
+
+/* li.nav-item a:hover{
+
+    color: #fff!important;
+
+}
+
+ */
+
+.nav-link span {
+    display: contents;
+}
+
+.Header .nav-link {
+    padding: 0;
+}
+
+nav a {
+    float: left;
+    width: 100%;
+    color: #fff;
+}
+
+.Main_Container {
+    width: 100%;
+    float: left;
+}
+
+.btn_job_profile.active {
+    background: #0651bb !important;
+    color: #fff;
+    font-size: 12px;
+}
+
+.btn_job_profile {
+    background: #3683ee;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 12px;
+    padding: 10px 35px;
+}
+
+.Header label {
+    font-size: 12px;
+    position: relative;
+}
+
+
+/* .Header ul.profile_section li {
+
+    margin: 9px 15px;
+
+} */
+
+.profile_btn,
+.chart_section_btn {
+    background: transparent;
+    margin: 8px;
+}
+
+.bottom_border .table tbody tr:last-child td {
+    Border-bottom: 1px solid #ffffff !important;
+}
+
+
+/* table th,
+
+table td {
+
+    font-family: 'Roboto-Regular';
+
+    font-weight: 100;
+
+} */
+
+
+/* table td {
+
+    font-size: 16px;
+
+} */
+
+.chart_section span {
+    font-family: 'Roboto-Regular';
+}
+
+.chart_section_btn {
+    border: 1px solid #ccc;
+}
+
+.media-body {
+    font-size: 16px;
+    color: #52575C;
+    font-family: 'Montserrat-Medium';
+}
+
+.media-body h5 {
+    font-size: 22px;
+    color: #3398FF !important;
+    font-family: 'Montserrat-Medium';
+}
+
+.content_section {
+    background: #f1f1f1;
+    padding: 1rem 3rem;
+    width: 100%
+}
+
+.content_section p1 {
+    font-family: 'Montserrat-Medium';
+    font-size: 16px;
+    color: #2E2E2E;
+}
+
+.uploadedProfile_section,
+.activeProfile_section,
+.hiredProfile_section,
+.skillPosted_section,
+.skillsUnfulfilled_section,
+.chart_section {
+    background: #fff;
+    /* border-radius: 10px; */
+    padding: 15px;
+    margin: 10px;
+}
+
+.uploadedProfile_section_Card,
+.activeProfile_section_Card,
+.hiredProfile_section_Card,
+.jobPosted_section_Card,
+.activeJobs_section_Card,
+.candidateHired_section_Card {
+    background: #fff;
+    /* border-radius: 10px; */
+    padding: 15px;
+    margin: 10px;
+    height: 120px;
+    /* width: 370px; */
+    display: flex;
+    align-items: center;
+}
+
+.hiredProfile_section_Card h5 {
+    color: #3398FF !important;
+}
+
+.skills-section {
+    margin-left: 20px !important;
+    font-size: 16px !important;
+    color: #2E2E2EE5 !important;
+    font-family: "Montserrat-Medium" !important;
+    /* top: 0; */
+    bottom: 0;
+}
+
+.topSkillsRequired_Text {
+    font-size: 20px;
+    font-family: "Montserrat-Medium";
+    color: #2E2E2E;
+}
+
+
+/* progress Bars */
+
+
+/* .progress2{
+
+    background-color: #A5B1C45A !important;
+
+    border-radius: 5px;
+
+}
+
+.progress-fashion2 {
+
+    margin-top: 10px;
+
+    width: 80%;
+
+    height: 8px !important;
+
+    border-radius: 5px !important;
+
+}*/
+
+
+/*.progressbar2-text{
+
+     font-size: 12px !important; */
+
+
+/* color: #25282B;
+
+    font-family: Montserrat-Regular !important;
+
+    display: flex;
+
+    width: 60% !important;
+
+    justify-content: flex-end !important; */
+
+
+/* margin-bottom: 1px !important; */
+
+
+/* width: 80%;display: flex;
+
+    justify-content: flex-end;
+
+    font-size: .8rem;
+
+
+
+}  */
+
+.progress2 {
+    background-color: #A5B1C45A !important;
+    border-radius: 5px;
+}
+
+.progress-fashion2 {
+    /* margin-top: 20px; */
+    /* width: 40%; */
+    height: 8px !important;
+    border-radius: 5px !important;
+}
+
+.progress2 .bg-success {
+    background-color: #28C567 !important;
+}
+
+.progressbar-text {
+    width: 80%;
+    display: flex;
+    justify-content: flex-end;
+    font-size: .8rem;
+}
+
+.progress-bar2 {
+    height: 8px;
+    border-radius: 5px !important;
+    /* width: 80% !important; */
+}
+
+.progress2 .color-blue {
+    background-color: #3398FF !important;
+}
+
+.progress2 .color-red {
+    background-color: #FB4E4E !important;
+}
+
+.progress2 .color-green {
+    background-color: #2AC769 !important;
+}
+
+.overview_numbers {
+    color: #1c59ae !important;
+    font-weight: bold;
+}
+
+
+/* .meter-value-text{
+
+position: absolute;
+
+font-size: 12px;
+
+font-family: Montserrat-Regular;
+
+color: #25282B;
+
+margin-bottom: 0px !important;
+
+margin-top: 0px !important;
+
+} */
+
+.marT50 {
+    margin-top: 50px !important;
+}
+
+meter {
+    width: 75%;
+    height: 20px;
+}
+
+.Uploaded_number_text {
+    font-size: 14px !important;
+    font-family: 'Montserrat-Medium' !important;
+    color: #52575C !important;
+}
+
+.Uploaded_number {
+    font-size: 32px !important;
+    color: #FB4E4E;
+    display: block;
+    font-family: 'Montserrat-SemiBold' !important;
+}
+
+.posted_number {
+    font-size: 32px !important;
+    color: #3398FF;
+    display: block;
+    font-family: 'Montserrat-SemiBold' !important;
+}
+
+.hired_number {
+    font-size: 32px !important;
+    color: #2AC769;
+    display: block;
+    font-family: 'Montserrat-SemiBold' !important;
+}
+
+.yearly_report_text {
+    font-size: 20px;
+    font-family: 'Montserrat-Medium' !important;
+    color: #2E2E2E;
+    opacity: 100%;
+}
+
+.more_ico {
+    position: absolute;
+    top: 45%;
+    right: 10%;
+    cursor: pointer;
+}
+
+.logo {
+    /* width: auto; */
+    height: auto;
+    margin: 15px 35px;
+}
+
+.white-middle-section {
+    padding: 40px;
+    margin: 10px;
+    background: #fff;
+    border-radius: 10px;
+}
+
+.cloud_upload_logo {
+    margin: auto;
+    display: block;
+}
+
+
+/* .BulkUpload_section input[type=file] {
+
+    width: 50%;
+
+}
+
+ */
+
+
+/* Dashboard Page
+    
+    .dash_logo {
+        padding: 27px;
+    }
+    
+    nav {
+        width: 100%;
+        height: 100%;
+        background-color: #0547b8;
+    }
+    
+    #navbarSupportedContent ul {
+        width: 100%;
+        padding-top: 20px;
+    }
+    
+    #navbarSupportedContent li.nav-item {
+        border-left: 5px solid #0547b8;
+        padding: 5px 10px;
+    }
+    
+    nav ul {
+        list-style-type: none;
+        float: left;
+        padding: 10px 0px;
+    }
+    
+    li.nav-item.active,
+    li.nav-item:hover {
+        width: 100%;
+        background: #fff;
+        /* border-left: 5px solid #fff !important; */
+
+
+/* color: #0650BB!important;
+} */
 
 
 /* li.nav-item a:hover{
@@ -670,12 +1064,6 @@ meter {
     cursor: pointer;
 }
 
-.logo {
-    width: 100px;
-    height: auto;
-    margin: 15px 35px;
-}
-
 .white-middle-section {
     padding: 40px;
     margin: 10px;
@@ -688,7 +1076,7 @@ meter {
     display: block;
 }
 
-
+*/
 /* .BulkUpload_section input[type=file] {
     width: 50%;
 }
@@ -1764,6 +2152,180 @@ input:checked+.slider:before {
 }
 
 
+/* =================== (START) CSS Updated by Sakshi */
+
+.progress1 {
+    background-color: #A5B1C45A !important;
+    border-radius: 5px;
+}
+
+.progress-fashion1 {
+    width: 40%;
+    height: 10px !important;
+    border-radius: 5px !important;
+}
+
+.progress1 .bg-success {
+    background-color: #28C567 !important;
+}
+
+.progressbar-text {
+    /* width: 40%; */
+    display: flex;
+    justify-content: flex-end;
+    font-size: .8rem;
+}
+
+.progress-bar1 {
+    height: 10px;
+    border-radius: 5px !important;
+    width: 80% !important;
+}
+
+
+/* .col-md-3 {
+    background: #fff;
+}
+
+.col-md-3:nth-child(2n) {
+    background: #F9F9FA;
+} */
+
+.profile_strength_text {
+    color: #031C3E;
+    font-size: 24px;
+    font-family: Montserrat-SemiBold !important;
+}
+
+.profile_strength_subtext {
+    font-size: 14px;
+    color: #2E2E2E;
+    font-family: Montserrat-Medium !important;
+}
+
+.complete-now-text {
+    font-size: 16px;
+    font-family: Montserrat-SemiBold !important;
+    margin-left: 8px;
+}
+
+.recent_matches_section .row {
+    background: #FFFFFF;
+    padding: 30px 20px;
+}
+
+.recent_matches_section .row:nth-child(odd) {
+    background: #F9F9FA;
+}
+
+.recent_matches_section .row .job-title-header {
+    margin-bottom: 20px;
+}
+
+.recent_matches_section .row .job-title-header .job-title-text {
+    font-size: 18px;
+    color: #2E2E2E;
+    font-family: Montserrat-SemiBold !important;
+}
+
+.recent_matches_section .row .job-title-header,
+.recent_matches_section .row .job-content .job-content-attributes {
+    font-size: 14px !important;
+    color: #2C3E50 !important;
+    font-family: Montserrat-Medium !important;
+}
+
+.Circular_ProgressBar_text {
+    color: #5B6671;
+    font-size: 10px;
+    margin-top: -5px;
+    font-family: Montserrat-Medium !important;
+}
+
+.job-posted-time-text {
+    color: #7B7B7B;
+    font-size: 12px;
+    font-family: Montserrat-Medium !important;
+}
+
+.interviews-section .row-sec {
+    padding: 25px;
+    background-color: #FFF;
+}
+
+.interviews-section .row-sec .job-title-header .job-title-text {
+    font-size: 20px;
+    color: #2E2E2E;
+    font-family: Montserrat-SemiBold !important;
+}
+
+.interviews-section .row-sec .job-title-header .job-posted-time-text,
+.interviews-section .row-sec .job-content .job-content-attributes {
+    font-size: 14px;
+    color: #2E2E2E;
+    font-family: Montserrat-Medium !important;
+}
+
+.interviews-section .row-sec .job-title-header {
+    margin-bottom: 30px;
+}
+
+@media (min-width: 576px) {
+    .interviews-section .card-columns {
+        column-count: 2 !important;
+    }
+}
+
+.interviews-section .card-columns {
+    margin-top: 20px;
+}
+
+.skill-set {
+    padding: 7px 20px;
+    background-color: #E5F2FF;
+    border-color: #CCE5FF;
+    margin-right: 15px;
+    border-radius: 5px;
+}
+
+.skill-set-text {
+    font-size: 14px;
+    color: #2E2E2E;
+    font-family: Montserrat-Medium !important;
+}
+
+.interviews-section .heading-text {
+    font-size: 16px;
+    color: #2E2E2E;
+    font-family: Montserrat-SemiBold !important;
+}
+
+.recent_matches_section {
+    background: #FFFFFF;
+    padding: 15px;
+    margin: 10px;
+}
+
+textarea.form-control {
+    height: auto !important;
+}
+
+.left-nav-icon {
+    position: relative;
+    top: -2px;
+    height: 15px;
+    width: 15px;
+}
+
+.mr-34 {
+    margin-right: 34px;
+}
+
+.mr-8 {
+    margin-right: 8px;
+}
+
+
 /* =================== (START) CSS ADD by PRASHANT */
 
 
@@ -1775,6 +2337,8 @@ input:checked+.slider:before {
     background: #ccc;
 } */
 
+
+/* 
 .recent_matches_section .row {
     background: #FFF;
     padding: 30px 20px;
@@ -1869,7 +2433,7 @@ textarea.form-control {
     top: -2px;
     height: 15px;
     width: 15px;
-}
+} */
 
 
 /* =================== (END) CSS ADD by PRASHANT  */
@@ -2242,25 +2806,27 @@ textarea.form-control {
 
 /* Css added by Amarendra & Swati */
 
-<<<<<<< HEAD
 .matches_navhead {
     padding: 0rem 2rem;
     display: inline-block;
-=======
+}
+
 .subMenu:after {
     content: "\f107";
     font-family: FontAwesome;
     position: absolute;
     right: 15px;
 }
+
+
 /* Profile Nav Start */
+
 .profile__button_group {
     display: flex;
     background: white;
     padding: 0px 60px;
     margin-bottom: 1px;
     z-index: 999;
->>>>>>> 997a97ec02141f36c6e297c261545b6b4a74dbd5
 }
 
 .details_list li {
@@ -2514,8 +3080,7 @@ textarea.form-control {
 }
 
 
-<<<<<<< HEAD
 /* close modal css*/
-=======
+
+
 /* Profile Nav End */
->>>>>>> 997a97ec02141f36c6e297c261545b6b4a74dbd5
