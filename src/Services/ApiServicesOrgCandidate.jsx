@@ -128,13 +128,12 @@ class ApiServicesOrgCandidate {
   }
 
 
-  deleteLanguage(id) {
+  deleteLanguage(id, getProfileInfo) {
     const candidateId = localStorage.getItem('candidateId')
     return (
       axios
         .delete(`${ApiBaseUrl}/candidate/languages?langaugeId=${id}&candidateId=${candidateId}`)
-        .then(resp => {
-        }).catch(error => {
+        .then(resp => getProfileInfo()).catch(error => {
           console.log(error);
         })
     )

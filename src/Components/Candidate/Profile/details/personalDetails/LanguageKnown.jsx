@@ -9,11 +9,12 @@ export const LanguageKnown = ({ showPopup }) => {
   state.then((data) => {
     setProfileInfo(data)
   })
+  const { getProfileInfo } = useContext(Context);
   const { candidateLanguageList } = profileInfo;
   const deleteLanguage = (id) => {
     let isLanguage = window.confirm("Are you sure you want to delete?");
     if (isLanguage)
-      ApiServicesOrgCandidate.deleteLanguage(id);
+      ApiServicesOrgCandidate.deleteLanguage(id, getProfileInfo);
   }
   return (
     <div class="bg-white px-4 py-4 section-divider align-items-center">
