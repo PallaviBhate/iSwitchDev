@@ -10,10 +10,11 @@ export const Skills = ({ showPopup }) => {
     setSkill(data);
     localStorage.setItem('candidateId', JSON.stringify(data.candidateInfo.candidateId));
   })
+  const { getProfileInfo } = useContext(Context);
   const deleteSkill = (id) => {
     let isSkill = window.confirm("Are you sure you want to delete?");
     if (isSkill)
-      ApiServicesOrgCandidate.deleteSkill(id);
+      ApiServicesOrgCandidate.deleteSkill(id, getProfileInfo);
   }
   return (
     <div class="bg-white px-4 py-4 section-divider align-items-center">
@@ -44,7 +45,7 @@ export const Skills = ({ showPopup }) => {
                     <td>{skill.proficiency}</td>
                     <td class="edit-icon-column">
                       <img src="/images/Dashboard-assets/iconfinder_edit.svg" class="edit-icon" alt="Cinque Terre" onClick={() => showPopup(EDIT_SKILL, true, { skillId: skill.skillId })} />
-                      <img src="/images/Dashboard-assets/delete.svg" class="edit-icon" alt="Cinque Terre" onClick={() => deleteSkill(skill.skillId)}/>
+                      <img src="/images/Dashboard-assets/delete.svg" class="edit-icon" alt="Cinque Terre" onClick={() => deleteSkill(skill.skillId)} />
                     </td>
                   </tr>
                 )) : null}

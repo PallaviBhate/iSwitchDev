@@ -26,15 +26,14 @@ class ApiServicesOrgCandidate {
     )
   }
 
-  updateProfileInfo(profileInfo) {
+  updateProfileInfo(profileInfo, getProfileRefresh, showPopup) {
     console.log(profileInfo)
     return (
       axios
         .put(`${ApiBaseUrl}/candidate/candidateinfo/`, profileInfo)
-        .then(resp => {
-        }).catch(error => {
-          console.log(error);
-        })
+        .then(resp =>  getProfileRefresh(),showPopup(false)).catch (error => {
+      console.log(error);
+    })
     )
   }
 
@@ -63,13 +62,12 @@ class ApiServicesOrgCandidate {
     )
   }
 
-  deleteSkill(id) {
+  deleteSkill(id, getProfileInfo) {
     const candidateId = localStorage.getItem('candidateId')
     return (
       axios
         .delete(`${ApiBaseUrl}/candidate/skill?candidateId=${candidateId}&skillId=${id}`)
-        .then(resp => {
-        }).catch(error => {
+        .then(resp => getProfileInfo()).catch(error => {
           console.log(error);
         })
     )
