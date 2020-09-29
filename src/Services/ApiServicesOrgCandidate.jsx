@@ -172,6 +172,25 @@ class ApiServicesOrgCandidate {
     )
   }
 
+  getListOfStates() {
+    return (
+      axios
+        .get(`${ApiBaseUrl}/candidate/listOfStates`)
+        .then(Response => Response).catch(error => {
+          console.log(error);
+        })
+    )
+  }
+
+  getListOfCity(stateCode) {
+    return (
+      axios
+        .get(`${ApiBaseUrl}/candidate/ListOfCities?stateCode=${stateCode}`)
+        .then(Response => Response).catch(error => {
+          console.log(error);
+        })
+    )
+  }
 }
 
 export default new ApiServicesOrgCandidate();

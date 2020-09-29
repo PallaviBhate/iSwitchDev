@@ -25,7 +25,9 @@ const Personal = ({ showPopup }) => {
   const [workPermit, setWorkPermit] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
   const { state, getProfileInfo } = useContext(Context);
-
+  const [stateName, setStateName] = useState('');
+  const [city, setCity] = useState('');
+  const data = [];
   useEffect(() => {
     state.then((response) => {
       setStartDate(new Date(response.candidateInfo.dob))
@@ -46,7 +48,11 @@ const Personal = ({ showPopup }) => {
         "state": response.candidateInfo.state,
         "country": response.candidateInfo.country
       });
-    })
+    });
+    ApiServicesOrgCandidate.getListOfStates().then((response) => {
+      console.log(response.data.responseObject);
+      setStateName(response.data.responseObject);
+    });
   }, []);
 
   const onValueChange = (event) => {
@@ -86,7 +92,16 @@ const Personal = ({ showPopup }) => {
   }
 
   const handleFormInputData = (e) => {
-    console.log(e)
+    if (e.target.name === 'state') {
+      ApiServicesOrgCandidate.getListOfCity(e.target.value).then((response) => {
+        console.log(response)
+        if (response) {
+          setCity(response.data.responseObject);
+        } else {
+          setCity('');
+        }
+      });
+    }
     return (
       setFormInputData({
         ...inputData,
@@ -188,16 +203,18 @@ const Personal = ({ showPopup }) => {
               </div>
               <div className="col ml-3">
                 <select className="form-control"
-                  value={inputData.city}
-                  id="city"
+                  value={inputData.state}
+                  id="state"
                   required
-                  name="city"
+                  name="state"
                   onChange={(e) => handleFormInputData(e)}
                 >
-                  <option>Mumbai</option>
-                  <option>Delhi</option>
-                  <option>Patna</option>
-                  <option>Nagpur</option>
+                <option value='1' disabled>Select State</option>
+                  {
+                    (stateName) ? stateName.map((name, index) => (
+                      <option value={name.stateCode}>{name.stateName}</option>
+                    )) : null
+                  }
                 </select>
               </div>
             </div>
@@ -206,30 +223,30 @@ const Personal = ({ showPopup }) => {
             <div class="form-row">
               <div className="col mr-3">
                 <select className="form-control"
-                  value={inputData.state}
-                  id="state"
+                  value={inputData.city}
+                  id="city"
                   required
-                  name="state"
+                  name="city"
+                  disabled={city === '' ? true : false}
                   onChange={(e) => handleFormInputData(e)}
                 >
-                  <option>Maharashtra</option>
-                  <option>Uttar Pradesh</option>
-                  <option>Delhi</option>
-                  <option>Gujarat</option>
+                  <option value='1' disabled>Select City</option>
+                  {
+                    (city) ? city.map((name, index) => (
+                      <option value={name.state_code}>{name.city_name}</option>
+                    )) : null
+                  }
                 </select>
               </div>
               <div className="col ml-3">
                 <select className="form-control"
                   value={inputData.country}
                   id="country"
-                  required
                   name="country"
                   onChange={(e) => handleFormInputData(e)}
                 >
+                  <option value='1' disabled>Select Country</option>
                   <option>India</option>
-                  <option>America</option>
-                  <option>Russia</option>
-                  <option>Nepal</option>
                 </select>
               </div>
             </div>
