@@ -4,11 +4,11 @@ import { Context } from '../../../../Context/ProfileContext';
 import { MONTH_NAMES } from '../../../../Utils/AppConst';
 import { usePrevious } from '../../../../Utils/usePrevious';
 
-const Certification = ({ dataAttributes }) => {
+const Certification = ({ dataAttributes, showPopup }) => {
   const [inputData, setFormInputData] = React.useState({ certificationName: '', issuingOrganization: '', issueMonth: '', issueYear: '', expirationMonth: '', expirationYear: '', credentialId: '', credentialURL: '' })
   const [certificationInfo, setCertificationInfo] = React.useState('');
   const [isExpirationDate, setIsExpirationDate] = React.useState(true)
-  const { state } = useContext(Context);
+  const { state, getProfileInfo } = useContext(Context);
   const resourceId = dataAttributes && dataAttributes.resourceId;
   const prevExpirationYear = usePrevious(inputData.expirationYear);
   const prevExpirationMonth = usePrevious(inputData.expirationMonth)
@@ -61,7 +61,7 @@ const Certification = ({ dataAttributes }) => {
     )
   }
   const handleSubmit = (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     let data = {
       "certificationName": inputData.certificationName,
       "issuingOrganization": inputData.issuingOrganization,
@@ -73,9 +73,9 @@ const Certification = ({ dataAttributes }) => {
       "credentialURL": inputData.credentialURL
     }
     if (resourceId) {
-      ApiServicesOrgCandidate.updateCertification({ ...data, certificationId: resourceId });
+      ApiServicesOrgCandidate.updateCertification({ ...data, certificationId: resourceId }, getProfileInfo, showPopup);
     } else {
-      ApiServicesOrgCandidate.addCertification(data);
+      ApiServicesOrgCandidate.addCertification(data, getProfileInfo, showPopup);
     }
   }
 

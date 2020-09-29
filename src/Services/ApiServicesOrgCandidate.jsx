@@ -69,14 +69,13 @@ class ApiServicesOrgCandidate {
     )
   }
 
-  updateCertification(certificationInfo) {
+  updateCertification(certificationInfo, getProfileRefresh, showPopup) {
     const candidateId = localStorage.getItem('candidateId')
     console.log(certificationInfo);
     return (
       axios
         .put(`${ApiBaseUrl}/candidate/certificate?candidateId=${candidateId}`, certificationInfo)
-        .then(resp => {
-        }).catch(error => {
+        .then(resp => getProfileRefresh(), showPopup(false)).catch(error => {
           console.log(error);
         })
     )
@@ -93,15 +92,13 @@ class ApiServicesOrgCandidate {
     )
   }
 
-  addCertification(certificationInfo) {
+  addCertification(certificationInfo, getProfileRefresh, showPopup) {
     const candidateId = localStorage.getItem('candidateId')
     console.log(certificationInfo);
     return (
       axios
         .post(`${ApiBaseUrl}/candidate/certificate/${candidateId}`, certificationInfo)
-        .then(resp => {
-          console.log(resp)
-        }).catch(error => {
+        .then(resp => getProfileRefresh(), showPopup(false)).catch(error => {
           console.log(error);
         })
     )

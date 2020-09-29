@@ -41,11 +41,13 @@ export const PopupContent = ({ title, showPopup, dataAttributes, id }) => {
         case EDIT_CERTIFICATE:
             bodyComponent = <Certification
                 dataAttributes={dataAttributes}
+                showPopup={showPopup}
             />
             break;
         case ADD_NEW_CERTIFICATE:
             bodyComponent = <Certification
-                showPopup={showPopup} />
+                showPopup={showPopup}
+            />
             break;
         case EDIT_EMPLOYMENT:
             bodyComponent = <Employment
