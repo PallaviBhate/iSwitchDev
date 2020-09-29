@@ -158,6 +158,32 @@ class ApiServicesOrgCandidate {
     )
   }
 
+  updateEducation(educationInfo) {
+    const candidateId = localStorage.getItem('candidateId')
+    console.log(educationInfo);
+    return (
+      axios
+        .put(`${ApiBaseUrl}/candidate/education?candidateId=${candidateId}`, educationInfo)
+        .then(resp => {
+        }).catch(error => {
+          console.log(error);
+        })
+    )
+  }
+
+  addEducation(educationInfo) {
+    const candidateId = localStorage.getItem('candidateId')
+    return (
+      axios
+        .post(`${ApiBaseUrl}/candidate/education/${candidateId}`, educationInfo)
+        .then(resp => {
+          console.log(resp)
+        }).catch(error => {
+          console.log(error);
+        })
+    )
+  }
+
 }
 
 export default new ApiServicesOrgCandidate();

@@ -21,7 +21,7 @@ export const Education = ({ showPopup }) => {
           {(educationDetailsList) ? educationDetailsList.map((data) => (
             <div class="col-12 px-0 py-3">
               <div>
-                <img src="/images/Dashboard-assets/iconfinder_edit.svg" class="float-right" alt="Cinque Terre" onClick={() => showPopup(EDIT_EDUCATION, true)} />
+                <img src="/images/Dashboard-assets/iconfinder_edit.svg" class="float-right" alt="Cinque Terre" onClick={() => showPopup(EDIT_EDUCATION, true, { resourceId: data.educationId })} />
                 <span class="subtitle-semi-bold">{data.university}</span>
               </div>
               <div><span class="normal-text-semi-bold"> {data.educationType} - {data.course} {data.specialization}</span></div>
