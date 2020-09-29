@@ -180,7 +180,7 @@ const Personal = ({ showPopup }) => {
           </div>
           <div className="form-group">
             <label className="modal-label" htmlFor="University">Address</label>
-            <input class="form-control" type="text"
+            <textarea  rows="6" class="form-control" type="text"
               placeholder="85 Flat XYZ Building"
               id="address"
               required
@@ -189,7 +189,7 @@ const Personal = ({ showPopup }) => {
               onChange={(e) => handleFormInputData(e)}
             />
           </div>
-          <div class="form-group">
+          {/* <div class="form-group">
             <div class="form-row">
               <div className="col mr-3">
                 <input class="form-control"
@@ -218,8 +218,8 @@ const Personal = ({ showPopup }) => {
                 </select>
               </div>
             </div>
-          </div>
-          <div class="form-group">
+          </div> */}
+          {/* <div class="form-group">
             <div class="form-row">
               <div className="col mr-3">
                 <select className="form-control"
@@ -250,7 +250,7 @@ const Personal = ({ showPopup }) => {
                 </select>
               </div>
             </div>
-          </div>
+          </div> */}
           <div className="form-group">
             <label className="modal-label" htmlFor="maritalStatus">Marital Status</label>
             <select className="form-control"
