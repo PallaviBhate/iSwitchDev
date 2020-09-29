@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import ApiServicesOrgCandidate from '../../../../Services/ApiServicesOrgCandidate';
 import { Context } from '../../../../Context/ProfileContext';
 import { MONTH_NAMES } from '../../../../Utils/AppConst';
+import { usePrevious } from '../../../../Utils/usePrevious';
 
 const Certification = ({ dataAttributes }) => {
   const [inputData, setFormInputData] = React.useState({ certificationName: '', issuingOrganization: '', issueMonth: '', issueYear: '', expirationMonth: '', expirationYear: '', credentialId: '', credentialURL: '' })
@@ -9,6 +10,9 @@ const Certification = ({ dataAttributes }) => {
   const [isExpirationDate, setIsExpirationDate] = React.useState(true)
   const { state } = useContext(Context);
   const resourceId = dataAttributes && dataAttributes.resourceId;
+  const prevExpirationYear = usePrevious(inputData.expirationYear);
+  const expirationMonth = usePrevious(inputData.expirationMonth)
+
   React.useEffect(() => {
     state.then((response) => {
       if (response && response.candidateCertificatesList) {
@@ -23,6 +27,9 @@ const Certification = ({ dataAttributes }) => {
     if (resourceId && certificationInfo) {
       const { certificationName, issuingOrganization, issueMonth, issueYear, expirationMonth, expirationYear, credentialId, credentialURL } = certificationInfo;
       console.log(resourceId)
+      if (!(expirationMonth && expirationYear)) {
+        setIsExpirationDate(false)
+      }
       setFormInputData({
         certificationName: certificationName,
         issuingOrganization: issuingOrganization,
@@ -36,6 +43,16 @@ const Certification = ({ dataAttributes }) => {
     }
   }, [certificationInfo]);
   const handleFormInputData = (e) => {
+    if (e.target.name === 'isExpirationDate') {
+      if (e.target.checked) {
+        inputData.expirationMonth = null;
+        inputData.expirationYear = null;
+      } else {
+        inputData.expirationMonth = expirationMonth;
+        inputData.expirationYear = prevExpirationYear;
+      }
+      setIsExpirationDate(!isExpirationDate);
+    }
     return (
       setFormInputData({
         ...inputData,
@@ -82,22 +99,22 @@ const Certification = ({ dataAttributes }) => {
           </div>
 
           <div class="custom-control custom-checkbox mr-sm-2">
-            <input type="checkbox" class="custom-control-input" id="customControlAutosizing" onChange={() => setIsExpirationDate(!isExpirationDate)} />
-            <label class="custom-control-label" for="customControlAutosizing">This credentials does not expire</label>
+            <input type="checkbox" class="custom-control-input" name="isExpirationDate" id="isExpirationDate" checked={!isExpirationDate} onChange={(e) => handleFormInputData(e)} />
+            <label class="custom-control-label" for="isExpirationDate">This credentials does not expire</label>
           </div>
 
           <label htmlFor="University" class="mt-2">Issue Date</label>
           <div className="form-group">
             <div class="form-row">
               <div className="col mr-3">
-                <select id="issueMonth" className="form-control" name="issueMonth" value={inputData.issueMonth} onChange={(e) => handleFormInputData(e)}>
+                <select id="issueYear" className="form-control" name="issueYear" value={inputData.issueYear} onChange={(e) => handleFormInputData(e)}>
                   {Array(50).fill().map((_, i) => (
                     <option key={`${i}_years`}>{parseInt(new Date().getFullYear()) - i}</option>
                   ))}
                 </select>
               </div>
               <div className="col ml-3">
-                <select id="issueYear" className="form-control" name="issueYear" value={inputData.issueYear} onChange={(e) => handleFormInputData(e)}>
+                <select id="issueMonth" className="form-control" name="issueMonth" value={inputData.issueMonth} onChange={(e) => handleFormInputData(e)}>
                   {MONTH_NAMES.map((monthName, i) => (
                     <option key={`monthName`}>{monthName}</option>
                   ))}
@@ -109,7 +126,7 @@ const Certification = ({ dataAttributes }) => {
             <div className="form-group">
               <div class="form-row">
                 <div className="col mr-3">
-                  <select id="expirationMonth" className="form-control" name="expirationMonth" value={inputData.expirationMonth} onChange={(e) => handleFormInputData(e)}>
+                  <select id="expirationYear" className="form-control" name="expirationYear" value={inputData.expirationYear} onChange={(e) => handleFormInputData(e)}>
                     {Array(100).fill().map((_, i) => (
                       <option key={`${i}_years`}>{(parseInt(new Date().getFullYear()) + 50) - i
                       }  </option>
@@ -117,7 +134,7 @@ const Certification = ({ dataAttributes }) => {
                   </select>
                 </div>
                 <div className="col ml-3">
-                  <select id="expirationYear" className="form-control" name="expirationYear" value={inputData.expirationYear} onChange={(e) => handleFormInputData(e)}>
+                  <select id="expirationMonth" className="form-control" name="expirationMonth" value={inputData.expirationMonth} onChange={(e) => handleFormInputData(e)}>
                     {MONTH_NAMES.map((monthName, i) => (
                       <option key={`monthName`}>{monthName}</option>
                     ))}

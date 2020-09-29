@@ -65,6 +65,7 @@ class ApiServicesOrgCandidate {
 
   updateCertification(certificationInfo) {
     const candidateId = localStorage.getItem('candidateId')
+    console.log(certificationInfo);
     return (
       axios
         .put(`${ApiBaseUrl}/candidate/certificate?candidateId=${candidateId}`, certificationInfo)
@@ -77,6 +78,7 @@ class ApiServicesOrgCandidate {
 
   addCertification(certificationInfo) {
     const candidateId = localStorage.getItem('candidateId')
+    console.log(certificationInfo);
     return (
       axios
         .post(`${ApiBaseUrl}/candidate/certificate/${candidateId}`, certificationInfo)
