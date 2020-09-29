@@ -36,10 +36,10 @@ export const PopupContent = ({ title, showPopup, dataAttributes, id }) => {
             bodyComponent = <Certification />
             break;
         case EDIT_EMPLOYMENT:
-            bodyComponent = <Employment id={dataAttributes} />
+            bodyComponent = <Employment id={dataAttributes} showPopup={showPopup}/>
             break;
         case ADD_NEW_EMPLOYMENT:
-            bodyComponent = <Employment />
+            bodyComponent = <Employment showPopup={showPopup} />
             break;
         case EDIT_EDUCATION:
             bodyComponent = <Education dataAttributes={dataAttributes}/>
@@ -48,7 +48,7 @@ export const PopupContent = ({ title, showPopup, dataAttributes, id }) => {
             bodyComponent = <Education />
             break;
         case EDIT_PERSONAL:
-            bodyComponent = <Personal />
+            bodyComponent = <Personal showPopup={showPopup} />
             break;
         case EDIT_CAREER_PROFILE:
             bodyComponent = <CareerProfile />

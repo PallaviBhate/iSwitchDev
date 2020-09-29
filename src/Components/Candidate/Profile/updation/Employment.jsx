@@ -6,7 +6,7 @@ import { MONTH_NAMES } from '../../../../Utils/AppConst';
 import ApiServicesOrgCandidate from '../../../../Services/ApiServicesOrgCandidate';
 import { Context } from '../../../../Context/ProfileContext';
 
-const Employment = (id) => {
+const Employment = ({id, showPopup}) => {
   const [currentCompany, setCurrentCompany] = useState(false);
   const [inputData, setFormInputData] = React.useState({
     "currentCompany": "",
@@ -19,11 +19,12 @@ const Employment = (id) => {
     "workedTillMonth": "",
     "workedTillYear": ""
   });
-  const { state } = useContext(Context);
+  const { state, getProfileInfo } = useContext(Context);
   useEffect(() => {
-    if (id.id) {
+    console.log(id)
+    if (id) {
       state.then((data) => {
-        const employmentDetails = data.employmentDetailsList.filter((ele => ele.employmentId === id.id))[0]
+        const employmentDetails = data.employmentDetailsList.filter((ele => ele.employmentId === id))[0]
         console.log(data)
         setCurrentCompany(employmentDetails.currentCompany)
         setFormInputData(employmentDetails)
@@ -32,6 +33,7 @@ const Employment = (id) => {
   }, []);
 
   const updateEmployment = (e) => {
+    e.preventDefault();
     let data = {
       "currentCompany": currentCompany,
       "description": inputData.description,
@@ -44,12 +46,11 @@ const Employment = (id) => {
       "workedTillYear": inputData.workedTillYear
     }
 
-    if (id.id) {
-      ApiServicesOrgCandidate.updateEmployment({ ...data, employmentId: id.id });
+    if (id) {
+      ApiServicesOrgCandidate.updateEmployment({ ...data, employmentId: id }, getProfileInfo, showPopup);
     } else {
-      ApiServicesOrgCandidate.addEmployment(data);
+      ApiServicesOrgCandidate.addEmployment(data, getProfileInfo, showPopup);
     }
-    //e.preventDefault();
   }
 
   const handleFormInputData = (e) => {
