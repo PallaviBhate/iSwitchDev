@@ -2,10 +2,10 @@ import React, { useContext } from 'react';
 import ApiServicesOrgCandidate from '../../../../Services/ApiServicesOrgCandidate';
 import { Context } from '../../../../Context/ProfileContext';
 
-const CTC = () => {
+const CTC = ({ showPopup }) => {
   const [inputData, setFormInputData] = React.useState({ currentCtcInLakh: '', currentCtcInThousand: '', expectedCtcInLakh: '', expectedCtcInThousand: '', currencyType: '' })
   const [candidateProfile, setCandidateProfile] = React.useState('');
-  const { state } = useContext(Context);
+  const { state, getProfileInfo } = useContext(Context);
 
   React.useEffect(() => {
     state.then((response) => {
@@ -34,6 +34,7 @@ const CTC = () => {
     )
   }
   const handleSubmit = (e) => {
+    e.preventDefault();
     const candidateId = localStorage.getItem('candidateId')
     let data = {
       "currencyType": inputData.currencyType,
@@ -42,8 +43,7 @@ const CTC = () => {
       "candidateId": candidateId
     }
     console.log(data)
-    ApiServicesOrgCandidate.updateProfileInfo(data);
-    // e.preventDefault();
+    ApiServicesOrgCandidate.updateProfileInfo(data, getProfileInfo, showPopup);
   }
   console.log('inputData', inputData)
 

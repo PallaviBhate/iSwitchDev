@@ -20,7 +20,7 @@ export const Employment = ({ showPopup }) => {
           {(employmentDetailsList) ? employmentDetailsList.map((employment, i) => (
             <div class="col-12 px-0 py-3">
               <div>
-                <img src="/images/Dashboard-assets/iconfinder_edit.svg" class="float-right" alt="Cinque Terre" onClick={() => showPopup(EDIT_EMPLOYMENT, true)} />
+                <img src="/images/Dashboard-assets/iconfinder_edit.svg" class="float-right" alt="Cinque Terre" onClick={() => showPopup(EDIT_EMPLOYMENT, true, employment.employmentId)} />
                 <span class="subtitle-semi-bold">{employment.designation}</span>
               </div>
               <div><span class="normal-text-semi-bold">{employment.organization} {employment.employmentType}</span></div>

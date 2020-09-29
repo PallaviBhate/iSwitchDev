@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { ADD_NEW_SKILL, EDIT_SKILL } from '../../../../../Utils/AppConst'
 import { Context } from '../../../../../Context/ProfileContext';
+import ApiServicesOrgCandidate from '../../../../../Services/ApiServicesOrgCandidate';
 
 export const Skills = ({ showPopup }) => {
   const { state } = useContext(Context);
@@ -9,6 +10,12 @@ export const Skills = ({ showPopup }) => {
     setSkill(data);
     localStorage.setItem('candidateId', JSON.stringify(data.candidateInfo.candidateId));
   })
+  const { getProfileInfo } = useContext(Context);
+  const deleteSkill = (id) => {
+    let isSkill = window.confirm("Are you sure you want to delete?");
+    if (isSkill)
+      ApiServicesOrgCandidate.deleteSkill(id, getProfileInfo);
+  }
   return (
     <div class="bg-white px-4 py-4 section-divider align-items-center">
       <div class="col">
@@ -37,8 +44,8 @@ export const Skills = ({ showPopup }) => {
                     <td>{skill.experience}</td>
                     <td>{skill.proficiency}</td>
                     <td class="edit-icon-column">
-                      <img src="/images/Dashboard-assets/iconfinder_edit.svg" class="edit-icon" alt="Cinque Terre" onClick={() => showPopup(EDIT_SKILL, true, {skillId: skill.skillId})} />
-                      <img src="/images/Dashboard-assets/delete.svg" class="edit-icon" alt="Cinque Terre" />
+                      <img src="/images/Dashboard-assets/iconfinder_edit.svg" class="edit-icon" alt="Cinque Terre" onClick={() => showPopup(EDIT_SKILL, true, { skillId: skill.skillId })} />
+                      <img src="/images/Dashboard-assets/delete.svg" class="edit-icon" alt="Cinque Terre" onClick={() => deleteSkill(skill.skillId)} />
                     </td>
                   </tr>
                 )) : null}

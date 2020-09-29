@@ -1,166 +1,202 @@
-import React, { Component } from 'react';
-import { Button, Modal } from 'react-bootstrap'
-import DatePicker from 'react-date-picker';
+import React, { useContext } from 'react';
+import ApiServicesOrgCandidate from '../../../../Services/ApiServicesOrgCandidate';
+import { Context } from '../../../../Context/ProfileContext';
+import { MONTH_NAMES } from '../../../../Utils/AppConst';
+import { usePrevious } from '../../../../Utils/usePrevious';
 
-class Education extends Component {
-
-  constructor() {
-    super()
-    this.state = {
-      isEducationPopupShow: true,
-      value: new Date(),
-      courseType: 'fullTime'
+const Education = ({ dataAttributes, showPopup }) => {
+  const [inputData, setFormInputData] = React.useState({ educationType: '', board: '', course: '', specialization: '', university: '', courseType: '', passingOutYear: '', medium: '', marks: '' })
+  const [educationInfo, setEducationInfo] = React.useState('');
+  const [isExpirationDate, setIsExpirationDate] = React.useState(true)
+  const { state, getProfileInfo } = useContext(Context);
+  const resourceId = dataAttributes && dataAttributes.resourceId;
+  const prevCourse = usePrevious(inputData.course);
+  const prevSpecialization = usePrevious(inputData.specialization);
+  const prevUniversity = usePrevious(inputData.university);
+  const prevCourseType = usePrevious(inputData.courseType);
+  const prevBoard = usePrevious(inputData.board);
+  const prevMedium = usePrevious(inputData.medium);
+  const prevEducationType = usePrevious(inputData.educationType);
+  const isSchoolEducation = inputData.educationType === '10th' || inputData.educationType === '12th'
+  React.useEffect(() => {
+    state.then((response) => {
+      if (response && response.educationDetailsList) {
+        const educationInfoObject = response.educationDetailsList.filter(education => {
+          return education.educationId === resourceId
+        })[0]
+        setEducationInfo(educationInfoObject)
+      }
+    })
+  }, []);
+  React.useEffect(() => {
+    if (resourceId && educationInfo) {
+      const { educationType, board, course, specialization, university, courseType, passingOutYear, medium, marks } = educationInfo;
+      console.log(resourceId)
+      // if (!(expirationMonth && expirationYear)) {
+      //   setIsExpirationDate(false)
+      // }
+      setFormInputData({
+        educationType: educationType,
+        board: board,
+        course: course,
+        specialization: specialization,
+        university: university,
+        courseType: courseType,
+        passingOutYear: passingOutYear,
+        medium: medium,
+        marks: marks
+      });
     }
+  }, [educationInfo]);
 
-  }
-
-  Show(Education) {
-    var selectedValue = document.getElementById("Education").value;
-    console.log(selectedValue);
-    if (selectedValue == "1" || selectedValue == "2") {
-      document.getElementById('Xth').style.display = 'none'
-
-    } else {
-
-      document.getElementById('Xth').style.display = 'block'
+  const handleFormInputData = (e) => {
+    if (e.target.name === 'educationType') {
+      if (e.target.value === '10th' || e.target.value === '12th') {
+        // if (prevEducationType === 'Post Graduate' || prevEducationType === 'Graduate or Diploma' || prevEducationType === '') {
+        inputData.course = null;
+        inputData.specialization = null;
+        inputData.university = null;
+        inputData.courseType = null;
+        inputData.board = prevBoard;
+        inputData.medium = prevMedium;
+        // }
+      }
+      else {
+        // if (prevEducationType === '10th' || prevEducationType === '12th') {
+        inputData.course = prevCourse;
+        inputData.specialization = prevSpecialization;
+        inputData.university = prevUniversity;
+        inputData.courseType = prevCourseType;
+        inputData.board = null;
+        inputData.medium = null;
+        // }
+      }
     }
-    if (selectedValue == "1" || selectedValue == "2") {
-      document.getElementById('Xth1').style.display = 'none'
-
-    } else {
-
-      document.getElementById('Xth1').style.display = 'block'
-    }
-    if (selectedValue == "1" || selectedValue == "2") {
-      document.getElementById('Xth2').style.display = 'none'
-
-    } else {
-
-      document.getElementById('Xth2').style.display = 'block'
-    }
-    if (selectedValue == "1" || selectedValue == "2") {
-      document.getElementById('Xth3').style.display = 'none'
-
-    } else {
-
-      document.getElementById('Xth3').style.display = 'block'
-    }
-
-    if (selectedValue == "3" || selectedValue == "4") {
-      document.getElementById('Xth4').style.display = 'none'
-
-    } else {
-
-      document.getElementById('Xth4').style.display = 'block'
-    }
-
-    // if (selectedValue == "3" || selectedValue == "4") {
-    //   document.getElementById('Xth5').style.display = 'none'
-
-    // } else {
-
-    //   document.getElementById('Xth5').style.display = 'block'
-    // }
-
-  }
-
-  render() {
-    const { isEducationPopupShow } = this.state;
     return (
-      <>
+      setFormInputData({
+        ...inputData,
+        [e.target.name]: e.target.value
+      })
+    )
+  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    let data = {
+      "educationType": inputData.educationType,
+      "board": inputData.board,
+      "course": inputData.course,
+      "specialization": inputData.specialization,
+      "university": inputData.university,
+      "courseType": inputData.courseType,
+      "passingOutYear": inputData.passingOutYear,
+      "medium": inputData.medium,
+      "marks": inputData.marks
+    }
+    if (resourceId) {
+      ApiServicesOrgCandidate.updateEducation({ ...data, educationId: resourceId }, getProfileInfo, showPopup);
+    } else {
+      ApiServicesOrgCandidate.addEducation(data, getProfileInfo, showPopup);
+    }
+  }
 
-        <form>
+  return (
+    <>
+      <form>
+        <div class="mb-4">
           <div className="form-group">
-            <label htmlFor="Education">Education Type<span class="required">*</span></label>
-            <select id="Education" className="form-control" onChange={this.Show}>
+            <label htmlFor="educationType">Education Type<span class="required">*</span></label>
+            <select id="educationType" className="form-control" name="educationType" value={inputData.educationType} onChange={(e) => handleFormInputData(e)}>
               <option>Select Education</option>
-              <option value="1">10th</option>
-              <option value="2">12th</option>
-              <option value="3">Post Graduate</option>
-              <option value="4">Graduate or Diploma</option>
+              <option value="10th">10th</option>
+              <option value="12th">12th</option>
+              <option value="Post Graduate">Post Graduate</option>
+              <option value="Graduate or Diploma">Graduate or Diploma</option>
             </select>
           </div>
-          <div className="form-group" id="Xth4">
-            <label htmlFor="Course">Board<span class="required">*</span></label>
-            <select id="Course" className="form-control">
+          {isSchoolEducation ? <div className="form-group">
+            <label htmlFor="board">Board<span class="required">*</span></label>
+            <select id="board" className="form-control" name="board" value={inputData.board} onChange={(e) => handleFormInputData(e)}>
               <option>Select Board</option>
-              <option>State</option>
-              <option>All India</option>
+              <option>CBSE</option>
+              <option>CISCE</option>
+              <option>IB</option>
+              <option>State board</option>
             </select>
-          </div>
-          <div className="form-group" id="Xth">
-            <label htmlFor="Course">Course<span class="required">*</span></label>
-            <select id="Course" className="form-control">
-              <option>Select Course</option>
-              <option>C.A.</option>
-              <option>M.A.</option>
-              <option>M.B.A.</option>
-            </select>
-          </div>
-          <div className="form-group" id="Xth1">
-            <label htmlFor="Specialization">Specialization<span class="required">*</span></label>
-            <select id="Specialization" className="form-control">
-              <option>Select Specialization</option>
-              <option>Computers</option>
-              <option>Others</option>
-            </select>
-          </div>
-          <div className="form-group" id="Xth2">
-            <label htmlFor="University">University/Institute<span class="required">*</span></label>
-            <select id="University" className="form-control">
-              <option>Select University/Institute</option>
-              <option>IIT Delhi</option>
-              <option>NIT Delhi</option>
-              <option>MIT Pune</option>
-            </select>
-          </div>
-          <div className="form-group" id="Xth3">
-            <label htmlFor="University">Course Type</label>
-            <div>
-              <div class={this.state.courseType === 'fullTime' ? "modal-label form-check form-check-inline" : "modal-label form-check form-check-inline modal-fade"}>
-                <input
-                  type="radio"
-                  class="form-check-input mr-2"
-                  id="fullTime"
-                  name="fullTime"
-                  value="fullTime"
-                  checked={this.state.courseType === 'fullTime'}
-                  onChange={this.onValueChange}
-                />
-                <label class="radio-inline form-check-label" for="materialChecked2">Full Time</label>
-              </div>
-              <div class={this.state.courseType === 'partTime' ? "modal-label form-check form-check-inline" : "modal-label form-check form-check-inline modal-fade"}>
-                <input
-                  type="radio"
-                  class="form-check-input mr-2"
-                  id="partTime"
-                  name="partTime"
-                  value="partTime"
-                  checked={this.state.courseType === 'partTime'}
-                  onChange={this.onValueChange}
-                />
-                <label class="modal-label radio-inline form-check-label" for="materialChecked2">Part Time</label>
-              </div>
-              <div class={this.state.courseType === 'correspondence' ? "modal-label form-check" : "modal-label form-check form-check-inline modal-fade"}>
-                <input
-                  type="radio"
-                  class="form-check-input"
-                  id="correspondence"
-                  name="correspondence"
-                  value="correspondence"
-                  checked={this.state.courseType === 'correspondence'}
-                  onChange={this.onValueChange}
-                />
-                <label class="modal-label radio-inline form-check-label" for="materialChecked2">Correspondence/Distance Learning</label>
+          </div> : null}
+          {!isSchoolEducation ? <div>
+            <div className="form-group">
+              <label htmlFor="course">Course<span class="required">*</span></label>
+              <select id="course" className="form-control" name="course" value={inputData.course} onChange={(e) => handleFormInputData(e)}>
+                <option>Select Course</option>
+                <option>C.A.</option>
+                <option>M.A.</option>
+                <option>M.B.A.</option>
+              </select>
+            </div>
+            <div className="form-group">
+              <label htmlFor="specialization">Specialization<span class="required">*</span></label>
+              <select id="specialization" className="form-control" name="specialization" value={inputData.specialization} onChange={(e) => handleFormInputData(e)}>
+                <option>Select Specialization</option>
+                <option>Computers</option>
+                <option>Others</option>
+              </select>
+            </div>
+            <div className="form-group">
+              <label htmlFor="university">University/Institute<span class="required">*</span></label>
+              <select id="university" className="form-control" name="university" value={inputData.university} onChange={(e) => handleFormInputData(e)}>
+                <option>Select University/Institute</option>
+                <option>IIT Delhi</option>
+                <option>NIT Delhi</option>
+                <option>MIT Pune</option>
+              </select>
+            </div>
+            <div className="form-group">
+              <label htmlFor="University">Course Type</label>
+              <div>
+                <div class={inputData.courseType === 'fullTime' ? "modal-label form-check form-check-inline" : "modal-label form-check form-check-inline modal-fade"}>
+                  <input
+                    type="radio"
+                    class="form-check-input mr-2"
+                    id="courseType"
+                    name="courseType"
+                    value="fullTime"
+                    checked={inputData.courseType === 'fullTime'}
+                    onChange={handleFormInputData}
+                  />
+                  <label class="radio-inline form-check-label" for="materialChecked2">Full Time</label>
+                </div>
+                <div class={inputData.courseType === 'partTime' ? "modal-label form-check form-check-inline" : "modal-label form-check form-check-inline modal-fade"}>
+                  <input
+                    type="radio"
+                    class="form-check-input mr-2"
+                    id="courseType"
+                    name="courseType"
+                    value="partTime"
+                    checked={inputData.courseType === 'partTime'}
+                    onChange={handleFormInputData}
+                  />
+                  <label class="modal-label radio-inline form-check-label" for="materialChecked2">Part Time</label>
+                </div>
+                <div class={inputData.courseType === 'correspondence' ? "modal-label form-check" : "modal-label form-check form-check-inline modal-fade"}>
+                  <input
+                    type="radio"
+                    class="form-check-input"
+                    id="courseType"
+                    name="courseType"
+                    value="correspondence"
+                    checked={inputData.courseType === 'correspondence'}
+                    onChange={handleFormInputData}
+                  />
+                  <label class="modal-label radio-inline form-check-label" for="materialChecked2">Correspondence/Distance Learning</label>
+                </div>
               </div>
             </div>
-
-          </div>
+          </div> : null}
           <div className="form-group">
-            <label htmlFor="University">Passing out year<span class="required">*</span></label>
+            <label htmlFor="passingOutYear">Passing out year<span class="required">*</span></label>
             <div class="form-row">
               <div className="col">
-                <select id="University" className="form-control">
+                <select id="passingOutYear" className="form-control" name="passingOutYear" value={inputData.passingOutYear} onChange={(e) => handleFormInputData(e)}>
                   {Array(50).fill().map((_, i) => (
                     <option key={`${i}_years`}>{parseInt(new Date().getFullYear()) - i}</option>
                   ))}
@@ -168,26 +204,27 @@ class Education extends Component {
               </div>
             </div>
           </div>
-          {/* <div className="form-group" id="Xth5">
-            <label htmlFor="Course">Medium<span class="required">*</span></label>
-            <select id="Course" className="form-control">
+          {isSchoolEducation ? <div className="form-group">
+            <label htmlFor="medium">Medium<span class="required">*</span></label>
+            <select id="medium" className="form-control" name="medium" value={inputData.medium} onChange={(e) => handleFormInputData(e)}>
               <option>Select Medium</option>
               <option>English</option>
               <option>Hindi</option>
               <option>Marathi</option>
             </select>
-          </div> */}
-          <div className="form-group">
+          </div> : null}
+
+          {inputData.ed}<div className="form-group">
             <label htmlFor="University">Marks<span class="required">*</span></label>
-
-            <input class="form-control" type="text" placeholder="Enter Marks" />
+            <input class="form-control" type="text"
+              name="marks"
+              value={inputData.marks}
+              onChange={(e) => handleFormInputData(e)} placeholder="Enter Marks" />
           </div>
-          <button class="btn lightBlue float-right px-5">Save</button>
-
-        </form>
-      </>
-    );
-  }
+        </div>
+        <button class="btn lightBlue float-right px-5" onClick={handleSubmit}>Save</button>
+      </form>
+    </>
+  );
 }
-
 export default Education

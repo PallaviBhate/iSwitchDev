@@ -6,7 +6,7 @@ import ApiServicesOrgCandidate from '../../../../Services/ApiServicesOrgCandidat
 import { Context } from '../../../../Context/ProfileContext';
 import Moment from 'moment';
 
-const Personal = () => {
+const Personal = ({ showPopup }) => {
   const [inputData, setFormInputData] = React.useState({
     "dob": new Date(),
     "gender": "",
@@ -24,16 +24,18 @@ const Personal = () => {
   const [tags, setTags] = useState([]);
   const [workPermit, setWorkPermit] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
-  const { state } = useContext(Context);
-
+  const { state, getProfileInfo } = useContext(Context);
+  const [stateName, setStateName] = useState('');
+  const [city, setCity] = useState('');
+  const data = [];
   useEffect(() => {
     state.then((response) => {
       setStartDate(new Date(response.candidateInfo.dob))
-      setWorkPermit(response.candidateInfo.workPermit)
       if (response.candidateInfo.workPermit !== null) {
         const workPermit = response.candidateInfo.workPermit.split(',');
         let intersection = COUNTRY_LIST.filter(x => workPermit.includes(x.name));
         setTags(intersection);
+        setGender(response.candidateInfo.gender)
         intersection.map((val) => setWorkPermit(oldArray => [...oldArray, val.name]))
       }
       setFormInputData({
@@ -46,7 +48,11 @@ const Personal = () => {
         "state": response.candidateInfo.state,
         "country": response.candidateInfo.country
       });
-    })
+    });
+    ApiServicesOrgCandidate.getListOfStates().then((response) => {
+      console.log(response.data.responseObject);
+      setStateName(response.data.responseObject);
+    });
   }, []);
 
   const onValueChange = (event) => {
@@ -66,10 +72,11 @@ const Personal = () => {
   }
 
   const handleSubmit = (e) => {
+    e.preventDefault();
     const candidateId = localStorage.getItem('candidateId');
     const DOB = Moment(startDate);
     let data = {
-      "dob": DOB.format('YYYY-DD-MM'),
+      "dob": DOB.format('YYYY-MM-DD'),
       "gender": isGender,
       "passportId": inputData.passportId,
       "address": inputData.address,
@@ -81,13 +88,20 @@ const Personal = () => {
       "workPermit": workPermit.join(),
       "candidateId": candidateId
     }
-    console.log(data)
-    ApiServicesOrgCandidate.updateCareerInfo(data);
-    //e.preventDefault();
+    ApiServicesOrgCandidate.updateCareerInfo(data, getProfileInfo, showPopup);
   }
 
   const handleFormInputData = (e) => {
-    console.log(e)
+    if (e.target.name === 'state') {
+      ApiServicesOrgCandidate.getListOfCity(e.target.value).then((response) => {
+        console.log(response)
+        if (response) {
+          setCity(response.data.responseObject);
+        } else {
+          setCity('');
+        }
+      });
+    }
     return (
       setFormInputData({
         ...inputData,
@@ -114,38 +128,38 @@ const Personal = () => {
             </div>
             <label className="modal-label mt-3" htmlFor="University" >Gender</label>
             <div>
-              <div class={isGender === 'male' ? "modal-label form-check form-check-inline" : "modal-label form-check form-check-inline modal-fade"}>
+              <div class={isGender === 'Male' ? "modal-label form-check form-check-inline" : "modal-label form-check form-check-inline modal-fade"}>
                 <input
                   type="radio"
                   class="form-check-input mr-2"
-                  id="male"
-                  name="male"
-                  value="male"
-                  checked={isGender === 'male'}
+                  id="Male"
+                  name="Male"
+                  value="Male"
+                  checked={isGender === 'Male'}
                   onChange={onValueChange}
                 />
                 <label class="radio-inline form-check-label" for="materialChecked2">Male</label>
               </div>
-              <div class={isGender === 'female' ? "modal-label form-check form-check-inline" : "modal-label form-check form-check-inline modal-fade"}>
+              <div class={isGender === 'Female' ? "modal-label form-check form-check-inline" : "modal-label form-check form-check-inline modal-fade"}>
                 <input
                   type="radio"
                   class="form-check-input mr-2"
-                  id="female"
-                  name="female"
-                  value="female"
-                  checked={isGender === 'female'}
+                  id="Female"
+                  name="Female"
+                  value="Female"
+                  checked={isGender === 'Female'}
                   onChange={onValueChange}
                 />
                 <label class="modal-label radio-inline form-check-label" for="materialChecked2">Female</label>
               </div>
-              <div class={isGender === 'transgender' ? "modal-label form-check form-check-inline" : "modal-label form-check form-check-inline modal-fade"}>
+              <div class={isGender === 'Transgender' ? "modal-label form-check form-check-inline" : "modal-label form-check form-check-inline modal-fade"}>
                 <input
                   type="radio"
                   class="form-check-input"
-                  id="transgender"
-                  name="transgender"
-                  value="transgender"
-                  checked={isGender === 'transgender'}
+                  id="Transgender"
+                  name="Transgender"
+                  value="Transgender"
+                  checked={isGender === 'Transgender'}
                   onChange={onValueChange}
                 />
                 <label class="modal-label radio-inline form-check-label" for="materialChecked2">Transgender</label>
@@ -166,7 +180,7 @@ const Personal = () => {
           </div>
           <div className="form-group">
             <label className="modal-label" htmlFor="University">Address</label>
-            <input class="form-control" type="text"
+            <textarea  rows="6" class="form-control" type="text"
               placeholder="85 Flat XYZ Building"
               id="address"
               required
@@ -175,7 +189,7 @@ const Personal = () => {
               onChange={(e) => handleFormInputData(e)}
             />
           </div>
-          <div class="form-group">
+          {/* <div class="form-group">
             <div class="form-row">
               <div className="col mr-3">
                 <input class="form-control"
@@ -189,52 +203,54 @@ const Personal = () => {
               </div>
               <div className="col ml-3">
                 <select className="form-control"
-                  value={inputData.city}
-                  id="city"
-                  required
-                  name="city"
-                  onChange={(e) => handleFormInputData(e)}
-                >
-                  <option>Mumbai</option>
-                  <option>Delhi</option>
-                  <option>Patna</option>
-                  <option>Nagpur</option>
-                </select>
-              </div>
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="form-row">
-              <div className="col mr-3">
-                <select className="form-control"
                   value={inputData.state}
                   id="state"
                   required
                   name="state"
                   onChange={(e) => handleFormInputData(e)}
                 >
-                  <option>Maharashtra</option>
-                  <option>Uttar Pradesh</option>
-                  <option>Delhi</option>
-                  <option>Gujarat</option>
+                <option value='1' disabled>Select State</option>
+                  {
+                    (stateName) ? stateName.map((name, index) => (
+                      <option value={name.stateCode}>{name.stateName}</option>
+                    )) : null
+                  }
+                </select>
+              </div>
+            </div>
+          </div> */}
+          {/* <div class="form-group">
+            <div class="form-row">
+              <div className="col mr-3">
+                <select className="form-control"
+                  value={inputData.city}
+                  id="city"
+                  required
+                  name="city"
+                  disabled={city === '' ? true : false}
+                  onChange={(e) => handleFormInputData(e)}
+                >
+                  <option value='1' disabled>Select City</option>
+                  {
+                    (city) ? city.map((name, index) => (
+                      <option value={name.state_code}>{name.city_name}</option>
+                    )) : null
+                  }
                 </select>
               </div>
               <div className="col ml-3">
                 <select className="form-control"
                   value={inputData.country}
                   id="country"
-                  required
                   name="country"
                   onChange={(e) => handleFormInputData(e)}
                 >
+                  <option value='1' disabled>Select Country</option>
                   <option>India</option>
-                  <option>America</option>
-                  <option>Russia</option>
-                  <option>Nepal</option>
                 </select>
               </div>
             </div>
-          </div>
+          </div> */}
           <div className="form-group">
             <label className="modal-label" htmlFor="maritalStatus">Marital Status</label>
             <select className="form-control"
@@ -244,6 +260,7 @@ const Personal = () => {
               name="maritalStatus"
               onChange={(e) => handleFormInputData(e)}
             >
+              <option>Select Marital Status</option>
               <option>Single/unmarried</option>
               <option>Married</option>
               <option>Widowed</option>

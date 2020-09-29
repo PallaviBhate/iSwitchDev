@@ -1,7 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { EDIT_PROFILE_NAME, EDIT_ABOUT } from '../../../../../Utils/AppConst'
+import { Context } from '../../../../../Context/ProfileContext';
 
-export const About = ({showPopup,about}) => {
+export const About = ({ showPopup }) => {
+  const { state } = useContext(Context);
+  const [about, setAbout] = React.useState('');
+  state.then((data) => {
+    setAbout(data.candidateInfo.about)
+  })
   return (
     <div class="bg-white px-4 py-4 section-divider align-items-center">
       <div class="col">

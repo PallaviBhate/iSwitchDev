@@ -3,15 +3,15 @@ import { Button, Modal } from 'react-bootstrap'
 import ApiServicesOrgCandidate from '../../../../Services/ApiServicesOrgCandidate';
 import { Context } from '../../../../Context/ProfileContext';
 
-const About = () => {
+const About = ({showPopup}) => {
   const [inputData, setFormInputData] = React.useState({ about: '' })
   const [candidateProfile, setCandidateProfile] = React.useState('');
-  const { state } = useContext(Context);
+  const { state, getProfileInfo } = useContext(Context);
 
 
   React.useEffect(() => {
     state.then((response) => {
-      setCandidateProfile(response)
+      setCandidateProfile(response);
     })
   }, []);
 
@@ -35,8 +35,8 @@ const About = () => {
       "candidateId": candidateId
     }
     console.log(data)
-    ApiServicesOrgCandidate.updateProfileInfo(data);
-    //e.preventDefault();
+    ApiServicesOrgCandidate.updateProfileInfo(data, getProfileInfo,showPopup);
+    e.preventDefault();
   }
   return (
     <>

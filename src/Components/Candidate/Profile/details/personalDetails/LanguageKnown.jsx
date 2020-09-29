@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { EDIT_LANGUAGE, ADD_NEW_LANGUAGE } from '../../../../../Utils/AppConst'
 import { Context } from '../../../../../Context/ProfileContext';
+import ApiServicesOrgCandidate from '../../../../../Services/ApiServicesOrgCandidate';
 
 export const LanguageKnown = ({ showPopup }) => {
   const { state } = useContext(Context);
@@ -8,7 +9,13 @@ export const LanguageKnown = ({ showPopup }) => {
   state.then((data) => {
     setProfileInfo(data)
   })
+  const { getProfileInfo } = useContext(Context);
   const { candidateLanguageList } = profileInfo;
+  const deleteLanguage = (id) => {
+    let isLanguage = window.confirm("Are you sure you want to delete?");
+    if (isLanguage)
+      ApiServicesOrgCandidate.deleteLanguage(id, getProfileInfo);
+  }
   return (
     <div class="bg-white px-4 py-4 section-divider align-items-center">
       <div class="col">
@@ -38,7 +45,7 @@ export const LanguageKnown = ({ showPopup }) => {
                     <td>{(candidateLanguages.canSpeak) ? <img src="/images/Dashboard-assets/candidate/correct.png" alt="Cinque Terre" /> : null}</td>
                     <td class="edit-icon-column">
                       <img src="/images/Dashboard-assets/iconfinder_edit.svg" class="edit-icon" alt="Cinque Terre" onClick={() => showPopup(EDIT_LANGUAGE, true, candidateLanguages.languageId)} />
-                      <img src="/images/Dashboard-assets/delete.svg" class="edit-icon" alt="Cinque Terre" />
+                      <img src="/images/Dashboard-assets/delete.svg" class="edit-icon" alt="Cinque Terre" onClick={() => deleteLanguage(candidateLanguages.languageId)} />
                     </td>
                   </tr>
                 )) : null}
