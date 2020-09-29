@@ -189,8 +189,8 @@ label {
 
 .Header {
     width: 100%;
-    height: 50px;
-    /*border-bottom:1px solid #ccc;*/
+    height: 60px;
+    line-height: 60px;
     float: left;
 }
 
@@ -203,7 +203,7 @@ label {
 
 .Header ul li {
     display: inline-block;
-    margin: 15px 15px;
+    margin: 0px 15px;
 }
 
 .Header .nav li {
@@ -439,7 +439,7 @@ li.nav-item.active,
 li.nav-item:hover {
     width: 100%;
     background: #fff;
-    border-left: 5px solid #fff !important;
+    /* border-left: 5px solid #fff !important; */
     color: #0650BB!important;
 }
 
@@ -491,8 +491,11 @@ nav a {
 .profile_btn,
 .chart_section_btn {
     background: transparent;
-    border: 0;
     margin: 8px;
+}
+
+.bottom_border .table tbody tr:last-child td {
+    Border-bottom: 1px solid #ffffff !important;
 }
 
 
@@ -515,17 +518,29 @@ table td {
     border: 1px solid #ccc;
 }
 
+.media-body {
+    font-size: 16px;
+    color: #52575C;
+    font-family: 'Montserrat-Medium';
+}
+
+.media-body h5 {
+    font-size: 22px;
+    color: #3398FF !important;
+    font-family: 'Montserrat-Medium';
+}
+
 .content_section {
     background: #f1f1f1;
     padding: 1rem 3rem;
     width: 100%
 }
 
-
-/* .content_section h4 {
-    font-family: 'Roboto-Regular';
+.content_section p1 {
+    font-family: 'Montserrat-Medium';
+    font-size: 16px;
+    color: #2E2E2E;
 }
- */
 
 .uploadedProfile_section,
 .activeProfile_section,
@@ -534,14 +549,79 @@ table td {
 .skillsUnfulfilled_section,
 .chart_section {
     background: #fff;
-    border-radius: 10px;
+    /* border-radius: 10px; */
     padding: 15px;
     margin: 10px;
 }
 
+.uploadedProfile_section_Card,
+.activeProfile_section_Card,
+.hiredProfile_section_Card,
+.jobPosted_section_Card,
+.activeJobs_section_Card,
+.candidateHired_section_Card {
+    background: #fff;
+    /* border-radius: 10px; */
+    padding: 15px;
+    margin: 10px;
+    height: 120px;
+    /* width: 370px; */
+    display: flex;
+    align-items: center;
+}
+
+.hiredProfile_section_Card h5 {
+    color: #3398FF !important;
+}
+
+.skills-section {
+    margin-left: 20px !important;
+    font-size: 16px !important;
+    color: #2E2E2EE5 !important;
+    font-family: "Montserrat-Medium" !important;
+    top: 0;
+    bottom: 0;
+}
+
+.topSkillsRequired_Text {
+    font-size: 20px;
+    font-family: "Montserrat-Medium";
+    color: #2E2E2E;
+}
+
+.row-fashion {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+    background-color: white;
+    margin-bottom: 20px;
+    padding: 30px 30px
+}
+
+.progress-fashion1 {
+    margin-top: 10px;
+    width: 75%;
+    height: 10px;
+}
+
+.progress1 .bg-success {
+    background-color: #28C567 !important;
+}
+
 .overview_numbers {
-    color: #1c59ae;
+    color: #1c59ae !important;
     font-weight: bold;
+}
+
+.meter-value-text {
+    font-size: 12px;
+    font-family: Montserrat-Regular;
+    color: #25282B;
+    margin-bottom: 0px !important;
+    margin-top: 0px !important;
+}
+
+.marT50 {
+    margin-top: 50px !important;
 }
 
 meter {
@@ -549,22 +629,38 @@ meter {
     height: 20px;
 }
 
+.Uploaded_number_text {
+    font-size: 14px !important;
+    font-family: 'Montserrat-Medium' !important;
+    color: #52575C !important;
+}
+
 .Uploaded_number {
-    font-size: 30px;
-    color: #a4a1fb;
+    font-size: 32px !important;
+    color: #FB4E4E;
     display: block;
+    font-family: 'Montserrat-SemiBold' !important;
 }
 
 .posted_number {
-    font-size: 30px;
-    color: #56dafe;
+    font-size: 32px !important;
+    color: #3398FF;
     display: block;
+    font-family: 'Montserrat-SemiBold' !important;
 }
 
 .hired_number {
-    font-size: 30px;
-    color: #5fe3a1;
+    font-size: 32px !important;
+    color: #2AC769;
     display: block;
+    font-family: 'Montserrat-SemiBold' !important;
+}
+
+.yearly_report_text {
+    font-size: 20px;
+    font-family: 'Montserrat-Medium' !important;
+    color: #2E2E2E;
+    opacity: 100%;
 }
 
 .more_ico {
@@ -582,7 +678,7 @@ meter {
 
 .white-middle-section {
     padding: 40px;
-    /* margin: 10px; */
+    margin: 10px;
     background: #fff;
     border-radius: 10px;
 }
@@ -813,9 +909,6 @@ table.dataTable tr.selected td.select-checkbox:after {
     margin-left: 15px;
 } 
 
-.marL30 {
-    margin-left: 30px;
-}
 
 .marR0 {
     margin-right: 0px !important;
@@ -825,6 +918,23 @@ table.dataTable tr.selected td.select-checkbox:after {
 /* .marT20 {
     margin-top: 20px;
 } */
+
+.marL34 {
+    margin-left: 34px;
+}
+
+
+/* .marB30 {
+    margin-bottom: 30px;
+} */
+
+.marT10 {
+    margin-top: 10px;
+}
+
+.marL10 {
+    margin-left: 10px;
+}
 
 .marT30 {
     margin-top: 30px;
@@ -844,6 +954,14 @@ table.dataTable tr.selected td.select-checkbox:after {
 
 .marB30 {
     margin-bottom: 30px;
+}
+
+.marR5 {
+    margin-right: 5px;
+}
+
+.marL5 {
+    margin-left: 5px;
 }
 
 
@@ -1059,6 +1177,7 @@ table.dataTable tr.selected td.select-checkbox:after {
     padding: 0.5rem 1.3rem;
     color: #ACACB2!important;
     font-size: 0.9rem;
+    line-height: 35px;
 }
 
 
@@ -1070,8 +1189,8 @@ table.dataTable tr.selected td.select-checkbox:after {
 .switch {
     position: relative;
     display: inline-block;
-    width: 42px;
-    height: 20px;
+    width: 56px;
+    height: 28px;
     /* float:right; */
 }
 
@@ -1092,7 +1211,9 @@ table.dataTable tr.selected td.select-checkbox:after {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #ccc;
+    border-color: #007EFF !important;
+    background-color: #FFFFFF;
+    border: 2px solid #007EFF;
     -webkit-transition: .4s;
     transition: .4s;
 }
@@ -1100,27 +1221,29 @@ table.dataTable tr.selected td.select-checkbox:after {
 .slider:before {
     position: absolute;
     content: "";
-    height: 13px;
-    width: 13px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
+    height: 20px;
+    width: 20px;
+    left: 2px;
+    top: 2px;
+    bottom: 2px;
+    background-color: #007EFF;
+    border: 1px solid #007EFF !important;
     -webkit-transition: .4s;
     transition: .4s;
 }
 
-input.primary:checked+.slider {
-    background-color: #2196F3;
-}
-
 input:focus+.slider {
+    position: absolute !important;
     box-shadow: 0 0 1px #2196F3;
+    /* left: 0px !important;
+    top: 0px;
+    bottom: 0px; */
 }
 
 input:checked+.slider:before {
-    -webkit-transform: translateX(20px);
-    -ms-transform: translateX(20px);
-    transform: translateX(20px);
+    -webkit-transform: translateX(28px);
+    -ms-transform: translateX(28px);
+    transform: translateX(28px);
 }
 
 
@@ -1136,6 +1259,93 @@ input:checked+.slider:before {
 
 .border-bottom-thick {
     border-bottom: 2px solid #dee2e6;
+}
+
+
+/*------------------------------------ */
+
+
+/* Added By Sakshi */
+
+.setting {
+    margin-left: 15.2px;
+}
+
+.setting_text {
+    font-family: Montserrat-Medium;
+    font-size: 14px;
+    color: #6A6A6A;
+}
+
+.settingSubtitle_text {
+    font-family: Montserrat-SemiBold;
+    font-size: 16px;
+    color: #373737;
+}
+
+.setting_text1 {
+    font-family: Montserrat-Medium;
+    font-size: 18px;
+    color: #3E3E3EE6;
+}
+
+.setting_arrow {
+    margin-bottom: 3px;
+    margin-left: 16px !important;
+}
+
+.settingTitle_text {
+    font-family: Montserrat-Medium;
+    font-size: 20px;
+    color: #2E2E2E;
+}
+
+.container {
+    display: block;
+    position: relative;
+    /* padding-left: 35px; */
+    cursor: pointer;
+    /* font-size: 22px; */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.container input {
+    height: 20px;
+    width: 20px;
+    margin-right: 0px !important;
+}
+
+.container:hover input~.checkmark {
+    background-color: #ccc;
+}
+
+.container input:checked~.checkmark {
+    background-color: #2196F3;
+}
+
+.checkmark {
+    position: relative;
+    cursor: pointer;
+    height: 13.76px !important;
+    width: 17.24px !important;
+    background-color: #ffffff;
+}
+
+.checkmark:before {
+    /* position: absolute; */
+    content: "";
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.container input:checked~.checkmark {
+    background-color: #2196F3;
 }
 
 
@@ -1233,11 +1443,10 @@ input:checked+.slider:before {
 }
 
 
-/* Side nav bar Urvashi-Sakshi **/
+/* /* Side nav bar Urvashi-Sakshi **/
 
 
-/* 
-    overflow-x: hidden;
+/*    overflow-x: hidden;
 } */
 
 
@@ -1312,6 +1521,36 @@ input:checked+.slider:before {
     padding: 0;
     list-style: none;
 }
+
+.subMenu:after {
+    content: "\f107";
+    font-family: FontAwesome;
+    position: absolute;
+    right: 15px;
+}
+
+
+/* added by Urvashi on 240920 */
+
+.sidebar-nav .dropdown-item:hover,
+.sidebar-nav .dropdown-item:focus {
+    background: transparent;
+}
+
+.toggled .sidebar-nav .submenuLink li a {
+    padding-right: 10px!important;
+}
+
+.sidebar-nav .submenuLink li a {
+    padding-left: 20px;
+}
+
+.sidebar-nav .dropdown-item {
+    padding: 0;
+}
+
+
+/* ------------------------------- */
 
 
 /* .sidebar-nav li {
@@ -1398,18 +1637,39 @@ input:checked+.slider:before {
 }
 
 .sidebar-nav>.sidebar-brand {
-    height: 50px;
+    height: 60px;
     font-size: 18px;
-    line-height: 50px;
+    line-height: 60px;
+}
+
+.toggled .logoHeader {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding-top: 10px;
+}
+
+.sidebar-nav>.sidebar-brand img {
+    width: 150px;
 }
 
 .sidebar-nav>.sidebar-brand a {
-    color: #999999;
+    color: #fff;
+    padding: 0;
+}
+
+.sidebar-nav>.sidebar-brand i {
+    margin-right: 10px;
+    font-size: 1.3rem!important;
+}
+
+.toggled .sidebar-nav>.sidebar-brand i {
+    margin-right: 0px;
 }
 
 .sidebar-nav>.sidebar-brand a:hover {
     color: #fff;
-    /*  background:  #031C3E; */
+    background: transparent;
 }
 
 @media(min-width:768px) {
@@ -1504,15 +1764,8 @@ input:checked+.slider:before {
 }
 
 
-/* =================== (START) CSS ADD by PRASHANT */
+/* =================== (START) CSS for recent_matches_section */
 
-.col-md-3 {
-    background: #fff;
-}
-
-.col-md-3:nth-child(2n) {
-    background: #ccc;
-}
 
 .recent_matches_section .row {
     background: #FFF;
@@ -1539,6 +1792,13 @@ input:checked+.slider:before {
     color: #2E2E2E;
     font-family: 'Montserrat, Medium';
 }
+
+/* =================== (END) CSS for recent_matches_section  */
+
+
+
+/* =================== (START) CSS for interviews-section */
+
 
 .interviews-section .row-sec {
     padding: 25px;
@@ -1598,6 +1858,9 @@ input:checked+.slider:before {
     padding: 15px;
     margin: 10px;
 }
+/* =================== (END) CSS ADD by CSS for interviews-section  */
+
+
 
 textarea.form-control {
     height: auto !important;
@@ -1610,8 +1873,6 @@ textarea.form-control {
     width: 15px;
 }
 
-
-/* =================== (END) CSS ADD by PRASHANT  */
 
 .right-panel {
     background-color: #F1F1F1;
@@ -1974,8 +2235,17 @@ textarea.form-control {
     height: 12px;
 }
 
+.Header .nav-link {
+    padding: 0;
+}
 
-/* close modal css*/
+
+/* Css added by Amarendra & Swati */
+
+.matches_navhead {
+    padding: 0rem 2rem;
+    display: inline-block;
+}
 
 .subMenu:after {
     content: "\f107";
@@ -1992,27 +2262,252 @@ textarea.form-control {
     z-index: 999;
 }
 
-.profile__button_group .profileTabs {
-    background: white;
+.details_list li {
     border: none;
-    padding: 10px 0px;
-    margin-right: 20px;
+    padding: 0rem 3.2rem 0rem 0rem;
     font-size: 14px;
-    font-weight: 600;
-    border-bottom: 2px solid white;
 }
 
-.profile__button_group .profileTabs:hover,
-.profile__button_group .profileTabsSelected {
-    border-bottom: 2px solid #007EFF;
-    color: #007EFF
+.details_list img {
+    padding: 0rem 0.5rem 0rem 0rem;
 }
 
-.sticky {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    border-bottom:  2px solid #f1f1f1;
-  }
+.horizontal_line {
+    border-bottom: 1px solid black;
+}
 
-/* Profile Nav End */
+.content_headings h6 {
+    font-family: Montserrat-SemiBold !important;
+    font-size: 16px;
+    display: inline-block;
+    margin: 1rem 1rem;
+}
+
+.content_headings p {
+    margin: 1rem 2rem;
+    font-family: Montserrat-Medium !important;
+}
+
+.content_headings ol li {
+    margin: 0.5rem 1rem 0rem 0.5rem;
+    font-family: Montserrat-Medium !important;
+}
+
+.others_section_firstcol div {
+    font-family: Montserrat-SemiBold !important;
+    font-size: 14px;
+    margin: 1rem 2rem;
+}
+
+.others_section_secondcol div {
+    font-family: Montserrat-Medium !important;
+    font-size: 14px;
+    margin: 1rem 2rem;
+}
+
+.job_details {
+    margin: 0rem 1rem 2rem 1rem;
+}
+
+.content_card {
+    margin: 0rem 1rem 0rem 1rem;
+}
+
+.job_details h6 {
+    font-family: Montserrat-SemiBold !important;
+    font-size: 20px;
+    display: inline-block;
+    margin: 0rem 1rem 1rem 0rem;
+    color: #007eff;
+}
+
+.job_details span {
+    font-size: 12px;
+}
+
+.job_details .card-body {
+    margin: 0.5rem 0rem 0.5rem 0rem;
+}
+
+.breadcrumb-item {
+    font-size: 24px;
+}
+
+.breadcrumb-item>a {
+    font-family: Montserrat-Regular !important;
+    color: #7B7B7B !important;
+}
+
+.breadcrumb-item>a:hover {
+    text-decoration: none;
+}
+
+.breadcrumb-item.active {
+    font-family: Montserrat-SemiBold !important;
+    color: #2e2e2e !important;
+}
+
+.breadcrumb-item+.breadcrumb-item::before {
+    content: ">" !important;
+}
+
+.apply_btn {
+    float: right;
+}
+
+
+/** CSS - Swati */
+
+.job-skills {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.job-white-card p {
+    line-height: 2;
+    font-size: 14px;
+}
+
+.job-skills li {
+    display: inline-block;
+    font-size: 14px;
+    padding: 20px 44px 20px 0px;
+}
+
+.job-skills img {
+    padding-right: 10px;
+}
+
+.job-title a {
+    color: #007EFF;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.job-posting {
+    color: #7B7B7B;
+    font-size: 12px;
+}
+
+.job-circle {
+    border-radius: 50%;
+    display: inline-block;
+    width: 70px;
+    height: 70px;
+    color: black;
+    border: 2px solid #147AD6;
+    text-align: center;
+    position: relative;
+}
+
+.job-text-wrap {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.job-text-wrap span {
+    display: block;
+}
+
+.job-circle span:nth-child(2) {
+    color: #5B6671;
+    font-size: 10px;
+}
+
+.job-heading {
+    font-size: 24px;
+}
+
+.job-match p {
+    vertical-align: middle;
+    display: table-cell;
+}
+
+.job-desc {
+    font-size: 16px;
+    font-weight: bold;
+    color: #2E2E2E;
+}
+
+.job-full-detail {
+    text-transform: uppercase;
+}
+
+.job-search {
+    width: 411px !important;
+}
+
+.job-accepted {
+    font-size: 16px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.btn-secondary {
+    background-color: white !important;
+    color: #52575C !important;
+}
+
+.job-accept {
+    font-size: 16px;
+}
+
+.job-invite {
+    font-size: 18px;
+}
+
+.interview-status img {
+    padding-right: 10px;
+}
+
+.interview-status p {
+    font-size: 10px;
+    color: #768594;
+}
+
+.interview-status span {
+    font-size: 12px;
+    color: #2C3E50;
+}
+
+.detail-arrow {
+    padding-left: 8px;
+}
+
+
+/*Interview Invites Job Details CSS*/
+
+.action_buttons {
+    float: right;
+}
+
+
+/* Jobs Pipeline CSS */
+
+.search_icon {
+    position: absolute;
+    top: 14%;
+    left: 34%;
+    font-size: 1.2rem !important;
+}
+
+.advanced-search {
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: uppercase;
+    padding-left: 10px;
+    padding-top: 10px;
+    display: inline-block;
+}
+
+.advSearch-modal {
+    font-size: 20px !important;
+    color: #3E3E3E;
+}
+
+.advSearch-body {
+    padding-bottom: 11px !important;
+}

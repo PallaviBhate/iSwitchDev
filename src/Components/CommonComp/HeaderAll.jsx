@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { Link, Redirect } from 'react-router-dom'
-import axios from 'axios'
+//import axios from 'axios'
 
 class HeaderAll extends Component {
-  constructor(props) {
-    super(props)
+  constructor() {
+    super()
     this.state = {
       userData: [],
       userId: localStorage.getItem('candidateId'),
@@ -17,38 +17,40 @@ class HeaderAll extends Component {
   toggleHandeler = (status) => {
     this.setState({ status });
     localStorage.setItem('status', status)
-    //console.log(status);
+    // console.log(status);
     const providerRecruiterStatus = status;
-
   }
 
-  componentDidMount() {
-    const options = {
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    };
-    axios
-      .get("https://techm-jobzilla.herokuapp.com/jobs/user/user/" + this.state.userId, options)
-      .then(Response => {
-        if (Response) {
-          // console.log(Response.data.responseObject)
-          this.setState({
-            userData: Response.data.responseObject
-          })
-          // console.log(this.state.userData)
-        }
-      })
-      .catch(error => {
-        console.log(error)
-      })
-  }
+/* To Get Username */
+
+  // componentDidMount() {
+  //   const options = {
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     }
+  //   };
+  //   axios
+  //     .get("https://techm-jobzilla.herokuapp.com/jobs/user/user/" + this.state.userId, options)
+  //     .then(Response => {
+  //       if (Response) {
+  //         // console.log(Response.data.responseObject)
+  //         this.setState({
+  //           userData: Response.data.responseObject
+  //         })
+  //         // console.log(this.state.userData)
+  //       }
+  //     })
+  //     .catch(error => {
+  //       console.log(error)
+  //     })
+  // }
 
   render() {
     const { isCandidate } = this.props;
     const { isSetting } = this.props;
     const { status } = this.state
     const providerRecruiterStatus = localStorage.getItem('status')
+    const userName= localStorage.getItem('userName')
     return (
       <div>
         {this.state.status === "provider" && <Redirect to="/providerDashboard" />}
@@ -59,26 +61,21 @@ class HeaderAll extends Component {
                 <img src="/images/Dashboard-assets/logo-white.png" className="logo"/>
             </div> */}
           {(!isCandidate) && (!isSetting) ?
-            <div className="float-left mt-2 d-inline-flex">
+            <div className="float-left d-inline-flex marL34">
               <div className="mx-3 sub-title1 d-flex align-items-center">JOB : </div>
-              <div className="btn-group btn-group-toggle" data-toggle="buttons">
-                <label className={`btn btn-toggler ${providerRecruiterStatus === "provider" ? " active" : " "}`}>
-                  <input
-                    id="option1"
-                    type="radio"
+              <div className="btn-group btn-group-toggle my-auto" data-toggle="buttons">
+              <label className={`btn btn-toggler ${providerRecruiterStatus === "provider" ? " active" : " "}`}>                  <input type="radio"
                     value="provider"
-                    checked={providerRecruiterStatus === "provider"}
+                    checked={providerRecruiterStatus  === "provider"}
                     autoComplete="off"
                     onClick={(e) => this.toggleHandeler("provider")}
                     defaultChecked="provider"
                   /> Provider
             </label>
-                <label className={`btn btn-toggler ${providerRecruiterStatus === "recruiter" ? "active" : " "}`}>
-                  <input
-                    id="option2"
-                    type="radio"
+            <label className={`btn btn-toggler ${providerRecruiterStatus === "recruiter" ? "active" : " "}`}>
+                 <input type="radio"
                     value="recruiter"
-                    checked={providerRecruiterStatus === "recruiter"}
+                    checked={providerRecruiterStatus  === "recruiter"}
                     autoComplete="off"
                     onClick={(e) => this.toggleHandeler("recruiter")}
                   /> Recruiter
@@ -86,27 +83,25 @@ class HeaderAll extends Component {
             </label>
               </div>
             </div> : null}
-          <ul className="nav mt-2">
+          <ul className="nav headerAll">
             <li>
-              <img className="rounded-circle profile-icon mr-3" src="/images/Dashboard-assets/user-f.jpg" width="35" height="35" />
+              <img className="rounded-circle profile-icon mr-2" src="/images/Dashboard-assets/user-f.jpg" width="35" height="35"  />
             </li>
             <li className="nav-item">
               <a className="nav-link" href="#" data-toggle="dropdown">
-                <span className="font-blue text-small">{this.state.userData.userName}<i className="fa fa-angle-down pl-2" aria-hidden="true"></i></span>
+                <span className="font-blue text-small marL10" >{userName}<i className="fa fa-angle-down pl-2" aria-hidden="true"></i></span>
               </a>
-              <ul className="dropdown-menu mt-2">
+              <ul className="dropdown-menu">
                 <li>
-
                   <Link className="dropdown-item" to="/profile" >
                     <i className="fa fa-user pr-2" aria-hidden="true"></i> My Profile
                     </Link>
                 </li>
 
                 <li>
-                  <Link className="dropdown-item" to="/emailSetting">
+                  <Link className="dropdown-item" to="/emailsetting">
                     <i className="fa fa-cog pr-2" aria-hidden="true"></i> My Email Settings
-                    </Link>
-
+                  </Link>
                 </li>
 
                 <li>

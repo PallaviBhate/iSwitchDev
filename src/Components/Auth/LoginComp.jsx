@@ -67,7 +67,7 @@ class LoginComp extends Component {
           .then(Response=>{
             if(Response){
               localStorage.setItem('userDetails',JSON.stringify(Response.data.responseObject)); 
-              
+              localStorage.setItem('userName',Response.data.responseObject['userName'])
               //fieldwise response
               localStorage.setItem('userId',Response.data.responseObject['id'])
               localStorage.setItem('organizationId',Response.data.responseObject['orgnaizationId'] )
@@ -78,6 +78,7 @@ class LoginComp extends Component {
                 _redirectTo = '/candidate/dashboard';
               } else {
                 _redirectTo = '/providerDashboard';
+                localStorage.setItem('status','provider');
               }
               this.props.history.push(_redirectTo);
             }

@@ -30,7 +30,7 @@ class ApiServicesOrg extends Component {
         //3.1 Downloading Sample CSV file
             fetchSampleFile (){
                 return(
-                    fetch (ApiBaseUrl + "/candidate/csvdownload", ApiHeader)
+                    fetch (ApiBaseUrl + "/user/csvdownload", ApiHeader)
                     .then(Response => Response)
                 )
             }
@@ -40,7 +40,7 @@ class ApiServicesOrg extends Component {
         postSampleFile (formdata, formheader){
             return(
                 axios
-                .post(ApiBaseUrl + "/candidate/uploadcsv", formdata, formheader)
+                .post(ApiBaseUrl + "/user/uploadcsv", formdata, formheader)
                 .then(Response => Response)
             )
         }
