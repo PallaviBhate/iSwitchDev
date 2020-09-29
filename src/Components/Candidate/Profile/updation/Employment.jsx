@@ -23,9 +23,9 @@ const Employment = (id) => {
   useEffect(() => {
     if (id.id) {
       state.then((data) => {
-        debugger
         const employmentDetails = data.employmentDetailsList.filter((ele => ele.employmentId === id.id))[0]
         console.log(data)
+        setCurrentCompany(employmentDetails.currentCompany)
         setFormInputData(employmentDetails)
       })
     }
@@ -99,7 +99,7 @@ const Employment = (id) => {
                   value={inputData.employmentType}
                   onChange={(e) => handleFormInputData(e)}
                 >
-                 <option>Select Employment Type</option>
+                  <option>Select Employment Type</option>
                   <option>Permanent</option>
                   <option>Contractual</option>
                 </select>
@@ -113,10 +113,9 @@ const Employment = (id) => {
                 <input type="radio" class="form-check-input mr-2"
                   name={"currentCompany"}
                   value={inputData.currentCompany}
-                  onChange={(e) => handleFormInputData(e)}
-                  id="currentCompany" value="yes"
+                  id="currentCompany"
                   onClick={() => setCurrentCompany(true)}
-                  checked={inputData.currentCompany ? true : false} />
+                  checked={currentCompany ? true : false} />
                 <label class="radio-inline form-check-label" for="currentCompany">Yes</label>
               </div>
               <div class="form-check form-check-inline">
@@ -124,10 +123,9 @@ const Employment = (id) => {
                   class="form-check-input mr-2" id="currentCompany"
                   value="no"
                   name={"currentCompany"}
-                  value={inputData.currentCompany}
-                  onChange={(e) => handleFormInputData(e)}
+                  value={currentCompany}
                   onClick={() => setCurrentCompany(false)}
-                  checked={!inputData.currentCompany ? true : false} />
+                  checked={!currentCompany ? true : false} />
                 <label class="radio-inline form-check-label" for="materialChecked2">No</label>
               </div>
             </div>

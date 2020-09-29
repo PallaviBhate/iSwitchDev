@@ -18,7 +18,7 @@ export const PopupContent = ({ title, showPopup, dataAttributes, id }) => {
             bodyComponent = <ProfileName />
             break;
         case EDIT_ABOUT:
-            bodyComponent = <About />
+            bodyComponent = <About showPopup={showPopup} />
             break;
         case EDIT_CTC:
             bodyComponent = <CTC />
