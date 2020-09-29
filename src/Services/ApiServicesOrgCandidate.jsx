@@ -15,12 +15,11 @@ class ApiServicesOrgCandidate {
     )
   }
 
-  updateCareerInfo(careerInfo) {
+  updateCareerInfo(careerInfo, getProfileRefresh, showPopup) {
     return (
       axios
         .put(`${ApiBaseUrl}/candidate/candidateinfo/`, careerInfo)
-        .then(resp => {
-        }).catch(error => {
+        .then(resp => getProfileRefresh(), showPopup(false)).catch(error => {
           console.log(error);
         })
     )
@@ -31,9 +30,9 @@ class ApiServicesOrgCandidate {
     return (
       axios
         .put(`${ApiBaseUrl}/candidate/candidateinfo/`, profileInfo)
-        .then(resp =>  getProfileRefresh(),showPopup(false)).catch (error => {
-      console.log(error);
-    })
+        .then(resp => getProfileRefresh(), showPopup(false)).catch(error => {
+          console.log(error);
+        })
     )
   }
 
@@ -137,27 +136,23 @@ class ApiServicesOrgCandidate {
     )
   }
 
-  addEmployment(employmentInfo) {
+  addEmployment(employmentInfo, getProfileRefresh, showPopup) {
     const candidateId = localStorage.getItem('candidateId')
     return (
       axios
         .post(`${ApiBaseUrl}/candidate/employment/${candidateId}`, employmentInfo)
-        .then(resp => {
-          console.log(resp)
-        }).catch(error => {
+        .then(resp => getProfileRefresh(), showPopup(false)).catch(error => {
           console.log(error);
         })
     )
   }
 
-  updateEmployment(employmentInfo) {
+  updateEmployment(employmentInfo, getProfileRefresh, showPopup) {
     const candidateId = localStorage.getItem('candidateId')
     return (
       axios
         .put(`${ApiBaseUrl}/candidate/employment?candidateId=${candidateId}`, employmentInfo)
-        .then(resp => {
-          console.log(resp)
-        }).catch(error => {
+        .then(resp => getProfileRefresh(), showPopup(false)).catch(error => {
           console.log(error);
         })
     )

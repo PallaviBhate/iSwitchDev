@@ -6,7 +6,7 @@ import ApiServicesOrgCandidate from '../../../../Services/ApiServicesOrgCandidat
 import { Context } from '../../../../Context/ProfileContext';
 import Moment from 'moment';
 
-const Personal = () => {
+const Personal = ({ showPopup }) => {
   const [inputData, setFormInputData] = React.useState({
     "dob": new Date(),
     "gender": "",
@@ -24,16 +24,16 @@ const Personal = () => {
   const [tags, setTags] = useState([]);
   const [workPermit, setWorkPermit] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
-  const { state } = useContext(Context);
+  const { state, getProfileInfo } = useContext(Context);
 
   useEffect(() => {
     state.then((response) => {
       setStartDate(new Date(response.candidateInfo.dob))
-      // setWorkPermit(response.candidateInfo.workPermit)
       if (response.candidateInfo.workPermit !== null) {
         const workPermit = response.candidateInfo.workPermit.split(',');
         let intersection = COUNTRY_LIST.filter(x => workPermit.includes(x.name));
         setTags(intersection);
+        setGender(response.candidateInfo.gender)
         intersection.map((val) => setWorkPermit(oldArray => [...oldArray, val.name]))
       }
       setFormInputData({
@@ -66,10 +66,11 @@ const Personal = () => {
   }
 
   const handleSubmit = (e) => {
+    e.preventDefault();
     const candidateId = localStorage.getItem('candidateId');
     const DOB = Moment(startDate);
     let data = {
-      "dob": DOB.format('YYYY-DD-MM'),
+      "dob": DOB.format('YYYY-MM-DD'),
       "gender": isGender,
       "passportId": inputData.passportId,
       "address": inputData.address,
@@ -81,9 +82,7 @@ const Personal = () => {
       "workPermit": workPermit.join(),
       "candidateId": candidateId
     }
-    console.log(data)
-    ApiServicesOrgCandidate.updateCareerInfo(data);
-    //e.preventDefault();
+    ApiServicesOrgCandidate.updateCareerInfo(data, getProfileInfo, showPopup);
   }
 
   const handleFormInputData = (e) => {
@@ -114,38 +113,38 @@ const Personal = () => {
             </div>
             <label className="modal-label mt-3" htmlFor="University" >Gender</label>
             <div>
-              <div class={isGender === 'male' ? "modal-label form-check form-check-inline" : "modal-label form-check form-check-inline modal-fade"}>
+              <div class={isGender === 'Male' ? "modal-label form-check form-check-inline" : "modal-label form-check form-check-inline modal-fade"}>
                 <input
                   type="radio"
                   class="form-check-input mr-2"
-                  id="male"
-                  name="male"
-                  value="male"
-                  checked={isGender === 'male'}
+                  id="Male"
+                  name="Male"
+                  value="Male"
+                  checked={isGender === 'Male'}
                   onChange={onValueChange}
                 />
                 <label class="radio-inline form-check-label" for="materialChecked2">Male</label>
               </div>
-              <div class={isGender === 'female' ? "modal-label form-check form-check-inline" : "modal-label form-check form-check-inline modal-fade"}>
+              <div class={isGender === 'Female' ? "modal-label form-check form-check-inline" : "modal-label form-check form-check-inline modal-fade"}>
                 <input
                   type="radio"
                   class="form-check-input mr-2"
-                  id="female"
-                  name="female"
-                  value="female"
-                  checked={isGender === 'female'}
+                  id="Female"
+                  name="Female"
+                  value="Female"
+                  checked={isGender === 'Female'}
                   onChange={onValueChange}
                 />
                 <label class="modal-label radio-inline form-check-label" for="materialChecked2">Female</label>
               </div>
-              <div class={isGender === 'transgender' ? "modal-label form-check form-check-inline" : "modal-label form-check form-check-inline modal-fade"}>
+              <div class={isGender === 'Transgender' ? "modal-label form-check form-check-inline" : "modal-label form-check form-check-inline modal-fade"}>
                 <input
                   type="radio"
                   class="form-check-input"
-                  id="transgender"
-                  name="transgender"
-                  value="transgender"
-                  checked={isGender === 'transgender'}
+                  id="Transgender"
+                  name="Transgender"
+                  value="Transgender"
+                  checked={isGender === 'Transgender'}
                   onChange={onValueChange}
                 />
                 <label class="modal-label radio-inline form-check-label" for="materialChecked2">Transgender</label>
