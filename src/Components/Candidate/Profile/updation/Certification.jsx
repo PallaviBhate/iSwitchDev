@@ -11,7 +11,7 @@ const Certification = ({ dataAttributes }) => {
   const { state } = useContext(Context);
   const resourceId = dataAttributes && dataAttributes.resourceId;
   const prevExpirationYear = usePrevious(inputData.expirationYear);
-  const expirationMonth = usePrevious(inputData.expirationMonth)
+  const prevExpirationMonth = usePrevious(inputData.expirationMonth)
 
   React.useEffect(() => {
     state.then((response) => {
@@ -48,7 +48,7 @@ const Certification = ({ dataAttributes }) => {
         inputData.expirationMonth = null;
         inputData.expirationYear = null;
       } else {
-        inputData.expirationMonth = expirationMonth;
+        inputData.expirationMonth = prevExpirationMonth;
         inputData.expirationYear = prevExpirationYear;
       }
       setIsExpirationDate(!isExpirationDate);
