@@ -111,14 +111,6 @@ const Certification = ({ dataAttributes, showPopup }) => {
               selected={singleCertificates}
             />
           </div>
-          <div className="form-group">
-            <label htmlFor="issuingOrganization">Issuing Organization</label>
-            <input class="form-control" type="text"
-              name="issuingOrganization"
-              value={inputData.issuingOrganization}
-              onChange={(e) => handleFormInputData(e)} placeholder="Enter Issuing Organization" />
-
-          </div>
 
           <div class="custom-control custom-checkbox mr-sm-2">
             <input type="checkbox" class="custom-control-input" name="isExpirationDate" id="isExpirationDate" checked={!isExpirationDate} onChange={(e) => handleFormInputData(e)} />
