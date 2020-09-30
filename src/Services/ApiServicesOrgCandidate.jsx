@@ -222,6 +222,16 @@ class ApiServicesOrgCandidate {
     )
   }
 
+  getListOfBoards() {
+    return (
+      axios
+        .get(`${ApiBaseUrl}/candidate/listOfBoards`)
+        .then(Response => Response).catch(error => {
+          console.log(error);
+        })
+    )
+  }
+
 }
 
 export default new ApiServicesOrgCandidate();

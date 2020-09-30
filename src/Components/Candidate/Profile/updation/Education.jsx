@@ -21,7 +21,8 @@ const Education = ({ dataAttributes, showPopup }) => {
   const prevEducationType = usePrevious(inputData.educationType);
   const [singleInstitute, setSingleInstitute] = useState([]);
   const [institute, setInstitute] = useState('');
-
+  const [singleBoards, setSingleBoards] = useState([]);
+  const [boards, setBoards] = useState('');
   const isSchoolEducation = inputData.educationType === '10th' || inputData.educationType === '12th'
   React.useEffect(() => {
     ApiServicesOrgCandidate.getListOfInstitutes().then((response) => {
@@ -33,7 +34,15 @@ const Education = ({ dataAttributes, showPopup }) => {
         setInstitute('');
       }
     })
-
+    ApiServicesOrgCandidate.getListOfBoards().then((response) => {
+      if (response) {
+        const result = Object.keys(response.data.responseObject).map((key, index) => response.data.responseObject[key].board_name);
+        console.log(result)
+        setBoards(result);
+      } else {
+        setBoards('');
+      }
+    })
     state.then((response) => {
       if (response && response.educationDetailsList) {
         const educationInfoObject = response.educationDetailsList.filter(education => {
@@ -98,7 +107,7 @@ const Education = ({ dataAttributes, showPopup }) => {
     e.preventDefault();
     let data = {
       "educationType": inputData.educationType,
-      "board": inputData.board,
+      "board": singleBoards.toString(),
       "course": inputData.course,
       "specialization": inputData.specialization,
       "university": singleInstitute.toString(),
@@ -130,13 +139,21 @@ const Education = ({ dataAttributes, showPopup }) => {
           </div>
           {isSchoolEducation ? <div className="form-group">
             <label htmlFor="board">Board<span class="required">*</span></label>
-            <select id="board" className="form-control" name="board" value={inputData.board} onChange={(e) => handleFormInputData(e)}>
+            {/* <select id="board" className="form-control" name="board" value={inputData.board} onChange={(e) => handleFormInputData(e)}>
               <option>Select Board</option>
               <option>CBSE</option>
               <option>CISCE</option>
               <option>IB</option>
               <option>State board</option>
-            </select>
+            </select> */}
+            <Typeahead
+              id="basic-typeahead-board"
+              labelKey="board"
+              onChange={setSingleBoards}
+              options={boards}
+              placeholder="Choose a Board..."
+              selected={singleBoards}
+            />
           </div> : null}
           {!isSchoolEducation ? <div>
             <div className="form-group">
