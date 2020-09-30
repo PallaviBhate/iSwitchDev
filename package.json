@@ -39,7 +39,8 @@
         "react-tag-autocomplete": "^6.1.0",
         "react-toastr": "^3.0.0",
         "react-token-autocomplete": "^0.5.3",
-        "react-web-tabs": "^1.0.1"
+        "react-web-tabs": "^1.0.1",
+        "sweetalert": "^2.1.2"
     },
     "scripts": {
         "start": "react-scripts start",

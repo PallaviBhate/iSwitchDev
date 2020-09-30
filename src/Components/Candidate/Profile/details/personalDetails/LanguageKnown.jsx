@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { EDIT_LANGUAGE, ADD_NEW_LANGUAGE } from '../../../../../Utils/AppConst'
 import { Context } from '../../../../../Context/ProfileContext';
 import ApiServicesOrgCandidate from '../../../../../Services/ApiServicesOrgCandidate';
+import swal from 'sweetalert';
 
 export const LanguageKnown = ({ showPopup }) => {
   const { state } = useContext(Context);
@@ -12,9 +13,20 @@ export const LanguageKnown = ({ showPopup }) => {
   const { getProfileInfo } = useContext(Context);
   const { candidateLanguageList } = profileInfo;
   const deleteLanguage = (id) => {
-    let isLanguage = window.confirm("Are you sure you want to delete?");
-    if (isLanguage)
-      ApiServicesOrgCandidate.deleteLanguage(id, getProfileInfo);
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this data!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          ApiServicesOrgCandidate.deleteLanguage(id, getProfileInfo);
+        } else {
+
+        }
+      });
   }
   return (
     <div class="bg-white px-4 py-4 section-divider align-items-center">
