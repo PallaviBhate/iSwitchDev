@@ -28,6 +28,8 @@ const Skill = ({ dataAttributes, showPopup }) => {
         })[0]
         console.log(skillInfoObject)
         setSkillInfo(skillInfoObject)
+        if(skillId)
+        setSingleSkills([skillInfoObject.skillName])
       }
     })
   }, []);

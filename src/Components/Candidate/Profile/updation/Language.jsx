@@ -26,7 +26,8 @@ const Language = ({ id, showPopup }) => {
     if (id) {
       state.then((data) => {
         const candidateLanguage = data.candidateLanguageList.filter((ele => ele.languageId === id))[0]
-        setFormInputData(candidateLanguage)
+        setFormInputData(candidateLanguage);
+        setSingleLanguage([candidateLanguage.language])
       })
     }
   }, []);
