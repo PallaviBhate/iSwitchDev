@@ -9,22 +9,12 @@ import 'react-bootstrap-typeahead/css/Typeahead.css';
 const Education = ({ dataAttributes, showPopup }) => {
   const [inputData, setFormInputData] = React.useState({ educationType: '', board: '', course: '', specialization: '', university: '', courseType: '', passingOutYear: '', medium: '', marks: '' })
   const [educationInfo, setEducationInfo] = React.useState('');
-  const [isExpirationDate, setIsExpirationDate] = React.useState(true)
   const { state, getProfileInfo } = useContext(Context);
   const resourceId = dataAttributes && dataAttributes.resourceId;
-  const prevCourse = usePrevious(inputData.course);
-  const prevSpecialization = usePrevious(inputData.specialization);
-  const prevUniversity = usePrevious(inputData.university);
-  const prevCourseType = usePrevious(inputData.courseType);
-  const prevBoard = usePrevious(inputData.board);
-  const prevMedium = usePrevious(inputData.medium);
-  const prevEducationType = usePrevious(inputData.educationType);
   const [singleInstitute, setSingleInstitute] = useState('');
   const [institute, setInstitute] = useState([]);
   const [singleBoards, setSingleBoards] = useState('');
   const [boards, setBoards] = useState([]);
-  const [singleEducationType, setSingleEducationType] = useState('');
-  const [educationTypes, setEducationTypes] = useState([]);
   const isSchoolEducation = inputData.educationType === '10th' || inputData.educationType === '12th'
   React.useEffect(() => {
     ApiServicesOrgCandidate.getListOfInstitutes().then((response) => {
@@ -45,24 +35,15 @@ const Education = ({ dataAttributes, showPopup }) => {
         setBoards('');
       }
     })
-    ApiServicesOrgCandidate.getListOfEducationType().then((response) => {
-      if (response) {
-        const result = Object.keys(response.data.responseObject).map((key, index) => response.data.responseObject[key].eduType);
-        console.log(result)
-        setEducationTypes(result);
-      } else {
-        setEducationTypes('');
-      }
-    })
     state.then((response) => {
       if (response && response.educationDetailsList) {
         const educationInfoObject = response.educationDetailsList.filter(education => {
           return education.educationId === resourceId
         })[0]
         setEducationInfo(educationInfoObject);
-        if(resourceId){
-        setSingleBoards([educationInfoObject.board])
-        setSingleInstitute([educationInfoObject.university])
+        if (resourceId) {
+          setSingleBoards([educationInfoObject.board])
+          setSingleInstitute([educationInfoObject.university])
         }
       }
     })
@@ -71,9 +52,6 @@ const Education = ({ dataAttributes, showPopup }) => {
     if (resourceId && educationInfo) {
       const { educationType, board, course, specialization, university, courseType, passingOutYear, medium, marks } = educationInfo;
       console.log(resourceId)
-      // if (!(expirationMonth && expirationYear)) {
-      //   setIsExpirationDate(false)
-      // }
       setFormInputData({
         educationType: educationType,
         board: board,
@@ -90,26 +68,14 @@ const Education = ({ dataAttributes, showPopup }) => {
 
   const handleFormInputData = (e) => {
     if (e.target.name === 'educationType') {
-      if (e.target.value === '10th' || e.target.value === '12th') {
-        // if (prevEducationType === 'Post Graduate' || prevEducationType === 'Graduate or Diploma' || prevEducationType === '') {
-        inputData.course = null;
-        inputData.specialization = null;
-        inputData.university = null;
-        inputData.courseType = null;
-        inputData.board = prevBoard;
-        inputData.medium = prevMedium;
-        // }
-      }
-      else {
-        // if (prevEducationType === '10th' || prevEducationType === '12th') {
-        inputData.course = prevCourse;
-        inputData.specialization = prevSpecialization;
-        inputData.university = prevUniversity;
-        inputData.courseType = prevCourseType;
-        inputData.board = null;
-        inputData.medium = null;
-        // }
-      }
+      inputData.course = null;
+      inputData.specialization = null;
+      inputData.university = null;
+      inputData.courseType = null;
+      inputData.passingOutYear = null;
+      inputData.board = null;
+      inputData.marks = null;
+      console.log(inputData)
     }
     return (
       setFormInputData({
@@ -121,7 +87,7 @@ const Education = ({ dataAttributes, showPopup }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     let data = {
-      "educationType": singleEducationType.toString(),
+      "educationType": inputData.educationType,
       "board": singleBoards.toString(),
       "course": inputData.course,
       "specialization": inputData.specialization,
@@ -144,23 +110,13 @@ const Education = ({ dataAttributes, showPopup }) => {
         <div class="mb-4">
           <div className="form-group">
             <label htmlFor="educationType">Education Type<span class="required">*</span></label>
-            {/*
-              <Typeahead
-                id="basic-typeahead-board"
-                labelKey="educationType"
-                onChange={setSingleEducationType}
-                options={educationTypes}
-                placeholder="Choose a Education Type..."
-                selected={singleEducationType}
-              />
-            */}
 
             <select id="educationType" className="form-control" name="educationType" value={inputData.educationType} onChange={(e) => handleFormInputData(e)}>
-              <option>Select Education</option>
-              <option value="10th">10th</option>
+              <option value="Doctorate/PhD">Doctorate/PhD</option>
+              <option value="Masters/Post-Graduation">Masters/Post-Graduation</option>
+              <option value="Graduation/Diploma">Graduation/Diploma</option>
               <option value="12th">12th</option>
-              <option value="Post Graduate">Post Graduate</option>
-              <option value="Graduate or Diploma">Graduate or Diploma</option>
+              <option value="10th">10th</option>
             </select>
           </div>
           {isSchoolEducation ? <div className="form-group">
