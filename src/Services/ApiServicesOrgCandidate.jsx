@@ -252,6 +252,16 @@ class ApiServicesOrgCandidate {
     )
   }
 
+  getListOfSkills() {
+    return (
+      axios
+        .get(`${ApiBaseUrl}/candidate/listOfSkills`)
+        .then(Response => Response).catch(error => {
+          console.log(error);
+        })
+    )
+  }
+
 }
 
 export default new ApiServicesOrgCandidate();

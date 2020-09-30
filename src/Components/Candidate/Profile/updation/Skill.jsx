@@ -1,13 +1,26 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import ApiServicesOrgCandidate from '../../../../Services/ApiServicesOrgCandidate';
 import { Context } from '../../../../Context/ProfileContext';
+import { Typeahead } from 'react-bootstrap-typeahead';
+import 'react-bootstrap-typeahead/css/Typeahead.css';
 
 const Skill = ({ dataAttributes, showPopup }) => {
   const [inputData, setFormInputData] = React.useState({ experienceInYear: '', experienceInMonth: '', proficiency: '', skillName: '', version: '' })
   const [skillInfo, setSkillInfo] = React.useState('');
   const { state, getProfileInfo } = useContext(Context);
+  const [singleSkills, setSingleSkills] = useState([]);
+  const [skills, setSkills] = useState('');
   const skillId = dataAttributes && dataAttributes.skillId;
   React.useEffect(() => {
+    ApiServicesOrgCandidate.getListOfSkills().then((response) => {
+      if (response) {
+        const result = Object.keys(response.data.responseObject).map((key, index) => response.data.responseObject[key].skills);
+        console.log(result)
+        setSkills(result);
+      } else {
+        setSkills('');
+      }
+    })
     state.then((response) => {
       if (response && response.skillList) {
         const skillInfoObject = response.skillList.filter(skill => {
@@ -44,7 +57,7 @@ const Skill = ({ dataAttributes, showPopup }) => {
     let data = {
       "experience": `${inputData.experienceInYear}.${inputData.experienceInMonth}`,
       "proficiency": inputData.proficiency,
-      "skillName": inputData.skillName,
+      "skillName": singleSkills.toString(),
       "version": inputData.version
     }
     if (skillId) {
@@ -60,10 +73,18 @@ const Skill = ({ dataAttributes, showPopup }) => {
         <div class="mb-4">
           <div className="form-group">
             <label htmlFor="skillName">Skill</label>
-            <input class="form-control" type="text"
+            {/* <input class="form-control" type="text"
               name="skillName"
               value={inputData.skillName}
-              onChange={(e) => handleFormInputData(e)} placeholder="Enter Skill" />
+              onChange={(e) => handleFormInputData(e)} placeholder="Enter Skill" /> */}
+            <Typeahead
+              id="basic-typeahead-skills"
+              labelKey="skills"
+              onChange={setSingleSkills}
+              options={skills}
+              placeholder="Choose a Skills..."
+              selected={singleSkills}
+            />
           </div>
           <div className="form-group">
             <label htmlFor="version">Version</label>
