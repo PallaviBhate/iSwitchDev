@@ -11,8 +11,8 @@ const Language = ({ id, showPopup }) => {
     canWrite: false, canSpeak: false, canRead: false
   });
   const { state, getProfileInfo } = useContext(Context);
-  const [singleLanguage, setSingleLanguage] = React.useState([]);
-  const [languages, setLanguages] = React.useState('');
+  const [singleLanguage, setSingleLanguage] = React.useState('');
+  const [languages, setLanguages] = React.useState([]);
   useEffect(() => {
     ApiServicesOrgCandidate.getListOfLanguages().then((response) => {
       if (response) {

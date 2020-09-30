@@ -19,12 +19,12 @@ const Education = ({ dataAttributes, showPopup }) => {
   const prevBoard = usePrevious(inputData.board);
   const prevMedium = usePrevious(inputData.medium);
   const prevEducationType = usePrevious(inputData.educationType);
-  const [singleInstitute, setSingleInstitute] = useState([]);
-  const [institute, setInstitute] = useState('');
-  const [singleBoards, setSingleBoards] = useState([]);
-  const [boards, setBoards] = useState('');
-  const [singleEducationType, setSingleEducationType] = useState([]);
-  const [educationTypes, setEducationTypes] = useState('');
+  const [singleInstitute, setSingleInstitute] = useState('');
+  const [institute, setInstitute] = useState([]);
+  const [singleBoards, setSingleBoards] = useState('');
+  const [boards, setBoards] = useState([]);
+  const [singleEducationType, setSingleEducationType] = useState('');
+  const [educationTypes, setEducationTypes] = useState([]);
   const isSchoolEducation = inputData.educationType === '10th' || inputData.educationType === '12th'
   React.useEffect(() => {
     ApiServicesOrgCandidate.getListOfInstitutes().then((response) => {

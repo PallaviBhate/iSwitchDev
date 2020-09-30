@@ -22,8 +22,8 @@ const Employment = ({ id, showPopup }) => {
     "workedTillYear": ""
   });
   const { state, getProfileInfo } = useContext(Context);
-  const [singleOrganization, setSingleOrganization] = useState([]);
-  const [organizations, setOrganizations] = useState('');
+  const [singleOrganization, setSingleOrganization] = useState('');
+  const [organizations, setOrganizations] = useState([]);
   useEffect(() => {
     ApiServicesOrgCandidate.getListOfOrganizations().then((response) => {
       if (response) {

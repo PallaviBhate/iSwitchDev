@@ -14,8 +14,8 @@ const Certification = ({ dataAttributes, showPopup }) => {
   const resourceId = dataAttributes && dataAttributes.resourceId;
   const prevExpirationYear = usePrevious(inputData.expirationYear);
   const prevExpirationMonth = usePrevious(inputData.expirationMonth)
-  const [singleCertificates, setSingleCertificates] = useState([]);
-  const [certificates, setCertificates] = useState('');
+  const [singleCertificates, setSingleCertificates] = useState('');
+  const [certificates, setCertificates] = useState([]);
 
   React.useEffect(() => {
     ApiServicesOrgCandidate.getListOfCertificates().then((response) => {
