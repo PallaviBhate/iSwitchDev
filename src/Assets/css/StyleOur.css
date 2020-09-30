@@ -3092,3 +3092,7 @@ textarea.form-control {
 
 
 /* Profile Nav End */
+.dropdown-item {
+    color: #212529 !important;
+    font-family: Montserrat-Medium!important;
+}
