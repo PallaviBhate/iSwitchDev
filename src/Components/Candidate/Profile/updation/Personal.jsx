@@ -61,8 +61,12 @@ const Personal = ({ showPopup }) => {
 
   const onAddition = (tag) => {
     const tagsCnt = [].concat(tags, tag);
-    setWorkPermit(oldArray => [...oldArray, tag.name]);
-    setTags(tagsCnt);
+    if (workPermit.length < 3) {
+      setWorkPermit(oldArray => [...oldArray, tag.name]);
+      setTags(tagsCnt);
+    } else {
+      alert('you can select maximum 3 countries')
+    }
   }
   const onDelete = (i) => {
     const tagsCnt = tags.slice(0)
@@ -180,7 +184,7 @@ const Personal = ({ showPopup }) => {
           </div>
           <div className="form-group">
             <label className="modal-label" htmlFor="University">Address</label>
-            <textarea  rows="6" class="form-control" type="text"
+            <textarea rows="6" class="form-control" type="text"
               placeholder="85 Flat XYZ Building"
               id="address"
               required
@@ -265,7 +269,6 @@ const Personal = ({ showPopup }) => {
               <option>Married</option>
               <option>Widowed</option>
               <option>Divorced</option>
-              <option>Other</option>
             </select>
           </div>
           <div className="form-group">

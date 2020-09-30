@@ -10,28 +10,52 @@ const CareerProfile = ({ showPopup }) => {
   const [employmentType, setEmploymentType] = useState('');
   const [addPreferredLocation, setAddPreferredLocation] = useState([]);
   const { state, getProfileInfo } = useContext(Context);
-
+  const [cities, setCities] = useState('');
+  const [candidateInfo, setCandidateInfo] = useState('');
+  useEffect(() => {
+    ApiServicesOrgCandidate.getListOfCity('0').then((response) => {
+      console.log(response.data.responseObject)
+      if (response) {
+        var resultArray = response.data.responseObject.map((city) => {
+          return { name: city['city_name'], city_code: city['city_code'] };
+        });
+        console.log(resultArray)
+        setCities(resultArray);
+      } else {
+        setCities('');
+      }
+    });
+  }, []);
   useEffect(() => {
     state.then((response) => {
+      setCandidateInfo(response.candidateInfo);
       setEmploymentType(response.candidateInfo.employmentType)
       setPreferredShift(response.candidateInfo.preferredShift)
       if (response.candidateInfo.preferredLocation !== null) {
         const preferredLocation = response.candidateInfo.preferredLocation.split(',');
-        let intersection = CITY_LIST.filter(x => preferredLocation.includes(x.name));
-        setTags(intersection);
-        intersection.map((val) => setAddPreferredLocation(oldArray => [...oldArray, val.name]))
+        debugger
+        if (cities) {
+          let intersection = cities.filter(x => preferredLocation.includes(x.name));
+          console.log(intersection)
+          setTags(intersection);
+          intersection.map((val) => setAddPreferredLocation(oldArray => [...oldArray, val.name]))
+        }
       }
     })
-  }, []);
+  }, [cities]);
 
   const onValueChange = (event) => {
     setPreferredShift(event.target.value);
   }
 
   const onAddition = (tag) => {
-    const tagsCnt = [].concat(tags, tag)
-    setAddPreferredLocation(oldArray => [...oldArray, tag.name]);
-    setTags(tagsCnt)
+    const tagsCnt = [].concat(tags, tag);
+    if (addPreferredLocation.length < 3) {
+      setAddPreferredLocation(oldArray => [...oldArray, tag.name]);
+      setTags(tagsCnt)
+    } else {
+      alert('you can select maximum 3 cities')
+    }
   }
 
   const onDelete = (i) => {
@@ -71,14 +95,15 @@ const CareerProfile = ({ showPopup }) => {
           </div>
           <div className="form-group">
             <label htmlFor="University">Preferred Locations</label>
-            <ReactTags
+            {(cities) ? <ReactTags
               placeholderText={'Add Preferred Locations'}
               minQueryLength={1}
               tags={tags}
-              suggestions={CITY_LIST}
+              suggestions={cities}
               onDelete={onDelete}
               onAddition={onAddition}
-            />
+            /> : null
+            }
           </div>
           <div className="form-group">
             <label htmlFor="University">Preferred Shift</label>
