@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../../Assets/css/Style.css'
+import '../../Assets/css/StyleOur.css'
 import Footer from './Footer';
 import LeftNavCandidate from './LeftNavCandidate';
 import HeaderAll from './HeaderAll';

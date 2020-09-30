@@ -308,4 +308,54 @@ select {
 }
 
 
+/* Change password CSS */
+
+.pass-header {
+    font-size: 20px;
+}
+
+.pass-headerhelptext {
+    font-size: 14px;
+}
+
+.backtodashboard {
+    font-size: 18px;
+    font-family: Montserrat-Medium !important;
+    color: #2E2E2E !important;
+}
+
+.backtodashboard,
+.backtodashboard :hover {
+    color: #2E2E2E !important;
+    text-decoration: none !important;
+}
+
+.password-card {
+    position: relative;
+}
+
+.password-card input {
+    width: 411px;
+    height: 50px !important;
+}
+
+.showOldPasswordIcon {
+    position: absolute;
+    left: 25.3rem;
+    top: 2.95rem;
+    font-size: 1.2rem !important;
+}
+
+.showNewPasswordIcon {
+    position: absolute;
+    left: 25.3rem;
+    top: 9.1rem;
+    font-size: 1.2rem !important;
+}
+
+.update_button {
+    margin-top: 20px;
+}
+
+
 /* Profile Nav End */
