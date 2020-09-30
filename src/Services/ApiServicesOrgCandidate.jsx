@@ -211,6 +211,17 @@ class ApiServicesOrgCandidate {
         })
     )
   }
+
+  getListOfCertificates() {
+    return (
+      axios
+        .get(`${ApiBaseUrl}/candidate/listOfCertificates`)
+        .then(Response => Response).catch(error => {
+          console.log(error);
+        })
+    )
+  }
+
 }
 
 export default new ApiServicesOrgCandidate();
