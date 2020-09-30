@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { Context } from '../../../../Context/ProfileContext';
 import ApiServicesOrgCandidate from '../../../../Services/ApiServicesOrgCandidate';
+import { Typeahead } from 'react-bootstrap-typeahead';
 
 const Language = ({ id, showPopup }) => {
 
@@ -10,7 +11,18 @@ const Language = ({ id, showPopup }) => {
     canWrite: false, canSpeak: false, canRead: false
   });
   const { state, getProfileInfo } = useContext(Context);
+  const [singleLanguage, setSingleLanguage] = React.useState('');
+  const [languages, setLanguages] = React.useState([]);
   useEffect(() => {
+    ApiServicesOrgCandidate.getListOfLanguages().then((response) => {
+      if (response) {
+        const result = Object.keys(response.data.responseObject).map((key, index) => response.data.responseObject[key].languages);
+        console.log(result)
+        setLanguages(result);
+      } else {
+        setLanguages('');
+      }
+    })
     if (id) {
       state.then((data) => {
         const candidateLanguage = data.candidateLanguageList.filter((ele => ele.languageId === id))[0]
@@ -42,7 +54,7 @@ const Language = ({ id, showPopup }) => {
     e.preventDefault();
     const candidateId = localStorage.getItem('candidateId')
     let data = {
-      "language": inputData.language,
+      "language": singleLanguage.toString(),
       "proficiency": inputData.proficiency,
       "canWrite": Boolean(inputData.canWrite),
       "canSpeak": Boolean(inputData.canSpeak),
@@ -61,15 +73,14 @@ const Language = ({ id, showPopup }) => {
         <div class="mb-4">
           <div className="form-group">
             <label htmlFor="language">Language</label>
-            <select id="language" name="language" className="form-control"
-              value={inputData.language}
-              onChange={(e) => handleFormInputData(e)}
-            >
-              <option>Select Language</option>
-              <option>Hindi</option>
-              <option>English</option>
-              <option>Spanish</option>
-            </select>
+            <Typeahead
+              id="basic-typeahead-single"
+              labelKey="language"
+              onChange={setSingleLanguage}
+              options={languages}
+              placeholder="Choose a language..."
+              selected={singleLanguage}
+            />
           </div>
           <div className="form-group">
             <label htmlFor="proficiency">Proficiency</label>

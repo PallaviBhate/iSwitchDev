@@ -8,8 +8,8 @@ const Skill = ({ dataAttributes, showPopup }) => {
   const [inputData, setFormInputData] = React.useState({ experienceInYear: '', experienceInMonth: '', proficiency: '', skillName: '', version: '' })
   const [skillInfo, setSkillInfo] = React.useState('');
   const { state, getProfileInfo } = useContext(Context);
-  const [singleSkills, setSingleSkills] = useState([]);
-  const [skills, setSkills] = useState('');
+  const [singleSkills, setSingleSkills] = useState('');
+  const [skills, setSkills] = useState([]);
   const skillId = dataAttributes && dataAttributes.skillId;
   React.useEffect(() => {
     ApiServicesOrgCandidate.getListOfSkills().then((response) => {
