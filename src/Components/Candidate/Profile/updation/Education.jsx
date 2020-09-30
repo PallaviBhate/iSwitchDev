@@ -60,8 +60,10 @@ const Education = ({ dataAttributes, showPopup }) => {
           return education.educationId === resourceId
         })[0]
         setEducationInfo(educationInfoObject);
+        if(resourceId){
         setSingleBoards([educationInfoObject.board])
         setSingleInstitute([educationInfoObject.university])
+        }
       }
     })
   }, []);
