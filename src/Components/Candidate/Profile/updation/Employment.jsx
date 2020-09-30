@@ -39,6 +39,7 @@ const Employment = ({ id, showPopup }) => {
         const employmentDetails = data.employmentDetailsList.filter((ele => ele.employmentId === id))[0]
         console.log(data)
         setCurrentCompany(employmentDetails.currentCompany)
+        setSingleOrganization([employmentDetails.organization])
         setFormInputData(employmentDetails)
       })
     }

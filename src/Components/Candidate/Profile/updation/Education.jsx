@@ -59,7 +59,9 @@ const Education = ({ dataAttributes, showPopup }) => {
         const educationInfoObject = response.educationDetailsList.filter(education => {
           return education.educationId === resourceId
         })[0]
-        setEducationInfo(educationInfoObject)
+        setEducationInfo(educationInfoObject);
+        setSingleBoards([educationInfoObject.board])
+        setSingleInstitute([educationInfoObject.university])
       }
     })
   }, []);
@@ -150,7 +152,7 @@ const Education = ({ dataAttributes, showPopup }) => {
                 selected={singleEducationType}
               />
             */}
-            
+
             <select id="educationType" className="form-control" name="educationType" value={inputData.educationType} onChange={(e) => handleFormInputData(e)}>
               <option>Select Education</option>
               <option value="10th">10th</option>
