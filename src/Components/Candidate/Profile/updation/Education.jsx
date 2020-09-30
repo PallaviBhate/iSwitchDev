@@ -68,13 +68,15 @@ const Education = ({ dataAttributes, showPopup }) => {
 
   const handleFormInputData = (e) => {
     if (e.target.name === 'educationType') {
-      inputData.course = null;
-      inputData.specialization = null;
-      inputData.university = null;
-      inputData.courseType = null;
-      inputData.passingOutYear = null;
-      inputData.board = null;
-      inputData.marks = null;
+      inputData.course = '';
+      inputData.specialization = '';
+      inputData.university = '';
+      inputData.courseType = '';
+      inputData.passingOutYear = '';
+      inputData.board = '';
+      inputData.marks = '';
+      setSingleBoards(['']);
+      setSingleInstitute([''])
       console.log(inputData)
     }
     return (
