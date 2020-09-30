@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link, Redirect } from 'react-router-dom'
-import axios from 'axios'
+//import axios from 'axios'
 
 class HeaderAll extends Component {
   constructor() {
@@ -17,49 +17,40 @@ class HeaderAll extends Component {
   toggleHandeler = (status) => {
     this.setState({ status });
     localStorage.setItem('status', status)
-    console.log(status);
-
+    // console.log(status);
+    const providerRecruiterStatus = status;
   }
 
-  /** To handle Routing to path of Recruiter and Provider Toggle button **/
+/* To Get Username */
 
-  // componentDidUpdate() {
-  //   if (this.state.status === "provider") {
-  //     history.push('/providerDashboard')
-  //     window.location.reload();
-  //   }
-
-  //   if (this.state.status === "recruiter") {
-  //     history.push('/recruiterDashboard')
-  //     //window.location.reload();
-  //   }
+  // componentDidMount() {
+  //   const options = {
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     }
+  //   };
+  //   axios
+  //     .get("https://techm-jobzilla.herokuapp.com/jobs/user/user/" + this.state.userId, options)
+  //     .then(Response => {
+  //       if (Response) {
+  //         // console.log(Response.data.responseObject)
+  //         this.setState({
+  //           userData: Response.data.responseObject
+  //         })
+  //         // console.log(this.state.userData)
+  //       }
+  //     })
+  //     .catch(error => {
+  //       console.log(error)
+  //     })
   // }
-
-  componentDidMount() {
-    const options = {
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    };
-    axios
-      .get("https://techm-jobzilla.herokuapp.com/jobs/user/user/" + this.state.userId, options)
-      .then(Response => {
-        if (Response) {
-          // console.log(Response.data.responseObject)
-          this.setState({
-            userData: Response.data.responseObject
-          })
-          // console.log(this.state.userData)
-        }
-      })
-      .catch(error => {
-        console.log(error)
-      })
-  }
 
   render() {
     const { isCandidate } = this.props;
+    const { isSetting } = this.props;
     const { status } = this.state
+    const providerRecruiterStatus = localStorage.getItem('status')
+    const userName= localStorage.getItem('userName')
     return (
       <div>
         {this.state.status === "provider" && <Redirect to="/providerDashboard" />}
@@ -69,23 +60,22 @@ class HeaderAll extends Component {
           {/* <div className="float-left logo_container col-xl-2">
                 <img src="/images/Dashboard-assets/logo-white.png" className="logo"/>
             </div> */}
-          {(!isCandidate) ?
-            <div className="float-left mt-2 d-inline-flex">
+          {(!isCandidate) && (!isSetting) ?
+            <div className="float-left d-inline-flex marL34">
               <div className="mx-3 sub-title1 d-flex align-items-center">JOB : </div>
-              <div className="btn-group btn-group-toggle" data-toggle="buttons">
-                <label className="btn btn-toggler active">
-                  <input type="radio"
+              <div className="btn-group btn-group-toggle my-auto" data-toggle="buttons">
+              <label className={`btn btn-toggler ${providerRecruiterStatus === "provider" ? " active" : " "}`}>                  <input type="radio"
                     value="provider"
-                    checked={status === "provider"}
+                    checked={providerRecruiterStatus  === "provider"}
                     autoComplete="off"
                     onClick={(e) => this.toggleHandeler("provider")}
                     defaultChecked="provider"
                   /> Provider
             </label>
-                <label className="btn btn-toggler">
-                  <input type="radio"
+            <label className={`btn btn-toggler ${providerRecruiterStatus === "recruiter" ? "active" : " "}`}>
+                 <input type="radio"
                     value="recruiter"
-                    checked={status === "recruiter"}
+                    checked={providerRecruiterStatus  === "recruiter"}
                     autoComplete="off"
                     onClick={(e) => this.toggleHandeler("recruiter")}
                   /> Recruiter
@@ -93,33 +83,41 @@ class HeaderAll extends Component {
             </label>
               </div>
             </div> : null}
-          <ul className="nav mt-2">
+          <ul className="nav mr-3">
             <li>
-              <img className="rounded-circle profile-icon mr-3" src="/images/Dashboard-assets/user-f.jpg" width="35" height="35" />
+              <img className="rounded-circle profile-icon mr-2" src="/images/Dashboard-assets/user-f.jpg" width="35" height="35"  />
             </li>
             <li className="nav-item">
               <a className="nav-link" href="#" data-toggle="dropdown">
-                <span className="font-blue text-small">{this.state.userData.userName}<i className="fa fa-angle-down pl-2" aria-hidden="true"></i></span>
+                <span className="font-blue text-small marL10" >{userName}<i className="fa fa-angle-down pl-2" aria-hidden="true"></i></span>
               </a>
-              <ul className="dropdown-menu mt-2">
+              <ul className="dropdown-menu">
+              {(!isCandidate) && (!isSetting) ?
                 <li>
-
                   <Link className="dropdown-item" to="/profile" >
-                    <i className="fa fa-user pr-2" aria-hidden="true"></i> My Profile
+                    {/* <i className="fa fa-user pr-2" aria-hidden="true"></i>*/} Profile 
                     </Link>
                 </li>
+                :
+                <li>
+                <Link className="dropdown-item" to="/candidate/changePassword" >
+                  {/* <i className="fa fa-user pr-2" aria-hidden="true"></i>*/} Change Password 
+                  </Link>
+                </li>}
+
 
                 <li>
                   <Link className="dropdown-item" to="/emailsetting">
-                    <i className="fa fa-cog pr-2" aria-hidden="true"></i> My Email Settings
-                              </Link>
-
+                    {/* <i className="fa fa-cog pr-2" aria-hidden="true"></i>  */}
+                    Settings
+                  </Link>
                 </li>
 
                 <li>
                   <Link className="dropdown-item" to="/">
                     {/* Toast.info("User Logout Successfully") */}
-                    <i className="fa fa-sign-out pr-2" aria-hidden="true"></i> Logout
+                    {/* <i className="fa fa-sign-out pr-2" aria-hidden="true"></i>  */}
+                    Logout
                           </Link>
 
                   {/* <a className="dropdown-item" href="#">

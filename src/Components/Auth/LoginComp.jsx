@@ -67,17 +67,18 @@ class LoginComp extends Component {
           .then(Response=>{
             if(Response){
               localStorage.setItem('userDetails',JSON.stringify(Response.data.responseObject)); 
-              
+              localStorage.setItem('userName',Response.data.responseObject['userName'])
               //fieldwise response
-              localStorage.setItem('candidateId',Response.data.responseObject['id'])
+              localStorage.setItem('userId',Response.data.responseObject['id'])
               localStorage.setItem('organizationId',Response.data.responseObject['orgnaizationId'] )
               localStorage.setItem('rememberme',this.state.isChecked)
               localStorage.setItem('emailId',this.state.isChecked ? Response.data.responseObject['email'] :'')
               let _redirectTo;
-              if (Response && Response.data && Response.data.responseObject && Response.data.responseObject.userRole === "User") {
+              if (Response && Response.data && Response.data.responseObject && Response.data.responseObject.userRole === "candidate_role") {
                 _redirectTo = '/candidate/dashboard';
               } else {
                 _redirectTo = '/providerDashboard';
+                localStorage.setItem('status','provider');
               }
               this.props.history.push(_redirectTo);
             }

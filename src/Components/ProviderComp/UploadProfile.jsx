@@ -61,13 +61,14 @@ class UploadProfile extends Component {
                     fileInput.value = '';
                     return false;
                 }  
+                return true
             }
                 
         }
 
         //Dragging csv file to upload
         uploadFile=()=> {
-           
+           console.log("hi")
             if  (this.fileValidation())
             {
                     const formData = new FormData(); 
@@ -94,10 +95,12 @@ class UploadProfile extends Component {
             // Calling Upload Sample File Service from Service file:-
                         this.fileService.postSampleFile(formData, formheader) 
                         .then(Response=>{
-                                    this.toast.show({severity: 'success', summary: 'Success Message', detail: 'File uploaded Successfully'},50000);
+                                    this.toast.show({severity: 'success', summary: 'Success Message', detail: 'File uploaded Successfully'},60000);
+                                    window.location.reload();
                                 })
 
                         .catch(error=>{
+                                    console.log(error)
                                     this.toast.show({severity: 'error', summary: 'Error', detail: 'Server Error '},50000);})
         }
 

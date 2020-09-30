@@ -1,7 +1,21 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { EDIT_LANGUAGE, ADD_NEW_LANGUAGE } from '../../../../../Utils/AppConst'
+import { Context } from '../../../../../Context/ProfileContext';
+import ApiServicesOrgCandidate from '../../../../../Services/ApiServicesOrgCandidate';
 
 export const LanguageKnown = ({ showPopup }) => {
+  const { state } = useContext(Context);
+  const [profileInfo, setProfileInfo] = React.useState('');
+  state.then((data) => {
+    setProfileInfo(data)
+  })
+  const { getProfileInfo } = useContext(Context);
+  const { candidateLanguageList } = profileInfo;
+  const deleteLanguage = (id) => {
+    let isLanguage = window.confirm("Are you sure you want to delete?");
+    if (isLanguage)
+      ApiServicesOrgCandidate.deleteLanguage(id, getProfileInfo);
+  }
   return (
     <div class="bg-white px-4 py-4 section-divider align-items-center">
       <div class="col">
@@ -22,32 +36,22 @@ export const LanguageKnown = ({ showPopup }) => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Skill 1</td>
-                  <td>Proficient</td>
-                  <td><img src="/images/Dashboard-assets/candidate/correct.png" alt="Cinque Terre" /></td>
-                  <td><img src="/images/Dashboard-assets/candidate/correct.png" alt="Cinque Terre" /></td>
-                  <td><img src="/images/Dashboard-assets/candidate/correct.png" alt="Cinque Terre" /></td>
-                  <td class="edit-icon-column">
-                    <img src="/images/Dashboard-assets/iconfinder_edit.svg" class="edit-icon" alt="Cinque Terre" onClick={() => showPopup(EDIT_LANGUAGE, true)} />
-                    <img src="/images/Dashboard-assets/delete.svg" class="edit-icon" alt="Cinque Terre" />
-                  </td>
-                </tr>
-                <tr>
-                  <td>Skill 2</td>
-                  <td>Proficient</td>
-                  <td><img src="/images/Dashboard-assets/candidate/correct.png" alt="Cinque Terre" /></td>
-                  <td><img src="/images/Dashboard-assets/candidate/correct.png" alt="Cinque Terre" /></td>
-                  <td><img src="/images/Dashboard-assets/candidate/correct.png" alt="Cinque Terre" /></td>
-                  <td class="edit-icon-column">
-                    <img src="/images/Dashboard-assets/iconfinder_edit.svg" class="edit-icon" alt="Cinque Terre" onClick={() => showPopup(EDIT_LANGUAGE, true)} />
-                    <img src="/images/Dashboard-assets/delete.svg" class="edit-icon" alt="Cinque Terre" />
-                  </td>
-                </tr>
+                {(candidateLanguageList) ? candidateLanguageList.map((candidateLanguages, i) => (
+                  <tr>
+                    <td>{candidateLanguages.language}</td>
+                    <td>{candidateLanguages.proficiency}</td>
+                    <td>{(candidateLanguages.canRead) ? <img src="/images/Dashboard-assets/candidate/correct.png" alt="Cinque Terre" /> : null}</td>
+                    <td>{(candidateLanguages.canWrite) ? <img src="/images/Dashboard-assets/candidate/correct.png" alt="Cinque Terre" /> : null}</td>
+                    <td>{(candidateLanguages.canSpeak) ? <img src="/images/Dashboard-assets/candidate/correct.png" alt="Cinque Terre" /> : null}</td>
+                    <td class="edit-icon-column">
+                      <img src="/images/Dashboard-assets/iconfinder_edit.svg" class="edit-icon" alt="Cinque Terre" onClick={() => showPopup(EDIT_LANGUAGE, true, candidateLanguages.languageId)} />
+                      <img src="/images/Dashboard-assets/delete.svg" class="edit-icon" alt="Cinque Terre" onClick={() => deleteLanguage(candidateLanguages.languageId)} />
+                    </td>
+                  </tr>
+                )) : null}
               </tbody>
             </table>
           </div>
-
           <div class="d-flex flex-row-reverse">
             <button class="btn btn-outline-info btn-add" onClick={() => showPopup(ADD_NEW_LANGUAGE, true)}>Add</button>
           </div>

@@ -1,12 +1,24 @@
-import React from 'react'
+import React, { useReducer } from 'react';
+import creteDataContext from './CreateDataContext';
+import ApiServicesOrgCandidate from '../Services/ApiServicesOrgCandidate';
 
-const ProfileContext = React.createContext();
-
-export const ProfileProvider = ({ children }) => {
-  return <ProfileContext.Provider
-    value={'profile object pass'}>{children}
-  </ProfileContext.Provider>
-
+const profileReducer = async (state, action) => {
+  switch (action.type) {
+    case 'view_profile':
+      return ApiServicesOrgCandidate.fetchProfileInfo();
+    default:
+      return state;
+  }
 };
 
-export default ProfileContext;
+const getProfileInfo = (dispatch) => {
+  return () => {
+    dispatch({ type: 'view_profile' })
+  }
+};
+
+export const { Context, Provider } = creteDataContext(
+  profileReducer,
+  { getProfileInfo },
+  []
+);

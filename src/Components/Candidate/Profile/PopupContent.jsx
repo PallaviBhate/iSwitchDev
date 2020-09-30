@@ -11,53 +11,86 @@ import Employment from './updation/Employment';
 import Education from './updation/Education';
 import Personal from './updation/Personal';
 import CareerProfile from './updation/CareerProfile';
-export const PopupContent = ({ title, showPopup }) => {
+export const PopupContent = ({ title, showPopup, dataAttributes, id }) => {
     let bodyComponent;
     switch (title) {
         case EDIT_PROFILE_NAME:
             bodyComponent = <ProfileName />
             break;
         case EDIT_ABOUT:
-            bodyComponent = <About />
+            bodyComponent = <About
+                showPopup={showPopup}
+            />
             break;
         case EDIT_CTC:
-            bodyComponent = <CTC />
+            bodyComponent = <CTC
+                showPopup={showPopup}
+            />
             break;
         case EDIT_SKILL:
-            bodyComponent = <Skill />
+            bodyComponent = <Skill
+                dataAttributes={dataAttributes}
+                showPopup={showPopup}
+            />
             break;
         case ADD_NEW_SKILL:
-            bodyComponent = <Skill />
+            bodyComponent = <Skill
+                showPopup={showPopup}
+            />
             break;
         case EDIT_CERTIFICATE:
-            bodyComponent = <Certification />
+            bodyComponent = <Certification
+                dataAttributes={dataAttributes}
+                showPopup={showPopup}
+            />
             break;
         case ADD_NEW_CERTIFICATE:
-            bodyComponent = <Certification />
+            bodyComponent = <Certification
+                showPopup={showPopup}
+            />
             break;
         case EDIT_EMPLOYMENT:
-            bodyComponent = <Employment />
+            bodyComponent = <Employment
+                id={dataAttributes}
+                showPopup={showPopup}
+            />
             break;
         case ADD_NEW_EMPLOYMENT:
-            bodyComponent = <Employment />
-        break;
+            bodyComponent = <Employment
+                showPopup={showPopup}
+            />
+            break;
         case EDIT_EDUCATION:
-            bodyComponent = <Education />
+            bodyComponent = <Education
+                dataAttributes={dataAttributes}
+                showPopup={showPopup}
+            />
             break;
         case ADD_NEW_EDUCATION:
-            bodyComponent = <Education />
+            bodyComponent = <Education
+                showPopup={showPopup}
+            />
             break;
         case EDIT_PERSONAL:
-            bodyComponent = <Personal />
+            bodyComponent = <Personal
+                showPopup={showPopup}
+            />
             break;
         case EDIT_CAREER_PROFILE:
-            bodyComponent = <CareerProfile />
+            bodyComponent = <CareerProfile
+                showPopup={showPopup}
+            />
             break;
         case EDIT_LANGUAGE:
-            bodyComponent = <Language />
+            bodyComponent = <Language
+                id={dataAttributes}
+                showPopup={showPopup}
+            />
             break;
         case ADD_NEW_LANGUAGE:
-            bodyComponent = <Language />
+            bodyComponent = <Language
+                showPopup={showPopup}
+            />
             break;
         default:
             break;

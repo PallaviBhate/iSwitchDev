@@ -1,6 +1,7 @@
 import React from 'react';
 import $ from 'jquery'
 import { Link, NavLink } from "react-router-dom";
+import ActiveJob from "../RecruiterComp/ActiveJob"
 
 const LeftNavProvider = () => {
 
@@ -10,42 +11,41 @@ const LeftNavProvider = () => {
         $(".maincontent").toggleClass("toggled");
     });
 
-    //To move white dot to active page
+    //To move dot to active page
     const isActive = (path, match, location) => !!(match || path === location.pathname);
-
     return (
         <div id="wrapper" className="toggled">
             <div id="sidebar-wrapper">
                 <ul className="sidebar-nav" >
                     <li className="sidebar-brand">
-                        <img src="images/NavBar/logo.png" alt="" className="ml-3" />
-                    </li>
-                    <li>
-                        <a href="#" id="menu-toggle">
-                            <i className="fa fa-bars mr-1" aria-hidden="true"></i>
-                            <span className="menuText">Menu</span>
-                        </a>
-                    </li>
+                        <div className="logoHeader">
+                            <img src="/images/NavBar/logo.png" alt="Logo" />  
+                            <div className="float-right">
+                                <a href="#" id="menu-toggle">
+                                    <i className="fa fa-bars" aria-hidden="true"></i>                             
+                                </a>                            
+                            </div> 
+                        </div>                  
+                    </li> 
                     {/** 
                        If Provider toggle is active then provider Dashboard will open and 
                        if Recruiter toggle is active then Recruiter Dashboard will through Navbar 
                       **/}
-
-                    {localStorage.getItem('status') === "provider" ?
+                        {localStorage.getItem('status') === "recruiter" ?
                         (<li data-toggle="tooltip" data-placement="right" title="Dashboard">
-                            <NavLink to={'/providerDashboard'}
+                            <NavLink to={'/recruiterDashboard'}
                                 activeClassName="active"
-                                isActive={isActive.bind(this, '/providerDashboard')}>
-                                <i><img src="images/Candidate-Navbar-assets/dashboard-icon.svg" aria-hidden="true" /></i>
+                                isActive={isActive.bind(this, '/recruiterDashboard')}>
+                                <i><img src="images/NavBar/dashboard_icon.png" aria-hidden="true" /></i>
                                 <span className="menuText">Dashboard</span>
                             </NavLink>
                         </li>)
                         :
                         (<li data-toggle="tooltip" data-placement="right" title="Dashboard">
-                            <NavLink to={'/recruiterDashboard'}
+                            <NavLink to={'/providerDashboard'}
                                 activeClassName="active"
-                                isActive={isActive.bind(this, '/recruiterDashboard')}>
-                                <i><img src="images/Candidate-Navbar-assets/dashboard-icon.svg" aria-hidden="true" /></i>
+                                isActive={isActive.bind(this, '/providerDashboard')}>
+                                <i><img src="images/NavBar/dashboard_icon.png" aria-hidden="true" /></i>
                                 <span className="menuText">Dashboard</span>
                             </NavLink>
                         </li>)
@@ -55,51 +55,60 @@ const LeftNavProvider = () => {
                          if recruiter toggle is active then upload profile is replaced with Jobs dropdown
                          in left navigation bar
                     **/}
-                    {localStorage.getItem('status') === "provider" ?
-                        (<li>
-                            <NavLink to={'/uploadProfile'}
-                                activeClassName="active"
-                                isActive={isActive.bind(this, '/uploadProfile')}>
-                                <i className="fa fa-user mr-1" aria-hidden="true"></i>
-                                <span className="menuText">Upload Profile</span>
-                            </NavLink>
-                        </li>)
-                        :
+                    
+                    {localStorage.getItem('status') === "recruiter" ?
                         (
-                            <li data-toggle="tooltip" data-placement="right" title="Jobs">
-                                <NavLink class="subMenu" id="navbarDropdown" role="button" to={"#"}
-                                    data-toggle="collapse" data-target="#submenu1sub1">
-                                    <i><img src="images/Candidate-Navbar-assets/Recruiter-Jobs-icon.svg" aria-hidden="true" /></i>
-                                    <span className="menuText">Jobs</span>
-                                </NavLink>
-                                <div className="collapse" id="submenu1sub1" aria-expanded="false">
-                                    <ul className="flex-column nav submenuLink">
-                                        <li data-toggle="tooltip" data-placement="right" title="Active Jobs">
-                                            <NavLink class="dropdown-item" to={"/activeJobs"}  >
-                                                <i><img src="images/Candidate-Navbar-assets/Recruiter-active-jobs-icon.svg" aria-hidden="true" /></i>
-                                                <span className="menuText">Active Jobs</span>
-                                            </NavLink>
-                                        </li>
-                                        <li data-toggle="tooltip" data-placement="right" title="ClosedJobs">
-                                            <NavLink class="dropdown-item" to={"/closedJobs"}>
-                                                <i><img src="images/Candidate-Navbar-assets/Recruiter-closed-job-icons.svg" aria-hidden="true" /></i>
-                                                <span className="menuText">Closed Jobs</span>
-                                            </NavLink>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                        )}
-                    <li>
-                        <NavLink to={'/ManageUser'}
-                            activeClassName="active"
-                            isActive={isActive.bind(this, '/ManageUser')}>
-                            <i><img src="images/Candidate-Navbar-assets/profile.svg" aria-hidden="true" /></i>
-                            <span className="menuText">Manage User</span></NavLink>
+                     <li data-toggle="tooltip" data-placement="right" title="Jobs">
+                        <Link class="subMenu" id="navbarDropdown" role="button"
+                            data-toggle="collapse" data-target="#submenu1sub1">
+                            <i><img src="/images/Candidate-Navbar-assets/job-offers.svg" aria-hidden="true" /></i>
+                             <span className="menuText">Jobs</span>
+                        </Link>
+                        <div className="collapse" id="submenu1sub1" aria-expanded="false">
+                            <ul className="flex-column nav submenuLink">
+                                <li class="dropdown-item" data-toggle="tooltip" data-placement="right" title="Active Jobs">
+                                    <Link  to="/activeJob" 
+                                    activeClassName="active"
+                                    isActive={isActive.bind(this,'/activeJob')}
+                                    >
+                                        <i><img src="/images/Candidate-Navbar-assets/Recruiter-active-jobs-icon.svg" aria-hidden="true" /></i>
+                                        <span className="menuText">Active Job</span>
+                                    </Link>
+                                </li>
+                                <li class="dropdown-item" data-toggle="tooltip" data-placement="right" title="Closed Jobs">
+                                    <NavLink  to="/closedJobs"
+                                    activeClassName="active"
+                                    isActive={isActive.bind(this,'/closedJobs')}
+                                    >
+                                     <i><img src="/images/Candidate-Navbar-assets/Recruiter-closed-job-icons.svg" aria-hidden="true" /></i>
+                                    <span className="menuText">Closed Jobs</span>
+                                    </NavLink>
+                                </li>                              
+                            </ul>   
+                        </div>
+                    </li>  )
+                    :
+                    (<li data-toggle="tooltip" data-placement="right" title="Upload Profile">
+                    <NavLink to={'/uploadProfile'}
+                        activeClassName="active"
+                        isActive={isActive.bind(this, '/uploadProfile')}>
+                        <i><img src="images/NavBar/upload-profile-ico.svg" aria-hidden="true" /></i>
+                        <span className="menuText">Upload Profile</span>
+                    </NavLink>
+                </li>)
+}
+                    <li data-toggle="tooltip" data-placement="right" title="Manage Users">
+                        <NavLink to={'/manageUser'}
+                        activeClassName="active"
+                        isActive={isActive.bind(this, '/manageUser')}>
+                            <i><img src="/images/NavBar/profile.png" aria-hidden="true" /></i>
+                            <span className="menuText">Manage Users</span></NavLink>   
                     </li>
-                </ul>
+                    </ul>
             </div>
+        
         </div>
+
     )
 }
 

@@ -1,7 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { ADD_NEW_EMPLOYMENT, EDIT_EMPLOYMENT } from '../../../../../Utils/AppConst'
+import { Context } from '../../../../../Context/ProfileContext';
 
-export const Employment = ({showPopup}) => {
+export const Employment = ({ showPopup }) => {
+  const { state } = useContext(Context);
+  const [employmentInfo, setEmploymentInfo] = React.useState('');
+  state.then((data) => {
+    setEmploymentInfo(data)
+  })
+  const { employmentDetailsList } = employmentInfo;
   return (
     <div class="bg-white px-4 py-4 section-divider align-items-center">
       <div class="col">
@@ -10,17 +17,17 @@ export const Employment = ({showPopup}) => {
           <span class="subtitle-semi-bold">Employment</span>
         </div>
         <div class="px-4 mb-3">
-          {[1, 2, 2].map(i => (
+          {(employmentDetailsList) ? employmentDetailsList.map((employment, i) => (
             <div class="col-12 px-0 py-3">
               <div>
-                <img src="/images/Dashboard-assets/iconfinder_edit.svg" class="float-right" alt="Cinque Terre" onClick={() => showPopup(EDIT_EMPLOYMENT, true)} />
-                <span class="subtitle-semi-bold">Software Developer</span>
+                <img src="/images/Dashboard-assets/iconfinder_edit.svg" class="float-right" alt="Cinque Terre" onClick={() => showPopup(EDIT_EMPLOYMENT, true, employment.employmentId)} />
+                <span class="subtitle-semi-bold">{employment.designation}</span>
               </div>
-              <div><span class="normal-text-semi-bold">TCS Pune Full time</span></div>
-              <div><span class="normal-text-light">Sept 2008 - Present 2 years</span></div>
-              <p class="normal-text-light">Quisque congue dignissim efficitur. Vestibulum ultrices pulvinar ex, a dignissim neque tincidunt sed.</p>
+              <div><span class="normal-text-semi-bold">{employment.organization} {employment.employmentType}</span></div>
+              <div><span class="normal-text-light">{employment.startedWorkingFromMonth}  {(employment.currentCompany) ? ' - Present' : null}</span></div>
+              <p class="normal-text-light">{employment.description}</p>
             </div>
-          ))}
+          )) : null}
         </div>
         <div class="d-flex flex-row-reverse">
           <button class="btn btn-outline-info btn-add" onClick={() => showPopup(ADD_NEW_EMPLOYMENT, true)}>Add</button>

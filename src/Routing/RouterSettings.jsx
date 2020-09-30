@@ -18,12 +18,20 @@ import LeftNavCandidate from "../Components/CommonComp/LeftNavCandidate";
 import Dashboard from "../Components/Candidate/Dashboard";
 import Profile1 from "../Components/Candidate/Profile/Profile1";
 import {Profile as CandidateProfile} from "../Components/Candidate/Profile";
-import Invites from "../Components/Candidate/Interviews/Invites";
-import Accepted from "../Components/Candidate/Interviews/Accepted";
+// import Invites from "../Components/Candidate/Interviews/Invites";
+// import Accepted from "../Components/Candidate/Interviews/Accepted";
 import JobOffers from "../Components/Candidate/JobOffers";
 import SearchJobs from "../Components/Candidate/SearchJobs";
+import RecentMatches from '../Components/Candidate/RecentMatches';
+import InterviewInvites from "../Components/Candidate/Interviews/InterviewInvites";
+import InvitesJobdetails from "../Components/Candidate/InvitesJobDetails";
+//import JobListing from '../Components/Candidate/JobListing';
+import AcceptedInterviews from "../Components/Candidate/Interviews/AcceptedInterviews";
+//import JobsPipeline from "../Components/Candidate/JobsPipeline";
+import ChangePassword from "../Components/Candidate/ChangePassword"
 import RecruiterDashboard from '../Components/RecruiterComp/RecruiterDashboard'
-
+import ActiveJob from "../Components/RecruiterComp/ActiveJob";
+import CreateJob from "../Components/RecruiterComp/CreateJob"
 class RouterSettings extends Component {
 
   render() {
@@ -49,15 +57,22 @@ class RouterSettings extends Component {
 
 
             <Route path="/candidate/dashboard" component={Dashboard} />
-            <Route path="/candidate/interviews/invites" component={Invites} />
-            <Route path="/candidate/interviews/accepted" component={Accepted} />
+            {/* <Route path="/candidate/interviews/invites" component={Invites} />
+            <Route path="/candidate/interviews/accepted" component={Accepted} /> */}
             <Route path="/candidate/jobOffers" component={JobOffers} />
             <Route path="/candidate/searchJobs" component={SearchJobs} />
             <Route path="/candidate/profile" component={CandidateProfile} />
             <Route path="/candidate/profile1" component={Profile1} />
+            <Route path="/candidate/recentMatches" component={RecentMatches}/>
+            <Route path="/candidate/interviews/interviewInvites" component={InterviewInvites}/>
+            <Route path="/candidate/invitesJobDetails" component={InvitesJobdetails}/> 
+             <Route path="/candidate/interviews/acceptedInterviews" component={AcceptedInterviews}/>
+             <Route path="/candidate/changePassword" component={ChangePassword}/>
 
             
             <Route path="/recruiterDashboard" component={RecruiterDashboard} />
+            <Route path="/activeJob" component={ActiveJob} />
+            <Route path="/createJob" component={CreateJob} />
           </Switch>
         </div>
       </Router>
