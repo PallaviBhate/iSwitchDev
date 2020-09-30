@@ -169,7 +169,7 @@ const Education = ({ dataAttributes, showPopup }) => {
                 labelKey="name"
                 onChange={setSingleInstitute}
                 options={institute}
-                placeholder="Choose a state..."
+                placeholder="Choose a Institute..."
                 selected={singleInstitute}
               />
             </div>

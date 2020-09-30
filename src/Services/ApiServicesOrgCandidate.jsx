@@ -202,6 +202,15 @@ class ApiServicesOrgCandidate {
     )
   }
 
+  getListOfOrganizations() {
+    return (
+      axios
+        .get(`${ApiBaseUrl}/candidate/listOfOrganizations`)
+        .then(Response => Response).catch(error => {
+          console.log(error);
+        })
+    )
+  }
 }
 
 export default new ApiServicesOrgCandidate();
