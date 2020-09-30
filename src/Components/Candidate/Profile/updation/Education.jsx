@@ -1,8 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import ApiServicesOrgCandidate from '../../../../Services/ApiServicesOrgCandidate';
 import { Context } from '../../../../Context/ProfileContext';
 import { MONTH_NAMES } from '../../../../Utils/AppConst';
 import { usePrevious } from '../../../../Utils/usePrevious';
+import { Typeahead } from 'react-bootstrap-typeahead';
+import 'react-bootstrap-typeahead/css/Typeahead.css';
 
 const Education = ({ dataAttributes, showPopup }) => {
   const [inputData, setFormInputData] = React.useState({ educationType: '', board: '', course: '', specialization: '', university: '', courseType: '', passingOutYear: '', medium: '', marks: '' })
@@ -17,8 +19,21 @@ const Education = ({ dataAttributes, showPopup }) => {
   const prevBoard = usePrevious(inputData.board);
   const prevMedium = usePrevious(inputData.medium);
   const prevEducationType = usePrevious(inputData.educationType);
+  const [singleInstitute, setSingleInstitute] = useState([]);
+  const [institute, setInstitute] = useState('');
+
   const isSchoolEducation = inputData.educationType === '10th' || inputData.educationType === '12th'
   React.useEffect(() => {
+    ApiServicesOrgCandidate.getListOfInstitutes().then((response) => {
+      if (response) {
+        const result = Object.keys(response.data.responseObject).map((key, index) => response.data.responseObject[key].institute);
+        console.log(result)
+        setInstitute(result);
+      } else {
+        setInstitute('');
+      }
+    })
+
     state.then((response) => {
       if (response && response.educationDetailsList) {
         const educationInfoObject = response.educationDetailsList.filter(education => {
@@ -86,7 +101,7 @@ const Education = ({ dataAttributes, showPopup }) => {
       "board": inputData.board,
       "course": inputData.course,
       "specialization": inputData.specialization,
-      "university": inputData.university,
+      "university": singleInstitute.toString(),
       "courseType": inputData.courseType,
       "passingOutYear": inputData.passingOutYear,
       "medium": inputData.medium,
@@ -143,12 +158,20 @@ const Education = ({ dataAttributes, showPopup }) => {
             </div>
             <div className="form-group">
               <label htmlFor="university">University/Institute<span class="required">*</span></label>
-              <select id="university" className="form-control" name="university" value={inputData.university} onChange={(e) => handleFormInputData(e)}>
+              {/* <select id="university" className="form-control" name="university" value={inputData.university} onChange={(e) => handleFormInputData(e)}>
                 <option>Select University/Institute</option>
                 <option>IIT Delhi</option>
                 <option>NIT Delhi</option>
                 <option>MIT Pune</option>
-              </select>
+              </select> */}
+              <Typeahead
+                id="basic-typeahead-single"
+                labelKey="name"
+                onChange={setSingleInstitute}
+                options={institute}
+                placeholder="Choose a state..."
+                selected={singleInstitute}
+              />
             </div>
             <div className="form-group">
               <label htmlFor="University">Course Type</label>

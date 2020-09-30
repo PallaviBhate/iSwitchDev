@@ -19,7 +19,6 @@ export const Profile = () => {
     useEffect(() => {
         getProfileInfo();
         ApiServicesOrgCandidate.fetchProfileInfo().then(response => {
-            console.log(response)
             setCandidateProfile(response)
         }).catch(error => { });
     }, [])

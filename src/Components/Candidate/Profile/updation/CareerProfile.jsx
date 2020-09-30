@@ -64,6 +64,7 @@ const CareerProfile = ({ showPopup }) => {
               value={employmentType}
               onChange={(e) => { setEmploymentType(e.target.value) }}
             >
+              <option disabled>Select Employment Type</option>
               <option>Permanent</option>
               <option>Contractual</option>
             </select>

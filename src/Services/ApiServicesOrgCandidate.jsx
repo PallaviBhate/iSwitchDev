@@ -191,6 +191,17 @@ class ApiServicesOrgCandidate {
         })
     )
   }
+
+  getListOfInstitutes() {
+    return (
+      axios
+        .get(`${ApiBaseUrl}/candidate/listOfInstitutes`)
+        .then(Response => Response).catch(error => {
+          console.log(error);
+        })
+    )
+  }
+
 }
 
 export default new ApiServicesOrgCandidate();
