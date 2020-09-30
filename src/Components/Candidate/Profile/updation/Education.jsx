@@ -170,7 +170,6 @@ const Education = ({ dataAttributes, showPopup }) => {
               <select id="specialization" className="form-control" name="specialization" value={inputData.specialization} onChange={(e) => handleFormInputData(e)}>
                 <option>Select Specialization</option>
                 <option>Computers</option>
-                <option>Others</option>
               </select>
             </div>
             <div className="form-group">
