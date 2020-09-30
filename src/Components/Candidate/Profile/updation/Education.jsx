@@ -23,6 +23,8 @@ const Education = ({ dataAttributes, showPopup }) => {
   const [institute, setInstitute] = useState('');
   const [singleBoards, setSingleBoards] = useState([]);
   const [boards, setBoards] = useState('');
+  const [singleEducationType, setSingleEducationType] = useState([]);
+  const [educationTypes, setEducationTypes] = useState('');
   const isSchoolEducation = inputData.educationType === '10th' || inputData.educationType === '12th'
   React.useEffect(() => {
     ApiServicesOrgCandidate.getListOfInstitutes().then((response) => {
@@ -41,6 +43,15 @@ const Education = ({ dataAttributes, showPopup }) => {
         setBoards(result);
       } else {
         setBoards('');
+      }
+    })
+    ApiServicesOrgCandidate.getListOfEducationType().then((response) => {
+      if (response) {
+        const result = Object.keys(response.data.responseObject).map((key, index) => response.data.responseObject[key].eduType);
+        console.log(result)
+        setEducationTypes(result);
+      } else {
+        setEducationTypes('');
       }
     })
     state.then((response) => {
@@ -106,7 +117,7 @@ const Education = ({ dataAttributes, showPopup }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     let data = {
-      "educationType": inputData.educationType,
+      "educationType": singleEducationType.toString(),
       "board": singleBoards.toString(),
       "course": inputData.course,
       "specialization": inputData.specialization,
@@ -129,13 +140,21 @@ const Education = ({ dataAttributes, showPopup }) => {
         <div class="mb-4">
           <div className="form-group">
             <label htmlFor="educationType">Education Type<span class="required">*</span></label>
-            <select id="educationType" className="form-control" name="educationType" value={inputData.educationType} onChange={(e) => handleFormInputData(e)}>
+            <Typeahead
+              id="basic-typeahead-board"
+              labelKey="educationType"
+              onChange={setSingleEducationType}
+              options={educationTypes}
+              placeholder="Choose a Education Type..."
+              selected={singleEducationType}
+            />
+            {/*<select id="educationType" className="form-control" name="educationType" value={inputData.educationType} onChange={(e) => handleFormInputData(e)}>
               <option>Select Education</option>
               <option value="10th">10th</option>
               <option value="12th">12th</option>
               <option value="Post Graduate">Post Graduate</option>
               <option value="Graduate or Diploma">Graduate or Diploma</option>
-            </select>
+            </select>*/}
           </div>
           {isSchoolEducation ? <div className="form-group">
             <label htmlFor="board">Board<span class="required">*</span></label>
@@ -244,16 +263,6 @@ const Education = ({ dataAttributes, showPopup }) => {
               </div>
             </div>
           </div>
-          {isSchoolEducation ? <div className="form-group">
-            <label htmlFor="medium">Medium<span class="required">*</span></label>
-            <select id="medium" className="form-control" name="medium" value={inputData.medium} onChange={(e) => handleFormInputData(e)}>
-              <option>Select Medium</option>
-              <option>English</option>
-              <option>Hindi</option>
-              <option>Marathi</option>
-            </select>
-          </div> : null}
-
           {inputData.ed}<div className="form-group">
             <label htmlFor="University">Marks<span class="required">*</span></label>
             <input class="form-control" type="text"

@@ -232,6 +232,26 @@ class ApiServicesOrgCandidate {
     )
   }
 
+  getListOfLanguages() {
+    return (
+      axios
+        .get(`${ApiBaseUrl}/candidate/listOfLanguages`)
+        .then(Response => Response).catch(error => {
+          console.log(error);
+        })
+    )
+  }
+
+  getListOfEducationType() {
+    return (
+      axios
+        .get(`${ApiBaseUrl}/candidate/listOfEducationType`)
+        .then(Response => Response).catch(error => {
+          console.log(error);
+        })
+    )
+  }
+
 }
 
 export default new ApiServicesOrgCandidate();
