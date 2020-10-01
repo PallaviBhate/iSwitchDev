@@ -142,28 +142,20 @@ const Education = ({ dataAttributes, showPopup }) => {
           {!isSchoolEducation ? <div>
             <div className="form-group">
               <label htmlFor="course">Course<span class="required">*</span></label>
-              <select id="course" className="form-control" name="course" value={inputData.course} onChange={(e) => handleFormInputData(e)}>
-                <option>Select Course</option>
-                <option>C.A.</option>
-                <option>M.A.</option>
-                <option>M.B.A.</option>
-              </select>
+              <input class="form-control" type="text"
+                name="course"
+                value={inputData.course}
+                onChange={(e) => handleFormInputData(e)} placeholder="Enter Course" />
             </div>
             <div className="form-group">
               <label htmlFor="specialization">Specialization<span class="required">*</span></label>
-              <select id="specialization" className="form-control" name="specialization" value={inputData.specialization} onChange={(e) => handleFormInputData(e)}>
-                <option>Select Specialization</option>
-                <option>Computers</option>
-              </select>
+              <input class="form-control" type="text"
+                name="specialization"
+                value={inputData.specialization}
+                onChange={(e) => handleFormInputData(e)} placeholder="Enter Specialization" />
             </div>
             <div className="form-group">
               <label htmlFor="university">University/Institute<span class="required">*</span></label>
-              {/* <select id="university" className="form-control" name="university" value={inputData.university} onChange={(e) => handleFormInputData(e)}>
-                <option>Select University/Institute</option>
-                <option>IIT Delhi</option>
-                <option>NIT Delhi</option>
-                <option>MIT Pune</option>
-              </select> */}
               <Typeahead
                 id="basic-typeahead-single"
                 labelKey="name"
