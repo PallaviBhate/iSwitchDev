@@ -6,8 +6,9 @@ import ApiServicesOrgCandidate from '../../../../Services/ApiServicesOrgCandidat
 import { Context } from '../../../../Context/ProfileContext';
 import Moment from 'moment';
 import swal from 'sweetalert';
-
+import { useForm } from "react-hook-form";
 const Personal = ({ showPopup }) => {
+
   const [inputData, setFormInputData] = React.useState({
     "dob": new Date(),
     "gender": "",
@@ -20,7 +21,6 @@ const Personal = ({ showPopup }) => {
     "country": "",
     "workPermit": ""
   });
-
   const [isGender, setGender] = useState('male');
   const [tags, setTags] = useState([]);
   const [workPermit, setWorkPermit] = useState([]);
@@ -28,6 +28,27 @@ const Personal = ({ showPopup }) => {
   const { state, getProfileInfo } = useContext(Context);
   const [stateName, setStateName] = useState('');
   const [city, setCity] = useState('');
+  const { register, errors, handleSubmit } = useForm();
+  const onSubmit = (d) => {
+    console.log(d)
+    // e.preventDefault();
+    const candidateId = localStorage.getItem('candidateId');
+    const DOB = Moment(startDate);
+    let data = {
+      "dob": DOB.format('YYYY-MM-DD'),
+      "gender": isGender,
+      "passportId": inputData.passportId,
+      "address": inputData.address,
+      "maritalStatus": inputData.maritalStatus,
+      "pincode": inputData.pincode,
+      "city": inputData.city,
+      "state": inputData.state,
+      "country": inputData.country,
+      "workPermit": workPermit.join(),
+      "candidateId": candidateId
+    }
+    ApiServicesOrgCandidate.updateCareerInfo(data, getProfileInfo, showPopup);
+  };
   const data = [];
   useEffect(() => {
     state.then((response) => {
@@ -65,7 +86,7 @@ const Personal = ({ showPopup }) => {
       setWorkPermit(oldArray => [...oldArray, tag.name]);
       setTags(tagsCnt);
     } else {
-      alert('you can select maximum 3 countries')
+      swal('you can select maximum 3 countries')
     }
   }
   const onDelete = (i) => {
@@ -75,50 +96,6 @@ const Personal = ({ showPopup }) => {
     setTags(tagsCnt)
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const candidateId = localStorage.getItem('candidateId');
-    const DOB = Moment(startDate);
-    isValidate(inputData);
-    let data = {
-      "dob": DOB.format('YYYY-MM-DD'),
-      "gender": isGender,
-      "passportId": inputData.passportId,
-      "address": inputData.address,
-      "maritalStatus": inputData.maritalStatus,
-      "pincode": inputData.pincode,
-      "city": inputData.city,
-      "state": inputData.state,
-      "country": inputData.country,
-      "workPermit": workPermit.join(),
-      "candidateId": candidateId
-    }
-    ApiServicesOrgCandidate.updateCareerInfo(data, getProfileInfo, showPopup);
-  }
-
-  const isValidate = (inputData) => {
-    if (inputData.address === '') {
-      swal('Please Enter Address');
-      return true;
-    }
-    if (inputData.maritalStatus === '' || inputData.maritalStatus === null) {
-      swal('Please Enter maritalStatus');
-      return true;
-    }
-    if (inputData.passportId === '' || inputData.passportId === null) {
-      swal('Please Enter PassportId');
-      return true;
-    }
-    if (isGender === '' || isGender === null) {
-      swal('Please Enter Gender');
-      return true;
-    }
-    if (tags.length === 0) {
-      swal('Please Enter work permit location');
-      return true;
-    }
-
-  }
 
   const handleFormInputData = (e) => {
     if (e.target.name === 'state') {
@@ -141,7 +118,7 @@ const Personal = ({ showPopup }) => {
 
   return (
     <>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div class="mb-4">
           <div className="form-group">
             <label className="modal-label" htmlFor="University">Date of Birth</label>
@@ -201,85 +178,25 @@ const Personal = ({ showPopup }) => {
               type="text"
               placeholder="LKJ1234"
               id="passportId"
-              required
               name="passportId"
               value={inputData.passportId}
               onChange={(e) => handleFormInputData(e)}
+              ref={register({ required: true })}
             />
+            {errors.passportId && <div class="errorMsg">Please Enter Valid Passport Id</div>}
           </div>
           <div className="form-group">
             <label className="modal-label" htmlFor="University">Address</label>
             <textarea rows="6" class="form-control" type="text"
               placeholder="85 Flat XYZ Building"
               id="address"
-              required
               name="address"
               value={inputData.address}
               onChange={(e) => handleFormInputData(e)}
+              ref={register({ required: true })}
             />
+            {errors.address && <div class="errorMsg">Please Enter Valid Address</div>}
           </div>
-          {/* <div class="form-group">
-            <div class="form-row">
-              <div className="col mr-3">
-                <input class="form-control"
-                  type="text" placeholder="Pin Code"
-                  value={inputData.pincode}
-                  id="pincode"
-                  required
-                  name="pincode"
-                  onChange={(e) => handleFormInputData(e)}
-                />
-              </div>
-              <div className="col ml-3">
-                <select className="form-control"
-                  value={inputData.state}
-                  id="state"
-                  required
-                  name="state"
-                  onChange={(e) => handleFormInputData(e)}
-                >
-                <option value='1' disabled>Select State</option>
-                  {
-                    (stateName) ? stateName.map((name, index) => (
-                      <option value={name.stateCode}>{name.stateName}</option>
-                    )) : null
-                  }
-                </select>
-              </div>
-            </div>
-          </div> */}
-          {/* <div class="form-group">
-            <div class="form-row">
-              <div className="col mr-3">
-                <select className="form-control"
-                  value={inputData.city}
-                  id="city"
-                  required
-                  name="city"
-                  disabled={city === '' ? true : false}
-                  onChange={(e) => handleFormInputData(e)}
-                >
-                  <option value='1' disabled>Select City</option>
-                  {
-                    (city) ? city.map((name, index) => (
-                      <option value={name.state_code}>{name.city_name}</option>
-                    )) : null
-                  }
-                </select>
-              </div>
-              <div className="col ml-3">
-                <select className="form-control"
-                  value={inputData.country}
-                  id="country"
-                  name="country"
-                  onChange={(e) => handleFormInputData(e)}
-                >
-                  <option value='1' disabled>Select Country</option>
-                  <option>India</option>
-                </select>
-              </div>
-            </div>
-          </div> */}
           <div className="form-group">
             <label className="modal-label" htmlFor="maritalStatus">Marital Status</label>
             <select className="form-control"
@@ -307,7 +224,7 @@ const Personal = ({ showPopup }) => {
               onAddition={onAddition} />
           </div>
         </div>
-        <button class="btn lightBlue float-right px-5" onClick={handleSubmit}>Save</button>
+        <button class="btn lightBlue float-right px-5"> Save</button>
       </form>
     </>
   );

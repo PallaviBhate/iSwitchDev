@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { Context } from '../../../../Context/ProfileContext';
 import ApiServicesOrgCandidate from '../../../../Services/ApiServicesOrgCandidate';
 import { Typeahead } from 'react-bootstrap-typeahead';
+import swal from 'sweetalert';
 
 const Language = ({ id, showPopup }) => {
 
@@ -54,6 +55,7 @@ const Language = ({ id, showPopup }) => {
   const updateLanguage = (e) => {
     e.preventDefault();
     const candidateId = localStorage.getItem('candidateId')
+    isValidate(inputData);
     let data = {
       "language": singleLanguage.toString(),
       "proficiency": inputData.proficiency,
@@ -65,6 +67,17 @@ const Language = ({ id, showPopup }) => {
       ApiServicesOrgCandidate.updateLanguage({ ...data, languageId: id }, getProfileInfo, showPopup);
     } else {
       ApiServicesOrgCandidate.addLanguage(data, getProfileInfo, showPopup);
+    }
+  }
+
+  const isValidate = (inputData) => {
+    if (singleLanguage === '') {
+      swal('Please Enter Language');
+      return true;
+    }
+    if (inputData.canWrite === '' || inputData.canRead === '' || inputData.canSpeak === '') {
+      swal('Please select  atleast one');
+      return true;
     }
   }
 
