@@ -7,6 +7,7 @@ import { Context } from '../../../../Context/ProfileContext';
 import Moment from 'moment';
 import swal from 'sweetalert';
 import { useForm } from "react-hook-form";
+
 const Personal = ({ showPopup }) => {
 
   const [inputData, setFormInputData] = React.useState({
@@ -181,9 +182,9 @@ const Personal = ({ showPopup }) => {
               name="passportId"
               value={inputData.passportId}
               onChange={(e) => handleFormInputData(e)}
-              ref={register({ required: true })}
+              // ref={register({ required: true })}
             />
-            {errors.passportId && <div class="errorMsg">Please Enter Valid Passport Id</div>}
+            {/* {errors.passportId && <div class="errorMsg">Please Enter Valid Passport Id</div>} */}
           </div>
           <div className="form-group">
             <label className="modal-label" htmlFor="University">Address</label>
@@ -193,9 +194,9 @@ const Personal = ({ showPopup }) => {
               name="address"
               value={inputData.address}
               onChange={(e) => handleFormInputData(e)}
-              ref={register({ required: true })}
+              // ref={register({ required: true })}
             />
-            {errors.address && <div class="errorMsg">Please Enter Valid Address</div>}
+            {/* {errors.address && <div class="errorMsg">Please Enter Valid Address</div>} */}
           </div>
           <div className="form-group">
             <label className="modal-label" htmlFor="maritalStatus">Marital Status</label>

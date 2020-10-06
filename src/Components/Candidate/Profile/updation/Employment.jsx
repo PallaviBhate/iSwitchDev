@@ -7,6 +7,7 @@ import ApiServicesOrgCandidate from '../../../../Services/ApiServicesOrgCandidat
 import { Context } from '../../../../Context/ProfileContext';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
+import { useForm } from "react-hook-form";
 
 const Employment = ({ id, showPopup }) => {
   const [currentCompany, setCurrentCompany] = useState(false);
@@ -24,6 +25,7 @@ const Employment = ({ id, showPopup }) => {
   const { state, getProfileInfo } = useContext(Context);
   const [singleOrganization, setSingleOrganization] = useState('');
   const [organizations, setOrganizations] = useState([]);
+  const { register, errors, handleSubmit } = useForm();
   useEffect(() => {
     ApiServicesOrgCandidate.getListOfOrganizations().then((response) => {
       if (response) {
@@ -45,8 +47,8 @@ const Employment = ({ id, showPopup }) => {
     }
   }, []);
 
-  const updateEmployment = (e) => {
-    e.preventDefault();
+  const onSubmit = (e) => {
+    // e.preventDefault();
     let data = {
       "currentCompany": currentCompany,
       "description": inputData.description,
@@ -83,25 +85,21 @@ const Employment = ({ id, showPopup }) => {
 
   return (
     <>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div class="mb-4">
           <div className="form-group">
-            <label htmlFor="designation">Designation<span class="required">*</span></label>
+            <label htmlFor="designation">Designation<span >*</span></label>
             <input class="form-control" type="text"
               placeholder="Enter Designation"
               name={"designation"}
               value={inputData.designation}
               onChange={(e) => handleFormInputData(e)}
+              ref={register({ required: true })}
             />
+            {errors.designation && <div class="errorMsg">Please Enter Designation</div>}
           </div>
           <div className="form-group">
-            <label htmlFor="organization">Organization<span class="required">*</span></label>
-            {/* <input class="form-control" type="text"
-              placeholder="Enter Organization"
-              name={"organization"}
-              value={inputData.organization}
-              onChange={(e) => handleFormInputData(e)}
-            /> */}
+            <label htmlFor="organization">Organization<span >*</span></label>
             <Typeahead
               id="basic-typeahead-single"
               labelKey="name"
@@ -112,7 +110,7 @@ const Employment = ({ id, showPopup }) => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="employmentType">Employment Type<span class="required">*</span></label>
+            <label htmlFor="employmentType">Employment Type<span >*</span></label>
             <div class="form-row">
               <div className="col">
                 <select id="employmentType"
@@ -120,16 +118,18 @@ const Employment = ({ id, showPopup }) => {
                   name={"employmentType"}
                   value={inputData.employmentType}
                   onChange={(e) => handleFormInputData(e)}
+                  ref={register({ required: "Select Employment Type" })}
                 >
-                  <option>Select Employment Type</option>
+                  <option disabled value="" selected>Select Employment Type</option>
                   <option>Permanent</option>
                   <option>Contractual</option>
                 </select>
+                {errors.employmentType && <div class="errorMsg">Please Enter employmentType</div>}
               </div>
             </div>
           </div>
           <div className="form-group">
-            <label htmlFor="University">Is this your current company?<span class="required">*</span></label>
+            <label htmlFor="University">Is this your current company?</label>
             <div>
               <div class="form-check form-check-inline">
                 <input type="radio" class="form-check-input mr-2"
@@ -152,7 +152,7 @@ const Employment = ({ id, showPopup }) => {
               </div>
             </div>
           </div>
-          <label htmlFor="startedWorkingFromYear" class="mt-2">Started working from<span class="required">*</span></label>
+          <label htmlFor="startedWorkingFromYear" class="mt-2">Started working from<span >*</span></label>
           <div className="form-group">
             <div class="form-row">
               <div className="col mr-3">
@@ -162,12 +162,15 @@ const Employment = ({ id, showPopup }) => {
                   name={"startedWorkingFromYear"}
                   value={inputData.startedWorkingFromYear}
                   onChange={(e) => handleFormInputData(e)}
+                  ref={register({ required: "Select Year" })}
                 >
+                  <option value="" disabled selected>Select Year</option>
                   {Array(100).fill().map((_, i) => (
                     <option key={`${i}_years`}>{(parseInt(new Date().getFullYear()) - i) - i
                     }  </option>
                   ))}
                 </select>
+                {errors.startedWorkingFromYear && <div class="errorMsg">Please Enter year</div>}
               </div>
               <div className="col ml-3">
                 <select id="startedWorkingFromMonth"
@@ -175,16 +178,19 @@ const Employment = ({ id, showPopup }) => {
                   name={"startedWorkingFromMonth"}
                   value={inputData.startedWorkingFromMonth}
                   onChange={(e) => handleFormInputData(e)}
+                  ref={register({ required: 'Select Month' })}
                 >
+                  <option value="" disabled selected>Select Month</option>
                   {MONTH_NAMES.map((monthName, i) => (
-                    <option key={`monthName`}>{monthName}</option>
+                    <option key={`${i}_months`}>{monthName}</option>
                   ))}
                 </select>
+                {errors.startedWorkingFromMonth && <div class="errorMsg">Please Enter month</div>}
               </div>
             </div>
           </div>
 
-          {!currentCompany ? <><label htmlFor="University" class="mt-2">Worked Till<span class="required">*</span></label>
+          {!currentCompany ? <><label htmlFor="University" class="mt-2">Worked Till<span >*</span></label>
             <div className="form-group">
               <div class="form-row">
                 <div className="col mr-3">
@@ -193,12 +199,15 @@ const Employment = ({ id, showPopup }) => {
                     name={"workedTillYear"}
                     value={inputData.workedTillYear}
                     onChange={(e) => handleFormInputData(e)}
+                    ref={register({ required: 'Select Year' })}
                   >
+                    <option value="" disabled selected>Select Year</option>
                     {Array(100).fill().map((_, i) => (
                       <option key={`${i}_years`}>{(parseInt(new Date().getFullYear()) - i) - i
                       }  </option>
                     ))}
                   </select>
+                  {errors.workedTillYear && <div class="errorMsg">Please Enter year</div>}
                 </div>
                 <div className="col ml-3">
                   <select id="workedTillMonth"
@@ -206,11 +215,14 @@ const Employment = ({ id, showPopup }) => {
                     name={"workedTillMonth"}
                     value={inputData.workedTillMonth}
                     onChange={(e) => handleFormInputData(e)}
+                    ref={register({ required: 'Select Month' })}
                   >
+                    <option value="" disabled selected>Select Month</option>
                     {MONTH_NAMES.map((monthName, i) => (
-                      <option key={`monthName`}>{monthName}</option>
+                      <option key={`${i}_months`}>{monthName}</option>
                     ))}
                   </select>
+                  {errors.workedTillMonth && <div class="errorMsg">Please Enter month</div>}
                 </div>
               </div>
             </div></> : null}
@@ -222,7 +234,7 @@ const Employment = ({ id, showPopup }) => {
               value={inputData.description}
               onChange={(e) => handleFormInputData(e)}
               placeholder="Enter Your Job Profile Details Here..."
-              required></textarea>
+            ></textarea>
             <div class="invalid-feedback">
               Please enter a message in the textarea.
               </div>
@@ -231,7 +243,7 @@ const Employment = ({ id, showPopup }) => {
             </div>
           </div>
         </div>
-        <button class="btn lightBlue float-right px-5" onClick={updateEmployment}>Save</button>
+        <button class="btn lightBlue float-right px-5" >Save</button>
       </form>
 
     </>

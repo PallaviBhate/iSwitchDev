@@ -5,6 +5,7 @@ import { MONTH_NAMES } from '../../../../Utils/AppConst';
 import { usePrevious } from '../../../../Utils/usePrevious';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
+import { useForm } from "react-hook-form";
 
 const Education = ({ dataAttributes, showPopup }) => {
   const [inputData, setFormInputData] = React.useState({ educationType: '', board: '', course: '', specialization: '', university: '', courseType: '', passingOutYear: '', medium: '', marks: '' })
@@ -16,6 +17,7 @@ const Education = ({ dataAttributes, showPopup }) => {
   const [singleBoards, setSingleBoards] = useState('');
   const [boards, setBoards] = useState([]);
   const isSchoolEducation = inputData.educationType === '10th' || inputData.educationType === '12th'
+  const { register, errors, handleSubmit } = useForm();
   React.useEffect(() => {
     ApiServicesOrgCandidate.getListOfInstitutes().then((response) => {
       if (response) {
@@ -86,8 +88,8 @@ const Education = ({ dataAttributes, showPopup }) => {
       })
     )
   }
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const onSubmit = (e) => {
+    // e.preventDefault();
     let data = {
       "educationType": inputData.educationType,
       "board": singleBoards.toString(),
@@ -108,28 +110,28 @@ const Education = ({ dataAttributes, showPopup }) => {
 
   return (
     <>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div class="mb-4">
           <div className="form-group">
-            <label htmlFor="educationType">Education Type<span class="required">*</span></label>
+            <label htmlFor="educationType">Education Type<span >*</span></label>
 
-            <select id="educationType" className="form-control" name="educationType" value={inputData.educationType} onChange={(e) => handleFormInputData(e)}>
+            <select id="educationType"
+              className="form-control"
+              name="educationType" value={inputData.educationType}
+              onChange={(e) => handleFormInputData(e)}
+              ref={register({ required: 'Select Education Type' })}
+            >
+              <option value="" disabled selected>Select Education Type</option>
               <option value="Doctorate/PhD">Doctorate/PhD</option>
               <option value="Masters/Post-Graduation">Masters/Post-Graduation</option>
               <option value="Graduation/Diploma">Graduation/Diploma</option>
               <option value="12th">12th</option>
               <option value="10th">10th</option>
             </select>
+            {errors.educationType && <div class="errorMsg">Please Enter Education Type</div>}
           </div>
           {isSchoolEducation ? <div className="form-group">
-            <label htmlFor="board">Board<span class="required">*</span></label>
-            {/* <select id="board" className="form-control" name="board" value={inputData.board} onChange={(e) => handleFormInputData(e)}>
-              <option>Select Board</option>
-              <option>CBSE</option>
-              <option>CISCE</option>
-              <option>IB</option>
-              <option>State board</option>
-            </select> */}
+            <label htmlFor="board">Board<span >*</span></label>
             <Typeahead
               id="basic-typeahead-board"
               labelKey="board"
@@ -141,21 +143,25 @@ const Education = ({ dataAttributes, showPopup }) => {
           </div> : null}
           {!isSchoolEducation ? <div>
             <div className="form-group">
-              <label htmlFor="course">Course<span class="required">*</span></label>
+              <label htmlFor="course">Course<span >*</span></label>
               <input class="form-control" type="text"
                 name="course"
                 value={inputData.course}
+                ref={register({ required: true })}
                 onChange={(e) => handleFormInputData(e)} placeholder="Enter Course" />
+              {errors.course && <div class="errorMsg">Please Enter Course</div>}
             </div>
             <div className="form-group">
-              <label htmlFor="specialization">Specialization<span class="required">*</span></label>
+              <label htmlFor="specialization">Specialization<span >*</span></label>
               <input class="form-control" type="text"
                 name="specialization"
                 value={inputData.specialization}
+                ref={register({ required: true })}
                 onChange={(e) => handleFormInputData(e)} placeholder="Enter Specialization" />
+              {errors.specialization && <div class="errorMsg">Please Enter Specialization</div>}
             </div>
             <div className="form-group">
-              <label htmlFor="university">University/Institute<span class="required">*</span></label>
+              <label htmlFor="university">University/Institute<span >*</span></label>
               <Typeahead
                 id="basic-typeahead-single"
                 labelKey="name"
@@ -208,14 +214,21 @@ const Education = ({ dataAttributes, showPopup }) => {
             </div>
           </div> : null}
           <div className="form-group">
-            <label htmlFor="passingOutYear">Passing out year<span class="required">*</span></label>
+            <label htmlFor="passingOutYear">Passing out year<span >*</span></label>
             <div class="form-row">
               <div className="col">
-                <select id="passingOutYear" className="form-control" name="passingOutYear" value={inputData.passingOutYear} onChange={(e) => handleFormInputData(e)}>
+                <select id="passingOutYear"
+                  className="form-control"
+                  name="passingOutYear"
+                  value={inputData.passingOutYear}
+                  ref={register({ required: 'Select Passing Out Year' })}
+                  onChange={(e) => handleFormInputData(e)}>
+                  <option value="" disabled selected>Select Passing Out Year</option>
                   {Array(50).fill().map((_, i) => (
                     <option key={`${i}_years`}>{parseInt(new Date().getFullYear()) - i}</option>
                   ))}
                 </select>
+                {errors.passingOutYear && <div class="errorMsg">Please Enter Marks</div>}
               </div>
             </div>
           </div>
@@ -224,10 +237,12 @@ const Education = ({ dataAttributes, showPopup }) => {
             <input class="form-control" type="text"
               name="marks"
               value={inputData.marks}
+              ref={register({ required: true })}
               onChange={(e) => handleFormInputData(e)} placeholder="Enter Marks" />
+            {errors.marks && <div class="errorMsg">Please Enter Marks</div>}
           </div>
         </div>
-        <button class="btn lightBlue float-right px-5" onClick={handleSubmit}>Save</button>
+        <button class="btn lightBlue float-right px-5">Save</button>
       </form>
     </>
   );
