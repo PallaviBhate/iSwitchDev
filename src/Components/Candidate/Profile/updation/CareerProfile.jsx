@@ -14,7 +14,6 @@ const CareerProfile = ({ showPopup }) => {
   const [candidateInfo, setCandidateInfo] = useState('');
   useEffect(() => {
     ApiServicesOrgCandidate.getListOfCity('0').then((response) => {
-      console.log(response.data.responseObject)
       if (response) {
         var resultArray = response.data.responseObject.map((city) => {
           return { name: city['city_name'], city_code: city['city_code'] };

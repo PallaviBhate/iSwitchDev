@@ -5,6 +5,7 @@ import { COUNTRY_LIST } from '../../../../Utils/AppConst';
 import ApiServicesOrgCandidate from '../../../../Services/ApiServicesOrgCandidate';
 import { Context } from '../../../../Context/ProfileContext';
 import Moment from 'moment';
+import swal from 'sweetalert';
 
 const Personal = ({ showPopup }) => {
   const [inputData, setFormInputData] = React.useState({
@@ -50,7 +51,6 @@ const Personal = ({ showPopup }) => {
       });
     });
     ApiServicesOrgCandidate.getListOfStates().then((response) => {
-      console.log(response.data.responseObject);
       setStateName(response.data.responseObject);
     });
   }, []);
@@ -79,6 +79,7 @@ const Personal = ({ showPopup }) => {
     e.preventDefault();
     const candidateId = localStorage.getItem('candidateId');
     const DOB = Moment(startDate);
+    isValidate(inputData);
     let data = {
       "dob": DOB.format('YYYY-MM-DD'),
       "gender": isGender,
@@ -93,6 +94,30 @@ const Personal = ({ showPopup }) => {
       "candidateId": candidateId
     }
     ApiServicesOrgCandidate.updateCareerInfo(data, getProfileInfo, showPopup);
+  }
+
+  const isValidate = (inputData) => {
+    if (inputData.address === '') {
+      swal('Please Enter Address');
+      return true;
+    }
+    if (inputData.maritalStatus === '' || inputData.maritalStatus === null) {
+      swal('Please Enter maritalStatus');
+      return true;
+    }
+    if (inputData.passportId === '' || inputData.passportId === null) {
+      swal('Please Enter PassportId');
+      return true;
+    }
+    if (isGender === '' || isGender === null) {
+      swal('Please Enter Gender');
+      return true;
+    }
+    if (tags.length === 0) {
+      swal('Please Enter work permit location');
+      return true;
+    }
+
   }
 
   const handleFormInputData = (e) => {
@@ -132,38 +157,38 @@ const Personal = ({ showPopup }) => {
             </div>
             <label className="modal-label mt-3" htmlFor="University" >Gender</label>
             <div>
-              <div class={isGender === 'Male' ? "modal-label form-check form-check-inline" : "modal-label form-check form-check-inline modal-fade"}>
+              <div class={isGender === 'male' ? "modal-label form-check form-check-inline" : "modal-label form-check form-check-inline modal-fade"}>
                 <input
                   type="radio"
                   class="form-check-input mr-2"
-                  id="Male"
-                  name="Male"
-                  value="Male"
-                  checked={isGender === 'Male'}
+                  id="male"
+                  name="male"
+                  value="male"
+                  checked={isGender === 'male'}
                   onChange={onValueChange}
                 />
                 <label class="radio-inline form-check-label" for="materialChecked2">Male</label>
               </div>
-              <div class={isGender === 'Female' ? "modal-label form-check form-check-inline" : "modal-label form-check form-check-inline modal-fade"}>
+              <div class={isGender === 'female' ? "modal-label form-check form-check-inline" : "modal-label form-check form-check-inline modal-fade"}>
                 <input
                   type="radio"
                   class="form-check-input mr-2"
-                  id="Female"
-                  name="Female"
-                  value="Female"
-                  checked={isGender === 'Female'}
+                  id="female"
+                  name="female"
+                  value="female"
+                  checked={isGender === 'female'}
                   onChange={onValueChange}
                 />
                 <label class="modal-label radio-inline form-check-label" for="materialChecked2">Female</label>
               </div>
-              <div class={isGender === 'Transgender' ? "modal-label form-check form-check-inline" : "modal-label form-check form-check-inline modal-fade"}>
+              <div class={isGender === 'transgender' ? "modal-label form-check form-check-inline" : "modal-label form-check form-check-inline modal-fade"}>
                 <input
                   type="radio"
                   class="form-check-input"
-                  id="Transgender"
-                  name="Transgender"
-                  value="Transgender"
-                  checked={isGender === 'Transgender'}
+                  id="transgender"
+                  name="transgender"
+                  value="transgender"
+                  checked={isGender === 'transgender'}
                   onChange={onValueChange}
                 />
                 <label class="modal-label radio-inline form-check-label" for="materialChecked2">Transgender</label>
@@ -264,7 +289,7 @@ const Personal = ({ showPopup }) => {
               name="maritalStatus"
               onChange={(e) => handleFormInputData(e)}
             >
-              <option>Select Marital Status</option>
+              <option disabled>Select Marital Status</option>
               <option>Single/unmarried</option>
               <option>Married</option>
               <option>Widowed</option>
