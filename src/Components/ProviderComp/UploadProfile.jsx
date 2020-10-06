@@ -110,7 +110,7 @@ class UploadProfile extends Component {
         return(
             <Fragment>
                 <LeftNavProvider></LeftNavProvider>
-				<div className="maincontent toggled">
+				<div className="maincontent">
                 <HeaderAll></HeaderAll>
                 <div className="container-fluid">
                 <Toast ref={(el) => this.toast = el} />
@@ -158,7 +158,7 @@ class UploadProfile extends Component {
                                             <form action="">
                                                 <div className="text-center d-flex justify-content-center">
                                                 <div className="file-field d-flex-inline">
-                                                    <div className="btn btn-primary btn-sm float-left waves-effect waves-light">
+                                                    <div className="btn btn-blue btn-sm float-left waves-effect waves-light">
                                                         <span>Choose file</span>
                                                         <input type="file" id="myFile" name="filename" accept=".csv" files multiple onChange={this.onFileChange} />
                                                     

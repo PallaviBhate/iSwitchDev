@@ -21,7 +21,7 @@ export default class RecruiterDashboard extends Component {
     render() {  
         return (
             <div>    
-                <div className="maincontent toggled">
+                <div className="maincontent">
                 <HeaderAll></HeaderAll>
                 
                 <LeftNavProvider></LeftNavProvider>

@@ -19,7 +19,6 @@ export const Profile = () => {
     useEffect(() => {
         getProfileInfo();
         ApiServicesOrgCandidate.fetchProfileInfo().then(response => {
-            console.log(response)
             setCandidateProfile(response)
         }).catch(error => { });
     }, [])
@@ -32,7 +31,7 @@ export const Profile = () => {
     return (
         <div>
             <LeftNavCandidate />
-            <div className="maincontent toggled">
+            <div className="maincontent">
                 <HeaderAll isCandidate={true} />
                 <div class='container-fluid px-5 py-4 right-panel'>
                     {isPopupVisible ? <PopupContent

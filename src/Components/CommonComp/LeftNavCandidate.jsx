@@ -13,7 +13,7 @@ const LeftNavCandidate = () => {
     //To move dot to active page
     const isActive = (path, match, location) => !!(match || path === location.pathname);
     return (
-        <div id="wrapper" className="toggled">
+        <div id="wrapper" className="">
             <div id="sidebar-wrapper">
                 <ul className="sidebar-nav" >
                     <li className="sidebar-brand">
@@ -35,7 +35,7 @@ const LeftNavCandidate = () => {
                         </NavLink>
                     </li>
                      <li data-toggle="tooltip" data-placement="right" title="Interviews">
-                        <Link class="subMenu" id="navbarDropdown" role="button"
+                        <Link class="subMenu collapsed" id="navbarDropdown" role="button"
                             data-toggle="collapse" data-target="#submenu1sub1">
                             <i><img src="/images/Candidate-Navbar-assets/interviews-icon.svg" aria-hidden="true" /></i>
                              <span className="menuText">Interviews</span>

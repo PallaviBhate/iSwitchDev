@@ -1,8 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import ApiServicesOrgCandidate from '../../../../Services/ApiServicesOrgCandidate';
 import { Context } from '../../../../Context/ProfileContext';
 import { MONTH_NAMES } from '../../../../Utils/AppConst';
 import { usePrevious } from '../../../../Utils/usePrevious';
+import { Typeahead } from 'react-bootstrap-typeahead';
+import 'react-bootstrap-typeahead/css/Typeahead.css';
 
 const Certification = ({ dataAttributes, showPopup }) => {
   const [inputData, setFormInputData] = React.useState({ certificationName: '', issuingOrganization: '', issueMonth: '', issueYear: '', expirationMonth: '', expirationYear: '', credentialId: '', credentialURL: '' })
@@ -12,8 +14,19 @@ const Certification = ({ dataAttributes, showPopup }) => {
   const resourceId = dataAttributes && dataAttributes.resourceId;
   const prevExpirationYear = usePrevious(inputData.expirationYear);
   const prevExpirationMonth = usePrevious(inputData.expirationMonth)
+  const [singleCertificates, setSingleCertificates] = useState('');
+  const [certificates, setCertificates] = useState([]);
 
   React.useEffect(() => {
+    ApiServicesOrgCandidate.getListOfCertificates().then((response) => {
+      if (response) {
+        const result = Object.keys(response.data.responseObject).map((key, index) => response.data.responseObject[key].certificates);
+        console.log(result)
+        setCertificates(result);
+      } else {
+        setCertificates('');
+      }
+    })
     state.then((response) => {
       if (response && response.candidateCertificatesList) {
         const certificationInfoObject = response.candidateCertificatesList.filter(certificate => {
@@ -63,7 +76,7 @@ const Certification = ({ dataAttributes, showPopup }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     let data = {
-      "certificationName": inputData.certificationName,
+      "certificationName": singleCertificates.toString(),
       "issuingOrganization": inputData.issuingOrganization,
       "issueMonth": inputData.issueMonth,
       "issueYear": inputData.issueYear,
@@ -85,17 +98,18 @@ const Certification = ({ dataAttributes, showPopup }) => {
         <div class="mb-4">
           <div className="form-group">
             <label htmlFor="certificationName">Certification Name</label>
-            <input class="form-control" type="text"
+            {/* <input class="form-control" type="text"
               name="certificationName"
               value={inputData.certificationName}
-              onChange={(e) => handleFormInputData(e)} placeholder="Enter Certification Name" />
-          </div>
-          <div className="form-group">
-            <label htmlFor="issuingOrganization">Issuing Organization</label>
-            <input class="form-control" type="text"
-              name="issuingOrganization"
-              value={inputData.issuingOrganization}
-              onChange={(e) => handleFormInputData(e)} placeholder="Enter Issuing Organization" />
+              onChange={(e) => handleFormInputData(e)} placeholder="Enter Certification Name" /> */}
+            <Typeahead
+              id="basic-typeahead-single"
+              labelKey="name"
+              onChange={setSingleCertificates}
+              options={certificates}
+              placeholder="Choose a certificates..."
+              selected={singleCertificates}
+            />
           </div>
 
           <div class="custom-control custom-checkbox mr-sm-2">

@@ -24,7 +24,7 @@ export default class ProviderDashboard extends Component {
 		return (
 			<div>
 				<LeftNavProvider></LeftNavProvider>
-				<div className="maincontent toggled">
+				<div className="maincontent">
 				<HeaderAll></HeaderAll>
 				{/* <UploadProfile/> */}
 				<div className="container-fluid">

@@ -33,7 +33,7 @@ export default class RecentMatches extends Component {
                       </div>
                     </div>
                     <div className={"col-12 col-sm-12 col-md-4 col-lg-4 d-flex flex-row-reverse align-items-center"}>
-                      <div className="p-2 ml-3"><Link to="#"><span className="mr-2">View Details</span><i className="fa fa-angle-right mr-2" aria-hidden="true"></i></Link></div>
+                      <div className="p-2 ml-3"><Link to="/candidate/recentMatchesJobDetails"><span className="mr-2">View Details</span><i className="fa fa-angle-right mr-2" aria-hidden="true"></i></Link></div>
                       <div className="p-2">
                         <div style={{ width: 65, height: 65 }}>
                           <CircularProgressbarWithChildren styles={{

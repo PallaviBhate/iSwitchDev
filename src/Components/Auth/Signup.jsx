@@ -177,7 +177,7 @@ export default class Signup extends Component {
                     <Toast ref={(el) => this.toast = el} />
                     <div className="content_section main login">
                         <h2>Sign Up</h2>
-                        <p className="small-title">Welcome to Jobzilla</p>
+                        <p className="small-title">Welcome to iSWITCH</p>
                         {/* Form */}
                         <form onSubmit={this.submituserRegistrationForm}>
                         <div className="row">

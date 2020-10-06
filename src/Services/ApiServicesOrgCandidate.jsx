@@ -191,6 +191,77 @@ class ApiServicesOrgCandidate {
         })
     )
   }
+
+  getListOfInstitutes() {
+    return (
+      axios
+        .get(`${ApiBaseUrl}/candidate/listOfInstitutes`)
+        .then(Response => Response).catch(error => {
+          console.log(error);
+        })
+    )
+  }
+
+  getListOfOrganizations() {
+    return (
+      axios
+        .get(`${ApiBaseUrl}/candidate/listOfOrganizations`)
+        .then(Response => Response).catch(error => {
+          console.log(error);
+        })
+    )
+  }
+
+  getListOfCertificates() {
+    return (
+      axios
+        .get(`${ApiBaseUrl}/candidate/listOfCertificates`)
+        .then(Response => Response).catch(error => {
+          console.log(error);
+        })
+    )
+  }
+
+  getListOfBoards() {
+    return (
+      axios
+        .get(`${ApiBaseUrl}/candidate/listOfBoards`)
+        .then(Response => Response).catch(error => {
+          console.log(error);
+        })
+    )
+  }
+
+  getListOfLanguages() {
+    return (
+      axios
+        .get(`${ApiBaseUrl}/candidate/listOfLanguages`)
+        .then(Response => Response).catch(error => {
+          console.log(error);
+        })
+    )
+  }
+
+  getListOfEducationType() {
+    return (
+      axios
+        .get(`${ApiBaseUrl}/candidate/listOfEducationType`)
+        .then(Response => Response).catch(error => {
+          console.log(error);
+        })
+    )
+  }
+
+  getListOfSkills() {
+    return (
+      axios
+        .get(`${ApiBaseUrl}/candidate/listOfSkills`)
+        .then(Response => Response).catch(error => {
+          console.log(error);
+        })
+    )
+  }
+
 }
 
 export default new ApiServicesOrgCandidate();

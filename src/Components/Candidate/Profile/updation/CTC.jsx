@@ -84,19 +84,21 @@ const CTC = ({ showPopup }) => {
             <div class="form-row">
               <div className="col mr-4">
                 <select id="currentCtcInLakh" name="currentCtcInLakh" value={inputData.currentCtcInLakh} onChange={(e) => handleFormInputData(e)} className="form-control">
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
+                  {Array(40).fill().map((_, i) => (
+                    <option>{i}</option>
+                  ))}
                 </select>
                 <label class="w-100 text-right small-text-light mt-2" htmlFor="University">Lakhs</label>
               </div>
               <div className="col  ml-4">
                 <select id="currentCtcInThousand" className="form-control" name="currentCtcInThousand" value={inputData.currentCtcInThousand} onChange={(e) => handleFormInputData(e)} >
-                  <option value={"00"}>0</option>
+                  {Array(11).fill().map((_, i) => (
+                    <option value={i * 5}>{i * 5}</option>
+                  ))}
+                  {/* <option value={"00"}>0</option>
                   <option value={"05"}>5</option>
                   <option value={"10"}>10</option>
-                  <option value={"15"}>15</option>
+                  <option value={"15"}>15</option> */}
                 </select>
                 <label class="w-100 text-right small-text-light mt-2" htmlFor="University">Thousand</label>
               </div>
@@ -107,19 +109,21 @@ const CTC = ({ showPopup }) => {
             <div class="form-row">
               <div className="col mr-4">
                 <select id="expectedCtcInLakh" className="form-control" name="expectedCtcInLakh" value={inputData.expectedCtcInLakh} onChange={(e) => handleFormInputData(e)} >
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
+                  {Array(40).fill().map((_, i) => (
+                    <option>{i}</option>
+                  ))}
                 </select>
                 <label class="w-100 text-right small-text-light mt-2" htmlFor="University">Lakhs</label>
               </div>
               <div className="col ml-4">
                 <select id="expectedCtcInThousand" className="form-control" name="expectedCtcInThousand" value={inputData.expectedCtcInThousand} onChange={(e) => handleFormInputData(e)} >
-                  <option value={"00"}>0</option>
+                  {Array(11).fill().map((_, i) => (
+                    <option value={i * 5}>{i * 5}</option>
+                  ))}
+                  {/* <option value={"00"}>0</option>
                   <option value={"05"}>5</option>
                   <option value={"10"}>10</option>
-                  <option value={"15"}>15</option>
+                  <option value={"15"}>15</option> */}
                 </select>
                 <label class="w-100 text-right small-text-light mt-2" htmlFor="University">Thousand</label>
               </div>
