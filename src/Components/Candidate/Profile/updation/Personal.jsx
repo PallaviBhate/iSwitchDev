@@ -115,7 +115,7 @@ const Personal = ({ showPopup }) => {
       })
     )
   }
-
+  console.log(errors)
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>

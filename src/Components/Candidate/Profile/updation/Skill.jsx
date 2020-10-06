@@ -3,6 +3,7 @@ import ApiServicesOrgCandidate from '../../../../Services/ApiServicesOrgCandidat
 import { Context } from '../../../../Context/ProfileContext';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
+import { useForm } from "react-hook-form";
 
 const Skill = ({ dataAttributes, showPopup }) => {
   const [inputData, setFormInputData] = React.useState({ experienceInYear: '', experienceInMonth: '', proficiency: '', skillName: '', version: '' })
@@ -11,6 +12,9 @@ const Skill = ({ dataAttributes, showPopup }) => {
   const [singleSkills, setSingleSkills] = useState('');
   const [skills, setSkills] = useState([]);
   const skillId = dataAttributes && dataAttributes.skillId;
+  const { register, errors, handleSubmit } = useForm({mode: 'all'});
+  const [isSubmitDisabled, setIsSubmitDisabled] = React.useState(false)
+
   React.useEffect(() => {
     ApiServicesOrgCandidate.getListOfSkills().then((response) => {
       if (response) {
@@ -37,6 +41,13 @@ const Skill = ({ dataAttributes, showPopup }) => {
     if (skillId && skillInfo) {
       const { experience, proficiency, skillName, version } = skillInfo;
       console.log(skillId)
+      if (!skillName) {
+        errors.skill = {message: `Skill name is required.`  }
+        setIsSubmitDisabled(true);
+      } else {
+        delete errors.skill;
+        setIsSubmitDisabled(false);
+      }
       setFormInputData({
         experienceInYear: experience && parseFloat(experience).toFixed(2).split('.')[0],
         experienceInMonth: experience && parseFloat(experience).toFixed(2).split('.')[1],
@@ -54,8 +65,19 @@ const Skill = ({ dataAttributes, showPopup }) => {
       })
     )
   }
-  const handleSubmit = (e) => {
-    e.preventDefault();
+
+  const onInputChange = (value) => {
+    if (!value.trim().length) {
+      errors.skill = {message: `Skill Name is required.`}
+      setIsSubmitDisabled(true);
+    } else {
+      delete errors.skill;
+      setIsSubmitDisabled(false);
+    }
+  }
+
+  const onSubmit = (e) => {
+    // e.preventDefault();
     let data = {
       "experience": `${inputData.experienceInYear}.${inputData.experienceInMonth}`,
       "proficiency": inputData.proficiency,
@@ -71,7 +93,7 @@ const Skill = ({ dataAttributes, showPopup }) => {
 
   return (
     <>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div class="mb-4">
           <div className="form-group">
             <label htmlFor="skillName">Skill</label>
@@ -83,10 +105,12 @@ const Skill = ({ dataAttributes, showPopup }) => {
               id="basic-typeahead-skills"
               labelKey="skills"
               onChange={setSingleSkills}
+              onInputChange={onInputChange}
               options={skills}
               placeholder="Choose a Skills..."
               selected={singleSkills}
             />
+            {errors.skill && <div class="errorMsg mt-2">{errors.skill.message}</div>}
           </div>
           <div className="form-group">
             <label htmlFor="version">Version</label>
@@ -123,7 +147,7 @@ const Skill = ({ dataAttributes, showPopup }) => {
             </select>
           </div>
         </div>
-        <button class="btn lightBlue float-right px-5" onClick={handleSubmit}>Save</button>
+        <button class="btn lightBlue float-right px-5" disabled={isSubmitDisabled}>Save</button>
       </form>
     </>
   );

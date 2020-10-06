@@ -2,12 +2,17 @@ import React, { Component, useContext } from 'react';
 import { Button, Modal } from 'react-bootstrap'
 import ApiServicesOrgCandidate from '../../../../Services/ApiServicesOrgCandidate';
 import { Context } from '../../../../Context/ProfileContext';
+import { useForm } from "react-hook-form";
+
 
 const About = ({showPopup}) => {
+  const maxLength = 4000;
   const [inputData, setFormInputData] = React.useState({ about: '' })
   const [candidateProfile, setCandidateProfile] = React.useState('');
   const { state, getProfileInfo } = useContext(Context);
-
+  const [aboutLength, setAboutLength] = React.useState(maxLength);
+  const { register, errors, handleSubmit } = useForm();
+  const [isSubmitDisabled, setIsSubmitDisabled] = React.useState(false)
 
   React.useEffect(() => {
     state.then((response) => {
@@ -16,11 +21,33 @@ const About = ({showPopup}) => {
   }, []);
 
   React.useEffect(() => {
-    setFormInputData({
-      about: candidateProfile && candidateProfile.candidateInfo && candidateProfile.candidateInfo.about
-    });
+    if (candidateProfile && candidateProfile.candidateInfo) {
+    const { candidateInfo } = candidateProfile;
+    const {about} = candidateInfo;
+      if (about && about.length > maxLength) {
+        errors.about = {message: `Only ${maxLength} characters are allowed.`  }
+        setIsSubmitDisabled(true);
+      } else {
+        delete errors.about;
+        setIsSubmitDisabled(false);
+      }
+      setAboutLength(maxLength - about.length)
+      setFormInputData({
+        about: about
+      });
+    }
   }, [candidateProfile]);
   const handleFormInputData = (e) => {
+    if (e.target.name === 'about') {
+      if (e.target.value.length > maxLength) {
+        errors.about = {message: `Only ${maxLength} characters are allowed.`}
+        setIsSubmitDisabled(true);
+      } else {
+        delete errors.about;
+        setIsSubmitDisabled(false);
+      }
+      setAboutLength(maxLength - e.target.value.length)
+    }
     return (
       setFormInputData({
         ...inputData,
@@ -28,7 +55,7 @@ const About = ({showPopup}) => {
       })
     )
   }
-  const handleSubmit = (e) => {
+  const onSubmit = (e) => {
     const candidateId = localStorage.getItem('candidateId')
     let data = {
       "about": inputData.about,
@@ -36,30 +63,29 @@ const About = ({showPopup}) => {
     }
     console.log(data)
     ApiServicesOrgCandidate.updateProfileInfo(data, getProfileInfo,showPopup);
-    e.preventDefault();
+    // e.preventDefault();
   }
   return (
     <>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div class="mb-4">
           <div className="form-group">
             <label for="about">Profile Summary</label>
-            <textarea class="form-control" rows="10"
+            <textarea class={`form-control ${errors.about && 'is-invalid'}`} rows="10"
               id="about"
               placeholder="Describe Here"
-              required name="about"
+              name="about"
               value={inputData.about}
               onChange={(e) => handleFormInputData(e)}
+              
             ></textarea>
-            <div class="invalid-feedback">
-              Please enter a message in the textarea.
-            </div>
-            <div class="col text-right mt-2 px-0">
-              <span class="small-text-light ">4000 Characters Left</span>
+            <div class="row m-0 p-0 mt-2">
+              <div class="col-6 m-0 p-0">{errors.about && <span class="small-text-light errorMsg">{errors.about.message}</span>}</div>
+              <div class="col-6 text-right m-0 p-0"><span class="small-text-light ">{aboutLength} Characters Left</span></div>
             </div>
           </div>
         </div>
-        <button class="btn lightBlue float-right px-5" onClick={handleSubmit}>Save</button>
+        <button class="btn lightBlue float-right px-5" disabled={isSubmitDisabled}>Save</button>
 
       </form>
     </>

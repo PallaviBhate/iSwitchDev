@@ -1,11 +1,13 @@
 import React, { useContext } from 'react';
 import ApiServicesOrgCandidate from '../../../../Services/ApiServicesOrgCandidate';
 import { Context } from '../../../../Context/ProfileContext';
+import { useForm } from "react-hook-form";
 
 const CTC = ({ showPopup }) => {
   const [inputData, setFormInputData] = React.useState({ currentCtcInLakh: '', currentCtcInThousand: '', expectedCtcInLakh: '', expectedCtcInThousand: '', currencyType: '' })
   const [candidateProfile, setCandidateProfile] = React.useState('');
   const { state, getProfileInfo } = useContext(Context);
+  const { register, errors, handleSubmit } = useForm({mode: 'all'});
 
   React.useEffect(() => {
     state.then((response) => {
@@ -33,8 +35,8 @@ const CTC = ({ showPopup }) => {
       })
     )
   }
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const onSubmit = (e) => {
+    // e.preventDefault();
     const candidateId = localStorage.getItem('candidateId')
     let data = {
       "currencyType": inputData.currencyType,
@@ -49,7 +51,7 @@ const CTC = ({ showPopup }) => {
 
   return (
     <>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div class="mb-4">
           <div className="form-group">
             <div>
@@ -83,7 +85,7 @@ const CTC = ({ showPopup }) => {
           <div className="form-group">
             <div class="form-row">
               <div className="col mr-4">
-                <select id="currentCtcInLakh" name="currentCtcInLakh" value={inputData.currentCtcInLakh} onChange={(e) => handleFormInputData(e)} className="form-control">
+                <select id="currentCtcInLakh" name="currentCtcInLakh" value={inputData.currentCtcInLakh} onChange={(e) => handleFormInputData(e)} className="form-control" >
                   {Array(40).fill().map((_, i) => (
                     <option>{i}</option>
                   ))}
@@ -131,7 +133,7 @@ const CTC = ({ showPopup }) => {
           </div>
         </div>
 
-        <button class="btn lightBlue float-right px-5" onClick={handleSubmit}>Save</button>
+        <button class="btn lightBlue float-right px-5">Save</button>
       </form>
     </>
   );
