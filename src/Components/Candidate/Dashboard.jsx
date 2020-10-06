@@ -13,7 +13,7 @@ class Dashboard extends Component {
 		return (
 			<div>
 				<LeftNavCandidate></LeftNavCandidate>
-				<div className="maincontent toggled">
+				<div className="maincontent">
 					<HeaderAll isCandidate={true}></HeaderAll>
 					<div className="container-fluid">
 						<div className="row flex-xl-nowrap">

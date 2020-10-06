@@ -9,6 +9,7 @@ import { TabMenu } from 'primereact/tabmenu';
 import LeftNavProvider from '../CommonComp/LeftNavProvider'
 import { Dropdown } from 'primereact/dropdown';
 import HeaderAll from '../CommonComp/HeaderAll';
+import JobPostingCollection from "../RecruiterComp/RecruiterJobPosting/JobPostingCollection"
 
 import {  BrowserRouter as Router,  Switch,  Route,  Link} from "react-router-dom";
 import CreateJob from './CreateJob.jsx';
@@ -120,7 +121,7 @@ let filterJobData=this.state.job.filter(
     return(
         <div>
           <LeftNavProvider></LeftNavProvider>
-          <div className="maincontent toggled">
+          <div className="maincontent">
           <HeaderAll></HeaderAll>
         <div className="container-fluid">
             <div className="row">
@@ -136,7 +137,7 @@ let filterJobData=this.state.job.filter(
           </div>
           <div className="col-sm-6">
             {/* <CreateJob></CreateJob> */}
-           <Link to= "createJob" class="btn btn-primary" >Create New Job</Link>  
+           <Link to= "createJob" class="btn btn-primary" >Create New Job</Link>   
           {/* <button type="button" class="btn btn-primary" onClick="./CreateJob.jsx">Create New Job</button> */}
           </div>
           </div>
@@ -237,7 +238,7 @@ let filterJobData=this.state.job.filter(
      
      </div> 
      <div className="text-right py-5" >
-    <Link>VIEW DETAILS</Link>
+    <Link to = "JobPostingCollection" >VIEW DETAILS</Link>
     
   </div>
   <hr></hr>
@@ -312,7 +313,7 @@ let filterJobData=this.state.job.filter(
      
   </div>
   <div className="text-right py-5">
-    <Link to="/detail">VIEW DETAILS ></Link>
+    <Link to="/JobPostingCollection">VIEW DETAILS</Link>
     
   </div>
   

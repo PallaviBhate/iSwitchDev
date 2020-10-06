@@ -116,7 +116,7 @@ class UploadProfile extends Component {
             <Fragment>
                 {(isCandidate) ? <LeftNavCandidate></LeftNavCandidate> :
                     <LeftNavProvider></LeftNavProvider>}
-                <div className="maincontent toggled">
+                <div className="maincontent">
                     {(!isCandidate) ? <HeaderAll></HeaderAll> : null}
                     <div className="container-fluid">
                         <Toast ref={(el) => this.toast = el} />

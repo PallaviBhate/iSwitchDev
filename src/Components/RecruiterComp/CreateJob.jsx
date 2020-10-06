@@ -30,7 +30,8 @@ const numberofpositionoption = [
 ];
 
 const hours = [
-{ value: "1", label: "1" },{ value: "2", label: "2" },
+{ value: "1", label: "1" },
+{ value: "2", label: "2" },
 { value: "3", label: "3" },
 { value: "4", label: "4" },
 { value: "5", label: "5" },
@@ -362,17 +363,19 @@ const { errors } = this.state;
 return (
 <div>
         <LeftNavProvider></LeftNavProvider>
-        <div className="maincontent toggled">
-                <div className="">
+        <div className="maincontent">
+        <div className="">
         <HeaderAll></HeaderAll>
-
-                </div>
+        </div>
         <div className="fullscreen">
+        <p> &emsp; </p>
+        <h4>
+        {" "}
+        &ensp; &nbsp; &nbsp;{" "}
+        <span className="font-weight-light">Active Job</span> &nbsp; &gt;{" "}
+        <span className="font-weight-bold ">&nbsp;CreateJob</span>
+        </h4>
 
-                 <p> &emsp; </p>
-        <h4>  &ensp; &nbsp; &nbsp; <span className="font-weight-light">Active Job</span>  &nbsp; &gt; <span className="font-weight-bold ">&nbsp;CreateJob</span></h4>
-                    
-        
         <form className="first">
         <div className="borderone  ">
                 <div className="first">
@@ -383,7 +386,7 @@ return (
                 </div>
                 <div className="">
                 <input
-                className="input placeholder"
+                        className="input inputchange"
                         type="text"
                         name="job_title"
                         value={this.state.job_title}
@@ -402,7 +405,7 @@ return (
                 <label>Employment Type</label>
                 <div className="">
                 <Select
-                className="selectone placeholder"
+                className="selectone "
                 value={selectedemploymenttype}
                 onChange={this.handleChangeemploymenttype}
                 options={employmenttypeoption}
@@ -415,7 +418,7 @@ return (
                 <label>Category</label>
                 <div className="">
                 <Select
-                className="selectone placeholder"
+                className="selectone "
                 value={selectedcategorytype}
                 onChange={this.handleChangecategorytype}
                 options={jobcategoryoption}
@@ -430,7 +433,7 @@ return (
                 <h5>Skill and Experience</h5>
                 </div>
                 <div className="left first">
-                <label>Primary skill</label>
+                <label>Primary Skill</label>
 
                 <Select
                 isMulti={true}
@@ -440,15 +443,15 @@ return (
                 />
                 </div>
                 <div className="right4">
-                <label>Secondary skill</label>
+                <label>Secondary Skill</label>
                 <div>
                 <input
-                className="input placeholder"
+                className="input inputchange"
                 type="text"
                 name="secondaryskill"
                 value={this.state.secondaryskill}
                 onChange={this.handlechange}
-                placeholder="Enter secondary skill"
+                placeholder="Enter Secondary Skill"
                 />
                 <br />
                 </div>
@@ -458,12 +461,12 @@ return (
                 <label>Experience Required</label>
                 <div>
                 <input
-                className="input placeholder"
+                className="input inputchange"
                 accept="number"
                 name="experiencerequired"
                 value={this.state.experiencerequired}
                 onChange={this.handlechange}
-                placeholder="Enter experience required"
+                placeholder="Enter Required Experience"
                 />
                 <br />
                 </div>
@@ -474,25 +477,25 @@ return (
                 <div className="first">
                 <h5 className="mb-4">Others</h5>
 
-     <label>Expected Working Hours</label>
+                <label>Expected Working Hours</label>
                 </div>
                 <div className="flex">
                 <Select
-                className="select1 placeholder"
+                className="select1 item "
                 value={selecthoursfrom}
                 onChange={this.choosefromhours}
                 options={hours}
                 placeholder="Hrs "
                 />
                 <Select
-                className="select1 placeholder"
+                className="select1 item"
                 value={selectminutefrom}
                 onChange={this.choosefromminute}
                 options={min}
                 placeholder="Min"
                 />
                 <Select
-                className="select1 placeholder"
+                className="select1 item"
                 value={selectfrommeridian}
                 onChange={this.choosemeridianfrom}
                 options={meridianoption}
@@ -502,67 +505,71 @@ return (
                 <p className="mt-2 mr-3">To</p>
 
                 <Select
-                className="select1 placeholder"
+                className="select1 item"
                 value={selecthoursto}
                 onChange={this.choosetohours}
                 options={hours}
                 placeholder="Hrs"
                 />
                 <Select
-                className="select1 placeholder"
+                className="select1 item"
                 value={selectminuteto}
                 onChange={this.choosetominute}
                 options={min}
                 placeholder="Min"
                 />
                 <Select
-                className="select1 placeholder"
+                className="select1 item"
                 value={selecttomeridian}
                 onChange={this.choosemeridianto}
                 options={meridianoption}
                 placeholder="pm"
                 />
                 </div>
-                <div className="first5">
-                <label>Number of position available</label>
-                </div>
+
                 <div className="left first5">
+                <label className="mb-3">Number of position available</label>
                 <Select
-                className="placeholder"
+                className=""
                 value={selectednoofposition}
                 onChange={this.noofposition}
                 options={numberofpositionoption}
-                placeholder="Number of position available"
+                placeholder="Number of Position Available"
                 />
                 </div>
                 <div className="right5">
-                <label className="mb-3">Annual Salary</label>
+                <label className="">Annual Salary</label>
                 <div onClick={this.onChangeValue.bind(this)}>
-                <input  className="mb-3"type="radio" value="Lakhs" name="salary_demand" />{" "}
-                ISD
-                <input className="mb-3 "
+                <input
+                className="mb-3 "
+                type="radio"
+                value="Lakhs"
+                name="salary_demand"
+                />{" "}
+                <span className="small-font">ISD</span>
+                <input
+                className="mb-3"
                 type="radio"
                 className="margin-left "
                 value="Thousand"
                 name="salary_demand"
                 />{" "}
-                USD
+                <span className="small-font"> USD</span>
                 </div>
                 <div className="flex1 ">
                 {/* <label>From</label> */}
                 <Select
-                className="select2 placeholder"
+                className="select2 "
                 value={starting_salary}
                 onChange={this.handleStartingSalary}
                 options={starting_Salary}
                 placeholder="select "
                 />
-                <div>
-                </div>
+                <div></div>
 
                 <label className="mt-2 mr-3">To</label>
                 <Select
-                className="select2 placeholder"
+                className="select2 "
                 value={end_salary}
                 onChange={this.handleEndSalary}
                 options={end_Salary}
@@ -570,13 +577,9 @@ return (
                 />
                 </div>
                 <div className="flex3">
-
-                <div className="flex4">
-
                 <p className="">{this.state.salary_demand}</p>
-                </div>
-                <div>
 
+                <div>
                 <p>{this.state.salary_demand}</p>
                 </div>
                 </div>
@@ -585,8 +588,8 @@ return (
                 <div className="left second">
                 <label> Visa </label>
                 <div className="">
-                <input 
-                className="input placeholder"
+                <input
+                className="visa   inputchange"
                 type="text"
                 name="visa"
                 value={this.state.visa}
@@ -596,7 +599,7 @@ return (
                 <br />
                 </div>
                 <div className="third">
-                <input 
+                <input
                 type="checkbox"
                 onClick={this.getChckeboxValue.bind(this)}
                 value="Must have Passport"
@@ -614,7 +617,12 @@ return (
                 <div className="">
                 <label>Country</label>
                 </div>
-                <select className="placeholder" name="country" class="countries location" id="countryId">
+                <select
+                className=""
+                name="country"
+                class="countries location"
+                id="countryId"
+                >
                 <option value="">Select </option>
                 </select>
                 </div>
@@ -622,7 +630,12 @@ return (
                 <div className="right1">
                 <label>State</label>
                 <div className=""></div>
-                <select  className="placeholder" name="state" class="states location" id="stateId">
+                <select
+                className=""
+                name="state"
+                class="states location"
+                id="stateId"
+                >
                 <option value="">Select </option>
                 </select>
                 </div>
@@ -630,7 +643,12 @@ return (
                 <div className="">
                 <label>City</label>
                 </div>
-                <select className="placeholder" name="city" class="cities location" id="cityId">
+                <select
+                className=""
+                name="city"
+                class="cities location"
+                id="cityId"
+                >
                 <option value="">Select </option>
                 </select>
                 {/* <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -647,9 +665,10 @@ return (
                 <div className="second">
                 <label className="display-big">Job Description</label>
                 <div>
-                <textarea className="placeholder"
+                <textarea
+                className=""
                 rows={7}
-                cols={120}
+                cols={125}
                 type="text"
                 name="jobdescriptiontext"
                 maxLength="4000"
@@ -659,14 +678,17 @@ return (
                 onChange={this.handlechange}
                 placeholder="Describe your Job Profile"
                 />
-                <p className="character-left">{this.state.chars_left}Characters Left</p>
+                <p className="character-left">
+                {this.state.chars_left}Characters Left
+                </p>
                 </div>
 
                 <label className="display-big">Responsibilities</label>
                 <div>
-                <textarea className="placeholder"
+                <textarea
+                className=""
                 rows={7}
-                cols={120}
+                cols={125}
                 name="resposibilitiestext"
                 maxLength="4000"
                 value={this.state.resposibilitiestext}
@@ -674,7 +696,9 @@ return (
                 onKeyUp={this.handleWordCountResponsible}
                 placeholder="Describe your Responsibilities"
                 />
-                <p className="character-left">{this.state.chars_lefts}Characters Left</p>
+                <p className="character-left">
+                {this.state.chars_lefts}Characters Left
+                </p>
                 </div>
                 </div>
         </div>
@@ -692,7 +716,6 @@ return (
                 >
                 Post
                 </button>
-
         </div>
         </form>
         </div>

@@ -11,7 +11,7 @@ class Interviews extends Component {
     return (
       <div>
         <LeftNavCandidate></LeftNavCandidate>
-        <div className="maincontent toggled">
+        <div className="maincontent">
           <HeaderAll></HeaderAll>
           {/* <UploadProfile/> */}
           <div className="container-fluid">

@@ -11,8 +11,8 @@ import AddUser from '../Components/ProviderComp/AddUser'
 import EmailSetting from '../Components/ProviderComp/EmailSetting'
 import ManageUser from "../Components/ProviderComp/ManageUser";
 import EditUser from "../Components/ProviderComp/EditUser";
-import Profile from "../Components/CommonComp/Profile"
-import EditProfile from "../Components/CommonComp/EditProfile"
+import OrgProfile from "../Components/CommonComp/OrgProfile"
+import EditOrgProfile from "../Components/CommonComp/EditOrgProfile"
 import Logout from "../Components/Auth/Logout";
 import LeftNavCandidate from "../Components/CommonComp/LeftNavCandidate";
 import Dashboard from "../Components/Candidate/Dashboard";
@@ -22,9 +22,9 @@ import {Profile as CandidateProfile} from "../Components/Candidate/Profile";
 // import Accepted from "../Components/Candidate/Interviews/Accepted";
 import JobOffers from "../Components/Candidate/JobOffers";
 import SearchJobs from "../Components/Candidate/SearchJobs";
-import RecentMatches from '../Components/Candidate/RecentMatches';
+//import RecentMatches from '../Components/Candidate/RecentMatches';
 import InterviewInvites from "../Components/Candidate/Interviews/InterviewInvites";
-import InvitesJobdetails from "../Components/Candidate/InvitesJobDetails";
+import InterviewInvitesJobdetails from "../Components/Candidate/Interviews/InterviewInvitesJobDetails"
 //import JobListing from '../Components/Candidate/JobListing';
 import AcceptedInterviews from "../Components/Candidate/Interviews/AcceptedInterviews";
 //import JobsPipeline from "../Components/Candidate/JobsPipeline";
@@ -32,6 +32,13 @@ import ChangePassword from "../Components/Candidate/ChangePassword"
 import RecruiterDashboard from '../Components/RecruiterComp/RecruiterDashboard'
 import ActiveJob from "../Components/RecruiterComp/ActiveJob";
 import CreateJob from "../Components/RecruiterComp/CreateJob"
+import JobPostingCollection from "../Components/RecruiterComp/RecruiterJobPosting/JobPostingCollection"
+import CandidateEmailsetting from "../Components/Candidate/CandidateEmailsetting"
+import RecentMatchesJobDetails from "../Components/Candidate/RecentMatchesJobDetails"
+import JobOfferDetails from "../Components/Candidate/JobOfferDetails"
+import AcceptedInviteJobDetails from "../Components/Candidate/Interviews/AcceptedInviteJobDetails"
+import SearchJobsDetails from "../Components/Candidate/SearchJobsDetails"
+
 class RouterSettings extends Component {
 
   render() {
@@ -48,31 +55,36 @@ class RouterSettings extends Component {
             <Route path="/uploadProfile" component={UploadProfile} />
             <Route path="/addUser" component={AddUser} />
             <Route path="/editUser" component={EditUser} />
-            <Route path="/emailsetting" component={EmailSetting} />
+            <Route path="/emailSetting" component={EmailSetting} />
             <Route path="/ManageUser" component={ManageUser} />
-            <Route path="/profile" component={Profile} />
-            <Route path="/editProfile" component={EditProfile} />
+            <Route path="/orgProfile" component={OrgProfile} />
+            <Route path="/editOrgProfile" component={EditOrgProfile} />
             <Route path="/leftnavcandidate" component={LeftNavCandidate} />
             <Route path="/logout" component={Logout} />
-
 
             <Route path="/candidate/dashboard" component={Dashboard} />
             {/* <Route path="/candidate/interviews/invites" component={Invites} />
             <Route path="/candidate/interviews/accepted" component={Accepted} /> */}
             <Route path="/candidate/jobOffers" component={JobOffers} />
             <Route path="/candidate/searchJobs" component={SearchJobs} />
+            <Route path="/candidate/searchJobsDetails" component={SearchJobsDetails} />
             <Route path="/candidate/profile" component={CandidateProfile} />
             <Route path="/candidate/profile1" component={Profile1} />
-            <Route path="/candidate/recentMatches" component={RecentMatches}/>
+            {/* <Route path="/candidate/recentMatches" component={RecentMatches}/> */}
             <Route path="/candidate/interviews/interviewInvites" component={InterviewInvites}/>
-            <Route path="/candidate/invitesJobDetails" component={InvitesJobdetails}/> 
-             <Route path="/candidate/interviews/acceptedInterviews" component={AcceptedInterviews}/>
-             <Route path="/candidate/changePassword" component={ChangePassword}/>
-
+            <Route path="/candidate/interviews/InterviewInvitesJobdetails" component={InterviewInvitesJobdetails}/> 
+            <Route path="/candidate/interviews/acceptedInterviews" component={AcceptedInterviews}/>
+            <Route path="/candidate/interviews/AcceptedInviteJobDetails" component={AcceptedInviteJobDetails}/>
+            <Route path="/candidate/changePassword" component={ChangePassword}/>
+            <Route path="/candidate/candidateEmailsetting" component={CandidateEmailsetting}/>
+            <Route path="/candidate/recentMatchesJobDetails" component={RecentMatchesJobDetails}/>
+            <Route path="/candidate/jobOfferDetails" component={JobOfferDetails}/>
             
+
             <Route path="/recruiterDashboard" component={RecruiterDashboard} />
             <Route path="/activeJob" component={ActiveJob} />
             <Route path="/createJob" component={CreateJob} />
+            <Route path="/jobPostingCollection" component={JobPostingCollection} />
           </Switch>
         </div>
       </Router>

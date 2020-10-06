@@ -48,6 +48,7 @@ class HeaderAll extends Component {
   render() {
     const { isCandidate } = this.props;
     const { isSetting } = this.props;
+    const {isProfile} = this.props;
     const { status } = this.state
     const providerRecruiterStatus = localStorage.getItem('status')
     const userName= localStorage.getItem('userName')
@@ -60,7 +61,7 @@ class HeaderAll extends Component {
           {/* <div className="float-left logo_container col-xl-2">
                 <img src="/images/Dashboard-assets/logo-white.png" className="logo"/>
             </div> */}
-          {(!isCandidate) && (!isSetting) ?
+          {(!isCandidate) && (!isSetting) && (!isProfile) ?
             <div className="float-left d-inline-flex marL34">
               <div className="mx-3 sub-title1 d-flex align-items-center">JOB : </div>
               <div className="btn-group btn-group-toggle my-auto" data-toggle="buttons">
@@ -92,9 +93,9 @@ class HeaderAll extends Component {
                 <span className="font-blue text-small marL10" >{userName}<i className="fa fa-angle-down pl-2" aria-hidden="true"></i></span>
               </a>
               <ul className="dropdown-menu">
-              {(!isCandidate) && (!isSetting) ?
+              {(!isCandidate)?
                 <li>
-                  <Link className="dropdown-item" to="/profile" >
+                  <Link className="dropdown-item" to="/orgProfile" >
                     {/* <i className="fa fa-user pr-2" aria-hidden="true"></i>*/} Profile 
                     </Link>
                 </li>
@@ -105,13 +106,22 @@ class HeaderAll extends Component {
                   </Link>
                 </li>}
 
-
+                {/* If candidate is logged in then candidate Email settings will open otherwise provider/Recruiter Email Settings will open */}
                 <li>
-                  <Link className="dropdown-item" to="/emailsetting">
-                    {/* <i className="fa fa-cog pr-2" aria-hidden="true"></i>  */}
+                  {
+                    (!isCandidate) ?
+                      (<Link className="dropdown-item" to="/emailSetting">
+                        {/* <i className="fa fa-cog pr-2" aria-hidden="true"></i>  */}
                     Settings
-                  </Link>
+                      </Link>)
+                      :
+                      (<Link className="dropdown-item" to="/candidate/candidateEmailsetting">
+                        Settings
+                      </Link>)
+
+                  }
                 </li>
+
 
                 <li>
                   <Link className="dropdown-item" to="/">

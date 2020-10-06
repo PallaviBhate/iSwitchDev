@@ -14,7 +14,7 @@ const LeftNavProvider = () => {
     //To move dot to active page
     const isActive = (path, match, location) => !!(match || path === location.pathname);
     return (
-        <div id="wrapper" className="toggled">
+        <div id="wrapper" className="">
             <div id="sidebar-wrapper">
                 <ul className="sidebar-nav" >
                     <li className="sidebar-brand">
@@ -59,7 +59,7 @@ const LeftNavProvider = () => {
                     {localStorage.getItem('status') === "recruiter" ?
                         (
                      <li data-toggle="tooltip" data-placement="right" title="Jobs">
-                        <Link class="subMenu" id="navbarDropdown" role="button"
+                        <Link class="subMenu collapsed" id="navbarDropdown" role="button"
                             data-toggle="collapse" data-target="#submenu1sub1">
                             <i><img src="/images/Candidate-Navbar-assets/job-offers.svg" aria-hidden="true" /></i>
                              <span className="menuText">Jobs</span>

@@ -5,8 +5,10 @@ import 'react-calendar/dist/Calendar.css';
 import { MONTH_NAMES } from '../../../../Utils/AppConst';
 import ApiServicesOrgCandidate from '../../../../Services/ApiServicesOrgCandidate';
 import { Context } from '../../../../Context/ProfileContext';
+import { Typeahead } from 'react-bootstrap-typeahead';
+import 'react-bootstrap-typeahead/css/Typeahead.css';
 
-const Employment = ({id, showPopup}) => {
+const Employment = ({ id, showPopup }) => {
   const [currentCompany, setCurrentCompany] = useState(false);
   const [inputData, setFormInputData] = React.useState({
     "currentCompany": "",
@@ -20,13 +22,24 @@ const Employment = ({id, showPopup}) => {
     "workedTillYear": ""
   });
   const { state, getProfileInfo } = useContext(Context);
+  const [singleOrganization, setSingleOrganization] = useState('');
+  const [organizations, setOrganizations] = useState([]);
   useEffect(() => {
-    console.log(id)
+    ApiServicesOrgCandidate.getListOfOrganizations().then((response) => {
+      if (response) {
+        const result = Object.keys(response.data.responseObject).map((key, index) => response.data.responseObject[key].organizations);
+        console.log(result)
+        setOrganizations(result);
+      } else {
+        setOrganizations('');
+      }
+    })
     if (id) {
       state.then((data) => {
         const employmentDetails = data.employmentDetailsList.filter((ele => ele.employmentId === id))[0]
         console.log(data)
         setCurrentCompany(employmentDetails.currentCompany)
+        setSingleOrganization([employmentDetails.organization])
         setFormInputData(employmentDetails)
       })
     }
@@ -39,7 +52,7 @@ const Employment = ({id, showPopup}) => {
       "description": inputData.description,
       "designation": inputData.designation,
       "employmentType": inputData.employmentType,
-      "organization": inputData.organization,
+      "organization": singleOrganization.toString(),
       "startedWorkingFromMonth": inputData.startedWorkingFromMonth,
       "startedWorkingFromYear": inputData.startedWorkingFromYear,
       "workedTillMonth": inputData.workedTillMonth,
@@ -83,11 +96,19 @@ const Employment = ({id, showPopup}) => {
           </div>
           <div className="form-group">
             <label htmlFor="organization">Organization<span class="required">*</span></label>
-            <input class="form-control" type="text"
+            {/* <input class="form-control" type="text"
               placeholder="Enter Organization"
               name={"organization"}
               value={inputData.organization}
               onChange={(e) => handleFormInputData(e)}
+            /> */}
+            <Typeahead
+              id="basic-typeahead-single"
+              labelKey="name"
+              onChange={setSingleOrganization}
+              options={organizations}
+              placeholder="Choose a organizations..."
+              selected={singleOrganization}
             />
           </div>
           <div className="form-group">
