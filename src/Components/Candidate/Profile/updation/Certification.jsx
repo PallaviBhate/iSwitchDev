@@ -5,6 +5,7 @@ import { MONTH_NAMES } from '../../../../Utils/AppConst';
 import { usePrevious } from '../../../../Utils/usePrevious';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
+import { useForm } from "react-hook-form";
 
 const Certification = ({ dataAttributes, showPopup }) => {
   const [inputData, setFormInputData] = React.useState({ certificationName: '', issuingOrganization: '', issueMonth: '', issueYear: '', expirationMonth: '', expirationYear: '', credentialId: '', credentialURL: '' })
@@ -16,6 +17,8 @@ const Certification = ({ dataAttributes, showPopup }) => {
   const prevExpirationMonth = usePrevious(inputData.expirationMonth)
   const [singleCertificates, setSingleCertificates] = useState('');
   const [certificates, setCertificates] = useState([]);
+  const { register, errors, handleSubmit } = useForm({mode: 'all'});
+  const [isSubmitDisabled, setIsSubmitDisabled] = React.useState(false)
 
   React.useEffect(() => {
     ApiServicesOrgCandidate.getListOfCertificates().then((response) => {
@@ -40,6 +43,13 @@ const Certification = ({ dataAttributes, showPopup }) => {
     if (resourceId && certificationInfo) {
       const { certificationName, issuingOrganization, issueMonth, issueYear, expirationMonth, expirationYear, credentialId, credentialURL } = certificationInfo;
       console.log(resourceId)
+      if (!certificationName) {
+        errors.certificationName = {message: `Certification Name is required.`  }
+        setIsSubmitDisabled(true);
+      } else {
+        delete errors.certificationName;
+        setIsSubmitDisabled(false);
+      }
       if (!(expirationMonth && expirationYear)) {
         setIsExpirationDate(false)
       }
@@ -73,8 +83,19 @@ const Certification = ({ dataAttributes, showPopup }) => {
       })
     )
   }
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const onInputChange = (value) => {
+    if (!value.trim().length) {
+      errors.certificationName = {message: `Certification Name is required.`}
+      setIsSubmitDisabled(true);
+    } else {
+      delete errors.certificationName;
+      setIsSubmitDisabled(false);
+    }
+  }
+
+
+  const onSubmit = (e) => {
+    // e.preventDefault();
     let data = {
       "certificationName": singleCertificates.toString(),
       "issuingOrganization": inputData.issuingOrganization,
@@ -94,7 +115,7 @@ const Certification = ({ dataAttributes, showPopup }) => {
 
   return (
     <>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div class="mb-4">
           <div className="form-group">
             <label htmlFor="certificationName">Certification Name</label>
@@ -106,10 +127,12 @@ const Certification = ({ dataAttributes, showPopup }) => {
               id="basic-typeahead-single"
               labelKey="name"
               onChange={setSingleCertificates}
+              onInputChange={onInputChange}
               options={certificates}
               placeholder="Choose a certificates..."
               selected={singleCertificates}
             />
+            {errors.certificationName && <div class="errorMsg mt-2">Certification Name is required.</div>}
           </div>
 
           <div class="custom-control custom-checkbox mr-sm-2">
@@ -174,7 +197,7 @@ const Certification = ({ dataAttributes, showPopup }) => {
           </div>
 
         </div>
-        <button class="btn lightBlue float-right px-5" onClick={handleSubmit}>Save</button>
+        <button class="btn lightBlue float-right px-5" disabled={isSubmitDisabled}>Save</button>
       </form>
     </>
   );

@@ -3,6 +3,7 @@ import ReactTags from 'react-tag-autocomplete'
 import { CITY_LIST } from '../../../../Utils/AppConst';
 import { Context } from '../../../../Context/ProfileContext';
 import ApiServicesOrgCandidate from '../../../../Services/ApiServicesOrgCandidate';
+import { useForm } from "react-hook-form";
 
 const CareerProfile = ({ showPopup }) => {
   const [isPreferredShift, setPreferredShift] = useState('day');
@@ -12,6 +13,7 @@ const CareerProfile = ({ showPopup }) => {
   const { state, getProfileInfo } = useContext(Context);
   const [cities, setCities] = useState('');
   const [candidateInfo, setCandidateInfo] = useState('');
+  const { register, errors, handleSubmit } = useForm({mode: 'all'});
   useEffect(() => {
     ApiServicesOrgCandidate.getListOfCity('0').then((response) => {
       if (response) {
@@ -64,8 +66,8 @@ const CareerProfile = ({ showPopup }) => {
     setTags(tagsCnt)
   }
 
-  const updateCareerProfile = (e) => {
-    e.preventDefault();
+  const onSubmit = (e) => {
+    // e.preventDefault();
     const candidateId = localStorage.getItem('candidateId')
     let data = {
       "preferredShift": isPreferredShift,
@@ -78,7 +80,7 @@ const CareerProfile = ({ showPopup }) => {
 
   return (
     <>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div class="mb-4">
           <div className="form-group">
             <label htmlFor="University">Employment Type</label>
@@ -162,7 +164,7 @@ const CareerProfile = ({ showPopup }) => {
             </div>
           </div>
         </div>
-        <button class="btn lightBlue float-right px-5" onClick={updateCareerProfile}>Save</button>
+        <button class="btn lightBlue float-right px-5">Save</button>
       </form>
 
     </>
