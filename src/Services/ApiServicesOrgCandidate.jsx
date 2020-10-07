@@ -218,9 +218,12 @@ class ApiServicesOrgCandidate {
   }
 
   getListOfStates() {
+    const authToken = localStorage.getItem('authToken')
     return (
       axios
-        .get(`${ApiBaseUrl}/candidate/listOfStates`)
+        .get(`${ApiBaseUrl}/candidate/listOfStates`, {
+          headers: {'Authorization': `Bearer ${authToken}`}
+        })
         .then(Response => Response).catch(error => {
           console.log(error);
         })
@@ -228,9 +231,12 @@ class ApiServicesOrgCandidate {
   }
 
   getListOfCity(stateCode) {
+    const authToken = localStorage.getItem('authToken')
     return (
       axios
-        .get(`${ApiBaseUrl}/candidate/ListOfCities?stateCode=${stateCode}`)
+        .get(`${ApiBaseUrl}/candidate/ListOfCities?stateCode=${stateCode}`, {
+          headers: {'Authorization': `Bearer ${authToken}`}
+        })
         .then(Response => Response).catch(error => {
           console.log(error);
         })
@@ -238,9 +244,12 @@ class ApiServicesOrgCandidate {
   }
 
   getListOfInstitutes() {
+    const authToken = localStorage.getItem('authToken')
     return (
       axios
-        .get(`${ApiBaseUrl}/candidate/listOfInstitutes`)
+        .get(`${ApiBaseUrl}/candidate/listOfInstitutes`, {
+          headers: {'Authorization': `Bearer ${authToken}`}
+        })
         .then(Response => Response).catch(error => {
           console.log(error);
         })
@@ -248,9 +257,12 @@ class ApiServicesOrgCandidate {
   }
 
   getListOfOrganizations() {
+    const authToken = localStorage.getItem('authToken')
     return (
       axios
-        .get(`${ApiBaseUrl}/candidate/listOfOrganizations`)
+        .get(`${ApiBaseUrl}/candidate/listOfOrganizations`, {
+          headers: {'Authorization': `Bearer ${authToken}`}
+        })
         .then(Response => Response).catch(error => {
           console.log(error);
         })
@@ -258,9 +270,12 @@ class ApiServicesOrgCandidate {
   }
 
   getListOfCertificates() {
+    const authToken = localStorage.getItem('authToken')
     return (
       axios
-        .get(`${ApiBaseUrl}/candidate/listOfCertificates`)
+        .get(`${ApiBaseUrl}/candidate/listOfCertificates`, {
+          headers: {'Authorization': `Bearer ${authToken}`}
+        })
         .then(Response => Response).catch(error => {
           console.log(error);
         })
@@ -268,6 +283,7 @@ class ApiServicesOrgCandidate {
   }
 
   getListOfBoards() {
+    const authToken = localStorage.getItem('authToken')
     return (
       axios
         .get(`${ApiBaseUrl}/candidate/listOfBoards`)
@@ -278,6 +294,7 @@ class ApiServicesOrgCandidate {
   }
 
   getListOfLanguages() {
+    const authToken = localStorage.getItem('authToken')
     return (
       axios
         .get(`${ApiBaseUrl}/candidate/listOfLanguages`)
@@ -288,6 +305,7 @@ class ApiServicesOrgCandidate {
   }
 
   getListOfEducationType() {
+    const authToken = localStorage.getItem('authToken')
     return (
       axios
         .get(`${ApiBaseUrl}/candidate/listOfEducationType`)

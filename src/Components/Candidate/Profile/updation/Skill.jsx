@@ -49,6 +49,8 @@ const Skill = ({ dataAttributes, showPopup }) => {
         skillName: skillName,
         version: version,
       });
+    } else if (!skillId) {
+      handleSkillValidation(singleSkills.toString());
     }
   }, [skillInfo]);
   const handleFormInputData = (e) => {
@@ -75,7 +77,6 @@ const Skill = ({ dataAttributes, showPopup }) => {
   }
 
   const onSubmit = (e) => {
-    handleSkillValidation(singleSkills.toString())
     // e.preventDefault();
     let data = {
       "experience": `${inputData.experienceInYear}.${inputData.experienceInMonth}`,

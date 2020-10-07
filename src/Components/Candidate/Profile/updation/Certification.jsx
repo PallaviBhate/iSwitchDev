@@ -57,6 +57,8 @@ const Certification = ({ dataAttributes, showPopup }) => {
         credentialId: credentialId,
         credentialURL: credentialURL
       });
+    } else if (!resourceId) {
+      handleCertificationNameValidation(singleCertificates.toString());
     }
   }, [certificationInfo]);
   const handleFormInputData = (e) => {
@@ -93,7 +95,6 @@ const Certification = ({ dataAttributes, showPopup }) => {
 
   const onSubmit = (e) => {
     // e.preventDefault();
-    handleCertificationNameValidation(singleCertificates.toString());
     let data = {
       "certificationName": singleCertificates.toString(),
       "issuingOrganization": inputData.issuingOrganization,
