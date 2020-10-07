@@ -286,7 +286,9 @@ class ApiServicesOrgCandidate {
     const authToken = localStorage.getItem('authToken')
     return (
       axios
-        .get(`${ApiBaseUrl}/candidate/listOfBoards`)
+        .get(`${ApiBaseUrl}/candidate/listOfBoards`, {
+          headers: {'Authorization': `Bearer ${authToken}`}
+        })
         .then(Response => Response).catch(error => {
           console.log(error);
         })
@@ -297,7 +299,9 @@ class ApiServicesOrgCandidate {
     const authToken = localStorage.getItem('authToken')
     return (
       axios
-        .get(`${ApiBaseUrl}/candidate/listOfLanguages`)
+        .get(`${ApiBaseUrl}/candidate/listOfLanguages`, {
+          headers: {'Authorization': `Bearer ${authToken}`}
+        })
         .then(Response => Response).catch(error => {
           console.log(error);
         })
@@ -308,7 +312,9 @@ class ApiServicesOrgCandidate {
     const authToken = localStorage.getItem('authToken')
     return (
       axios
-        .get(`${ApiBaseUrl}/candidate/listOfEducationType`)
+        .get(`${ApiBaseUrl}/candidate/listOfEducationType`, {
+          headers: {'Authorization': `Bearer ${authToken}`}
+        })
         .then(Response => Response).catch(error => {
           console.log(error);
         })
@@ -316,9 +322,12 @@ class ApiServicesOrgCandidate {
   }
 
   getListOfSkills() {
+    const authToken = localStorage.getItem('authToken')
     return (
       axios
-        .get(`${ApiBaseUrl}/candidate/listOfSkills`)
+        .get(`${ApiBaseUrl}/candidate/listOfSkills`, {
+          headers: {'Authorization': `Bearer ${authToken}`}
+        })
         .then(Response => Response).catch(error => {
           console.log(error);
         })
