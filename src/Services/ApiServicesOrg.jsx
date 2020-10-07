@@ -15,15 +15,30 @@ class ApiServicesOrg extends Component {
         }
 
 
+//2. Sending Login details to backend and get Role
+putLogin (emailid, password) {
+    return (
+        axios
+          .put(`${ApiBaseUrl}/user/login`, {userName: emailid, password: password})
+          .then(resp => {
+              console.log(resp);
+              return resp;
+          } ).catch(error => {
+            console.log(error);
+          })
+      )
+}
+
+
 
 //2. Sending Login details to backend and get Role
-    putLogin (emailid, password) {
-        return(
-            axios
-            .put(ApiBaseUrl + "/user/login/"+ emailid +"/"+ password, ApiHeader)
-            .then(Response => Response)
-        )
-    }
+    // putLogin (emailid, password) {
+    //     return(
+    //         axios
+    //         .put(ApiBaseUrl + "/user/login/"+ emailid +"/"+ password, ApiHeader)
+    //         .then(Response => Response)
+    //     )
+    // }
 
 //3. Provider Functionalities
 

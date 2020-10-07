@@ -25,7 +25,7 @@ const About = ({showPopup}) => {
     const { candidateInfo } = candidateProfile;
     const {about} = candidateInfo;
     handleAboutValidation(about);
-      setAboutLength(maxLength - about.length)
+      setAboutLength(maxLength - about ? about.length : 0)
       setFormInputData({
         about: about
       });
