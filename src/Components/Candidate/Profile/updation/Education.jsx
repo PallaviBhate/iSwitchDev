@@ -77,8 +77,8 @@ const Education = ({ dataAttributes, showPopup }) => {
       inputData.passingOutYear = '';
       inputData.board = '';
       inputData.marks = '';
-      setSingleBoards(['']);
-      setSingleInstitute([''])
+      setSingleBoards('');
+      setSingleInstitute('')
       console.log(inputData)
     }
     return (

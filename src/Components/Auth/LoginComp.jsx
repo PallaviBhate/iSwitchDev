@@ -73,6 +73,7 @@ class LoginComp extends Component {
               localStorage.setItem('organizationId',Response.data.responseObject['orgnaizationId'] )
               localStorage.setItem('rememberme',this.state.isChecked)
               localStorage.setItem('emailId',this.state.isChecked ? Response.data.responseObject['email'] :'')
+              localStorage.setItem('authToken', Response.data.responseObject['authToken'])
               let _redirectTo;
               if (Response && Response.data && Response.data.responseObject && Response.data.responseObject.userRole === "candidate_role") {
                 _redirectTo = '/candidate/dashboard';

@@ -43,13 +43,7 @@ const Certification = ({ dataAttributes, showPopup }) => {
     if (resourceId && certificationInfo) {
       const { certificationName, issuingOrganization, issueMonth, issueYear, expirationMonth, expirationYear, credentialId, credentialURL } = certificationInfo;
       console.log(resourceId)
-      if (!certificationName) {
-        errors.certificationName = {message: `Certification Name is required.`  }
-        setIsSubmitDisabled(true);
-      } else {
-        delete errors.certificationName;
-        setIsSubmitDisabled(false);
-      }
+      handleCertificationNameValidation(certificationName);
       if (!(expirationMonth && expirationYear)) {
         setIsExpirationDate(false)
       }
@@ -63,6 +57,8 @@ const Certification = ({ dataAttributes, showPopup }) => {
         credentialId: credentialId,
         credentialURL: credentialURL
       });
+    } else if (!resourceId) {
+      handleCertificationNameValidation(singleCertificates.toString());
     }
   }, [certificationInfo]);
   const handleFormInputData = (e) => {
@@ -84,6 +80,10 @@ const Certification = ({ dataAttributes, showPopup }) => {
     )
   }
   const onInputChange = (value) => {
+    handleCertificationNameValidation(value);
+  }
+
+  const handleCertificationNameValidation = (value) => {
     if (!value.trim().length) {
       errors.certificationName = {message: `Certification Name is required.`}
       setIsSubmitDisabled(true);
@@ -92,7 +92,6 @@ const Certification = ({ dataAttributes, showPopup }) => {
       setIsSubmitDisabled(false);
     }
   }
-
 
   const onSubmit = (e) => {
     // e.preventDefault();
