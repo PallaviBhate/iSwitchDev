@@ -41,13 +41,7 @@ const Skill = ({ dataAttributes, showPopup }) => {
     if (skillId && skillInfo) {
       const { experience, proficiency, skillName, version } = skillInfo;
       console.log(skillId)
-      if (!skillName) {
-        errors.skill = {message: `Skill name is required.`  }
-        setIsSubmitDisabled(true);
-      } else {
-        delete errors.skill;
-        setIsSubmitDisabled(false);
-      }
+      handleSkillValidation(skillName);
       setFormInputData({
         experienceInYear: experience && parseFloat(experience).toFixed(2).split('.')[0],
         experienceInMonth: experience && parseFloat(experience).toFixed(2).split('.')[1],
@@ -67,8 +61,12 @@ const Skill = ({ dataAttributes, showPopup }) => {
   }
 
   const onInputChange = (value) => {
+    handleSkillValidation(value)
+  }
+
+  const handleSkillValidation = (value) => {
     if (!value.trim().length) {
-      errors.skill = {message: `Skill Name is required.`}
+      errors.skill = {message: `Skill is required.`}
       setIsSubmitDisabled(true);
     } else {
       delete errors.skill;
@@ -77,6 +75,7 @@ const Skill = ({ dataAttributes, showPopup }) => {
   }
 
   const onSubmit = (e) => {
+    handleSkillValidation(singleSkills.toString())
     // e.preventDefault();
     let data = {
       "experience": `${inputData.experienceInYear}.${inputData.experienceInMonth}`,

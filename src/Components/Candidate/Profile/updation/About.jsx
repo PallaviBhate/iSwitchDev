@@ -24,19 +24,23 @@ const About = ({showPopup}) => {
     if (candidateProfile && candidateProfile.candidateInfo) {
     const { candidateInfo } = candidateProfile;
     const {about} = candidateInfo;
-      if (about && about.length > maxLength) {
-        errors.about = {message: `Only ${maxLength} characters are allowed.`  }
-        setIsSubmitDisabled(true);
-      } else {
-        delete errors.about;
-        setIsSubmitDisabled(false);
-      }
+    handleAboutValidation(about);
       setAboutLength(maxLength - about.length)
       setFormInputData({
         about: about
       });
     }
   }, [candidateProfile]);
+
+  const handleAboutValidation = (value) => {
+    if (value && value.length > maxLength) {
+      errors.about = {message: `Only ${maxLength} characters are allowed.`  }
+      setIsSubmitDisabled(true);
+    } else {
+      delete errors.about;
+      setIsSubmitDisabled(false);
+    }
+  }
   const handleFormInputData = (e) => {
     if (e.target.name === 'about') {
       if (e.target.value.length > maxLength) {
@@ -57,6 +61,7 @@ const About = ({showPopup}) => {
   }
   const onSubmit = (e) => {
     const candidateId = localStorage.getItem('candidateId')
+    handleAboutValidation(inputData.about)
     let data = {
       "about": inputData.about,
       "candidateId": candidateId
