@@ -25,7 +25,7 @@ const Employment = ({ id, showPopup }) => {
   const { state, getProfileInfo } = useContext(Context);
   const [singleOrganization, setSingleOrganization] = useState('');
   const [organizations, setOrganizations] = useState([]);
-  const { register, errors, handleSubmit } = useForm();
+  const { register, errors, handleSubmit } = useForm({mode: 'all'});
   useEffect(() => {
     ApiServicesOrgCandidate.getListOfOrganizations().then((response) => {
       if (response) {

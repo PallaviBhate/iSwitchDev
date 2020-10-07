@@ -16,7 +16,7 @@ const Language = ({ id, showPopup }) => {
   const { state, getProfileInfo } = useContext(Context);
   const [singleLanguage, setSingleLanguage] = React.useState('');
   const [languages, setLanguages] = React.useState([]);
-  const { register, errors, handleSubmit } = useForm();
+  const { register, errors, handleSubmit } = useForm({mode: 'all'});
   useEffect(() => {
     ApiServicesOrgCandidate.getListOfLanguages().then((response) => {
       if (response) {
@@ -104,7 +104,7 @@ return (
           <select id="proficiency" name="proficiency" className="form-control"
             value={inputData.proficiency}
             onChange={(e) => handleFormInputData(e)}
-            ref={register({ required: 'Select Month' })}
+            ref={register}
           >
             <option value="" disabled selected>Select Proficiency</option>
             <option>Expert</option>

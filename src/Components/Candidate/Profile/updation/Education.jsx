@@ -17,7 +17,7 @@ const Education = ({ dataAttributes, showPopup }) => {
   const [singleBoards, setSingleBoards] = useState('');
   const [boards, setBoards] = useState([]);
   const isSchoolEducation = inputData.educationType === '10th' || inputData.educationType === '12th'
-  const { register, errors, handleSubmit } = useForm();
+  const { register, errors, handleSubmit } = useForm({mode: 'all'});
   React.useEffect(() => {
     ApiServicesOrgCandidate.getListOfInstitutes().then((response) => {
       if (response) {

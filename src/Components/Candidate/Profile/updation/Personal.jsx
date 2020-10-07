@@ -29,7 +29,7 @@ const Personal = ({ showPopup }) => {
   const { state, getProfileInfo } = useContext(Context);
   const [stateName, setStateName] = useState('');
   const [city, setCity] = useState('');
-  const { register, errors, handleSubmit } = useForm();
+  const { register, errors, handleSubmit } = useForm({mode: 'all'});
   const onSubmit = (d) => {
     console.log(d)
     // e.preventDefault();
