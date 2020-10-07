@@ -69,6 +69,7 @@ const Education = ({ dataAttributes, showPopup }) => {
   }, [educationInfo]);
 
   const handleFormInputData = (e) => {
+    console.log(e.target)
     if (e.target.name === 'educationType') {
       inputData.course = '';
       inputData.specialization = '';
@@ -117,16 +118,16 @@ const Education = ({ dataAttributes, showPopup }) => {
 
             <select id="educationType"
               className="form-control"
-              name="educationType" value={inputData.educationType}
+              name="educationType" defaultValue={inputData.educationType}
               onChange={(e) => handleFormInputData(e)}
               ref={register({ required: 'Select Education Type' })}
             >
-              <option value="" disabled selected>Select Education Type</option>
-              <option value="Doctorate/PhD">Doctorate/PhD</option>
-              <option value="Masters/Post-Graduation">Masters/Post-Graduation</option>
-              <option value="Graduation/Diploma">Graduation/Diploma</option>
-              <option value="12th">12th</option>
-              <option value="10th">10th</option>
+              <option defaultValue="" disabled selected>Select Education Type</option>
+              <option defaultValue="Doctorate/PhD">Doctorate/PhD</option>
+              <option defaultValue="Masters/Post-Graduation">Masters/Post-Graduation</option>
+              <option defaultValue="Graduation/Diploma">Graduation/Diploma</option>
+              <option defaultValue="12th">12th</option>
+              <option defaultValue="10th">10th</option>
             </select>
             {errors.educationType && <div class="errorMsg">Please Enter Education Type</div>}
           </div>
@@ -146,7 +147,7 @@ const Education = ({ dataAttributes, showPopup }) => {
               <label htmlFor="course">Course<span >*</span></label>
               <input class="form-control" type="text"
                 name="course"
-                value={inputData.course}
+                defaultValue={inputData.course}
                 ref={register({ required: true })}
                 onChange={(e) => handleFormInputData(e)} placeholder="Enter Course" />
               {errors.course && <div class="errorMsg">Please Enter Course</div>}
@@ -155,7 +156,7 @@ const Education = ({ dataAttributes, showPopup }) => {
               <label htmlFor="specialization">Specialization<span >*</span></label>
               <input class="form-control" type="text"
                 name="specialization"
-                value={inputData.specialization}
+                defaultValue={inputData.specialization}
                 ref={register({ required: true })}
                 onChange={(e) => handleFormInputData(e)} placeholder="Enter Specialization" />
               {errors.specialization && <div class="errorMsg">Please Enter Specialization</div>}
@@ -180,7 +181,7 @@ const Education = ({ dataAttributes, showPopup }) => {
                     class="form-check-input mr-2"
                     id="courseType"
                     name="courseType"
-                    value="fullTime"
+                    defaultValue="fullTime"
                     checked={inputData.courseType === 'fullTime'}
                     onChange={handleFormInputData}
                   />
@@ -192,7 +193,7 @@ const Education = ({ dataAttributes, showPopup }) => {
                     class="form-check-input mr-2"
                     id="courseType"
                     name="courseType"
-                    value="partTime"
+                    defaultValue="partTime"
                     checked={inputData.courseType === 'partTime'}
                     onChange={handleFormInputData}
                   />
@@ -204,7 +205,7 @@ const Education = ({ dataAttributes, showPopup }) => {
                     class="form-check-input"
                     id="courseType"
                     name="courseType"
-                    value="correspondence"
+                    defaultValue="correspondence"
                     checked={inputData.courseType === 'correspondence'}
                     onChange={handleFormInputData}
                   />
@@ -220,10 +221,10 @@ const Education = ({ dataAttributes, showPopup }) => {
                 <select id="passingOutYear"
                   className="form-control"
                   name="passingOutYear"
-                  value={inputData.passingOutYear}
+                  defaultValue={inputData.passingOutYear}
                   ref={register({ required: 'Select Passing Out Year' })}
                   onChange={(e) => handleFormInputData(e)}>
-                  <option value="" disabled selected>Select Passing Out Year</option>
+                  <option defaultValue="" disabled selected>Select Passing Out Year</option>
                   {Array(50).fill().map((_, i) => (
                     <option key={`${i}_years`}>{parseInt(new Date().getFullYear()) - i}</option>
                   ))}
@@ -236,7 +237,7 @@ const Education = ({ dataAttributes, showPopup }) => {
             <label htmlFor="University">Marks<span class="required">*</span></label>
             <input class="form-control" type="text"
               name="marks"
-              value={inputData.marks}
+              defaultValue={inputData.marks}
               ref={register({ required: true })}
               onChange={(e) => handleFormInputData(e)} placeholder="Enter Marks" />
             {errors.marks && <div class="errorMsg">Please Enter Marks</div>}
