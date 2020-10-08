@@ -1,204 +1,286 @@
-import React, { useContext, useState } from 'react';
-import ApiServicesOrgCandidate from '../../../../Services/ApiServicesOrgCandidate';
-import { Context } from '../../../../Context/ProfileContext';
-import { MONTH_NAMES } from '../../../../Utils/AppConst';
-import { usePrevious } from '../../../../Utils/usePrevious';
-import { Typeahead } from 'react-bootstrap-typeahead';
-import 'react-bootstrap-typeahead/css/Typeahead.css';
+import React from "react";
 import { useForm } from "react-hook-form";
+import { Typeahead } from 'react-bootstrap-typeahead';
+import { Context } from "../../../../Context/ProfileContext";
+import ApiServicesOrgCandidate from "../../../../Services/ApiServicesOrgCandidate";
+import { HTTP_REGX, MONTH_NAMES } from "../../../../Utils/AppConst";
+import { certificationFormDefaultValues } from "../../../../Utils/ProfileFormHelper";
+import moment from 'moment';
 
 const Certification = ({ dataAttributes, showPopup }) => {
-  const [inputData, setFormInputData] = React.useState({ certificationName: '', issuingOrganization: '', issueMonth: '', issueYear: '', expirationMonth: '', expirationYear: '', credentialId: '', credentialURL: '' })
-  const [certificationInfo, setCertificationInfo] = React.useState('');
-  const [isExpirationDate, setIsExpirationDate] = React.useState(true)
-  const { state, getProfileInfo } = useContext(Context);
+  const { handleSubmit, getValues, register, errors, setValue, reset, setError, clearErrors } = useForm({
+    mode: 'all',
+    defaultValues: certificationFormDefaultValues
+  });
+  const { state, getProfileInfo } = React.useContext(Context);
   const resourceId = dataAttributes && dataAttributes.resourceId;
-  const prevExpirationYear = usePrevious(inputData.expirationYear);
-  const prevExpirationMonth = usePrevious(inputData.expirationMonth)
-  const [singleCertificates, setSingleCertificates] = useState('');
-  const [certificates, setCertificates] = useState([]);
-  const { register, errors, handleSubmit } = useForm({mode: 'all'});
-  const [isSubmitDisabled, setIsSubmitDisabled] = React.useState(false)
-
+  const [certificates, setCertificates] = React.useState([]);
+  const initialCustomInputValues = {}
+  const [customInputValues, setCustomInputValues] = React.useState(initialCustomInputValues);
+  const [hasNoExpirationDate, setHasNoExpirationDate] = React.useState(false);
   React.useEffect(() => {
     ApiServicesOrgCandidate.getListOfCertificates().then((response) => {
       if (response) {
         const result = Object.keys(response.data.responseObject).map((key, index) => response.data.responseObject[key].certificates);
-        console.log(result)
         setCertificates(result);
       } else {
-        setCertificates('');
+        setCertificates([]);
       }
     })
+
     state.then((response) => {
-      if (response && response.candidateCertificatesList) {
-        const certificationInfoObject = response.candidateCertificatesList.filter(certificate => {
-          return certificate.certificationId === resourceId
+      if (response && response.candidateCertificatesList && resourceId) {
+        const resourceObj = response.candidateCertificatesList.filter(resObj => {
+          return resObj.certificationId === resourceId
         })[0]
-        setCertificationInfo(certificationInfoObject)
+        if (resourceObj) {
+          setValue("issueMonth", resourceObj.issueMonth);
+          setValue("issueYear", resourceObj.issueYear);
+          setValue("expirationMonth", resourceObj.expirationMonth);
+          setValue("expirationYear", resourceObj.expirationYear);
+          setValue("credentialId", resourceObj.credentialId);
+          setValue("credentialURL", resourceObj.credentialURL);
+          setCustomInputValues({ certificationName: resourceObj.certificationName });
+        }
       }
     })
   }, []);
-  React.useEffect(() => {
-    if (resourceId && certificationInfo) {
-      const { certificationName, issuingOrganization, issueMonth, issueYear, expirationMonth, expirationYear, credentialId, credentialURL } = certificationInfo;
-      console.log(resourceId)
-      handleCertificationNameValidation(certificationName);
-      if (!(expirationMonth && expirationYear)) {
-        setIsExpirationDate(false)
-      }
-      setFormInputData({
-        certificationName: certificationName,
-        issuingOrganization: issuingOrganization,
-        issueMonth: issueMonth,
-        issueYear: issueYear,
-        expirationMonth: expirationMonth,
-        expirationYear: expirationYear,
-        credentialId: credentialId,
-        credentialURL: credentialURL
+
+  const handleTypeheadErrorOnInputChange = (input, name, message) => {
+    const value = input;
+    // if (value) handlecustomInputValues(value, name);
+    handleTypeheadError(value, name, message, false);
+  }
+
+  const handlecustomInputValues = (value, name) => {
+    if (name === 'certificationName') {
+      setCustomInputValues({ ...customInputValues, certificationName: value });
+    }
+  }
+
+  const handleTypeheadErrorOnBlur = (e, name, message) => {
+    const value = e.target.value;
+    handleTypeheadError(value, name, message, true)
+  }
+
+  const handleTypeheadErrorOnChange = (selected, name) => {
+    handlecustomInputValues(selected[0], name);
+    clearErrors(name)
+  }
+
+  const handleTypeheadError = (value, name, message, isBlur) => {
+    if (!value) {
+      setError(name, {
+        type: "manual",
+        message: message
       });
-    } else if (!resourceId) {
-      handleCertificationNameValidation(singleCertificates.toString());
-    }
-  }, [certificationInfo]);
-  const handleFormInputData = (e) => {
-    if (e.target.name === 'isExpirationDate') {
-      if (e.target.checked) {
-        inputData.expirationMonth = null;
-        inputData.expirationYear = null;
-      } else {
-        inputData.expirationMonth = prevExpirationMonth;
-        inputData.expirationYear = prevExpirationYear;
+    } else {
+      if (!isBlur) {
+        const messageText = name === 'certificationName' ? 'Please enter a valid Certification Name' : '';
+        setError(name, {
+          type: "manual",
+          message: messageText
+        });
       }
-      setIsExpirationDate(!isExpirationDate);
-    }
-    return (
-      setFormInputData({
-        ...inputData,
-        [e.target.name]: e.target.value
-      })
-    )
-  }
-  const onInputChange = (value) => {
-    handleCertificationNameValidation(value);
-  }
-
-  const handleCertificationNameValidation = (value) => {
-    if (!value.trim().length) {
-      errors.certificationName = {message: `Certification Name is required.`}
-      setIsSubmitDisabled(true);
-    } else {
-      delete errors.certificationName;
-      setIsSubmitDisabled(false);
     }
   }
 
-  const onSubmit = (e) => {
-    // e.preventDefault();
-    let data = {
-      "certificationName": singleCertificates.toString(),
-      "issuingOrganization": inputData.issuingOrganization,
-      "issueMonth": inputData.issueMonth,
-      "issueYear": inputData.issueYear,
-      "expirationMonth": inputData.expirationMonth,
-      "expirationYear": inputData.expirationYear,
-      "credentialId": inputData.credentialId,
-      "credentialURL": inputData.credentialURL
+  const submitForm = (e) => {
+    if (!customInputValues.certificationName) {
+      setError('certificationName', {
+        type: "manual",
+        message: 'Certification Name field cannot be left blank'
+      });
     }
+  }
+  const handleHasNoExpirationDate = e => {
+    setHasNoExpirationDate(!hasNoExpirationDate);
+  }
+  const IssueAndExpirationDateOnChange = e => {
+    // const { name, value } = e.target;
+    // if (value) {
+    //   const newIssueMonth = (name === 'issueMonth') ? value : values.issueMonth;
+    //   const newIssueYear = (name === 'issueYear') ? value : values.issueYear;
+    //   const newIssueDate = new moment(`${newIssueMonth}, 01, ${newIssueYear}`);
+    //   const newExpirationMonth = (name === 'expirationMonth') ? value : values.expirationMonth;
+    //   const newExpirationYear = (name === 'expirationYear') ? value : values.expirationYear;
+    //   const newExpirationDate = new moment(`${newExpirationMonth}, 01, ${newExpirationYear}`);
+    //   const isAllowToValidate = newIssueYear && newIssueMonth && newExpirationMonth && newExpirationDate;
+    //   if ((name === 'issueYear' || name === 'issueMonth') && (isAllowToValidate)) {
+    //     if (newIssueDate.format("YYYY-MM") >= newExpirationDate.format("YYYY-MM")) {
+    //       setError('issueYear', {
+    //         type: "manual",
+    //         message: 'Issue Date cannot be greater than Expiration Date'
+    //       });
+    //       setError('issueMonth', {
+    //         type: "manual",
+    //         message: 'Issue Date cannot be greater than Expiration Date'
+    //       });
+    //       clearErrors('expirationYear');
+    //       clearErrors('expirationMonth');
+    //     } else {
+    //       clearErrors('issueYear');
+    //       clearErrors('issueMonth');
+    //       clearErrors('expirationYear');
+    //       clearErrors('expirationMonth');
+    //     }
+    //   } else if ((name === 'expirationYear' || name === 'expirationMonth') && (isAllowToValidate)) {
+    //     if (newExpirationDate.format("YYYY-MM") <= newIssueDate.format("YYYY-MM")) {
+    //       setError('expirationYear', {
+    //         type: "manual",
+    //         message: 'Expiration Date cannot be smaller than Issue Date'
+    //       });
+    //       setError('expirationMonth', {
+    //         type: "manual",
+    //         message: 'Expiration Date cannot be smaller than Issue Date'
+    //       });
+    //       clearErrors('issueYear');
+    //       clearErrors('issueMonth');
+    //     } else {
+    //       clearErrors('issueYear');
+    //       clearErrors('issueMonth');
+    //       clearErrors('expirationYear');
+    //       clearErrors('expirationMonth');
+    //     }
+    //   }
+    // }
+  }
+
+  const values = getValues();
+  const onSubmit = values => {
     if (resourceId) {
-      ApiServicesOrgCandidate.updateCertification({ ...data, certificationId: resourceId }, getProfileInfo, showPopup);
+      ApiServicesOrgCandidate.updateCertification({ ...values, certificationName: customInputValues.certificationName, certificationId: resourceId }, getProfileInfo, showPopup);
     } else {
-      ApiServicesOrgCandidate.addCertification(data, getProfileInfo, showPopup);
+      ApiServicesOrgCandidate.addCertification({ ...values, certificationName: customInputValues.certificationName }, getProfileInfo, showPopup);
     }
   }
-
   return (
-    <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div class="mb-4">
-          <div className="form-group">
-            <label htmlFor="certificationName">Certification Name</label>
-            {/* <input class="form-control" type="text"
-              name="certificationName"
-              value={inputData.certificationName}
-              onChange={(e) => handleFormInputData(e)} placeholder="Enter Certification Name" /> */}
-            <Typeahead
-              id="basic-typeahead-single"
-              labelKey="name"
-              onChange={setSingleCertificates}
-              onInputChange={onInputChange}
-              options={certificates}
-              placeholder="Choose a certificates..."
-              selected={singleCertificates}
-            />
-            {errors.certificationName && <div class="errorMsg mt-2">Certification Name is required.</div>}
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div class="mb-4">
+        <div className="form-group">
+          <label htmlFor="certificationName">Certification Name<span >*</span></label>
+          <Typeahead
+            id="certificationName"
+            className={errors.certificationName && 'is-invalid'}
+            isInvalid={errors.certificationName}
+            onBlur={e => handleTypeheadErrorOnBlur(e, 'certificationName', 'Certification Name field cannot be left blank')}
+            onInputChange={(input, e) => handleTypeheadErrorOnInputChange(input, 'certificationName', 'Certification Name field cannot be left blank')}
+            onChange={selected => handleTypeheadErrorOnChange(selected, 'certificationName')}
+            options={certificates}
+            placeholder="Choose a Certification Name..."
+            selected={customInputValues.certificationName ? [customInputValues.certificationName] : null}
+          />
+          {errors.certificationName && <div class="errorMsg mt-2">{errors.certificationName.message}</div>}
+        </div>
+        <div class="custom-control custom-checkbox mr-sm-2">
+          <input type="checkbox" class="custom-control-input" name="hasNoExpirationDate" id="hasNoExpirationDate" checked={hasNoExpirationDate} onChange={(e) => handleHasNoExpirationDate(e)} />
+          <label class="custom-control-label" for="hasNoExpirationDate">This credentials does not expire</label>
+        </div>
+        <div className="form-group">
+          <label htmlFor="issueYear" class="mt-2">Issue Date</label>
+          <div class="form-row">
+            <div className="col mr-3">
+              <select
+                id="issueYear"
+                class={`form-control ${errors.issueYear && 'is-invalid'}`}
+                name="issueYear"
+                ref={register}
+                onChange={IssueAndExpirationDateOnChange}
+              >
+                <option value="" selected>Select Year</option>
+                {Array(50).fill().map((_, i) => (
+                  <option key={`${i}_years`}>{parseInt(new Date().getFullYear()) - i}</option>
+                ))}
+              </select>
+              {errors.issueYear && <div class="errorMsg mt-2">{errors.issueYear.message}</div>}
+            </div>
+            <div className="col ml-3">
+              <select
+                id="issueMonth"
+                class={`form-control ${errors.issueMonth && 'is-invalid'}`}
+                name="issueMonth"
+                ref={register}
+                onChange={IssueAndExpirationDateOnChange}
+              >
+                <option value="" selected>Select Month</option>
+                {MONTH_NAMES.map((monthName, i) => (
+                  <option key={`monthName`}>{monthName}</option>
+                ))}
+              </select>
+              {errors.issueMonth && <div class="errorMsg mt-2">{errors.issueMonth.message}</div>}
+            </div>
           </div>
-
-          <div class="custom-control custom-checkbox mr-sm-2">
-            <input type="checkbox" class="custom-control-input" name="isExpirationDate" id="isExpirationDate" checked={!isExpirationDate} onChange={(e) => handleFormInputData(e)} />
-            <label class="custom-control-label" for="isExpirationDate">This credentials does not expire</label>
-          </div>
-
-          <label htmlFor="University" class="mt-2">Issue Date</label>
+        </div>
+        {!hasNoExpirationDate ? <div> <label htmlFor="expirationYear">Expiration Date</label>
           <div className="form-group">
             <div class="form-row">
               <div className="col mr-3">
-                <select id="issueYear" className="form-control" name="issueYear" value={inputData.issueYear} onChange={(e) => handleFormInputData(e)}>
-                  {Array(50).fill().map((_, i) => (
-                    <option key={`${i}_years`}>{parseInt(new Date().getFullYear()) - i}</option>
+                <select
+                  id="expirationYear"
+                  class={`form-control ${errors.expirationYear && 'is-invalid'}`}
+                  name="expirationYear"
+                  ref={register}
+                  onChange={IssueAndExpirationDateOnChange}
+                >
+                  <option value="" selected>Select Year</option>
+                  {Array(100).fill().map((_, i) => (
+                    <option key={`${i}_years`}>{(parseInt(new Date().getFullYear()) + 50) - i
+                    }  </option>
                   ))}
                 </select>
+                {errors.expirationYear && <div class="errorMsg mt-2">{errors.expirationYear.message}</div>}
               </div>
               <div className="col ml-3">
-                <select id="issueMonth" className="form-control" name="issueMonth" value={inputData.issueMonth} onChange={(e) => handleFormInputData(e)}>
+                <select
+                  id="expirationMonth"
+                  class={`form-control ${errors.expirationMonth && 'is-invalid'}`}
+                  name="expirationMonth"
+                  ref={register}
+                  onChange={IssueAndExpirationDateOnChange}
+                >
+                  <option value="" selected>Select Month</option>
                   {MONTH_NAMES.map((monthName, i) => (
                     <option key={`monthName`}>{monthName}</option>
                   ))}
                 </select>
+                {errors.expirationMonth && <div class="errorMsg mt-2">{errors.expirationMonth.message}</div>}
               </div>
             </div>
-          </div>
-          {isExpirationDate ? <div> <label htmlFor="University">Expiration Date</label>
-            <div className="form-group">
-              <div class="form-row">
-                <div className="col mr-3">
-                  <select id="expirationYear" className="form-control" name="expirationYear" value={inputData.expirationYear} onChange={(e) => handleFormInputData(e)}>
-                    {Array(100).fill().map((_, i) => (
-                      <option key={`${i}_years`}>{(parseInt(new Date().getFullYear()) + 50) - i
-                      }  </option>
-                    ))}
-                  </select>
-                </div>
-                <div className="col ml-3">
-                  <select id="expirationMonth" className="form-control" name="expirationMonth" value={inputData.expirationMonth} onChange={(e) => handleFormInputData(e)}>
-                    {MONTH_NAMES.map((monthName, i) => (
-                      <option key={`monthName`}>{monthName}</option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-            </div></div> : <div class="col text-right mt-2 px-0">
-              <span class="small-text-light ">This certification does not expire</span>
-            </div>}
-          <div className="form-group">
-            <label htmlFor="credentialId">Credential ID</label>
-            <input class="form-control" type="text"
-              name="credentialId"
-              value={inputData.credentialId}
-              onChange={(e) => handleFormInputData(e)} placeholder="Enter Credential ID" />
-          </div>
-          <div className="form-group">
-            <label htmlFor="credentialURL">Credential URL</label>
-            <input class="form-control" type="text"
-              name="credentialURL"
-              value={inputData.credentialURL}
-              onChange={(e) => handleFormInputData(e)} placeholder="Enter Credential URL" />
-          </div>
-
+          </div></div> : <div class="col text-right mt-2 px-0">
+            <span class="small-text-light ">This certification does not expire</span>
+          </div>}
+        <div className="form-group">
+          <label htmlFor="credentialId">Credential ID</label>
+          <input
+            class={`form-control ${errors.credentialId && 'is-invalid'}`}
+            id="credentialId"
+            name="credentialId"
+            ref={register}
+            placeholder="Credential ID"
+          />
+          {errors.credentialId && <div class="errorMsg mt-2">{errors.credentialId.message}</div>}
         </div>
-        <button class="btn lightBlue float-right px-5" disabled={isSubmitDisabled}>Save</button>
-      </form>
-    </>
+        <div className="form-group">
+          <label htmlFor="credentialURL">Credential URL</label>
+          <input
+            class={`form-control ${errors.credentialURL && 'is-invalid'}`}
+            id="credentialURL"
+            name="credentialURL"
+            ref={register({
+              required: "Credential URL field cannot be left blank",
+              pattern: {
+                value: HTTP_REGX,
+                message: "Please enter a valid Credential URL"
+              }
+            })}
+            placeholder="Enter Credential URL"
+          />
+          {errors.credentialURL && <div class="errorMsg mt-2">{errors.credentialURL.message}</div>}
+        </div>
+        <button type="submit" class="btn lightBlue float-right px-5" onClick={submitForm}>Save</button>
+      </div>
+    </form>
   );
-}
-export default Certification
+};
+
+export default Certification;

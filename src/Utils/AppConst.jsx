@@ -24,3 +24,4 @@ export const COURSE_TYPE_ENUM = {
       PART_TIME: 'Part Time',
       CORRESPONDENCE: 'Correspondence/Distance Learning'
 }
+export const HTTP_REGX = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/

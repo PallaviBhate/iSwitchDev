@@ -7,7 +7,6 @@ import { COURSE_TYPE_ENUM } from "../../../../Utils/AppConst";
 
 
 const Education = ({ dataAttributes, showPopup }) => {
-  // const [defaultValues1, setDefaultValues] = React.useState({})
   const { handleSubmit, getValues, register, errors, setValue, reset, setError, clearErrors } = useForm({
     mode: 'all',
     defaultValues: {
@@ -19,8 +18,8 @@ const Education = ({ dataAttributes, showPopup }) => {
   const [boards, setBoards] = React.useState([]);
   const [institutes, setInstitutes] = React.useState([]);
   const [isSchoolForm, setIsSchoolForm] = React.useState(false);
-  const initialcustomInputValues = {courseType: COURSE_TYPE_ENUM.FULL_TIME}
-  const [customInputValues, setCustomInputValues] = React.useState(initialcustomInputValues);
+  const initialCustomInputValues = {courseType: COURSE_TYPE_ENUM.FULL_TIME}
+  const [customInputValues, setCustomInputValues] = React.useState(initialCustomInputValues);
   React.useEffect(() => {
     ApiServicesOrgCandidate.getListOfInstitutes().then((response) => {
       if (response) {
@@ -40,18 +39,18 @@ const Education = ({ dataAttributes, showPopup }) => {
     })
     state.then((response) => {
       if (response && response.educationDetailsList && resourceId) {
-        const educationInfoObject = response.educationDetailsList.filter(education => {
-          return education.educationId === resourceId
+        const resourceObj = response.educationDetailsList.filter(resObj => {
+          return resObj.educationId === resourceId
         })[0]
-        if (educationInfoObject) {
-          setValue("educationType", educationInfoObject.educationType);
-          setValue("course", educationInfoObject.course);
-          setValue("specialization", educationInfoObject.specialization);
-          setValue("educationType", educationInfoObject.educationType);
-          setValue("passingOutYear", educationInfoObject.passingOutYear);
-          setValue("marks", educationInfoObject.marks);
-          changeIsSchoolForm(educationInfoObject.educationType);
-          setCustomInputValues({ board: educationInfoObject.board, university: educationInfoObject.university, courseType: educationInfoObject.courseType });
+        if (resourceObj) {
+          setValue("educationType", resourceObj.educationType);
+          setValue("course", resourceObj.course);
+          setValue("specialization", resourceObj.specialization);
+          setValue("educationType", resourceObj.educationType);
+          setValue("passingOutYear", resourceObj.passingOutYear);
+          setValue("marks", resourceObj.marks);
+          changeIsSchoolForm(resourceObj.educationType);
+          setCustomInputValues({ board: resourceObj.board, university: resourceObj.university, courseType: resourceObj.courseType });
         }
       }
     })
@@ -109,7 +108,7 @@ const Education = ({ dataAttributes, showPopup }) => {
     const value = e.target.value;
     if (value) {
       reset({ educationType: value });
-      setCustomInputValues(initialcustomInputValues)
+      setCustomInputValues(initialCustomInputValues)
     }
     changeIsSchoolForm(value)
   }
@@ -148,7 +147,6 @@ const Education = ({ dataAttributes, showPopup }) => {
       ApiServicesOrgCandidate.addEducation({ ...values, board: customInputValues.board, university: customInputValues.university, courseType: customInputValues.courseType }, getProfileInfo, showPopup);
     }
   }
-  console.log(values);
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div class="mb-4">
@@ -308,7 +306,7 @@ const Education = ({ dataAttributes, showPopup }) => {
         </div>
         <button type="submit" class="btn lightBlue float-right px-5" onClick={submitForm}>Save</button>
       </div>
-    </form >
+    </form>
   );
 };
 
