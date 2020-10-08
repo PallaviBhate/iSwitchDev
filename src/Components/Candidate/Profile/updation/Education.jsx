@@ -3,19 +3,24 @@ import { useForm } from "react-hook-form";
 import { Typeahead } from 'react-bootstrap-typeahead';
 import { Context } from "../../../../Context/ProfileContext";
 import ApiServicesOrgCandidate from "../../../../Services/ApiServicesOrgCandidate";
+import { COURSE_TYPE_ENUM } from "../../../../Utils/AppConst";
 
 
 const Education = ({ dataAttributes, showPopup }) => {
   // const [defaultValues1, setDefaultValues] = React.useState({})
   const { handleSubmit, getValues, register, errors, setValue, reset, setError, clearErrors } = useForm({
-    mode: 'all'
+    mode: 'all',
+    defaultValues: {
+      passingOutYear: ''
+    }
   });
   const { state, getProfileInfo } = React.useContext(Context);
   const resourceId = dataAttributes && dataAttributes.resourceId;
   const [boards, setBoards] = React.useState([]);
   const [institutes, setInstitutes] = React.useState([]);
   const [isSchoolForm, setIsSchoolForm] = React.useState(false);
-  const [typeheadValues, setTypeheadValues] = React.useState({});
+  const initialcustomInputValues = {courseType: COURSE_TYPE_ENUM.FULL_TIME}
+  const [customInputValues, setCustomInputValues] = React.useState(initialcustomInputValues);
   React.useEffect(() => {
     ApiServicesOrgCandidate.getListOfInstitutes().then((response) => {
       if (response) {
@@ -49,7 +54,7 @@ const Education = ({ dataAttributes, showPopup }) => {
           setValue("passingOutYear", educationInfoObject.passingOutYear);
           setValue("marks", educationInfoObject.marks);
           changeIsSchoolForm(educationInfoObject.educationType);
-          setTypeheadValues({ board: educationInfoObject.board, university: educationInfoObject.university });
+          setCustomInputValues({ board: educationInfoObject.board, university: educationInfoObject.university, courseType: educationInfoObject.courseType });
         }
       }
     })
@@ -65,15 +70,15 @@ const Education = ({ dataAttributes, showPopup }) => {
 
   const handleTypeheadErrorOnInputChange = (input, name, message) => {
     const value = input;
-    // if (value) handleTypeheadValues(value, name);
+    // if (value) handlecustomInputValues(value, name);
     handleTypeheadError(value, name, message, false);
   }
 
-  const handleTypeheadValues = (value, name) => {
+  const handlecustomInputValues = (value, name) => {
     if (name === 'board') {
-      setTypeheadValues({ ...typeheadValues, board: value });
+      setCustomInputValues({ ...customInputValues, board: value });
     } else if (name === 'university') {
-      setTypeheadValues({ ...typeheadValues, university: value });
+      setCustomInputValues({ ...customInputValues, university: value });
     }
   }
 
@@ -83,7 +88,7 @@ const Education = ({ dataAttributes, showPopup }) => {
   }
 
   const handleTypeheadErrorOnChange = (selected, name) => {
-    handleTypeheadValues(selected[0], name);
+    handlecustomInputValues(selected[0], name);
     clearErrors(name)
   }
 
@@ -95,9 +100,10 @@ const Education = ({ dataAttributes, showPopup }) => {
       });
     } else {
       if (!isBlur) {
+        const messageText = name === 'board' ? 'please enter a valid Board' : name === 'university' ? 'please enter a valid University/Institute' : '';
         setError(name, {
           type: "manual",
-          message: 'Not Valid'
+          message: messageText
         });
       }
     }
@@ -106,33 +112,34 @@ const Education = ({ dataAttributes, showPopup }) => {
     const value = e.target.value;
     if (value) {
       reset({ educationType: value });
-      setTypeheadValues({})
+      setCustomInputValues(initialcustomInputValues)
     }
     changeIsSchoolForm(value)
   }
   const submitForm = (e) => {
-    if (isSchoolForm && !typeheadValues.board) {
+    if (isSchoolForm && !customInputValues.board) {
       setError('board', {
         type: "manual",
-        message: 'Board is required'
-      } );
+        message: 'Board field cannot be left blank'
+      });
     }
-    if (!isSchoolForm && !typeheadValues.university) {
+    if (!isSchoolForm && !customInputValues.university) {
       setError('university', {
         type: "manual",
-        message: 'University/Institute is Required'
+        message: 'Board field cannot be left blank'
       });
-    } 
-    
+    }
+
   }
   const values = getValues();
   const onSubmit = values => {
     if (resourceId) {
-      ApiServicesOrgCandidate.updateEducation({ ...values, board: typeheadValues.board, university: typeheadValues.university, educationId: resourceId }, getProfileInfo, showPopup);
+      ApiServicesOrgCandidate.updateEducation({ ...values, board: customInputValues.board, university: customInputValues.university, courseType: customInputValues.courseType, educationId: resourceId }, getProfileInfo, showPopup);
     } else {
-      ApiServicesOrgCandidate.addEducation({ ...values, board: typeheadValues.board, university: typeheadValues.university }, getProfileInfo, showPopup);
+      ApiServicesOrgCandidate.addEducation({ ...values, board: customInputValues.board, university: customInputValues.university, courseType: customInputValues.courseType }, getProfileInfo, showPopup);
     }
   }
+  console.log(values);
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div class="mb-4">
@@ -144,7 +151,7 @@ const Education = ({ dataAttributes, showPopup }) => {
             name="educationType"
             onChange={onChangeEducationType}
             ref={register({
-              required: "Required"
+              required: "Education Type field cannot be left blank"
             })}
           >
             <option value="" selected>Select Education Type</option>
@@ -162,27 +169,29 @@ const Education = ({ dataAttributes, showPopup }) => {
             id="board"
             className={errors.board && 'is-invalid'}
             isInvalid={errors.board}
-            onBlur={e => handleTypeheadErrorOnBlur(e, 'board', 'Board is Required')}
-            onInputChange={(input, e) => handleTypeheadErrorOnInputChange(input, 'board', 'Board is Required')}
+            onBlur={e => handleTypeheadErrorOnBlur(e, 'board', 'Board field cannot be left blank')}
+            onInputChange={(input, e) => handleTypeheadErrorOnInputChange(input, 'board', 'Board field cannot be left blank')}
             onChange={selected => handleTypeheadErrorOnChange(selected, 'board')}
             options={boards}
             placeholder="Choose a Board..."
-            selected={typeheadValues.board ? [typeheadValues.board] : null}
+            selected={customInputValues.board ? [customInputValues.board] : null}
           />
           {errors.board && <div class="errorMsg mt-2">{errors.board.message}</div>}
-        </div> : <div><div className="form-group">
-          <label htmlFor="course">Course<span>*</span></label>
-          <input
-            class={`form-control ${errors.course && 'is-invalid'}`}
-            id="course"
-            name="course"
-            ref={register({
-              required: "Required",
-            })}
-            placeholder="Enter Course"
-          />
-          {errors.course && <div class="errorMsg mt-2">{errors.course.message}</div>}
-        </div>
+        </div> :
+          <div>
+            <div className="form-group">
+              <label htmlFor="course">Course<span>*</span></label>
+              <input
+                class={`form-control ${errors.course && 'is-invalid'}`}
+                id="course"
+                name="course"
+                ref={register({
+                  required: "Course field cannot be left blank",
+                })}
+                placeholder="Enter Course"
+              />
+              {errors.course && <div class="errorMsg mt-2">{errors.course.message}</div>}
+            </div>
             <div className="form-group">
               <label htmlFor="specialization">Specialization<span>*</span></label>
               <input
@@ -190,7 +199,7 @@ const Education = ({ dataAttributes, showPopup }) => {
                 id="specialization"
                 name="specialization"
                 ref={register({
-                  required: "Required",
+                  required: "Specialization field cannot be left blank",
                 })}
                 placeholder="Enter Specialization"
               />
@@ -202,54 +211,74 @@ const Education = ({ dataAttributes, showPopup }) => {
                 id="university"
                 className={errors.university && 'is-invalid'}
                 isInvalid={errors.university}
-                onBlur={e => handleTypeheadErrorOnBlur(e, 'university', 'University/Institute is Required')}
-                onInputChange={(input, e) => handleTypeheadErrorOnInputChange(input, 'university', 'University/Institute is Required')}
+                onBlur={e => handleTypeheadErrorOnBlur(e, 'university', 'University/Institute field cannot be left blank')}
+                onInputChange={(input, e) => handleTypeheadErrorOnInputChange(input, 'university', 'University/Institute field cannot be left blank')}
                 onChange={selected => handleTypeheadErrorOnChange(selected, 'university')}
                 options={institutes}
                 placeholder="Choose a University/Institute..."
-                selected={typeheadValues.university ? [typeheadValues.university] : null}
+                selected={customInputValues.university ? [customInputValues.university] : null}
               />
               {errors.university && <div class="errorMsg mt-2">{errors.university.message}</div>}
             </div>
-            <div className="form-group">
-              <label htmlFor="courseType">Course Type</label>
-              <div />
-              <div class={values.courseType === 'fullTime' ? "modal-label form-check form-check-inline" : "modal-label form-check form-check-inline modal-fade"}>
-                <input
-                  type="radio"
-                  class="form-check-input mr-2"
-                  id="courseType1"
-                  name="courseType"
-                  onClick={_ => setValue("courseType", 'fullTime')}
-                  defaultChecked={values.courseType === 'fullTime'}
-                />
-                <label class="radio-inline form-check-label" for="materialChecked2">Full Time</label>
+            <div class="form-group">
+              <label htmlFor="University">Course Type</label>
+              <div>
+                <div class={customInputValues.courseType === COURSE_TYPE_ENUM.FULL_TIME ? "modal-label form-check form-check-inline" : "modal-label form-check form-check-inline modal-fade"}>
+                  <input
+                    type="radio"
+                    class="form-check-input mr-2"
+                    id="courseType"
+                    name="courseType"
+                    defaultValue={COURSE_TYPE_ENUM.FULL_TIME}
+                    checked={customInputValues.courseType === COURSE_TYPE_ENUM.FULL_TIME}
+                    onChange={(e) => setCustomInputValues({...customInputValues, courseType: e.target.value})}
+                  />
+                  <label class="radio-inline form-check-label" for="materialChecked2">Full Time</label>
+                </div>
+                <div class={customInputValues.courseType === COURSE_TYPE_ENUM.PART_TIME ? "modal-label form-check form-check-inline" : "modal-label form-check form-check-inline modal-fade"}>
+                  <input
+                    type="radio"
+                    class="form-check-input mr-2"
+                    id="courseType"
+                    name="courseType"
+                    defaultValue={COURSE_TYPE_ENUM.PART_TIME}
+                    checked={customInputValues.courseType === COURSE_TYPE_ENUM.PART_TIME}
+                    onChange={(e) => setCustomInputValues({...customInputValues, courseType: e.target.value})}
+                  />
+                  <label class="modal-label radio-inline form-check-label" for="materialChecked2">Part Time</label>
+                </div>
+                <div class={customInputValues.courseType === COURSE_TYPE_ENUM.CORRESPONDENCE ? "modal-label form-check" : "modal-label form-check form-check-inline modal-fade"}>
+                  <input
+                    type="radio"
+                    class="form-check-input"
+                    id="courseType"
+                    name="courseType"
+                    defaultValue={COURSE_TYPE_ENUM.CORRESPONDENCE}
+                    checked={customInputValues.courseType === COURSE_TYPE_ENUM.CORRESPONDENCE}
+                    onChange={(e) => setCustomInputValues({...customInputValues, courseType: e.target.value})}
+                  />
+                  <label class="modal-label radio-inline form-check-label" for="materialChecked2">Correspondence/Distance Learning</label>
+                </div>
               </div>
-              <div class={values.courseType === 'partTime' ? "modal-label form-check form-check-inline" : "modal-label form-check form-check-inline modal-fade"}>
-                <input
-                  type="radio"
-                  class="form-check-input mr-2"
-                  id="courseType"
-                  name="courseType"
-                  onClick={_ => setValue("courseType", 'partTime')}
-                  defaultChecked={values.courseType === 'partTime'}
-                />
-                <label class="modal-label radio-inline form-check-label" for="materialChecked2">Part Time</label>
-              </div>
-              <div class={values.courseType === 'correspondence' ? "modal-label form-check" : "modal-label form-check form-check-inline modal-fade"}>
-                <input
-                  type="radio"
-                  class="form-check-input"
-                  id="courseType"
-                  name="courseType"
-                  onClick={_ => setValue("courseType", 'correspondence')}
-                  defaultChecked={values.courseType === 'correspondence'}
-                />
-                <label class="modal-label radio-inline form-check-label" for="materialChecked2">Correspondence/Distance Learning</label>
-              </div>
-              {errors.courseType && <div class="errorMsg mt-2">{errors.courseType.message}</div>}
-            </div></div>}
+            </div>
+          </div>}
+        <div className="form-group">
+          <label htmlFor="passingOutYear">Passing out year<span >*</span></label>
+          <select id="passingOutYear"
+            class={`form-control ${errors.passingOutYear && 'is-invalid'}`}
+            name="passingOutYear"
 
+            ref={register({
+              required: "Passing out year field cannot be left blank"
+            })}
+          >
+            <option value="" selected>Select Passing Out Year</option>
+            {Array(50).fill().map((_, i) => (
+              <option key={`${i}_years`}>{parseInt(new Date().getFullYear()) - i}</option>
+            ))}
+          </select>
+          {errors.passingOutYear && <div class="errorMsg">{errors.passingOutYear.message}</div>}
+        </div>
         <div className="form-group">
           <label htmlFor="marks">Marks<span>*</span></label>
           <input
@@ -257,10 +286,10 @@ const Education = ({ dataAttributes, showPopup }) => {
             id="marks"
             name="marks"
             ref={register({
-              required: "Required",
+              required: "Marks field cannot be left blank",
               pattern: {
                 value: /(\d+(\.\d+)?)/,
-                message: "invalid Marks"
+                message: "please enter a valid marks"
               }
             })}
             placeholder="Enter Marks"

@@ -19,3 +19,8 @@ export const CITY_LIST= [{ id: 1, name: "Mumbai" },{ id: 2, name: "Pune" },{ id:
 export const MONTH_NAMES = ["January", "February", "March", "April", "May", "June",
       "July", "August", "September", "October", "November", "December"];
 // export const EDIT_ABOUT = 'Edit About';
+export const COURSE_TYPE_ENUM = {
+      FULL_TIME: 'Full Time',
+      PART_TIME: 'Part Time',
+      CORRESPONDENCE: 'Correspondence/Distance Learning'
+}
