@@ -3096,3 +3096,11 @@ textarea.form-control {
     color: #212529 !important;
     font-family: Montserrat-Medium!important;
 }
+
+
+
+.error-boundary{
+    border: #dc3545 1px solid;
+    padding: 0.4rem 0.75rem;
+    border-radius: 0.25rem;   
+}

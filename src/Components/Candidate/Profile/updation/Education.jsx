@@ -45,12 +45,9 @@ const Education = ({ dataAttributes, showPopup }) => {
         })[0]
         if (educationInfoObject) {
           setValue("educationType", educationInfoObject.educationType);
-          setValue("board", educationInfoObject.board);
           setValue("course", educationInfoObject.course);
           setValue("specialization", educationInfoObject.specialization);
-          setValue("university", educationInfoObject.university);
           setValue("educationType", educationInfoObject.educationType);
-          setValue("courseType", educationInfoObject.courseType);
           setValue("passingOutYear", educationInfoObject.passingOutYear);
           setValue("marks", educationInfoObject.marks);
           changeIsSchoolForm(educationInfoObject.educationType);
@@ -100,7 +97,7 @@ const Education = ({ dataAttributes, showPopup }) => {
       });
     } else {
       if (!isBlur) {
-        const messageText = name === 'board' ? 'please enter a valid Board' : name === 'university' ? 'please enter a valid University/Institute' : '';
+        const messageText = name === 'board' ? 'Please enter a valid Board' : name === 'university' ? 'Please enter a valid University/Institute' : '';
         setError(name, {
           type: "manual",
           message: messageText
@@ -126,10 +123,22 @@ const Education = ({ dataAttributes, showPopup }) => {
     if (!isSchoolForm && !customInputValues.university) {
       setError('university', {
         type: "manual",
-        message: 'Board field cannot be left blank'
+        message: 'University/Institute field cannot be left blank'
       });
     }
-
+    if (!isSchoolForm && !customInputValues.courseType) {
+      setError('courseType', {
+        type: "manual",
+        message: 'Course Type field cannot be left blank'
+      });
+    }
+  }
+  const onChangeCourseType = (e) => {
+    const value = e.target.value;
+    if (value === COURSE_TYPE_ENUM.FULL_TIME || value === COURSE_TYPE_ENUM.PART_TIME || value === COURSE_TYPE_ENUM.CORRESPONDENCE) {
+      clearErrors('courseType');
+    }
+    setCustomInputValues({...customInputValues, courseType: e.target.value})
   }
   const values = getValues();
   const onSubmit = values => {
@@ -222,7 +231,7 @@ const Education = ({ dataAttributes, showPopup }) => {
             </div>
             <div class="form-group">
               <label htmlFor="University">Course Type</label>
-              <div>
+              <div class={errors.courseType && 'error-boundary'}>
                 <div class={customInputValues.courseType === COURSE_TYPE_ENUM.FULL_TIME ? "modal-label form-check form-check-inline" : "modal-label form-check form-check-inline modal-fade"}>
                   <input
                     type="radio"
@@ -231,7 +240,7 @@ const Education = ({ dataAttributes, showPopup }) => {
                     name="courseType"
                     defaultValue={COURSE_TYPE_ENUM.FULL_TIME}
                     checked={customInputValues.courseType === COURSE_TYPE_ENUM.FULL_TIME}
-                    onChange={(e) => setCustomInputValues({...customInputValues, courseType: e.target.value})}
+                    onChange={onChangeCourseType}
                   />
                   <label class="radio-inline form-check-label" for="materialChecked2">Full Time</label>
                 </div>
@@ -243,7 +252,7 @@ const Education = ({ dataAttributes, showPopup }) => {
                     name="courseType"
                     defaultValue={COURSE_TYPE_ENUM.PART_TIME}
                     checked={customInputValues.courseType === COURSE_TYPE_ENUM.PART_TIME}
-                    onChange={(e) => setCustomInputValues({...customInputValues, courseType: e.target.value})}
+                    onChange={onChangeCourseType}
                   />
                   <label class="modal-label radio-inline form-check-label" for="materialChecked2">Part Time</label>
                 </div>
@@ -255,11 +264,12 @@ const Education = ({ dataAttributes, showPopup }) => {
                     name="courseType"
                     defaultValue={COURSE_TYPE_ENUM.CORRESPONDENCE}
                     checked={customInputValues.courseType === COURSE_TYPE_ENUM.CORRESPONDENCE}
-                    onChange={(e) => setCustomInputValues({...customInputValues, courseType: e.target.value})}
+                    onChange={onChangeCourseType}
                   />
                   <label class="modal-label radio-inline form-check-label" for="materialChecked2">Correspondence/Distance Learning</label>
                 </div>
               </div>
+              {errors.courseType && <div class="errorMsg mt-2">{errors.courseType.message}</div>}
             </div>
           </div>}
         <div className="form-group">
@@ -277,7 +287,7 @@ const Education = ({ dataAttributes, showPopup }) => {
               <option key={`${i}_years`}>{parseInt(new Date().getFullYear()) - i}</option>
             ))}
           </select>
-          {errors.passingOutYear && <div class="errorMsg">{errors.passingOutYear.message}</div>}
+          {errors.passingOutYear && <div class="errorMsg mt-2">{errors.passingOutYear.message}</div>}
         </div>
         <div className="form-group">
           <label htmlFor="marks">Marks<span>*</span></label>
@@ -289,7 +299,7 @@ const Education = ({ dataAttributes, showPopup }) => {
               required: "Marks field cannot be left blank",
               pattern: {
                 value: /(\d+(\.\d+)?)/,
-                message: "please enter a valid marks"
+                message: "Please enter a valid marks"
               }
             })}
             placeholder="Enter Marks"
