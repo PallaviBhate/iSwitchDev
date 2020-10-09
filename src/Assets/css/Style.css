@@ -2031,7 +2031,8 @@ textarea.form-control {
     padding-right: 10px;
 }
 
-.job-title a {
+.job-title a,
+.job-title {
     color: #007EFF;
     font-weight: bold;
     font-size: 18px;
@@ -2362,7 +2363,7 @@ textarea.form-control {
 }
 
 .p-dropdown {
-    margin-top: 30px;
+    /* margin-top: 30px; */
     float: right;
     display: inline-flex;
     cursor: pointer;
@@ -2907,6 +2908,46 @@ textarea {
 
 
 /* JobCollection css by Anuja-Sayali */
+
+
+/* css for ClosedJob by Urvashi */
+
+.custom-table thead {
+    background: #D4DFE9;
+}
+
+.custom-table td {
+    font-family: Montserrat-Medium!important;
+    font-size: 14px;
+    color: #2E2E2EE5;
+}
+
+.custom-table thead th {
+    color: #2E2E2EE5;
+    font-family: Montserrat-Medium!important;
+    font-size: 16px;
+    font-weight: normal;
+    padding: 0.75rem;
+}
+
+.custom-table .table thead tr th:first-child,
+.custom-table .table tbody tr td:first-child {
+    padding-left: inherit;
+}
+
+.custom-table .tb-title-text {
+    font-family: Montserrat-SemiBold;
+    font-size: 18px;
+    color: #25282B;
+}
+
+.custom-table p {
+    margin-bottom: .5rem;
+}
+
+.custom-table tbody tr:nth-of-type(even) {
+    background: #F9F9FA;
+}
 
 
 /* =================== (END) CSS ADD by CSS for interviews-section  */
