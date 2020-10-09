@@ -72,11 +72,10 @@ class UploadProfile extends Component {
             if  (this.fileValidation())
             {
                     const formData = new FormData(); 
-                    const token= JSON.parse(localStorage.getItem('userDetails')).authToken;
+
                     const formheader = { 
                         headers: { 
                         'Content-Type':'multipart/form-data',
-                        'Authorization':'Bearer ' + token
                         } 
                     };
 

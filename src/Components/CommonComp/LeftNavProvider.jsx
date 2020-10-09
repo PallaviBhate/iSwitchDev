@@ -76,9 +76,9 @@ const LeftNavProvider = () => {
                                     </Link>
                                 </li>
                                 <li class="dropdown-item" data-toggle="tooltip" data-placement="right" title="Closed Jobs">
-                                    <NavLink  to="/closeJobs"
+                                    <NavLink  to="/closedJobs"
                                     activeClassName="active"
-                                    isActive={isActive.bind(this,'/closeJobs')}
+                                    isActive={isActive.bind(this,'/closedJobs')}
                                     >
                                      <i><img src="/images/Candidate-Navbar-assets/Recruiter-closed-job-icons.svg" aria-hidden="true" /></i>
                                     <span className="menuText">Closed Jobs</span>

@@ -38,7 +38,6 @@ import RecentMatchesJobDetails from "../Components/Candidate/RecentMatchesJobDet
 import JobOfferDetails from "../Components/Candidate/JobOfferDetails"
 import AcceptedInviteJobDetails from "../Components/Candidate/Interviews/AcceptedInviteJobDetails"
 import SearchJobsDetails from "../Components/Candidate/SearchJobsDetails"
-import CloseJobs from "../Components/RecruiterComp/CloseJobs"
 
 class RouterSettings extends Component {
 
@@ -86,7 +85,6 @@ class RouterSettings extends Component {
             <Route path="/activeJob" component={ActiveJob} />
             <Route path="/createJob" component={CreateJob} />
             <Route path="/jobPostingCollection" component={JobPostingCollection} />
-            <Route path="/closeJobs" component={CloseJobs}/>
           </Switch>
         </div>
       </Router>

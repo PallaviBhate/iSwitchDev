@@ -63,12 +63,7 @@ class LoginComp extends Component {
       
      // Calling Login Service from Service file:-
 
-      // this.loginService.putLogin(this.state.fields.emailid, this.state.fields.password)
-      // let loginDetails={};
-      // loginDetails["password"] = this.state.fields.password;
-      // loginDetails["userName"] = this.state.fields.emailid;
-      // console.log(loginDetails)
-      this.loginService.putLogin(this.state.fields)
+      this.loginService.putLogin(this.state.fields.emailid, this.state.fields.password)
           .then(Response=>{
             if(Response){
               localStorage.setItem('userDetails',JSON.stringify(Response.data.responseObject)); 
@@ -93,7 +88,7 @@ class LoginComp extends Component {
               this.setState({errorMsg: 'Invalid Email Or Password'})
             }
             setTimeout(() => {
-              //window.location.reload(false)
+              window.location.reload(false)
             }, 3000);
           })   
     }

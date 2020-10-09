@@ -2,17 +2,9 @@ import axios from 'axios'
 import {ApiBaseUrl, ApiHeader}  from '../Config.jsx'
 
 import React, { Component } from 'react';
-import { parseJSON } from 'jquery';
-
-
 
 class ApiServicesOrg extends Component {
 
-    getToken(){
-        const token= JSON.parse(localStorage.getItem('userDetails')).authToken;
-        const tokenHeader = {headers: { 'Content-Type': 'application/json','Authorization':'Bearer ' + token}}
-        return tokenHeader;
-    }
 //1. Sending Signup details to backend
     postSignup (signupDetails) {
         return (
@@ -25,13 +17,12 @@ class ApiServicesOrg extends Component {
 
 
 //2. Sending Login details to backend and get Role
-    putLogin (fields) {
+    putLogin (emailid, password) {
         return(
             axios
-            .put(ApiBaseUrl + "/user/login", {'password': fields.password, 'userName': fields.emailid } , ApiHeader)
+            .put(ApiBaseUrl + "/user/login/"+ emailid +"/"+ password, ApiHeader)
             .then(Response => Response)
         )
-       
     }
 
 //3. Provider Functionalities
@@ -39,7 +30,7 @@ class ApiServicesOrg extends Component {
         //3.1 Downloading Sample CSV file
             fetchSampleFile (){
                 return(
-                    fetch (ApiBaseUrl + "/user/csvdownload", this.getToken())
+                    fetch (ApiBaseUrl + "/user/csvdownload", ApiHeader)
                     .then(Response => Response)
                 )
             }
@@ -61,7 +52,7 @@ class ApiServicesOrg extends Component {
             const userId = JSON.parse(localStorage.getItem('userDetails')).id;
             return (
                 axios
-                .get(ApiBaseUrl + '/user/allUsersByRole/'+ userId , this.getToken())
+                .get(ApiBaseUrl + '/user/allUsersByRole/'+ userId , ApiHeader)
                 .then(Response => Response)
             )
         }
@@ -70,7 +61,7 @@ class ApiServicesOrg extends Component {
         postAddUser(fields){
             return(
                 axios
-                .post(ApiBaseUrl +"/user/user" , fields, this.getToken())
+                .post(ApiBaseUrl +"/user/user" , fields, ApiHeader)
                 .then(Response => Response)
             )
         }
@@ -79,7 +70,7 @@ class ApiServicesOrg extends Component {
         putEditUser(fields){
             return(
                 axios
-                .put(ApiBaseUrl+ "/user/user", fields, this.getToken())
+                .put(ApiBaseUrl+ "/user/user", fields, ApiHeader)
                 .then(Response => Response)
             )
         }
@@ -88,17 +79,16 @@ class ApiServicesOrg extends Component {
         deleteUser(userId){
             return(
                 axios
-                .delete(ApiBaseUrl + "/user/userById/"+ userId, this.getToken())
+                .delete(ApiBaseUrl + "/user/userById/"+ userId, ApiHeader)
                 .then(Response => Response)
             )
         }
 
         //4.5 Delete User - Multiple Users- Admin/User
         deleteMultiUser(updatedUserId){
-            console.log(ApiBaseUrl+ "/user/multipleUsersById/", {data:updatedUserId}, this.getToken())
             return(
                 axios
-                .delete(ApiBaseUrl+ "/user/multipleUsersById/", {data:updatedUserId}, this.getToken())
+                .delete(ApiBaseUrl+ "/user/multipleUsersById" , {data:updatedUserId}, ApiHeader)
                 .then(Response => Response)
             )    
     }
