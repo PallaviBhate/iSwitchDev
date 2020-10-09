@@ -5,13 +5,14 @@ import { Context } from "../../../../Context/ProfileContext";
 import ApiServicesOrgCandidate from "../../../../Services/ApiServicesOrgCandidate";
 import { HTTP_REGX, MONTH_NAMES } from "../../../../Utils/AppConst";
 import { certificationFormDefaultValues } from "../../../../Utils/ProfileFormHelper";
-import moment from 'moment';
+// import moment from 'moment';
 
 const Certification = ({ dataAttributes, showPopup }) => {
   const { handleSubmit, getValues, register, errors, setValue, reset, setError, clearErrors } = useForm({
     mode: 'all',
     defaultValues: certificationFormDefaultValues
   });
+  const values = getValues();
   const { state, getProfileInfo } = React.useContext(Context);
   const resourceId = dataAttributes && dataAttributes.resourceId;
   const [certificates, setCertificates] = React.useState([]);
@@ -146,7 +147,6 @@ const Certification = ({ dataAttributes, showPopup }) => {
     // }
   }
 
-  const values = getValues();
   const onSubmit = values => {
     if (resourceId) {
       ApiServicesOrgCandidate.updateCertification({ ...values, certificationName: customInputValues.certificationName, certificationId: resourceId }, getProfileInfo, showPopup);
@@ -267,7 +267,7 @@ const Certification = ({ dataAttributes, showPopup }) => {
             id="credentialURL"
             name="credentialURL"
             ref={register({
-              required: "Credential URL field cannot be left blank",
+              required: false,
               pattern: {
                 value: HTTP_REGX,
                 message: "Please enter a valid Credential URL"

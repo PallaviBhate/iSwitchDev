@@ -24,4 +24,20 @@ export const COURSE_TYPE_ENUM = {
       PART_TIME: 'Part Time',
       CORRESPONDENCE: 'Correspondence/Distance Learning'
 }
+export const CURRENCY_TYPE_ENUM = {
+      INR: 'INR',
+      USD: 'USD',
+}
+
+export const PREFERRED_SHIFT_TYPE_ENUM = {
+      DAY: 'Day',
+      AFTER_NOON: 'AfterNoon',
+      NIGHT: 'Night',
+      FLEXIBLE: 'Flexible'
+}
+
 export const HTTP_REGX = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/
+export const MAX_LENGTH = 2;
+export const CANDIDATE_ID = localStorage.getItem('candidateId');
+export const AUTH_TOKEN = localStorage.getItem('authToken');
+export const AUTH_HEADER = { headers: {'Authorization': `Bearer ${AUTH_TOKEN}` } };
