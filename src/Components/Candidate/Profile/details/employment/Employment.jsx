@@ -20,11 +20,11 @@ export const Employment = ({ showPopup }) => {
           {(employmentDetailsList) ? employmentDetailsList.map((employment, i) => (
             <div class="col-12 px-0 py-3">
               <div>
-                <img src="/images/Dashboard-assets/iconfinder_edit.svg" class="float-right" alt="Cinque Terre" onClick={() => showPopup(EDIT_EMPLOYMENT, true, employment.employmentId)} />
+                <img src="/images/Dashboard-assets/iconfinder_edit.svg" class="float-right" alt="Cinque Terre" onClick={() => showPopup(EDIT_EMPLOYMENT, true, { resourceId: employment.employmentId })} />
                 <span class="subtitle-semi-bold">{employment.designation}</span>
               </div>
-              <div><span class="normal-text-semi-bold">{employment.organization} {employment.employmentType}</span></div>
-              <div><span class="normal-text-light">{employment.startedWorkingFromMonth}  {(employment.currentCompany) ? ' - Present' : null}</span></div>
+              <div><span class="normal-text-semi-bold">{employment.organization}</span></div>
+              <div><span class="normal-text-light">{employment.startedWorkingFromMonth}{employment.startedWorkingFromYear && employment.startedWorkingFromMonth ? ' , ' : ''}{employment.startedWorkingFromYear} | {!employment.currentCompany ? `${employment.workedTillMonth} ${employment.workedTillYear && employment.workedTillMonth ? ' , ' : ''} ${employment.workedTillYear}` : ' - Present'} ({employment.employmentType})</span></div>
               <p class="normal-text-light">{employment.description}</p>
             </div>
           )) : null}

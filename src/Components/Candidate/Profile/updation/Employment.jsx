@@ -1,32 +1,25 @@
-import React, { Component, useState, useContext, useEffect } from 'react';
-import { Button, Modal } from 'react-bootstrap'
-import DatePicker from 'react-date-picker';
-import 'react-calendar/dist/Calendar.css';
-import { MONTH_NAMES } from '../../../../Utils/AppConst';
-import ApiServicesOrgCandidate from '../../../../Services/ApiServicesOrgCandidate';
-import { Context } from '../../../../Context/ProfileContext';
-import { Typeahead } from 'react-bootstrap-typeahead';
-import 'react-bootstrap-typeahead/css/Typeahead.css';
+import React from 'react';
 import { useForm } from "react-hook-form";
+import { Context } from '../../../../Context/ProfileContext';
+import { employmentFormDefaultValue } from '../../../../Utils/ProfileFormHelper';
+import { MAX_LENGTH, CANDIDATE_ID, MONTH_NAMES } from '../../../../Utils/AppConst';
+import ApiServicesOrgCandidate from '../../../../Services/ApiServicesOrgCandidate';
+import { Typeahead } from 'react-bootstrap-typeahead';
+import moment from 'moment';
 
-const Employment = ({ id, showPopup }) => {
-  const [currentCompany, setCurrentCompany] = useState(false);
-  const [inputData, setFormInputData] = React.useState({
-    "currentCompany": "",
-    "description": "",
-    "designation": "",
-    "employmentType": "",
-    "organization": "",
-    "startedWorkingFromMonth": "",
-    "startedWorkingFromYear": "",
-    "workedTillMonth": "",
-    "workedTillYear": ""
+const Employment = ({ dataAttributes, showPopup }) => {
+  const { state, getProfileInfo } = React.useContext(Context);
+  const resourceId = dataAttributes && dataAttributes.resourceId;
+  const [descriptionLength, setDescriptionLength] = React.useState(MAX_LENGTH);
+  const { handleSubmit, register, errors, getValues, setValue, setError, clearErrors } = useForm({
+    mode: 'all',
+    defaultValues: employmentFormDefaultValue
   });
-  const { state, getProfileInfo } = useContext(Context);
-  const [singleOrganization, setSingleOrganization] = useState('');
-  const [organizations, setOrganizations] = useState([]);
-  const { register, errors, handleSubmit } = useForm({mode: 'all'});
-  useEffect(() => {
+  const values = getValues();
+  const [organizations, setOrganizations] = React.useState([]);
+  const initialCustomInputValues = {}
+  const [customInputValues, setCustomInputValues] = React.useState(initialCustomInputValues);
+  React.useEffect(() => {
     ApiServicesOrgCandidate.getListOfOrganizations().then((response) => {
       if (response) {
         const result = Object.keys(response.data.responseObject).map((key, index) => response.data.responseObject[key].organizations);
@@ -36,218 +29,316 @@ const Employment = ({ id, showPopup }) => {
         setOrganizations('');
       }
     })
-    if (id) {
-      state.then((data) => {
-        const employmentDetails = data.employmentDetailsList.filter((ele => ele.employmentId === id))[0]
-        console.log(data)
-        setCurrentCompany(employmentDetails.currentCompany)
-        setSingleOrganization([employmentDetails.organization])
-        setFormInputData(employmentDetails)
-      })
-    }
+    state.then((response) => {
+      console.log(resourceId)
+      if (response && response.employmentDetailsList && resourceId) {
+        const resourceObj = response.employmentDetailsList.filter(resObj => {
+          return resObj.employmentId === resourceId
+        })[0]
+        if (resourceObj) {
+          const { currentCompany, description, designation, employmentType, organization, startedWorkingFromMonth, startedWorkingFromYear, workedTillMonth, workedTillYear } = resourceObj;
+          setValue("description", description);
+          setValue("designation", designation);
+          setValue("employmentType", employmentType);
+          setValue("startedWorkingFromMonth", startedWorkingFromMonth);
+          setValue("startedWorkingFromYear", startedWorkingFromYear);
+          setValue("workedTillMonth", workedTillMonth);
+          setValue("workedTillYear", workedTillYear);
+          setCustomInputValues({ currentCompany: currentCompany, organization: organization });
+        }
+      }
+    });
   }, []);
 
-  const onSubmit = (e) => {
-    // e.preventDefault();
-    let data = {
-      "currentCompany": currentCompany,
-      "description": inputData.description,
-      "designation": inputData.designation,
-      "employmentType": inputData.employmentType,
-      "organization": singleOrganization.toString(),
-      "startedWorkingFromMonth": inputData.startedWorkingFromMonth,
-      "startedWorkingFromYear": inputData.startedWorkingFromYear,
-      "workedTillMonth": inputData.workedTillMonth,
-      "workedTillYear": inputData.workedTillYear
-    }
+  const onInputChange = e => {
+    setDescriptionLength(MAX_LENGTH - e.target.value.length);
+  }
 
-    if (id) {
-      ApiServicesOrgCandidate.updateEmployment({ ...data, employmentId: id }, getProfileInfo, showPopup);
+  const onSubmit = values => {
+
+    if (resourceId) {
+      ApiServicesOrgCandidate.updateEmployment({ ...values, currentCompany: customInputValues.currentCompany, organization: customInputValues.organization, employmentId: resourceId }, getProfileInfo, showPopup);
     } else {
-      ApiServicesOrgCandidate.addEmployment(data, getProfileInfo, showPopup);
+      ApiServicesOrgCandidate.addEmployment({ ...values, currentCompany: customInputValues.currentCompany, organization: customInputValues.organization }, getProfileInfo, showPopup);
     }
   }
 
-  const handleFormInputData = (e) => {
-    let value = e.target.value;
-    let name = e.target.name;
-    // if (name === "canRead" || name === "canWrite" || name === "canSpeak") {
-    //   value = e.target.checked ? true : false;
-    // }
-    console.log(value)
-    return (
-      setFormInputData({
-        ...inputData,
-        [name]: value
-      })
-    )
+  const handleTypeheadErrorOnInputChange = (input, name, message) => {
+    const value = input;
+    handleTypeheadError(value, name, message, false);
+  }
+
+  const handlecustomInputValues = (value, name) => {
+    if (name === 'organization') {
+      setCustomInputValues({ ...customInputValues, organization: value });
+    }
+  }
+
+  const handleTypeheadErrorOnBlur = (e, name, message) => {
+    const value = e.target.value;
+    handleTypeheadError(value, name, message, true)
+  }
+
+  const handleTypeheadErrorOnChange = (selected, name) => {
+    handlecustomInputValues(selected[0], name);
+    clearErrors(name)
+  }
+
+  const starDateEndDateValidation = (startMonth, startYear, endMonth, endYear, isEndDateChange) => {
+    if (startMonth && startYear && endMonth && endYear) {
+      const startMonthValue = parseInt(moment().month(startMonth).format("M")) - 1;
+      const endMonthValue = parseInt(moment().month(endMonth).format("M")) - 1;
+      const startDate = new Date(parseInt(startYear), startMonthValue).getTime();
+      const endDate = new Date(parseInt(endYear), endMonthValue).getTime();
+      let message = isEndDateChange ? 'End Date cannot be smaller than Start Date' : 'Start Date cannot be greater than End Date';
+      clearErrors('endDate');
+      clearErrors('startDate');
+      if (startDate > endDate) {
+        setError(isEndDateChange ? 'endDate' : 'startDate', {
+          type: "manual",
+          message: message
+        });
+      }
+    }
+  }
+
+  const handleTypeheadError = (value, name, message, isBlur) => {
+    if (!value) {
+      setError(name, {
+        type: "manual",
+        message: message
+      });
+    } else {
+      if (!isBlur) {
+        const messageText = name === 'organization' ? 'Please enter a valid Organization' : '';
+        setError(name, {
+          type: "manual",
+          message: messageText
+        });
+      }
+    }
+  }
+
+  const onChangeIsCurrentCompany = (e) => {
+    const value = JSON.parse(e.target.value.toLowerCase());
+    setCustomInputValues({ ...customInputValues, currentCompany: value })
+    clearErrors('endDate');
+    clearErrors('startDate');
+  }
+
+  const monthAndDateOnChange = e => {
+    const { name, value } = e.target;
+    const startMonth = name === 'startedWorkingFromMonth' ? value : values.startedWorkingFromMonth;
+    const startYear = name === 'startedWorkingFromYear' ? value : values.startedWorkingFromYear;
+    const endMonth = name === 'workedTillMonth' ? value : values.workedTillMonth;
+    const endYear = name === 'workedTillYear' ? value : values.workedTillYear;
+    const isEndDateChange = name === 'workedTillMonth' || name === 'workedTillYear'
+    starDateEndDateValidation(startMonth, startYear, endMonth, endYear, isEndDateChange);
+  }
+
+  const submitForm = (e) => {
+    if (!customInputValues.organization) {
+      setError('organization', {
+        type: "manual",
+        message: 'Organization field cannot be left blank'
+      });
+    }
+    const startMonth = values.startedWorkingFromMonth;
+    const startYear = values.startedWorkingFromYear;
+    const endMonth = values.workedTillMonth;
+    const endYear = values.workedTillYear;
+    const isEndDateChange = false
+    starDateEndDateValidation(startMonth, startYear, endMonth, endYear, isEndDateChange);
   }
 
   return (
-    <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div class="mb-4">
-          <div className="form-group">
-            <label htmlFor="designation">Designation<span >*</span></label>
-            <input class="form-control" type="text"
-              placeholder="Enter Designation"
-              name={"designation"}
-              value={inputData.designation}
-              onChange={(e) => handleFormInputData(e)}
-              ref={register({ required: true })}
-            />
-            {errors.designation && <div class="errorMsg">Please Enter Designation</div>}
-          </div>
-          <div className="form-group">
-            <label htmlFor="organization">Organization<span >*</span></label>
-            <Typeahead
-              id="basic-typeahead-single"
-              labelKey="name"
-              onChange={setSingleOrganization}
-              options={organizations}
-              placeholder="Choose a organizations..."
-              selected={singleOrganization}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="employmentType">Employment Type<span >*</span></label>
-            <div class="form-row">
-              <div className="col">
-                <select id="employmentType"
-                  className="form-control"
-                  name={"employmentType"}
-                  value={inputData.employmentType}
-                  onChange={(e) => handleFormInputData(e)}
-                  ref={register({ required: "Select Employment Type" })}
-                >
-                  <option disabled value="" selected>Select Employment Type</option>
-                  <option>Permanent</option>
-                  <option>Contractual</option>
-                </select>
-                {errors.employmentType && <div class="errorMsg">Please Enter employmentType</div>}
-              </div>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div class="mb-4">
+        <div className="form-group">
+          <label htmlFor="designation">Designation<span >*</span></label>
+          <input
+            class={`form-control ${errors.designation && 'is-invalid'}`}
+            id="designation"
+            name="designation"
+            ref={register({
+              required: "Designation field cannot be left blank"
+            })}
+            placeholder="Enter Designation"
+          />
+          {errors.designation && <div class="errorMsg mt-2">{errors.designation.message}</div>}
+        </div>
+        <div className="form-group">
+          <label htmlFor="organization">Organization<span >*</span></label>
+          <Typeahead
+            id="organization"
+            className={errors.organization && 'is-invalid'}
+            isInvalid={errors.organization}
+            onBlur={e => handleTypeheadErrorOnBlur(e, 'organization', 'Organization field cannot be left blank')}
+            onInputChange={(input, e) => handleTypeheadErrorOnInputChange(input, 'organization', 'Organization field cannot be left blank')}
+            onChange={selected => handleTypeheadErrorOnChange(selected, 'organization')}
+            options={organizations}
+            placeholder="Choose a Organization..."
+            selected={customInputValues.organization ? [customInputValues.organization] : null}
+          />
+          {errors.organization && <div class="errorMsg mt-2">{errors.organization.message}</div>}
+        </div>
+        <div className="form-group">
+          <label htmlFor="employmentType">Employment Type<span >*</span></label>
+          <div class="form-row">
+            <div className="col">
+              <select
+                id="employmentType"
+                class={`form-control ${errors.employmentType && 'is-invalid'}`}
+                name="employmentType"
+                ref={register({
+                  required: "Employment Type field cannot be left blank"
+                })}
+              >
+                <option value="" selected>Select Employment Type</option>
+                <option>Permanent</option>
+                <option>Contractual</option>
+              </select>
+              {errors.employmentType && <div class="errorMsg mt-2">{errors.employmentType.message}</div>}
             </div>
           </div>
-          <div className="form-group">
-            <label htmlFor="University">Is this your current company?</label>
-            <div>
-              <div class="form-check form-check-inline">
-                <input type="radio" class="form-check-input mr-2"
-                  name={"currentCompany"}
-                  value={inputData.currentCompany}
-                  id="currentCompany"
-                  onClick={() => setCurrentCompany(true)}
-                  checked={currentCompany ? true : false} />
-                <label class="radio-inline form-check-label" for="currentCompany">Yes</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input type="radio"
-                  class="form-check-input mr-2" id="currentCompany"
-                  value="no"
-                  name={"currentCompany"}
-                  value={currentCompany}
-                  onClick={() => setCurrentCompany(false)}
-                  checked={!currentCompany ? true : false} />
-                <label class="radio-inline form-check-label" for="materialChecked2">No</label>
-              </div>
+        </div>
+
+        <div class="form-group">
+          <label htmlFor="currentCompany">Is this your current company?</label>
+          <div class={errors.currentCompany && 'error-boundary'}>
+            <div class={customInputValues.currentCompany ? "modal-label form-check form-check-inline" : "modal-label form-check form-check-inline modal-fade"}>
+              <input
+                type="radio"
+                class="form-check-input mr-2"
+                id="currentCompany"
+                name="currentCompany"
+                defaultValue={true}
+                checked={customInputValues.currentCompany}
+                onChange={onChangeIsCurrentCompany}
+              />
+              <label class="radio-inline form-check-label" for="materialChecked2">Yes</label>
+            </div>
+            <div class={!customInputValues.currentCompany ? "modal-label form-check form-check-inline" : "modal-label form-check form-check-inline modal-fade"}>
+              <input
+                type="radio"
+                class="form-check-input mr-2"
+                id="currentCompany"
+                name="currentCompany"
+                defaultValue={false}
+                checked={!customInputValues.currentCompany}
+                onChange={onChangeIsCurrentCompany}
+              />
+              <label class="modal-label radio-inline form-check-label" for="materialChecked2">No</label>
             </div>
           </div>
-          <label htmlFor="startedWorkingFromYear" class="mt-2">Started working from<span >*</span></label>
+          {errors.currentCompany && <div class="errorMsg mt-2">{errors.currentCompany.message}</div>}
+        </div>
+        <div className="form-group">
+          <label htmlFor="startedWorkingFromYear" class="mt-2">Started working from</label>
+          <div class="form-row">
+            <div className="col mr-3">
+              <select
+                id="startedWorkingFromYear"
+                class={`form-control ${(errors.startedWorkingFromYear || errors.startDate) && 'is-invalid'}`}
+                name="startedWorkingFromYear"
+                ref={register({
+                  required: "Year field cannot be left blank"
+                })}
+                onChange={monthAndDateOnChange}
+              >
+                <option value="" selected>Select Year</option>
+                {Array(50).fill().map((_, i) => (
+                  <option key={`${i}_years`}>{parseInt(new Date().getFullYear()) - i}</option>
+                ))}
+              </select>
+              {errors.startedWorkingFromYear && <div class="errorMsg mt-2">{errors.startedWorkingFromYear.message}</div>}
+            </div>
+            <div className="col ml-3">
+              <select
+                id="startedWorkingFromMonth"
+                class={`form-control ${(errors.startedWorkingFromMonth || errors.startDate) && 'is-invalid'}`}
+                name="startedWorkingFromMonth"
+                ref={register({
+                  required: "Month field cannot be left blank"
+                })}
+                onChange={monthAndDateOnChange}
+              >
+                <option value="" selected>Select Month</option>
+                {MONTH_NAMES.map((monthName, i) => (
+                  <option key={`monthName`}>{monthName}</option>
+                ))}
+              </select>
+              {errors.startedWorkingFromMonth && <div class="errorMsg mt-2">{errors.startedWorkingFromMonth.message}</div>}
+            </div>
+            <div class="col-12">{errors.startDate && <div class="errorMsg mt-2">{errors.startDate.message}</div>}</div>
+          </div>
+        </div>
+        {!customInputValues.currentCompany ? <div> <label htmlFor="workedTillYear">Worked Till</label>
           <div className="form-group">
             <div class="form-row">
               <div className="col mr-3">
                 <select
-                  id="startedWorkingFromYear"
-                  className="form-control"
-                  name={"startedWorkingFromYear"}
-                  value={inputData.startedWorkingFromYear}
-                  onChange={(e) => handleFormInputData(e)}
-                  ref={register({ required: "Select Year" })}
+                  id="workedTillYear"
+                  class={`form-control ${(errors.workedTillYear || errors.endDate) && 'is-invalid'}`}
+                  name="workedTillYear"
+                  ref={register({
+                    required: "Year field cannot be left blank"
+                  })}
+                  onChange={monthAndDateOnChange}
+
                 >
-                  <option value="" disabled selected>Select Year</option>
-                  {Array(100).fill().map((_, i) => (
-                    <option key={`${i}_years`}>{(parseInt(new Date().getFullYear()) - i) - i
-                    }  </option>
+                  <option value="" selected>Select Year</option>
+                  {Array(50).fill().map((_, i) => (
+                    <option key={`${i}_years`}>{parseInt(new Date().getFullYear()) - i}</option>
                   ))}
                 </select>
-                {errors.startedWorkingFromYear && <div class="errorMsg">Please Enter year</div>}
+                {errors.workedTillYear && <div class="errorMsg mt-2">{errors.workedTillYear.message}</div>}
               </div>
               <div className="col ml-3">
-                <select id="startedWorkingFromMonth"
-                  className="form-control"
-                  name={"startedWorkingFromMonth"}
-                  value={inputData.startedWorkingFromMonth}
-                  onChange={(e) => handleFormInputData(e)}
-                  ref={register({ required: 'Select Month' })}
+                <select
+                  id="workedTillMonth"
+                  class={`form-control ${(errors.workedTillMonth || errors.endDate) && 'is-invalid'}`}
+                  name="workedTillMonth"
+                  ref={register({
+                    required: "Month field cannot be left blank"
+                  })}
+                  onChange={monthAndDateOnChange}
+
                 >
-                  <option value="" disabled selected>Select Month</option>
+                  <option value="" selected>Select Month</option>
                   {MONTH_NAMES.map((monthName, i) => (
-                    <option key={`${i}_months`}>{monthName}</option>
+                    <option key={`monthName`}>{monthName}</option>
                   ))}
                 </select>
-                {errors.startedWorkingFromMonth && <div class="errorMsg">Please Enter month</div>}
+                {errors.workedTillMonth && <div class="errorMsg mt-2">{errors.workedTillMonth.message}</div>}
               </div>
+              <div class="col-12">{errors.endDate && <div class="errorMsg mt-2">{errors.endDate.message}</div>}</div>
             </div>
-          </div>
-
-          {!currentCompany ? <><label htmlFor="University" class="mt-2">Worked Till<span >*</span></label>
-            <div className="form-group">
-              <div class="form-row">
-                <div className="col mr-3">
-                  <select id="workedTillYear"
-                    className="form-control"
-                    name={"workedTillYear"}
-                    value={inputData.workedTillYear}
-                    onChange={(e) => handleFormInputData(e)}
-                    ref={register({ required: 'Select Year' })}
-                  >
-                    <option value="" disabled selected>Select Year</option>
-                    {Array(100).fill().map((_, i) => (
-                      <option key={`${i}_years`}>{(parseInt(new Date().getFullYear()) - i) - i
-                      }  </option>
-                    ))}
-                  </select>
-                  {errors.workedTillYear && <div class="errorMsg">Please Enter year</div>}
-                </div>
-                <div className="col ml-3">
-                  <select id="workedTillMonth"
-                    className="form-control"
-                    name={"workedTillMonth"}
-                    value={inputData.workedTillMonth}
-                    onChange={(e) => handleFormInputData(e)}
-                    ref={register({ required: 'Select Month' })}
-                  >
-                    <option value="" disabled selected>Select Month</option>
-                    {MONTH_NAMES.map((monthName, i) => (
-                      <option key={`${i}_months`}>{monthName}</option>
-                    ))}
-                  </select>
-                  {errors.workedTillMonth && <div class="errorMsg">Please Enter month</div>}
-                </div>
-              </div>
-            </div></> : null}
-          <div className="form-group">
-            <label for="description">Describe your job profile</label>
-            <textarea class="form-control" rows="8" cols="70" maxlength="2000"
-              id="description"
-              name={"description"}
-              value={inputData.description}
-              onChange={(e) => handleFormInputData(e)}
-              placeholder="Enter Your Job Profile Details Here..."
-            ></textarea>
-            <div class="invalid-feedback">
-              Please enter a message in the textarea.
-              </div>
-            <div class="col text-right mt-2 px-0">
-              <span class="small-text-light ">4000 Characters Left</span>
-            </div>
+          </div></div> : ''}
+        <div className="form-group">
+          <label for="description">Describe your job profile</label>
+          <textarea class={`form-control ${errors.description && 'is-invalid'}`} rows="10"
+            id="description"
+            placeholder="Enter Your Job Profile Details Here..."
+            name="description"
+            onChange={onInputChange}
+            ref={register({
+              required: false,
+              maxLength: {
+                value: MAX_LENGTH,
+                message: `Description must not exceed ${MAX_LENGTH} characters`
+              }
+            })}
+          ></textarea>
+          <div class="row m-0 p-0 mt-2">
+            <div class="col-6 m-0 p-0">{errors.description && <span class="errorMsg">{errors.description.message}</span>}</div>
+            <div class="col-6 text-right m-0 p-0"><span class="small-text-light ">{descriptionLength > -1 ? `${descriptionLength} Characters Left` : `Description exceed ${MAX_LENGTH} characters`} </span></div>
           </div>
         </div>
-        <button class="btn lightBlue float-right px-5" >Save</button>
-      </form>
-
-    </>
+      </div>
+      <button class="btn lightBlue float-right px-5" onClick={submitForm}>Save</button>
+    </form>
   );
 }
 
-export default Employment;
+export default Employment

@@ -5,7 +5,7 @@ import { Context } from "../../../../Context/ProfileContext";
 import ApiServicesOrgCandidate from "../../../../Services/ApiServicesOrgCandidate";
 import { HTTP_REGX, MONTH_NAMES } from "../../../../Utils/AppConst";
 import { certificationFormDefaultValues } from "../../../../Utils/ProfileFormHelper";
-// import moment from 'moment';
+import moment from 'moment';
 
 const Certification = ({ dataAttributes, showPopup }) => {
   const { handleSubmit, getValues, register, errors, setValue, reset, setError, clearErrors } = useForm({
@@ -49,7 +49,6 @@ const Certification = ({ dataAttributes, showPopup }) => {
 
   const handleTypeheadErrorOnInputChange = (input, name, message) => {
     const value = input;
-    // if (value) handlecustomInputValues(value, name);
     handleTypeheadError(value, name, message, false);
   }
 
@@ -93,58 +92,45 @@ const Certification = ({ dataAttributes, showPopup }) => {
         message: 'Certification Name field cannot be left blank'
       });
     }
+    const startMonth = values.issueMonth;
+    const startYear = values.issueYear;
+    const endMonth = values.expirationMonth;
+    const endYear = values.expirationYear;
+    const isEndDateChange = false
+    starDateEndDateValidation(startMonth, startYear, endMonth, endYear, isEndDateChange);
   }
   const handleHasNoExpirationDate = e => {
     setHasNoExpirationDate(!hasNoExpirationDate);
+    clearErrors('endDate');
+    clearErrors('startDate');
   }
-  const IssueAndExpirationDateOnChange = e => {
-    // const { name, value } = e.target;
-    // if (value) {
-    //   const newIssueMonth = (name === 'issueMonth') ? value : values.issueMonth;
-    //   const newIssueYear = (name === 'issueYear') ? value : values.issueYear;
-    //   const newIssueDate = new moment(`${newIssueMonth}, 01, ${newIssueYear}`);
-    //   const newExpirationMonth = (name === 'expirationMonth') ? value : values.expirationMonth;
-    //   const newExpirationYear = (name === 'expirationYear') ? value : values.expirationYear;
-    //   const newExpirationDate = new moment(`${newExpirationMonth}, 01, ${newExpirationYear}`);
-    //   const isAllowToValidate = newIssueYear && newIssueMonth && newExpirationMonth && newExpirationDate;
-    //   if ((name === 'issueYear' || name === 'issueMonth') && (isAllowToValidate)) {
-    //     if (newIssueDate.format("YYYY-MM") >= newExpirationDate.format("YYYY-MM")) {
-    //       setError('issueYear', {
-    //         type: "manual",
-    //         message: 'Issue Date cannot be greater than Expiration Date'
-    //       });
-    //       setError('issueMonth', {
-    //         type: "manual",
-    //         message: 'Issue Date cannot be greater than Expiration Date'
-    //       });
-    //       clearErrors('expirationYear');
-    //       clearErrors('expirationMonth');
-    //     } else {
-    //       clearErrors('issueYear');
-    //       clearErrors('issueMonth');
-    //       clearErrors('expirationYear');
-    //       clearErrors('expirationMonth');
-    //     }
-    //   } else if ((name === 'expirationYear' || name === 'expirationMonth') && (isAllowToValidate)) {
-    //     if (newExpirationDate.format("YYYY-MM") <= newIssueDate.format("YYYY-MM")) {
-    //       setError('expirationYear', {
-    //         type: "manual",
-    //         message: 'Expiration Date cannot be smaller than Issue Date'
-    //       });
-    //       setError('expirationMonth', {
-    //         type: "manual",
-    //         message: 'Expiration Date cannot be smaller than Issue Date'
-    //       });
-    //       clearErrors('issueYear');
-    //       clearErrors('issueMonth');
-    //     } else {
-    //       clearErrors('issueYear');
-    //       clearErrors('issueMonth');
-    //       clearErrors('expirationYear');
-    //       clearErrors('expirationMonth');
-    //     }
-    //   }
-    // }
+
+  const starDateEndDateValidation = (startMonth, startYear, endMonth, endYear, isEndDateChange) => {
+    if (startMonth && startYear && endMonth && endYear) {
+      const startMonthValue = parseInt(moment().month(startMonth).format("M")) - 1;
+      const endMonthValue = parseInt(moment().month(endMonth).format("M")) - 1;
+      const startDate = new Date(parseInt(startYear), startMonthValue).getTime();
+      const endDate = new Date(parseInt(endYear), endMonthValue).getTime();
+      let message = isEndDateChange ? 'End Date cannot be smaller than Start Date' : 'Start Date cannot be greater than End Date';
+      clearErrors('endDate');
+      clearErrors('startDate');
+      if (startDate > endDate) {
+        setError(isEndDateChange ? 'endDate' : 'startDate', {
+          type: "manual",
+          message: message
+        });
+      }
+    }
+  }
+
+  const monthAndDateOnChange = e => {
+    const { name, value } = e.target;
+    const startMonth = name === 'issueMonth' ? value : values.issueMonth;
+    const startYear = name === 'issueYear' ? value : values.issueYear;
+    const endMonth = name === 'expirationMonth' ? value : values.expirationMonth;
+    const endYear = name === 'expirationYear' ? value : values.expirationYear;
+    const isEndDateChange = name === 'expirationMonth' || name === 'expirationYear'
+    starDateEndDateValidation(startMonth, startYear, endMonth, endYear, isEndDateChange);
   }
 
   const onSubmit = values => {
@@ -182,10 +168,12 @@ const Certification = ({ dataAttributes, showPopup }) => {
             <div className="col mr-3">
               <select
                 id="issueYear"
-                class={`form-control ${errors.issueYear && 'is-invalid'}`}
+                class={`form-control ${(errors.issueYear || errors.startDate) && 'is-invalid'}`}
                 name="issueYear"
-                ref={register}
-                onChange={IssueAndExpirationDateOnChange}
+                ref={register({
+                  required: false
+                })}
+                onChange={monthAndDateOnChange}
               >
                 <option value="" selected>Select Year</option>
                 {Array(50).fill().map((_, i) => (
@@ -197,10 +185,12 @@ const Certification = ({ dataAttributes, showPopup }) => {
             <div className="col ml-3">
               <select
                 id="issueMonth"
-                class={`form-control ${errors.issueMonth && 'is-invalid'}`}
+                class={`form-control ${(errors.issueMonth || errors.startDate) && 'is-invalid'}`}
                 name="issueMonth"
-                ref={register}
-                onChange={IssueAndExpirationDateOnChange}
+                ref={register({
+                  required: false
+                })}
+                onChange={e => monthAndDateOnChange(e)}
               >
                 <option value="" selected>Select Month</option>
                 {MONTH_NAMES.map((monthName, i) => (
@@ -209,6 +199,7 @@ const Certification = ({ dataAttributes, showPopup }) => {
               </select>
               {errors.issueMonth && <div class="errorMsg mt-2">{errors.issueMonth.message}</div>}
             </div>
+            <div class="col-12">{errors.startDate && <div class="errorMsg mt-2">{errors.startDate.message}</div>}</div>
           </div>
         </div>
         {!hasNoExpirationDate ? <div> <label htmlFor="expirationYear">Expiration Date</label>
@@ -217,10 +208,12 @@ const Certification = ({ dataAttributes, showPopup }) => {
               <div className="col mr-3">
                 <select
                   id="expirationYear"
-                  class={`form-control ${errors.expirationYear && 'is-invalid'}`}
+                  class={`form-control ${(errors.expirationYear || errors.endDate) && 'is-invalid'}`}
                   name="expirationYear"
-                  ref={register}
-                  onChange={IssueAndExpirationDateOnChange}
+                  ref={register({
+                    required: false
+                  })}
+                  onChange={monthAndDateOnChange}
                 >
                   <option value="" selected>Select Year</option>
                   {Array(100).fill().map((_, i) => (
@@ -233,10 +226,12 @@ const Certification = ({ dataAttributes, showPopup }) => {
               <div className="col ml-3">
                 <select
                   id="expirationMonth"
-                  class={`form-control ${errors.expirationMonth && 'is-invalid'}`}
+                  class={`form-control ${(errors.expirationMonth || errors.endDate) && 'is-invalid'}`}
                   name="expirationMonth"
-                  ref={register}
-                  onChange={IssueAndExpirationDateOnChange}
+                  ref={register({
+                    required: false
+                  })}
+                  onChange={monthAndDateOnChange}
                 >
                   <option value="" selected>Select Month</option>
                   {MONTH_NAMES.map((monthName, i) => (
@@ -245,6 +240,7 @@ const Certification = ({ dataAttributes, showPopup }) => {
                 </select>
                 {errors.expirationMonth && <div class="errorMsg mt-2">{errors.expirationMonth.message}</div>}
               </div>
+              <div class="col-12">{errors.endDate && <div class="errorMsg mt-2">{errors.endDate.message}</div>}</div>
             </div>
           </div></div> : <div class="col text-right mt-2 px-0">
             <span class="small-text-light ">This certification does not expire</span>
