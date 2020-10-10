@@ -83,7 +83,7 @@ export const PopupContent = ({ title, showPopup, dataAttributes, id }) => {
       break;
     case EDIT_LANGUAGE:
       bodyComponent = <Language
-        id={dataAttributes}
+        dataAttributes={dataAttributes}
         showPopup={showPopup}
       />
       break;

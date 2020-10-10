@@ -56,7 +56,7 @@ export const Skills = ({ showPopup }) => {
                     <td>{skill.experience}</td>
                     <td>{skill.proficiency}</td>
                     <td class="edit-icon-column">
-                      <img src="/images/Dashboard-assets/iconfinder_edit.svg" class="edit-icon" alt="Cinque Terre" onClick={() => showPopup(EDIT_SKILL, true, { skillId: skill.skillId })} />
+                      <img src="/images/Dashboard-assets/iconfinder_edit.svg" class="edit-icon" alt="Cinque Terre" onClick={() => showPopup(EDIT_SKILL, true, { resourceId: skill.skillId })} />
                       <img src="/images/Dashboard-assets/delete.svg" class="edit-icon" alt="Cinque Terre" onClick={() => deleteSkill(skill.skillId)} />
                     </td>
                   </tr>
