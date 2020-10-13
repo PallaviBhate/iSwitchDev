@@ -232,8 +232,10 @@ export default class MatchingCandidate extends Component {
         );
        
         return (
-            <div className="">
+            <div className="datatable-editing-demo">
                 <Toast ref={(el) => this.toast = el} />
+                
+                <div className="Show">Total Result {[this.state.products.length]} </div>
                
                   <DataTable ref={(el) => this.dt = el} className="p-datatable-striped"  value={this.state.products} scrollable scrollHeight="520px" lazy rows={20} loading={this.state.loading}
                             virtualScroll virtualRowHeight={45} onVirtualScroll={this.onVirtualScroll} totalRecords={this.state.lazyTotalRecords} 
@@ -243,7 +245,7 @@ export default class MatchingCandidate extends Component {
                          <Column  field="candidate" header="Candidates"   style={{width:'20%'}} body={this.nameBodyTemplate} loadingBody={this.loadingText1} ></Column>
                         <Column field="skills" header="Skills"  style={{width:'15%'}} body={this.countryBodyTemplate}  loadingBody={this.loadingText1} />
                         <Column field="experience" header="Experience"  style={{width:'15%'}} body={this.companyBodyTemplate} loadingBody={this.loadingText1} />
-                        <Column field="availableFrom" header="AvailableFrom"  style={{width:'15%'}} body={this.dateBodyTemplate} loadingBody={this.loadingText1} />
+                        <Column field="availableFrom" header="AvailableFrom"  style={{width:'10%'}} body={this.dateBodyTemplate} loadingBody={this.loadingText1} />
                         <Column field="activity" header="Match"  style={{width:'10%'}} body={this.activityBodyTemplate} loadingBody={this.loadingText1}/>
                         <Column header="Action" body={this.actionBodyTemplate}  style={{width:'20%'}} loadingBody={this.loadingText1}></Column>
                         

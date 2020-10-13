@@ -2790,6 +2790,8 @@ textarea {
     padding: 40px;
     /* margin: 10px; */
     background: #fff;
+    padding-bottom: 6px;
+    padding-top: 15px;
 }
 
 .white-middle-section2 {
@@ -2871,7 +2873,7 @@ textarea {
 
 .p-tabview .p-tabview-panels {
     background: #ffffff;
-    padding-top: 3rem !important;
+    padding-top: none !important;
     border: 0 none;
     color: #495057;
     border-bottom-right-radius: 3px;
@@ -2889,7 +2891,8 @@ textarea {
 }
 
 .viewdetails {
-    margin-left: 500px;
+    display: flex;
+    justify-content: center;
     font-size: 14px;
     color: #333333;
     font-family: Montserrat-Medium!important;
@@ -2904,6 +2907,46 @@ textarea {
 .d-flex-left {
     margin-top: 30px;
     margin-bottom: 30px;
+}
+
+.content_card {
+    margin: 0rem 0rem 0rem 0rem !important;
+}
+
+.p-accordion .p-accordion-content {
+    padding: none !important;
+    border: none !important;
+}
+
+.card {
+    box-shadow: none !important;
+    transition: 0.3s;
+    border-radius: 5px;
+}
+
+.p-accordion-header-link {
+    border: none !important;
+    background: none !important;
+}
+
+.p-accordion .p-accordion-header:not(.p-highlight):not(.p-disabled):hover .p-accordion-header-link {
+    background: none !important;
+    border-color: none !important;
+    color: none !important;
+}
+
+.p-accordion .p-accordion-header:not(.p-disabled) .p-accordion-header-link:focus {
+    outline: none !important;
+    outline-offset: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+.datatable-editing-demo .Show {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 50px;
+    margin-bottom: 20px;
 }
 
 
