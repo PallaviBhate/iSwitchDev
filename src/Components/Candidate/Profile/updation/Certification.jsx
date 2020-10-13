@@ -9,7 +9,7 @@ import moment from 'moment';
 
 const Certification = ({ dataAttributes, showPopup }) => {
   const { handleSubmit, getValues, register, errors, setValue, reset, setError, clearErrors } = useForm({
-    mode: 'all',
+    mode: 'onSubmit',
     defaultValues: certificationFormDefaultValues
   });
   const values = getValues();
@@ -49,13 +49,15 @@ const Certification = ({ dataAttributes, showPopup }) => {
 
   const handleTypeheadErrorOnInputChange = (input, name, message) => {
     const value = input;
-    handleTypeheadError(value, name, message, false);
+    if (value) {
+      setCustomInputValues({ ...customInputValues, [name]: value });
+    } else {
+      handleTypeheadError(value, name, message, false);
+    }
   }
 
   const handlecustomInputValues = (value, name) => {
-    if (name === 'certificationName') {
-      setCustomInputValues({ ...customInputValues, certificationName: value });
-    }
+    setCustomInputValues({ ...customInputValues, [name]: value });
   }
 
   const handleTypeheadErrorOnBlur = (e, name, message) => {
@@ -89,7 +91,7 @@ const Certification = ({ dataAttributes, showPopup }) => {
     if (!customInputValues.certificationName) {
       setError('certificationName', {
         type: "manual",
-        message: 'Certification Name field cannot be left blank'
+        message: 'Certification Name cannot be left blank'
       });
     }
     const startMonth = values.issueMonth;
@@ -149,8 +151,8 @@ const Certification = ({ dataAttributes, showPopup }) => {
             id="certificationName"
             className={errors.certificationName && 'is-invalid'}
             isInvalid={errors.certificationName}
-            onBlur={e => handleTypeheadErrorOnBlur(e, 'certificationName', 'Certification Name field cannot be left blank')}
-            onInputChange={(input, e) => handleTypeheadErrorOnInputChange(input, 'certificationName', 'Certification Name field cannot be left blank')}
+            onBlur={e => handleTypeheadErrorOnBlur(e, 'certificationName', 'Certification Name cannot be left blank')}
+            onInputChange={(input, e) => handleTypeheadErrorOnInputChange(input, 'certificationName', 'Certification Name cannot be left blank')}
             onChange={selected => handleTypeheadErrorOnChange(selected, 'certificationName')}
             options={certificates}
             placeholder="Choose a Certification Name..."

@@ -10,8 +10,8 @@ const CTC = ({ showPopup }) => {
   const initialCustomInputValues = {currencyType: CURRENCY_TYPE_ENUM.INR}
   const [customInputValues, setCustomInputValues] = React.useState(initialCustomInputValues);
 
-  const { handleSubmit, register, errors, setValue, clearErrors, getValues } = useForm({
-    mode: 'all',
+  const { handleSubmit, register, errors, setValue, clearErrors, getValues, setError } = useForm({
+    mode: 'onSubmit',
     defaultValues: cTCFormDefaultValues
   });
   const values = getValues();
@@ -36,6 +36,17 @@ const CTC = ({ showPopup }) => {
       }
     })
   }, []);
+
+  const submitForm = e => {
+    if (values.currentCtcInLakh || values.currentCtcInThousand) {
+      clearErrors('currentCtcInLakh')
+    } else {
+      setError('currentCtcInLakh', {
+        type: 'manual',
+        message: 'Current Salary cannot be left blank.'
+      })
+    }
+  }
 
   const onSubmit = values => {
     const data = {
@@ -88,9 +99,8 @@ const CTC = ({ showPopup }) => {
               id="currentCtcInLakh"
               class={`form-control ${errors.currentCtcInLakh && 'is-invalid'}`}
               name="currentCtcInLakh"
-              ref={register({
-                required: "Current CTC in Lakh cannot be left blank",
-              })}
+              onChange={e => e.target.value && clearErrors('currentCtcInLakh')}
+              ref={register}
             >
               <option value="" selected>Select in Lakhs</option>
               {Array(100).fill().map((_, i) => (
@@ -98,16 +108,15 @@ const CTC = ({ showPopup }) => {
               ))}
             </select>
             <label class="w-100 text-right small-text-light mt-2" htmlFor="University">Lakhs</label>
-            {errors.currentCtcInLakh && <div class="errorMsg mt-2">{errors.currentCtcInLakh.message}</div>}
+            
           </div>
           <div className="col  ml-4">
             <select
               id="currentCtcInThousand"
               class={`form-control ${errors.currentCtcInThousand && 'is-invalid'}`}
               name="currentCtcInThousand"
-              ref={register({
-                required: "Current CTC in Thousand cannot be left blank",
-              })}
+              onChange={e => e.target.value && clearErrors('currentCtcInLakh')}
+              ref={register}
             >
               <option value="" selected>Select in Thousand</option>
               {Array(20).fill().map((_, i) => (
@@ -115,8 +124,8 @@ const CTC = ({ showPopup }) => {
               ))}
             </select>
             <label class="w-100 text-right small-text-light mt-2" htmlFor="University">Thousand</label>
-            {errors.currentCtcInThousand && <div class="errorMsg mt-2">{errors.currentCtcInThousand.message}</div>}
           </div>
+          <div class="errorMsg mt-2">{errors.currentCtcInLakh && errors.currentCtcInLakh.message}</div>
         </div>
       </div>
       <div className="form-group">
@@ -154,7 +163,7 @@ const CTC = ({ showPopup }) => {
           </div>
         </div>
       </div>
-      <button class="btn lightBlue float-right px-5">Save</button>
+      <button class="btn lightBlue float-right px-5" onClick={submitForm}>Save</button>
     </form>
   );
 }

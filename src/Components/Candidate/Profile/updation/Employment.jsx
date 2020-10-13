@@ -12,7 +12,7 @@ const Employment = ({ dataAttributes, showPopup }) => {
   const resourceId = dataAttributes && dataAttributes.resourceId;
   const [descriptionLength, setDescriptionLength] = React.useState(MAX_LENGTH);
   const { handleSubmit, register, errors, getValues, setValue, setError, clearErrors } = useForm({
-    mode: 'all',
+    mode: 'onSubmit',
     defaultValues: employmentFormDefaultValue
   });
   const values = getValues();
@@ -65,19 +65,17 @@ const Employment = ({ dataAttributes, showPopup }) => {
 
   const handleTypeheadErrorOnInputChange = (input, name, message) => {
     const value = input;
-    handleTypeheadError(value, name, message, false);
-  }
-
-  const handlecustomInputValues = (value, name) => {
-    if (name === 'organization') {
-      setCustomInputValues({ ...customInputValues, organization: value });
+    if (value) {
+      setCustomInputValues({ ...customInputValues, [name]: value });
+    } else {
+      handleTypeheadError(value, name, message, false);
     }
   }
 
-  const handleTypeheadErrorOnBlur = (e, name, message) => {
-    const value = e.target.value;
-    handleTypeheadError(value, name, message, true)
+  const handlecustomInputValues = (value, name) => {
+    setCustomInputValues({ ...customInputValues, [name]: value });
   }
+
 
   const handleTypeheadErrorOnChange = (selected, name) => {
     handlecustomInputValues(selected[0], name);
@@ -109,13 +107,7 @@ const Employment = ({ dataAttributes, showPopup }) => {
         message: message
       });
     } else {
-      if (!isBlur) {
-        const messageText = name === 'organization' ? 'Please enter a valid Organization' : '';
-        setError(name, {
-          type: "manual",
-          message: messageText
-        });
-      }
+      clearErrors(name);
     }
   }
 
@@ -140,7 +132,7 @@ const Employment = ({ dataAttributes, showPopup }) => {
     if (!customInputValues.organization) {
       setError('organization', {
         type: "manual",
-        message: 'Organization field cannot be left blank'
+        message: 'Organization cannot be left blank'
       });
     }
     const startMonth = values.startedWorkingFromMonth;
@@ -161,7 +153,7 @@ const Employment = ({ dataAttributes, showPopup }) => {
             id="designation"
             name="designation"
             ref={register({
-              required: "Designation field cannot be left blank"
+              required: "Designation cannot be left blank"
             })}
             placeholder="Enter Designation"
           />
@@ -173,8 +165,7 @@ const Employment = ({ dataAttributes, showPopup }) => {
             id="organization"
             className={errors.organization && 'is-invalid'}
             isInvalid={errors.organization}
-            onBlur={e => handleTypeheadErrorOnBlur(e, 'organization', 'Organization field cannot be left blank')}
-            onInputChange={(input, e) => handleTypeheadErrorOnInputChange(input, 'organization', 'Organization field cannot be left blank')}
+            onInputChange={(input, e) => handleTypeheadErrorOnInputChange(input, 'organization', 'Organization cannot be left blank')}
             onChange={selected => handleTypeheadErrorOnChange(selected, 'organization')}
             options={organizations}
             placeholder="Choose a Organization..."
@@ -191,12 +182,13 @@ const Employment = ({ dataAttributes, showPopup }) => {
                 class={`form-control ${errors.employmentType && 'is-invalid'}`}
                 name="employmentType"
                 ref={register({
-                  required: "Employment Type field cannot be left blank"
+                  required: "Employment Type cannot be left blank"
                 })}
               >
                 <option value="" selected>Select Employment Type</option>
                 <option>Permanent</option>
                 <option>Contractual</option>
+                <option>Internship</option>
               </select>
               {errors.employmentType && <div class="errorMsg mt-2">{errors.employmentType.message}</div>}
             </div>
@@ -242,7 +234,7 @@ const Employment = ({ dataAttributes, showPopup }) => {
                 class={`form-control ${(errors.startedWorkingFromYear || errors.startDate) && 'is-invalid'}`}
                 name="startedWorkingFromYear"
                 ref={register({
-                  required: "Year field cannot be left blank"
+                  required: "Year cannot be left blank"
                 })}
                 onChange={monthAndDateOnChange}
               >
@@ -259,7 +251,7 @@ const Employment = ({ dataAttributes, showPopup }) => {
                 class={`form-control ${(errors.startedWorkingFromMonth || errors.startDate) && 'is-invalid'}`}
                 name="startedWorkingFromMonth"
                 ref={register({
-                  required: "Month field cannot be left blank"
+                  required: "Month cannot be left blank"
                 })}
                 onChange={monthAndDateOnChange}
               >
@@ -282,7 +274,7 @@ const Employment = ({ dataAttributes, showPopup }) => {
                   class={`form-control ${(errors.workedTillYear || errors.endDate) && 'is-invalid'}`}
                   name="workedTillYear"
                   ref={register({
-                    required: "Year field cannot be left blank"
+                    required: "Year cannot be left blank"
                   })}
                   onChange={monthAndDateOnChange}
 
@@ -300,7 +292,7 @@ const Employment = ({ dataAttributes, showPopup }) => {
                   class={`form-control ${(errors.workedTillMonth || errors.endDate) && 'is-invalid'}`}
                   name="workedTillMonth"
                   ref={register({
-                    required: "Month field cannot be left blank"
+                    required: "Month cannot be left blank"
                   })}
                   onChange={monthAndDateOnChange}
 
@@ -324,10 +316,6 @@ const Employment = ({ dataAttributes, showPopup }) => {
             onChange={onInputChange}
             ref={register({
               required: false,
-              maxLength: {
-                value: MAX_LENGTH,
-                message: `Description must not exceed ${MAX_LENGTH} characters`
-              }
             })}
           ></textarea>
           <div class="row m-0 p-0 mt-2">

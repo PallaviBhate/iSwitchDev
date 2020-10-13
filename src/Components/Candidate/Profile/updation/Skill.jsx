@@ -6,8 +6,8 @@ import ApiServicesOrgCandidate from "../../../../Services/ApiServicesOrgCandidat
 import { skillFormDefaultValues, getExperienceInFormat, getExperienceInYear, getExperienceInMonth } from "../../../../Utils/ProfileFormHelper";
 
 const Skill = ({ dataAttributes, showPopup }) => {
-  const { handleSubmit, register, errors, setValue,  setError, clearErrors } = useForm({
-    mode: 'all',
+  const { handleSubmit, register, errors, setValue, setError, clearErrors } = useForm({
+    mode: 'onSubmit',
     defaultValues: skillFormDefaultValues
   });
   const { state, getProfileInfo } = React.useContext(Context);
@@ -42,20 +42,16 @@ const Skill = ({ dataAttributes, showPopup }) => {
     })
   }, []);
 
-  const handleTypeheadErrorOnInputChange = (input, name, message) => {
-    const value = input;
-    handleTypeheadError(value, name, message, false);
-  }
-
-  const handlecustomInputValues = (value, name) => {
-    if (name === 'skillName') {
-      setCustomInputValues({ ...customInputValues, skillName: value });
+  const handleTypeheadErrorOnInputChange = (e, input, name, message) => {
+    const {value} = e.target;
+    if (value) {
+      setCustomInputValues({ ...customInputValues, [name]: value });
+      clearErrors(name)
     }
   }
 
-  const handleTypeheadErrorOnBlur = (e, name, message) => {
-    const value = e.target.value;
-    handleTypeheadError(value, name, message, true)
+  const handlecustomInputValues = (value, name) => {
+    setCustomInputValues({ ...customInputValues, [name]: value });
   }
 
   const handleTypeheadErrorOnChange = (selected, name) => {
@@ -63,28 +59,11 @@ const Skill = ({ dataAttributes, showPopup }) => {
     clearErrors(name)
   }
 
-  const handleTypeheadError = (value, name, message, isBlur) => {
-    if (!value) {
-      setError(name, {
-        type: "manual",
-        message: message
-      });
-    } else {
-      if (!isBlur) {
-        const messageText = name === 'skillName' ? 'Please enter a valid Skill Name' : '';
-        setError(name, {
-          type: "manual",
-          message: messageText
-        });
-      }
-    }
-  }
-
   const submitForm = (e) => {
     if (!customInputValues.skillName) {
       setError('skillName', {
         type: "manual",
-        message: 'Skill Name field cannot be left blank'
+        message: 'Skill Name cannot be left blank'
       });
     }
   }
@@ -116,8 +95,7 @@ const Skill = ({ dataAttributes, showPopup }) => {
             id="skillName"
             className={errors.skillName && 'is-invalid'}
             isInvalid={errors.skillName}
-            onBlur={e => handleTypeheadErrorOnBlur(e, 'skillName', 'Skill Name field cannot be left blank')}
-            onInputChange={(input, e) => handleTypeheadErrorOnInputChange(input, 'skillName', 'Skill Name field cannot be left blank')}
+            onInputChange={(input, e) => handleTypeheadErrorOnInputChange(e, input, 'skillName', 'Skill Name cannot be left blank')}
             onChange={selected => handleTypeheadErrorOnChange(selected, 'skillName')}
             options={skills}
             placeholder="Choose a Skill Name..."
@@ -139,7 +117,7 @@ const Skill = ({ dataAttributes, showPopup }) => {
             name="version"
             ref={register({
               required: false,
-              message: 'Version field cannot be left blank'
+              message: 'Version cannot be left blank'
             })}
             placeholder="Version"
           />
@@ -155,7 +133,7 @@ const Skill = ({ dataAttributes, showPopup }) => {
                 name="experienceInYear"
                 ref={register({
                   required: false,
-                  message: "Year field cannot be left blank"
+                  message: "Year cannot be left blank"
                 })}
               >
                 <option value="" selected>Select Year</option>
@@ -172,7 +150,7 @@ const Skill = ({ dataAttributes, showPopup }) => {
                 name="experienceInMonth"
                 ref={register({
                   required: false,
-                  message: "Month field cannot be left blank"
+                  message: "Month cannot be left blank"
                 })}
               >
                 <option value="" selected>Select Month</option>
@@ -193,7 +171,7 @@ const Skill = ({ dataAttributes, showPopup }) => {
             name="proficiency"
             ref={register({
               required: false,
-              message: 'Proficiency field cannot be left blank'
+              message: 'Proficiency cannot be left blank'
             })}
           >
             <option value="" selected>Select Proficiency</option>

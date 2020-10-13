@@ -9,7 +9,7 @@ const About = ({ showPopup }) => {
   const { state, getProfileInfo } = React.useContext(Context);
   const [aboutLength, setAboutLength] = React.useState(MAX_LENGTH);
   const { handleSubmit, register, errors, setValue } = useForm({
-    mode: 'all',
+    mode: 'onSubmit',
     defaultValues: aboutFormDefaultValues
   });
 
@@ -24,6 +24,7 @@ const About = ({ showPopup }) => {
   }, []);
 
   const onInputChange = e => {
+
     setAboutLength(MAX_LENGTH - e.target.value.length);
   }
 
@@ -41,17 +42,18 @@ const About = ({ showPopup }) => {
             placeholder="Describe Here"
             name="about"
             onChange={onInputChange}
+            maxlength={MAX_LENGTH}
             ref={register({
               required: false,
-              maxLength: {
-                value: MAX_LENGTH,
-                message: `Profile Summary must not exceed ${MAX_LENGTH} characters`
-              }
+              // maxLength: {
+              //   value: MAX_LENGTH,
+              //   message: `Profile Summary must not exceed ${MAX_LENGTH} characters`
+              // }
             })}
           ></textarea>
           <div class="row m-0 p-0 mt-2">
             <div class="col-6 m-0 p-0">{errors.about && <span class="errorMsg">{errors.about.message}</span>}</div>
-            <div class="col-6 text-right m-0 p-0"><span class="small-text-light ">{aboutLength > -1 ? `${aboutLength} Characters Left` : `Profile Summary exceed ${MAX_LENGTH} characters`} </span></div>
+            <div class="col-6 text-right m-0 p-0"><span class="small-text-light ">{aboutLength} Characters Left</span></div>
           </div>
         </div>
       </div>

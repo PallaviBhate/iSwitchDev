@@ -12,7 +12,7 @@ const CareerProfile = ({ showPopup }) => {
   const initialCustomInputValues = { preferredShift: '', preferredLocations: [] };
   const [customInputValues, setCustomInputValues] = React.useState(initialCustomInputValues);
   const { handleSubmit, register, errors, setValue, clearErrors, getValues } = useForm({
-    mode: 'all',
+    mode: 'onSubmit',
     defaultValues: careerProfileFormDefaultValues
   });
   const [preferredLocations, setPreferredLocations] = useState([]);
@@ -104,7 +104,7 @@ const CareerProfile = ({ showPopup }) => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <div class="mb-4">
         <div className="form-group">
-          <label htmlFor="University">Employment Type</label>
+          <label htmlFor="University">Employment Type<span>*</span></label>
           <select
             id="employmentType"
             class={`form-control ${errors.employmentType && 'is-invalid'}`}

@@ -7,7 +7,7 @@ import { languageFormDefaultValues } from "../../../../Utils/ProfileFormHelper";
 
 const Language = ({ dataAttributes, showPopup }) => {
   const { handleSubmit, register, errors, setValue,  setError, clearErrors } = useForm({
-    mode: 'all',
+    mode: 'onSubmit',
     defaultValues: languageFormDefaultValues
   });
   const { state, getProfileInfo } = React.useContext(Context);
@@ -38,15 +38,18 @@ const Language = ({ dataAttributes, showPopup }) => {
     })
   }, []);
 
-  const handleTypeheadErrorOnInputChange = (input, name, message) => {
-    const value = input;
-    handleTypeheadError(value, name, message, false);
+  const handleTypeheadErrorOnInputChange = (e, input, name, message) => {
+    const {value} = e.target;
+    if (value) {
+      console.log(value)
+      setCustomInputValues({ ...customInputValues, [name]: value });
+    } else {
+      handleTypeheadError(value, name, message, false);
+    }
   }
 
   const handlecustomInputValues = (value, name) => {
-    if (name === 'language') {
-      setCustomInputValues({ ...customInputValues, language: value });
-    }
+      setCustomInputValues({ ...customInputValues, [name]: value });
   }
 
   const handleTypeheadErrorOnBlur = (e, name, message) => {
@@ -85,7 +88,7 @@ const Language = ({ dataAttributes, showPopup }) => {
     if (!customInputValues.language) {
       setError('language', {
         type: "manual",
-        message: 'Language field cannot be left blank'
+        message: 'Language cannot be left blank'
       });
     }
   }
@@ -113,8 +116,8 @@ const Language = ({ dataAttributes, showPopup }) => {
             id="language"
             className={errors.language && 'is-invalid'}
             isInvalid={errors.language}
-            onBlur={e => handleTypeheadErrorOnBlur(e, 'language', 'Language field cannot be left blank')}
-            onInputChange={(input, e) => handleTypeheadErrorOnInputChange(input, 'language', 'Language field cannot be left blank')}
+            onBlur={e => handleTypeheadErrorOnBlur(e, 'language', 'Language cannot be left blank')}
+            onInputChange={(input, e) => handleTypeheadErrorOnInputChange(e, input, 'language', 'Language cannot be left blank')}
             onChange={selected => handleTypeheadErrorOnChange(selected, 'language')}
             options={languages}
             placeholder="Choose a Language..."
@@ -129,7 +132,7 @@ const Language = ({ dataAttributes, showPopup }) => {
             class={`form-control ${errors.proficiency && 'is-invalid'}`}
             name="proficiency"
             ref={register({
-              required: 'Proficiency field cannot be left blank'
+              required: 'Proficiency cannot be left blank'
             })}
           >
             <option value="" selected>Select Proficiency</option>

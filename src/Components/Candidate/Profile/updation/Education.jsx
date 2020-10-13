@@ -8,7 +8,7 @@ import { COURSE_TYPE_ENUM } from "../../../../Utils/AppConst";
 
 const Education = ({ dataAttributes, showPopup }) => {
   const { handleSubmit, getValues, register, errors, setValue, reset, setError, clearErrors } = useForm({
-    mode: 'all',
+    mode: 'onSubmit',
     defaultValues: {
       passingOutYear: ''
     }
@@ -18,7 +18,7 @@ const Education = ({ dataAttributes, showPopup }) => {
   const [boards, setBoards] = React.useState([]);
   const [institutes, setInstitutes] = React.useState([]);
   const [isSchoolForm, setIsSchoolForm] = React.useState(false);
-  const initialCustomInputValues = {courseType: COURSE_TYPE_ENUM.FULL_TIME}
+  const initialCustomInputValues = { courseType: COURSE_TYPE_ENUM.FULL_TIME }
   const [customInputValues, setCustomInputValues] = React.useState(initialCustomInputValues);
   React.useEffect(() => {
     ApiServicesOrgCandidate.getListOfInstitutes().then((response) => {
@@ -66,21 +66,15 @@ const Education = ({ dataAttributes, showPopup }) => {
 
   const handleTypeheadErrorOnInputChange = (input, name, message) => {
     const value = input;
-    // if (value) handlecustomInputValues(value, name);
-    handleTypeheadError(value, name, message, false);
-  }
-
-  const handlecustomInputValues = (value, name) => {
-    if (name === 'board') {
-      setCustomInputValues({ ...customInputValues, board: value });
-    } else if (name === 'university') {
-      setCustomInputValues({ ...customInputValues, university: value });
+    if (value) {
+      setCustomInputValues({ ...customInputValues, [name]: value });
+    } else {
+      handleTypeheadError(value, name, message, false);
     }
   }
 
-  const handleTypeheadErrorOnBlur = (e, name, message) => {
-    const value = e.target.value;
-    handleTypeheadError(value, name, message, true)
+  const handlecustomInputValues = (value, name) => {
+    setCustomInputValues({ ...customInputValues, [name]: value });
   }
 
   const handleTypeheadErrorOnChange = (selected, name) => {
@@ -95,13 +89,7 @@ const Education = ({ dataAttributes, showPopup }) => {
         message: message
       });
     } else {
-      if (!isBlur) {
-        const messageText = name === 'board' ? 'Please enter a valid Board' : name === 'university' ? 'Please enter a valid University/Institute' : '';
-        setError(name, {
-          type: "manual",
-          message: messageText
-        });
-      }
+      clearErrors(name);
     }
   }
   const onChangeEducationType = e => {
@@ -116,19 +104,19 @@ const Education = ({ dataAttributes, showPopup }) => {
     if (isSchoolForm && !customInputValues.board) {
       setError('board', {
         type: "manual",
-        message: 'Board field cannot be left blank'
+        message: 'Board cannot be left blank'
       });
     }
     if (!isSchoolForm && !customInputValues.university) {
       setError('university', {
         type: "manual",
-        message: 'University/Institute field cannot be left blank'
+        message: 'University/Institute cannot be left blank'
       });
     }
     if (!isSchoolForm && !customInputValues.courseType) {
       setError('courseType', {
         type: "manual",
-        message: 'Course Type field cannot be left blank'
+        message: 'Course Type cannot be left blank'
       });
     }
   }
@@ -137,7 +125,7 @@ const Education = ({ dataAttributes, showPopup }) => {
     if (value === COURSE_TYPE_ENUM.FULL_TIME || value === COURSE_TYPE_ENUM.PART_TIME || value === COURSE_TYPE_ENUM.CORRESPONDENCE) {
       clearErrors('courseType');
     }
-    setCustomInputValues({...customInputValues, courseType: e.target.value})
+    setCustomInputValues({ ...customInputValues, courseType: e.target.value })
   }
   const values = getValues();
   const onSubmit = values => {
@@ -158,15 +146,15 @@ const Education = ({ dataAttributes, showPopup }) => {
             name="educationType"
             onChange={onChangeEducationType}
             ref={register({
-              required: "Education Type field cannot be left blank"
+              required: "Education Type cannot be left blank"
             })}
           >
             <option value="" selected>Select Education Type</option>
             <option value="Doctorate/PhD">Doctorate/PhD</option>
             <option value="Masters/Post-Graduation">Masters/Post-Graduation</option>
             <option value="Graduation/Diploma">Graduation/Diploma</option>
-            <option value="12th">12th</option>
-            <option value="10th">10th</option>
+            {<option value="12th">12th</option>}
+            {<option value="10th">10th</option>}
           </select>
           {errors.educationType && <div class="errorMsg mt-2">{errors.educationType.message}</div>}
         </div>
@@ -176,8 +164,7 @@ const Education = ({ dataAttributes, showPopup }) => {
             id="board"
             className={errors.board && 'is-invalid'}
             isInvalid={errors.board}
-            onBlur={e => handleTypeheadErrorOnBlur(e, 'board', 'Board field cannot be left blank')}
-            onInputChange={(input, e) => handleTypeheadErrorOnInputChange(input, 'board', 'Board field cannot be left blank')}
+            onInputChange={(input, e) => handleTypeheadErrorOnInputChange(input, 'board', 'Board cannot be left blank')}
             onChange={selected => handleTypeheadErrorOnChange(selected, 'board')}
             options={boards}
             placeholder="Choose a Board..."
@@ -193,7 +180,7 @@ const Education = ({ dataAttributes, showPopup }) => {
                 id="course"
                 name="course"
                 ref={register({
-                  required: "Course field cannot be left blank",
+                  required: "Course cannot be left blank",
                 })}
                 placeholder="Enter Course"
               />
@@ -206,7 +193,7 @@ const Education = ({ dataAttributes, showPopup }) => {
                 id="specialization"
                 name="specialization"
                 ref={register({
-                  required: "Specialization field cannot be left blank",
+                  required: "Specialization cannot be left blank",
                 })}
                 placeholder="Enter Specialization"
               />
@@ -218,8 +205,7 @@ const Education = ({ dataAttributes, showPopup }) => {
                 id="university"
                 className={errors.university && 'is-invalid'}
                 isInvalid={errors.university}
-                onBlur={e => handleTypeheadErrorOnBlur(e, 'university', 'University/Institute field cannot be left blank')}
-                onInputChange={(input, e) => handleTypeheadErrorOnInputChange(input, 'university', 'University/Institute field cannot be left blank')}
+                onInputChange={(input, e) => handleTypeheadErrorOnInputChange(input, 'university', 'University/Institute cannot be left blank')}
                 onChange={selected => handleTypeheadErrorOnChange(selected, 'university')}
                 options={institutes}
                 placeholder="Choose a University/Institute..."
@@ -277,7 +263,7 @@ const Education = ({ dataAttributes, showPopup }) => {
             name="passingOutYear"
 
             ref={register({
-              required: "Passing out year field cannot be left blank"
+              required: "Passing out year cannot be left blank"
             })}
           >
             <option value="" selected>Select Passing Out Year</option>
@@ -288,17 +274,13 @@ const Education = ({ dataAttributes, showPopup }) => {
           {errors.passingOutYear && <div class="errorMsg mt-2">{errors.passingOutYear.message}</div>}
         </div>
         <div className="form-group">
-          <label htmlFor="marks">Marks<span>*</span></label>
+          <label htmlFor="marks">Passing % Or Grade<span>*</span></label>
           <input
             class={`form-control ${errors.marks && 'is-invalid'}`}
             id="marks"
             name="marks"
             ref={register({
-              required: "Marks field cannot be left blank",
-              pattern: {
-                value: /(\d+(\.\d+)?)/,
-                message: "Please enter a valid marks"
-              }
+              required: "Marks cannot be left blank",
             })}
             placeholder="Enter Marks"
           />

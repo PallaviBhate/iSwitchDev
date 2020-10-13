@@ -210,8 +210,6 @@ const Personal = ({ showPopup }) => {
               <option disabled>Select Marital Status</option>
               <option>Single/unmarried</option>
               <option>Married</option>
-              <option>Widowed</option>
-              <option>Divorced</option>
             </select>
           </div>
           <div className="form-group">
