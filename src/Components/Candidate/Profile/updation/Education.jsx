@@ -215,7 +215,7 @@ const Education = ({ dataAttributes, showPopup }) => {
             </div>
             <div class="form-group">
               <label htmlFor="University">Course Type</label>
-              <div class={errors.courseType && 'error-boundary'}>
+              <div>
                 <div class={customInputValues.courseType === COURSE_TYPE_ENUM.FULL_TIME ? "modal-label form-check form-check-inline" : "modal-label form-check form-check-inline modal-fade"}>
                   <input
                     type="radio"

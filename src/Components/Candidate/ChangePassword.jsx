@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import HeaderAll from '../CommonComp/HeaderAll';
-import LeftNavCandidate from '../CommonComp/LeftNavCandidate'
+//import LeftNavCandidate from '../CommonComp/LeftNavCandidate'
 import Footer from '../CommonComp/Footer'
 import {Link} from 'react-router-dom'
 import { InputText } from 'primereact/inputtext';
@@ -32,10 +32,11 @@ class ChangePassword extends Component {
          const {oldPasswordValue, newPasswordValue,  confirmPasswordValue, revealOldPassword, revealNewPassword  } = this.state;
         return (
             <Fragment>
-                <LeftNavCandidate></LeftNavCandidate>
-                <div className="maincontent toggled">
+                {/* <LeftNavCandidate></LeftNavCandidate> */}
+                <div className="content">
+                {/* <div className="maincontent toggled"> */}
                 <HeaderAll isCandidate={true}></HeaderAll>
-                <section class="content_section">
+                <section class="content_section main">
                         <div class="row">
                         <div class="col-md-12 pb-2 pt-2">
                                 {/*<p className="backtodashboard">

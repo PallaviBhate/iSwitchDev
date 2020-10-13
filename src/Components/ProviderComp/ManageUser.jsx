@@ -206,7 +206,7 @@ class ManageUser extends Component{
            return(
             <Fragment>
                 <LeftNavProvider></LeftNavProvider>
-				<div className="maincontent toggled">
+				<div className="maincontent">
             <div className="content">
                 {/*  Header */}
                 <HeaderAll></HeaderAll>

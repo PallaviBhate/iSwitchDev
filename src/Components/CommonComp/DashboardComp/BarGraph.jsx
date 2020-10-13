@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../../../Assets/css/StyleOur.css'
+import '../../../Assets/css/Style.css'
 import { Bar as BarChart } from 'react-chartjs-2'
 import '../../CommonComp/DashboardComp/RoundedBars'
 

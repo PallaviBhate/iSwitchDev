@@ -197,7 +197,7 @@ const Employment = ({ dataAttributes, showPopup }) => {
 
         <div class="form-group">
           <label htmlFor="currentCompany">Is this your current company?</label>
-          <div class={errors.currentCompany && 'error-boundary'}>
+          <div>
             <div class={customInputValues.currentCompany ? "modal-label form-check form-check-inline" : "modal-label form-check form-check-inline modal-fade"}>
               <input
                 type="radio"
@@ -314,6 +314,7 @@ const Employment = ({ dataAttributes, showPopup }) => {
             placeholder="Enter Your Job Profile Details Here..."
             name="description"
             onChange={onInputChange}
+            maxLength={MAX_LENGTH}
             ref={register({
               required: false,
             })}

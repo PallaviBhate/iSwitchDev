@@ -1,6 +1,7 @@
 import React from 'react';
 import $ from 'jquery'
 import { Link, NavLink } from "react-router-dom";
+import ActiveJob from "../RecruiterComp/ActiveJob"
 
 const LeftNavProvider = () => {
 
@@ -13,7 +14,7 @@ const LeftNavProvider = () => {
     //To move dot to active page
     const isActive = (path, match, location) => !!(match || path === location.pathname);
     return (
-        <div id="wrapper" className="toggled">
+        <div id="wrapper" className="">
             <div id="sidebar-wrapper">
                 <ul className="sidebar-nav" >
                     <li className="sidebar-brand">
@@ -58,7 +59,7 @@ const LeftNavProvider = () => {
                     {localStorage.getItem('status') === "recruiter" ?
                         (
                      <li data-toggle="tooltip" data-placement="right" title="Jobs">
-                        <Link class="subMenu" id="navbarDropdown" role="button"
+                        <Link class="subMenu collapsed" id="navbarDropdown" role="button"
                             data-toggle="collapse" data-target="#submenu1sub1">
                             <i><img src="/images/Candidate-Navbar-assets/job-offers.svg" aria-hidden="true" /></i>
                              <span className="menuText">Jobs</span>
@@ -66,18 +67,18 @@ const LeftNavProvider = () => {
                         <div className="collapse" id="submenu1sub1" aria-expanded="false">
                             <ul className="flex-column nav submenuLink">
                                 <li class="dropdown-item" data-toggle="tooltip" data-placement="right" title="Active Jobs">
-                                    <NavLink  to="/activeJobs" 
+                                    <Link  to="/activeJob" 
                                     activeClassName="active"
-                                    isActive={isActive.bind(this,'/activeJobs')}
+                                    isActive={isActive.bind(this,'/activeJob')}
                                     >
                                         <i><img src="/images/Candidate-Navbar-assets/Recruiter-active-jobs-icon.svg" aria-hidden="true" /></i>
-                                        <span className="menuText">Active Jobs</span>
-                                    </NavLink>
+                                        <span className="menuText">Active Job</span>
+                                    </Link>
                                 </li>
                                 <li class="dropdown-item" data-toggle="tooltip" data-placement="right" title="Closed Jobs">
-                                    <NavLink  to="/closedJobs"
+                                    <NavLink  to="/closeJobs"
                                     activeClassName="active"
-                                    isActive={isActive.bind(this,'/closedJobs')}
+                                    isActive={isActive.bind(this,'/closeJobs')}
                                     >
                                      <i><img src="/images/Candidate-Navbar-assets/Recruiter-closed-job-icons.svg" aria-hidden="true" /></i>
                                     <span className="menuText">Closed Jobs</span>

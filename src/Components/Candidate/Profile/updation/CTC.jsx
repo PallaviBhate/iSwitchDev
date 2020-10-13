@@ -63,7 +63,7 @@ const CTC = ({ showPopup }) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div class="form-group">
-        <div class={errors.currencyType && 'error-boundary'}>
+        <div>
           <div class={customInputValues.currencyType === CURRENCY_TYPE_ENUM.INR ? "modal-label form-check form-check-inline" : "modal-label form-check form-check-inline modal-fade"}>
             <input
               type="radio"

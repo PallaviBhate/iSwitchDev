@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../../Assets/css/StyleOur.css'
+import '../../Assets/css/Style.css'
 import Footer from './Footer';
 import LeftNavCandidate from './LeftNavCandidate';
 import HeaderAll from './HeaderAll';
@@ -11,7 +11,7 @@ class Interviews extends Component {
     return (
       <div>
         <LeftNavCandidate></LeftNavCandidate>
-        <div className="maincontent toggled">
+        <div className="maincontent">
           <HeaderAll></HeaderAll>
           {/* <UploadProfile/> */}
           <div className="container-fluid">

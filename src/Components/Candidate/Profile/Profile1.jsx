@@ -558,7 +558,7 @@ class Profile extends Component {
     return (
       <div>
         <LeftNavCandidate></LeftNavCandidate>
-        <div className="maincontent toggled">
+        <div className="maincontent">
         <HeaderAll isCandidate={true}></HeaderAll>
           {/* <UploadProfile/> */}
           <div className="container-fluid">
