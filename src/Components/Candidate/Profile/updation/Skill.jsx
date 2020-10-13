@@ -15,7 +15,6 @@ const Skill = ({ dataAttributes, showPopup }) => {
   const initialCustomInputValues = {}
   const [skills, setSkills] = React.useState([]);
   const [customInputValues, setCustomInputValues] = React.useState(initialCustomInputValues);
-  const [primarySkill, setPrimarySkill] = React.useState(false);
   React.useEffect(() => {
     ApiServicesOrgCandidate.getListOfSkills().then((response) => {
       if (response) {
@@ -31,12 +30,12 @@ const Skill = ({ dataAttributes, showPopup }) => {
           return resObj.skillId === resourceId
         })[0]
         if (resourceObj) {
-          const { skillName, experience, proficiency, version } = resourceObj;
+          const { skillName, experience, proficiency, version, primarySkill } = resourceObj;
           setValue("experienceInYear", getExperienceInYear(experience));
           setValue("experienceInMonth", getExperienceInMonth(experience));
           setValue("proficiency", proficiency);
           setValue("version", version);
-          setCustomInputValues({ skillName: skillName });
+          setCustomInputValues({ skillName: skillName, primarySkill: primarySkill });
         }
       }
     })
@@ -69,7 +68,7 @@ const Skill = ({ dataAttributes, showPopup }) => {
   }
 
   const handlePrimarySkill = e => {
-    setPrimarySkill(!primarySkill);
+    setCustomInputValues({...customInputValues, primarySkill: e.target.checked})
   }
 
   const onSubmit = values => {
@@ -77,7 +76,8 @@ const Skill = ({ dataAttributes, showPopup }) => {
       skillName: customInputValues.skillName,
       experience: getExperienceInFormat(values.experienceInYear, values.experienceInMonth),
       proficiency: values.proficiency,
-      version: values.version
+      version: values.version,
+      primarySkill: customInputValues.primarySkill
     }
     if (resourceId) {
       ApiServicesOrgCandidate.updateSkill({ ...data, skillId: resourceId }, getProfileInfo, showPopup);
@@ -105,7 +105,7 @@ const Skill = ({ dataAttributes, showPopup }) => {
         </div>
         <div className="form-group">
           <div class="custom-control custom-checkbox mr-sm-2">
-            <input type="checkbox" class="custom-control-input" name="primarySkill" id="primarySkill" checked={primarySkill} onChange={(e) => handlePrimarySkill(e)} />
+            <input type="checkbox" class="custom-control-input" name="primarySkill" id="primarySkill" checked={customInputValues.primarySkill} onChange={(e) => handlePrimarySkill(e)} />
             <label class="custom-control-label" for="primarySkill">Primary Skill</label>
           </div>
         </div>

@@ -2999,3 +2999,9 @@ textarea {
     color: #212529 !important;
     font-family: Montserrat-Medium!important;
 }
+
+.form-control.is-valid,
+.form-control.is-invalid {
+    background-image: none !important;
+    padding-right: inherit !important;
+}

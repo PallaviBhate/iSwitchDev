@@ -44,6 +44,7 @@ export const Skills = ({ showPopup }) => {
                   <th class="normal-text-medium-bold">Version</th>
                   <th class="normal-text-medium-bold">Experience</th>
                   <th class="normal-text-medium-bold">Proficiency</th>
+                  <th class="normal-text-medium-bold text-center">Primary Skills</th>
                   <th></th>
                 </tr>
               </thead>
@@ -55,6 +56,7 @@ export const Skills = ({ showPopup }) => {
                     <td>{skill.version}</td>
                     <td>{skill.experience}</td>
                     <td>{skill.proficiency}</td>
+                    <td class="text-center">{skill.primarySkill ? <img src="/images/Dashboard-assets/candidate/correct_black.svg" alt="Cinque Terre" /> : null}</td>
                     <td class="edit-icon-column">
                       <img src="/images/Dashboard-assets/iconfinder_edit.svg" class="edit-icon" alt="Cinque Terre" onClick={() => showPopup(EDIT_SKILL, true, { resourceId: skill.skillId })} />
                       <img src="/images/Dashboard-assets/delete.svg" class="edit-icon" alt="Cinque Terre" onClick={() => deleteSkill(skill.skillId)} />
