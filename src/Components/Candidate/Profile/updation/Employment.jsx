@@ -150,7 +150,7 @@ const Employment = ({ dataAttributes, showPopup }) => {
           <label htmlFor="designation">Designation<span >*</span></label>
           <input
             class={`form-control ${errors.designation && 'is-invalid'}`}
-            id="designation"
+            id="_designation"
             name="designation"
             ref={register({
               required: "Designation cannot be left blank"
@@ -162,7 +162,7 @@ const Employment = ({ dataAttributes, showPopup }) => {
         <div className="form-group">
           <label htmlFor="organization">Organization<span >*</span></label>
           <Typeahead
-            id="organization"
+            id="_organization"
             className={errors.organization && 'is-invalid'}
             isInvalid={errors.organization}
             onInputChange={(input, e) => handleTypeheadErrorOnInputChange(input, 'organization', 'Organization cannot be left blank')}
@@ -178,7 +178,7 @@ const Employment = ({ dataAttributes, showPopup }) => {
           <div class="form-row">
             <div className="col">
               <select
-                id="employmentType"
+                id="_employmentType"
                 class={`form-control ${errors.employmentType && 'is-invalid'}`}
                 name="employmentType"
                 ref={register({
@@ -202,7 +202,7 @@ const Employment = ({ dataAttributes, showPopup }) => {
               <input
                 type="radio"
                 class="form-check-input mr-2"
-                id="currentCompany"
+                id="_currentCompany"
                 name="currentCompany"
                 defaultValue={true}
                 checked={customInputValues.currentCompany}
@@ -214,7 +214,7 @@ const Employment = ({ dataAttributes, showPopup }) => {
               <input
                 type="radio"
                 class="form-check-input mr-2"
-                id="currentCompany"
+                id="_currentCompany"
                 name="currentCompany"
                 defaultValue={false}
                 checked={!customInputValues.currentCompany}
@@ -230,7 +230,7 @@ const Employment = ({ dataAttributes, showPopup }) => {
           <div class="form-row">
             <div className="col mr-3">
               <select
-                id="startedWorkingFromYear"
+                id="_startedWorkingFromYear"
                 class={`form-control ${(errors.startedWorkingFromYear || errors.startDate) && 'is-invalid'}`}
                 name="startedWorkingFromYear"
                 ref={register({
@@ -247,7 +247,7 @@ const Employment = ({ dataAttributes, showPopup }) => {
             </div>
             <div className="col ml-3">
               <select
-                id="startedWorkingFromMonth"
+                id="_startedWorkingFromMonth"
                 class={`form-control ${(errors.startedWorkingFromMonth || errors.startDate) && 'is-invalid'}`}
                 name="startedWorkingFromMonth"
                 ref={register({
@@ -270,7 +270,7 @@ const Employment = ({ dataAttributes, showPopup }) => {
             <div class="form-row">
               <div className="col mr-3">
                 <select
-                  id="workedTillYear"
+                  id="_workedTillYear"
                   class={`form-control ${(errors.workedTillYear || errors.endDate) && 'is-invalid'}`}
                   name="workedTillYear"
                   ref={register({
@@ -288,7 +288,7 @@ const Employment = ({ dataAttributes, showPopup }) => {
               </div>
               <div className="col ml-3">
                 <select
-                  id="workedTillMonth"
+                  id="_workedTillMonth"
                   class={`form-control ${(errors.workedTillMonth || errors.endDate) && 'is-invalid'}`}
                   name="workedTillMonth"
                   ref={register({
@@ -310,7 +310,7 @@ const Employment = ({ dataAttributes, showPopup }) => {
         <div className="form-group">
           <label for="description">Describe your job profile</label>
           <textarea class={`form-control ${errors.description && 'is-invalid'}`} rows="10"
-            id="description"
+            id="_description"
             placeholder="Enter Your Job Profile Details Here..."
             name="description"
             onChange={onInputChange}

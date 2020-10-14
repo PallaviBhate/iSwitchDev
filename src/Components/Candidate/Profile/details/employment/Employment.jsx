@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { ADD_NEW_EMPLOYMENT, EDIT_EMPLOYMENT } from '../../../../../Utils/AppConst'
 import { Context } from '../../../../../Context/ProfileContext';
+import moment from 'moment';
 
 export const Employment = ({ showPopup }) => {
   const { state } = useContext(Context);
@@ -9,6 +10,16 @@ export const Employment = ({ showPopup }) => {
     setEmploymentInfo(data)
   })
   const { employmentDetailsList } = employmentInfo;
+  const employmentDetailsListSorted = employmentDetailsList && employmentDetailsList.sort((empA, empB) => {
+    if (empA.currentCompany) return true;
+    if (empA.workedTillMonth && empA.workedTillYear && empB.workedTillMonth, empB.workedTillYear) {
+      const startMonthValue = parseInt(moment().month(empA.workedTillMonth).format("M")) - 1;
+      const endMonthValue = parseInt(moment().month(empB.workedTillMonth).format("M")) - 1;
+      const startDate = new Date(parseInt(empA.workedTillYear), startMonthValue).getTime();
+      const endDate = new Date(parseInt(empB.workedTillYear), endMonthValue).getTime();
+      return endDate - startDate;
+    }
+  })
   return (
     <div class="bg-white px-4 py-4 section-divider align-items-center">
       <div class="col">
@@ -17,7 +28,7 @@ export const Employment = ({ showPopup }) => {
           <span class="subtitle-semi-bold">Employment</span>
         </div>
         <div class="px-4 mb-3">
-          {(employmentDetailsList) ? employmentDetailsList.map((employment, i) => (
+          {(employmentDetailsListSorted) ? employmentDetailsListSorted.map((employment, i) => (
             <div class="col-12 px-0 py-3">
               <div>
                 <img src="/images/Dashboard-assets/iconfinder_edit.svg" class="float-right" alt="Cinque Terre" onClick={() => showPopup(EDIT_EMPLOYMENT, true, { resourceId: employment.employmentId })} />
