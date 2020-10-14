@@ -2,7 +2,7 @@ import React from 'react'
 import { EDIT_PROFILE_NAME } from '../../../../../Utils/AppConst'
 import RenderLoader from '../../../../CommonComp/Loader';
 
-export const InformationComponent = ({ showPopup, candidateProfile }) => {
+const InformationComponent = ({ showPopup, candidateProfile }) => {
   if (candidateProfile) {
     const { candidateInfo } = candidateProfile;
     const { firstName, lastName, currentRole, company, address, mobileNumber, emailId } = candidateInfo;

@@ -7,7 +7,7 @@ import { HTTP_REGX, MONTH_NAMES } from "../../../../Utils/AppConst";
 import { certificationFormDefaultValues } from "../../../../Utils/ProfileFormHelper";
 import moment from 'moment';
 
-const Certification = ({ dataAttributes, showPopup }) => {
+const CertificationComponent = ({ dataAttributes, showPopup }) => {
   const { handleSubmit, getValues, register, errors, setValue, reset, setError, clearErrors } = useForm({
     mode: 'onSubmit',
     defaultValues: certificationFormDefaultValues
@@ -281,4 +281,4 @@ const Certification = ({ dataAttributes, showPopup }) => {
   );
 };
 
-export default Certification;
+export default React.memo(CertificationComponent)

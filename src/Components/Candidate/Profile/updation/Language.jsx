@@ -5,7 +5,7 @@ import { Context } from "../../../../Context/ProfileContext";
 import ApiServicesOrgCandidate from "../../../../Services/ApiServicesOrgCandidate";
 import { languageFormDefaultValues } from "../../../../Utils/ProfileFormHelper";
 
-const Language = ({ dataAttributes, showPopup }) => {
+const LanguageComponent = ({ dataAttributes, showPopup }) => {
   const { handleSubmit, register, errors, setValue,  setError, clearErrors } = useForm({
     mode: 'onSubmit',
     defaultValues: languageFormDefaultValues
@@ -192,5 +192,4 @@ const Language = ({ dataAttributes, showPopup }) => {
     </form>
   );
 };
-
-export default Language;
+export default React.memo(LanguageComponent)

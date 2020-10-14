@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { EDIT_DESIRED_PROFILE, EDIT_CAREER_PROFILE } from '../../../../../Utils/AppConst'
 import { Context } from '../../../../../Context/ProfileContext';
 
-export const DesiredProfileComponent = ({ showPopup }) => {
+const DesiredProfileComponent = ({ showPopup }) => {
   const { state } = useContext(Context);
   const [careerInfo, setCareerInfo] = React.useState('');
   state.then((data) => {

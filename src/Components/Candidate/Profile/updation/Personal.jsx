@@ -8,7 +8,7 @@ import Moment from 'moment';
 import swal from 'sweetalert';
 import { useForm } from "react-hook-form";
 
-const Personal = ({ showPopup }) => {
+const PersonalComponent = ({ showPopup }) => {
 
   const [inputData, setFormInputData] = React.useState({
     "dob": new Date(),
@@ -228,6 +228,4 @@ const Personal = ({ showPopup }) => {
     </>
   );
 }
-
-
-export default Personal
+export default React.memo(PersonalComponent)

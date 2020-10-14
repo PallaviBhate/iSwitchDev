@@ -1,7 +1,7 @@
 import React from 'react'
 import UploadFile from '../../../../CommonComp/UploadFile'
 
-export const Resume = () => {
+const ResumeComponent = () => {
   return (
     <div class="bg-white px-4 py-4 section-divider align-items-center">
       <div class="col">
@@ -21,3 +21,5 @@ export const Resume = () => {
     </div>
   )
 }
+
+export const Resume = React.memo(ResumeComponent)

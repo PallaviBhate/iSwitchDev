@@ -4,7 +4,7 @@ import { Context } from '../../../../../Context/ProfileContext';
 import ApiServicesOrgCandidate from '../../../../../Services/ApiServicesOrgCandidate';
 import swal from 'sweetalert';
 
-export const SkillsComponent = ({ showPopup }) => {
+const SkillsComponent = ({ showPopup }) => {
   const { state } = useContext(Context);
   const [skill, setSkill] = React.useState('');
   state.then((data) => {

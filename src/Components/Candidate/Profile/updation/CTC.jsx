@@ -5,7 +5,7 @@ import { cTCFormDefaultValues, getCTCInLakh, getCTCInThousand, getCTCInFormat } 
 import { CANDIDATE_ID, CURRENCY_TYPE_ENUM } from '../../../../Utils/AppConst';
 import ApiServicesOrgCandidate from '../../../../Services/ApiServicesOrgCandidate';
 
-const CTC = ({ showPopup }) => {
+const CTCComponent = ({ showPopup }) => {
   const { state, getProfileInfo } = React.useContext(Context);
   const initialCustomInputValues = {currencyType: CURRENCY_TYPE_ENUM.INR}
   const [customInputValues, setCustomInputValues] = React.useState(initialCustomInputValues);
@@ -167,4 +167,4 @@ const CTC = ({ showPopup }) => {
     </form>
   );
 }
-export default CTC
+export default React.memo(CTCComponent)

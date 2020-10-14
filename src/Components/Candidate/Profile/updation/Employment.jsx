@@ -7,7 +7,7 @@ import ApiServicesOrgCandidate from '../../../../Services/ApiServicesOrgCandidat
 import { Typeahead } from 'react-bootstrap-typeahead';
 import moment from 'moment';
 
-const Employment = ({ dataAttributes, showPopup }) => {
+const EmploymentComponent = ({ dataAttributes, showPopup }) => {
   const { state, getProfileInfo } = React.useContext(Context);
   const resourceId = dataAttributes && dataAttributes.resourceId;
   const [descriptionLength, setDescriptionLength] = React.useState(MAX_LENGTH);
@@ -330,4 +330,4 @@ const Employment = ({ dataAttributes, showPopup }) => {
   );
 }
 
-export default Employment
+export default React.memo(EmploymentComponent)

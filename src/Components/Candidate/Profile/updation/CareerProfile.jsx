@@ -7,7 +7,7 @@ import { careerProfileFormDefaultValues } from '../../../../Utils/ProfileFormHel
 import { CANDIDATE_ID, PREFERRED_SHIFT_TYPE_ENUM } from '../../../../Utils/AppConst';
 import swal from 'sweetalert';
 
-const CareerProfile = ({ showPopup }) => {
+const CareerProfileComponent = ({ showPopup }) => {
   const { state, getProfileInfo } = useContext(Context);
   const initialCustomInputValues = { preferredShift: '', preferredLocations: [] };
   const [customInputValues, setCustomInputValues] = React.useState(initialCustomInputValues);
@@ -194,4 +194,4 @@ const CareerProfile = ({ showPopup }) => {
   );
 }
 
-export default CareerProfile
+export default React.memo(CareerProfileComponent)

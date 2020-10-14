@@ -5,7 +5,7 @@ import { aboutFormDefaultValues } from '../../../../Utils/ProfileFormHelper';
 import { MAX_LENGTH, CANDIDATE_ID } from '../../../../Utils/AppConst';
 import ApiServicesOrgCandidate from '../../../../Services/ApiServicesOrgCandidate';
 
-const About = ({ showPopup }) => {
+const AboutComponent = ({ showPopup }) => {
   const { state, getProfileInfo } = React.useContext(Context);
   const [aboutLength, setAboutLength] = React.useState(MAX_LENGTH);
   const { handleSubmit, register, errors, setValue } = useForm({
@@ -62,4 +62,4 @@ const About = ({ showPopup }) => {
   );
 }
 
-export default About
+export default React.memo(AboutComponent)

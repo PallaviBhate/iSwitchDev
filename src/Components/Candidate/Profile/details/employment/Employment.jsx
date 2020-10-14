@@ -3,7 +3,7 @@ import { ADD_NEW_EMPLOYMENT, EDIT_EMPLOYMENT } from '../../../../../Utils/AppCon
 import { Context } from '../../../../../Context/ProfileContext';
 import moment from 'moment';
 
-export const EmploymentComponent = ({ showPopup }) => {
+const EmploymentComponent = ({ showPopup }) => {
   const { state } = useContext(Context);
   const [employmentInfo, setEmploymentInfo] = React.useState('');
   state.then((data) => {

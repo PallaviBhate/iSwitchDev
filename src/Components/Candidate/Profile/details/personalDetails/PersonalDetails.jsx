@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { EDIT_PERSONAL } from '../../../../../Utils/AppConst'
 import { Context } from '../../../../../Context/ProfileContext';
 
-export const PersonalDetailsComponent = ({ showPopup }) => {
+const PersonalDetailsComponent = ({ showPopup }) => {
   const { state } = useContext(Context);
   const [personalInfo, setPersonalInfo] = React.useState('');
   state.then((data) => {

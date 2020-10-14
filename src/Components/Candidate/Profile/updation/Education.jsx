@@ -6,7 +6,7 @@ import ApiServicesOrgCandidate from "../../../../Services/ApiServicesOrgCandidat
 import { COURSE_TYPE_ENUM } from "../../../../Utils/AppConst";
 
 
-const Education = ({ dataAttributes, showPopup }) => {
+const EducationComponent = ({ dataAttributes, showPopup }) => {
   const { handleSubmit, getValues, register, errors, setValue, reset, setError, clearErrors } = useForm({
     mode: 'onSubmit',
     defaultValues: {
@@ -292,4 +292,4 @@ const Education = ({ dataAttributes, showPopup }) => {
   );
 };
 
-export default Education;
+export default React.memo(EducationComponent)

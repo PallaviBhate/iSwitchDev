@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { EDIT_CTC } from '../../../../../Utils/AppConst'
 import { Context } from '../../../../../Context/ProfileContext';
 
-export const CTCComponent = ({ showPopup }) => {
+const CTCComponent = ({ showPopup }) => {
   const { state } = useContext(Context);
   const [ctc, setCtc] = useState('');
   state.then((data) => {

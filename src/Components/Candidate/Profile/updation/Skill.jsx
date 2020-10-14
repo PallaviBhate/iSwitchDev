@@ -5,7 +5,7 @@ import { Context } from "../../../../Context/ProfileContext";
 import ApiServicesOrgCandidate from "../../../../Services/ApiServicesOrgCandidate";
 import { skillFormDefaultValues, getExperienceInFormat, getExperienceInYear, getExperienceInMonth } from "../../../../Utils/ProfileFormHelper";
 
-const Skill = ({ dataAttributes, showPopup }) => {
+const SkillComponent = ({ dataAttributes, showPopup }) => {
   const { handleSubmit, register, errors, setValue, setError, clearErrors } = useForm({
     mode: 'onSubmit',
     defaultValues: skillFormDefaultValues
@@ -186,5 +186,4 @@ const Skill = ({ dataAttributes, showPopup }) => {
     </form>
   );
 };
-
-export default Skill;
+export default React.memo(SkillComponent)

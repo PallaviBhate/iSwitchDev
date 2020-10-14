@@ -4,7 +4,7 @@ import { Context } from '../../../../../Context/ProfileContext';
 import ApiServicesOrgCandidate from '../../../../../Services/ApiServicesOrgCandidate';
 import swal from 'sweetalert';
 
-export const LanguageKnownComponent = ({ showPopup }) => {
+const LanguageKnownComponent = ({ showPopup }) => {
   const { state } = useContext(Context);
   const [profileInfo, setProfileInfo] = React.useState('');
   state.then((data) => {

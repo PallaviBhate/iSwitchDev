@@ -11,7 +11,7 @@ import Employment from './updation/Employment';
 import Education from './updation/Education';
 import Personal from './updation/Personal';
 import CareerProfile from './updation/CareerProfile';
-export const PopupContent = ({ title, showPopup, dataAttributes, id }) => {
+export const PopupContentComponent = ({ title, showPopup, dataAttributes, id }) => {
   let bodyComponent;
   switch (title) {
     case EDIT_PROFILE_NAME:
@@ -95,7 +95,6 @@ export const PopupContent = ({ title, showPopup, dataAttributes, id }) => {
     default:
       break;
   }
-  console.log('aaaa')
   return (
     <Popup
       showPopup={showPopup}
@@ -105,3 +104,5 @@ export const PopupContent = ({ title, showPopup, dataAttributes, id }) => {
 
   );
 }
+
+export const PopupContent = React.memo(PopupContentComponent)
