@@ -95,6 +95,7 @@ export const PopupContent = ({ title, showPopup, dataAttributes, id }) => {
     default:
       break;
   }
+  console.log('aaaa')
   return (
     <Popup
       showPopup={showPopup}

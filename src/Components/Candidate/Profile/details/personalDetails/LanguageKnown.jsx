@@ -4,7 +4,7 @@ import { Context } from '../../../../../Context/ProfileContext';
 import ApiServicesOrgCandidate from '../../../../../Services/ApiServicesOrgCandidate';
 import swal from 'sweetalert';
 
-export const LanguageKnown = ({ showPopup }) => {
+export const LanguageKnownComponent = ({ showPopup }) => {
   const { state } = useContext(Context);
   const [profileInfo, setProfileInfo] = React.useState('');
   state.then((data) => {
@@ -72,3 +72,4 @@ export const LanguageKnown = ({ showPopup }) => {
     </div>
   )
 }
+export const LanguageKnown = React.memo(LanguageKnownComponent)

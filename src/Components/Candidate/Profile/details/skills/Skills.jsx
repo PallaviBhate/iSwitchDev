@@ -4,7 +4,7 @@ import { Context } from '../../../../../Context/ProfileContext';
 import ApiServicesOrgCandidate from '../../../../../Services/ApiServicesOrgCandidate';
 import swal from 'sweetalert';
 
-export const Skills = ({ showPopup }) => {
+export const SkillsComponent = ({ showPopup }) => {
   const { state } = useContext(Context);
   const [skill, setSkill] = React.useState('');
   state.then((data) => {
@@ -74,3 +74,5 @@ export const Skills = ({ showPopup }) => {
     </div>
   )
 }
+
+export const Skills = React.memo(SkillsComponent)
