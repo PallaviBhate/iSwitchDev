@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { EDIT_CTC } from '../../../../../Utils/AppConst'
 import { Context } from '../../../../../Context/ProfileContext';
 
-export const CTC = ({ showPopup }) => {
+const CTCComponent = ({ showPopup }) => {
   const { state } = useContext(Context);
   const [ctc, setCtc] = useState('');
   state.then((data) => {
@@ -37,3 +37,5 @@ export const CTC = ({ showPopup }) => {
     )
   } return null;
 }
+
+export const CTC = React.memo(CTCComponent)

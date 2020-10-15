@@ -1,14 +1,25 @@
 import React, { useContext } from 'react'
 import { ADD_NEW_EMPLOYMENT, EDIT_EMPLOYMENT } from '../../../../../Utils/AppConst'
 import { Context } from '../../../../../Context/ProfileContext';
+import moment from 'moment';
 
-export const Employment = ({ showPopup }) => {
+const EmploymentComponent = ({ showPopup }) => {
   const { state } = useContext(Context);
   const [employmentInfo, setEmploymentInfo] = React.useState('');
   state.then((data) => {
     setEmploymentInfo(data)
   })
   const { employmentDetailsList } = employmentInfo;
+  const employmentDetailsListSorted = employmentDetailsList && employmentDetailsList.sort((empA, empB) => {
+    if (empA.currentCompany) return true;
+    if (empA.workedTillMonth && empA.workedTillYear && empB.workedTillMonth, empB.workedTillYear) {
+      const startMonthValue = parseInt(moment().month(empA.workedTillMonth).format("M")) - 1;
+      const endMonthValue = parseInt(moment().month(empB.workedTillMonth).format("M")) - 1;
+      const startDate = new Date(parseInt(empA.workedTillYear), startMonthValue).getTime();
+      const endDate = new Date(parseInt(empB.workedTillYear), endMonthValue).getTime();
+      return endDate - startDate;
+    }
+  })
   return (
     <div class="bg-white px-4 py-4 section-divider align-items-center">
       <div class="col">
@@ -17,14 +28,14 @@ export const Employment = ({ showPopup }) => {
           <span class="subtitle-semi-bold">Employment</span>
         </div>
         <div class="px-4 mb-3">
-          {(employmentDetailsList) ? employmentDetailsList.map((employment, i) => (
+          {(employmentDetailsListSorted) ? employmentDetailsListSorted.map((employment, i) => (
             <div class="col-12 px-0 py-3">
               <div>
-                <img src="/images/Dashboard-assets/iconfinder_edit.svg" class="float-right" alt="Cinque Terre" onClick={() => showPopup(EDIT_EMPLOYMENT, true, employment.employmentId)} />
+                <img src="/images/Dashboard-assets/iconfinder_edit.svg" class="float-right" alt="Cinque Terre" onClick={() => showPopup(EDIT_EMPLOYMENT, true, { resourceId: employment.employmentId })} />
                 <span class="subtitle-semi-bold">{employment.designation}</span>
               </div>
-              <div><span class="normal-text-semi-bold">{employment.organization} {employment.employmentType}</span></div>
-              <div><span class="normal-text-light">{employment.startedWorkingFromMonth}  {(employment.currentCompany) ? ' - Present' : null}</span></div>
+              <div><span class="normal-text-semi-bold">{employment.organization}</span></div>
+              <div><span class="normal-text-light">{employment.startedWorkingFromMonth}{employment.startedWorkingFromYear && employment.startedWorkingFromMonth ? ' , ' : ''}{employment.startedWorkingFromYear} | {!employment.currentCompany ? `${employment.workedTillMonth} ${employment.workedTillYear && employment.workedTillMonth ? ' , ' : ''} ${employment.workedTillYear}` : ' - Present'} ({employment.employmentType})</span></div>
               <p class="normal-text-light">{employment.description}</p>
             </div>
           )) : null}
@@ -36,3 +47,4 @@ export const Employment = ({ showPopup }) => {
     </div>
   )
 }
+export const Employment = React.memo(EmploymentComponent)

@@ -1,69 +1,65 @@
-import React, { Component, useContext } from 'react';
-import { Button, Modal } from 'react-bootstrap'
-import ApiServicesOrgCandidate from '../../../../Services/ApiServicesOrgCandidate';
+import React from 'react';
+import { useForm } from "react-hook-form";
 import { Context } from '../../../../Context/ProfileContext';
+import { aboutFormDefaultValues } from '../../../../Utils/ProfileFormHelper';
+import { MAX_LENGTH, CANDIDATE_ID } from '../../../../Utils/AppConst';
+import ApiServicesOrgCandidate from '../../../../Services/ApiServicesOrgCandidate';
 
-const About = ({showPopup}) => {
-  const [inputData, setFormInputData] = React.useState({ about: '' })
-  const [candidateProfile, setCandidateProfile] = React.useState('');
-  const { state, getProfileInfo } = useContext(Context);
-
+const AboutComponent = ({ showPopup }) => {
+  const { state, getProfileInfo } = React.useContext(Context);
+  const [aboutLength, setAboutLength] = React.useState(MAX_LENGTH);
+  const { handleSubmit, register, errors, setValue } = useForm({
+    mode: 'onSubmit',
+    defaultValues: aboutFormDefaultValues
+  });
 
   React.useEffect(() => {
     state.then((response) => {
-      setCandidateProfile(response);
+      if (response && response.candidateInfo) {
+        const { candidateInfo } = response;
+        const { about } = candidateInfo;
+        setValue('about', about);
+      }
     })
   }, []);
 
-  React.useEffect(() => {
-    setFormInputData({
-      about: candidateProfile && candidateProfile.candidateInfo && candidateProfile.candidateInfo.about
-    });
-  }, [candidateProfile]);
-  const handleFormInputData = (e) => {
-    return (
-      setFormInputData({
-        ...inputData,
-        [e.target.name]: e.target.value
-      })
-    )
+  const onInputChange = e => {
+
+    setAboutLength(MAX_LENGTH - e.target.value.length);
   }
-  const handleSubmit = (e) => {
-    const candidateId = localStorage.getItem('candidateId')
-    let data = {
-      "about": inputData.about,
-      "candidateId": candidateId
-    }
-    console.log(data)
-    ApiServicesOrgCandidate.updateProfileInfo(data, getProfileInfo,showPopup);
-    e.preventDefault();
+
+  const onSubmit = values => {
+    ApiServicesOrgCandidate.updateProfileInfo({ ...values, candidateId: CANDIDATE_ID }, getProfileInfo, showPopup);
   }
+
   return (
-    <>
-      <form>
-        <div class="mb-4">
-          <div className="form-group">
-            <label for="about">Profile Summary</label>
-            <textarea class="form-control" rows="10"
-              id="about"
-              placeholder="Describe Here"
-              required name="about"
-              value={inputData.about}
-              onChange={(e) => handleFormInputData(e)}
-            ></textarea>
-            <div class="invalid-feedback">
-              Please enter a message in the textarea.
-            </div>
-            <div class="col text-right mt-2 px-0">
-              <span class="small-text-light ">4000 Characters Left</span>
-            </div>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div class="mb-4">
+        <div className="form-group">
+          <label for="about">Profile Summary</label>
+          <textarea class={`form-control ${errors.about && 'is-invalid'}`} rows="10"
+            id="about"
+            placeholder="Describe Here"
+            name="about"
+            onChange={onInputChange}
+            maxlength={MAX_LENGTH}
+            ref={register({
+              required: false,
+              // maxLength: {
+              //   value: MAX_LENGTH,
+              //   message: `Profile Summary must not exceed ${MAX_LENGTH} characters`
+              // }
+            })}
+          ></textarea>
+          <div class="row m-0 p-0 mt-2">
+            <div class="col-6 m-0 p-0">{errors.about && <span class="errorMsg">{errors.about.message}</span>}</div>
+            <div class="col-6 text-right m-0 p-0"><span class="small-text-light ">{aboutLength} Characters Left</span></div>
           </div>
         </div>
-        <button class="btn lightBlue float-right px-5" onClick={handleSubmit}>Save</button>
-
-      </form>
-    </>
+      </div>
+      <button class="btn lightBlue float-right px-5">Save</button>
+    </form>
   );
 }
 
-export default About
+export default React.memo(AboutComponent)

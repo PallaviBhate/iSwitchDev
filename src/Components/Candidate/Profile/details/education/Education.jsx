@@ -28,7 +28,6 @@ export const Education = ({ showPopup }) => {
                 <span class="subtitle-semi-bold">{isSchoolEducation(data) ? data.board : data.university}</span>
               </div>
               <div><span class="normal-text-semi-bold"> {data.educationType}{isSchoolEducation(data) ? `` : ` - ${data.course} ${data.specialization}`} </span></div>
-              {/* <div><span class="normal-text-semi-bold"> {data.educationType} - {isSchoolEducation(data) ? `${data.medium}` : `${data.course} ${data.specialization}`} </span></div> */}
               <div><span class="normal-text-light">{data.passingOutYear} {data.courseType}</span></div>
             </div>
           )) : null}

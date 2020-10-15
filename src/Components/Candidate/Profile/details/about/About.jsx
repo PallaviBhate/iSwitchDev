@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { EDIT_PROFILE_NAME, EDIT_ABOUT } from '../../../../../Utils/AppConst'
 import { Context } from '../../../../../Context/ProfileContext';
 
-export const About = ({ showPopup }) => {
+const AboutComponent = ({ showPopup }) => {
   const { state } = useContext(Context);
   const [about, setAbout] = React.useState('');
   state.then((data) => {
@@ -23,3 +23,5 @@ export const About = ({ showPopup }) => {
     </div>
   )
 }
+
+export const About = React.memo(AboutComponent)
