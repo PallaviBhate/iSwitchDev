@@ -102,5 +102,18 @@ class ApiServicesOrg extends Component {
                 .then(Response => Response)
             )    
     }
+
+// 5. Recruiter Functionalities
+
+        //5.1 Active Job- All jobs to view on main "Active-Job" page
+        // getAllActiveJobs(){
+        //     return{
+        //         axios
+        //         .get(ApiBaseUrl+)
+        //         .then(Response => Response)
+        //     }
+        // }
+
+
 }
 export default ApiServicesOrg

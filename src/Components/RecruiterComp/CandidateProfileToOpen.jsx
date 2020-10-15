@@ -540,7 +540,13 @@ class CandidateProfileToOpen extends Component {
               <section className="content_section col py-md-3 pl-md-4 bd-content">
                 {/* Importing Overview Cards, Top skills card and monthly Report Bar Graph */}
                 {/* To display login User Details */}
-                <h4>Profile {details}</h4>
+                <div aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <Link to ="/jobPostingCollection">Active Jobs > Job Details </Link></li>
+                        <li class="breadcrumb-item active" aria-current="page"> Profile </li>
+                    </ol>
+                </div>
                 <div class="container-fashion">
                   {
                     isPopupShow ? this.renderPopup() : null

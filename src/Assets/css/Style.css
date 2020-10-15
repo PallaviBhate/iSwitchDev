@@ -2418,6 +2418,57 @@ textarea.form-control {
 }
 
 
+/* Active Jobs */
+
+
+/* Added by sakshi */
+
+.border-bottom-thin {
+    border-bottom: 1px solid #EDEBE9;
+}
+
+.active_job_heading {
+    font-size: 24px;
+    color: #2E2E2E;
+    font-family: Montserrat-SemiBold !important;
+}
+
+.active_job_subtitle {
+    font-size: 18px;
+    color: #52575C;
+    font-family: Montserrat-Medium !important;
+}
+
+.searchbar1,
+.sortby_box {
+    border: 1px solid #707070;
+    border-radius: 4px;
+    opacity: 1;
+}
+
+.active_padding {
+    padding-left: 18px;
+}
+
+.searchbar_text {
+    color: #CACCCF;
+    font-size: 16px;
+    font-family: Montserrat-Regular !important;
+}
+
+.p-card {
+    border-radius: 0px !important;
+}
+
+.job-skills-text {
+    font-size: 14px !important;
+    color: #2C3E50 !important;
+    font-family: Montserrat-Medium !important;
+    margin-bottom: 12px !important;
+    margin-top: 10px !important;
+}
+
+
 /* end of Active Job by Sima */
 
 

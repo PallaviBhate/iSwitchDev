@@ -124,6 +124,7 @@ class InterviewStatusPopUp extends Component{
                           <option value="rejected">Rejected</option>
                           <option value="offered">Offered</option>
                           <option value="interviewed">Interviewed</option>
+                          <option value="joined">Joined</option>
                           
                       </select>
                   </div> 
