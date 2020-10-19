@@ -1,17 +1,11 @@
-
-
 import React, { Component } from 'react';
 import { DataTable } from 'primereact/datatable';
 import ProgressBar from 'react-customizable-progressbar'
 import { Column } from 'primereact/column';
-import CustomerService from '../../../Services/CustomerServices.js';
 import { Toast } from 'primereact/toast';
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
-// import { InputText } from 'primereact/inputtext';
-// import { CircularProgressbar,buildStyles } from 'react-circular-progressbar';
-// import { CircularProgressbarWithChildren,} from "react-circular-progressbar";
- // import "react-circular-progressbar/dist/styles.css";
+import ApiServicesOrg from '../../../Services/ApiServicesOrg.jsx';
 
 export default class MatchingCandidate extends Component {
 
@@ -38,7 +32,7 @@ export default class MatchingCandidate extends Component {
             loading:false,
         };
 
-        this.customerService = new CustomerService();
+        this.MatchingCandidate = new ApiServicesOrg();
         this.onVirtualScroll = this.onVirtualScroll.bind(this);
         this.nameBodyTemplate = this.nameBodyTemplate.bind(this);
         this.countryBodyTemplate = this.countryBodyTemplate.bind(this);
@@ -55,7 +49,10 @@ export default class MatchingCandidate extends Component {
 
     componentDidMount() {
         this.setState({ loading: true });
-        this.customerService.getCustomersLarge().then(data => this.setState({ products: data,loading:false }));
+        this.MatchingCandidate.getViewAllMatchingCandidate()
+        .then(Response => this.setState({ products: Response.data.responseObject,loading:false }
+            
+        ),console.log(this.products));
         setTimeout(() => {
             this.setState({
                 products: this.loadChunk(0, 40),
@@ -144,14 +141,13 @@ export default class MatchingCandidate extends Component {
         this.setState({ deleteProductsDialog: true });
     }
 
-  
     nameBodyTemplate(rowData) {
         return (
             <>
             	<div className="custom"   >
                         <h5 id="name1">{rowData.candidate}</h5>
                         <p id="body1">{<span>Software developer at TCS</span>}</p>		
-                        <i className="pi pi-map-marker"></i>{<label>Mumbai,India</label>}
+                        <p><i className="pi pi-map-marker"></i>Mumbai,India</p>
                 </div>
                  
                
@@ -163,8 +159,10 @@ export default class MatchingCandidate extends Component {
     countryBodyTemplate(rowData) {
         return (
             <>
-               <span className="p-column-title"></span>
-                {rowData.skills}
+                <div className="custom"   >
+                    <p id="body1">{rowData.skills}</p>
+                </div>
+            
             </>
         );
     }
@@ -172,8 +170,9 @@ export default class MatchingCandidate extends Component {
     companyBodyTemplate(rowData) {
         return (
             <>
-                <span className="p-column-title"></span>
-                {rowData.experience}
+                 <div className="custom"   >
+                    <p id="body1">{rowData.experience}</p>
+                </div>
             </>
         );
     }
@@ -181,13 +180,13 @@ export default class MatchingCandidate extends Component {
     dateBodyTemplate(rowData) {
         return (
             <>
-                <span className="p-column-title"></span>
-                <span>{rowData.availableFrom}</span>
+                <div className="custom"   >
+                    <p id="body1">{rowData.availableFrom}</p>
+                </div>
             </>
         );
     }
 
-   
 
     activityBodyTemplate(rowData) {
     let percentage=rowData.activity
@@ -259,8 +258,7 @@ export default class MatchingCandidate extends Component {
                         {this.state.product && <span>Are you sure you want to delete <b>{this.state.product.name}</b>?</span>}
                     </div>
                 </Dialog>
-                <br/>
-                showing: {this.state.products.length} items
+              
             </div>
         );
     }

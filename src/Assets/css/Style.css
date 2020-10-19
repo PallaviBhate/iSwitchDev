@@ -969,10 +969,9 @@ input:checked+.slider:before {
 
 /* Added By Sakshi */
 
-
-/* .setting {
+.setting {
     margin-left: 15.2px;
-} */
+}
 
 .setting_text {
     font-family: Montserrat-Medium;
@@ -994,7 +993,7 @@ input:checked+.slider:before {
 
 .setting_arrow {
     margin-bottom: 3px;
-    margin-left: 10px !important;
+    margin-left: 16px !important;
 }
 
 .settingTitle_text {
@@ -1003,36 +1002,20 @@ input:checked+.slider:before {
     color: #2E2E2E;
 }
 
-.container {
-    display: block;
-    position: relative;
+.checkmark input {
+    height: 20px;
+    width: 20px;
+    margin-right: 0px !important;
     cursor: pointer;
+}
+
+.checkmark {
+    cursor: pointer;
+    background-color: #ffffff;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-}
-
-.container input {
-    height: 20px;
-    width: 20px;
-    margin-right: 0px !important;
-}
-
-.container:hover input~.checkmark {
-    background-color: #ccc;
-}
-
-.container input:checked~.checkmark {
-    background-color: #2196F3;
-}
-
-.checkmark {
-    position: relative;
-    cursor: pointer;
-    height: 13.76px !important;
-    width: 17.24px !important;
-    background-color: #ffffff;
 }
 
 .checkmark:before {
@@ -1042,6 +1025,10 @@ input:checked+.slider:before {
     background-color: white;
     -webkit-transition: .4s;
     transition: .4s;
+}
+
+.container input:checked~.checkmark {
+    background-color: #2196F3;
 }
 
 
@@ -2759,31 +2746,44 @@ textarea {
     background: #D4DFE9!important;
 }
 
-.p-tabview-title {
-    color: #333333;
-    border: none!important;
-    outline: none!important;
-    box-shadow: 0px 0px 0px -1px #D4DFE9;
+.p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: none !important;
 }
 
-.p-tabview-title:hover {
-    color: #2B6ED3;
-    box-sizing: none!important;
-    outline: none!important;
-    box-shadow: 0px 0px 0px -1px #D4DFE9;
-}
-
-.p-tabview .p-tabview-nav li .p-tabview-nav-link {
-    border: none!important;
-    border-width: 0 0 2px 0;
+.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link .p-tabview-title {
     background: #ffffff;
-    color: #6c757d;
+    border-color: #2196F3;
+    color: #2196F3;
+}
+
+.p-tabview .p-tabview-nav li .p-tabview-nav-link .p-tabview-title {
+    border-width: 0 0 2px 0;
+    border-color: transparent transparent #dee2e6 transparent;
+    background: #ffffff;
+    color: #333333;
     padding: 1rem;
     font-weight: 600;
     border-top-right-radius: 3px;
     border-top-left-radius: 3px;
     transition: box-shadow 0.2s;
     margin: 0 0 -2px 0;
+}
+
+.p-tabview-nav-link {
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    position: relative;
+    text-decoration: none;
+    overflow: hidden;
+}
+
+.p-tabview .p-tabview-panels {
+    padding: 0px !important;
+    border: 0 none;
 }
 
 .p-tabview .p-tabview-nav {
@@ -2808,58 +2808,17 @@ textarea {
     font-family: Montserrat-SemiBold!important;
 }
 
-.p-tabmenu .p-tabmenu-nav {
-    background: #ffffff;
-    border: none !important;
-    border-width: 0 0 2px 0;
-}
-
-.p-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link {
-    background: #ffffff;
-    border-color: #2196F3;
-    color: #2196F3;
-}
-
-.p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link {
-    border: none !important;
-    background: #ffffff;
-    color: #2C3E50;
-    padding: 1rem;
-    font-family: Montserrat-Medium!important;
-    font-size: 14px;
-    margin-left: 20px;
-    border-top-right-radius: 3px;
-    border-top-left-radius: 3px;
-    -webkit-transition: -webkit-box-shadow 0.2s;
-    transition: -webkit-box-shadow 0.2s;
-    transition: box-shadow 0.2s;
-    transition: box-shadow 0.2s, -webkit-box-shadow 0.2s;
-    margin: 0 0 -2px 0;
-}
-
 .white-middle-section1 {
     padding: 40px;
-    /* margin: 10px; */
     background: #fff;
     padding-bottom: 6px;
     padding-top: 15px;
 }
 
 .white-middle-section2 {
-    /* padding: 40px; */
-    /* margin: 10px; */
     background: #fff;
     padding-left: 0px !important;
     padding-right: 0px !important;
-}
-
-.p-tabview .p-tabview-panels {
-    background: #ffffff;
-    padding: 0px !important;
-    border: 0 none;
-    color: #495057;
-    border-bottom-right-radius: 3px;
-    border-bottom-left-radius: 3px;
 }
 
 #body1 {
@@ -2872,6 +2831,13 @@ textarea {
     font-weight: bold;
     font-size: 18px;
     color: #2E2E2EE5;
+}
+
+#name2 {
+    font-weight: bold;
+    font-size: 18px;
+    color: #2E2E2EE5;
+    padding-top: 20px;
 }
 
 #designation1 {
@@ -2916,31 +2882,6 @@ textarea {
     color: #DBDDE0;
 }
 
-.p-tabview .p-component {
-    padding: 0px !important;
-    padding-left: 0px !important;
-    padding-right: 0px !important;
-}
-
-.p-tabview .p-tabview-panels {
-    background: #ffffff;
-    padding-top: none !important;
-    border: 0 none;
-    color: #495057;
-    border-bottom-right-radius: 3px;
-    border-bottom-left-radius: 3px;
-}
-
-.p-tabview-nav {
-    display: -ms-flexbox;
-    display: flex;
-    margin: 0;
-    padding-top: 1rem !important;
-    list-style-type: none;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-}
-
 .viewdetails {
     display: flex;
     justify-content: center;
@@ -2964,15 +2905,15 @@ textarea {
     margin: 0rem 0rem 0rem 0rem !important;
 }
 
-.p-accordion .p-accordion-content {
-    padding: none !important;
-    border: none !important;
-}
-
 .card {
     box-shadow: none !important;
     transition: 0.3s;
     border-radius: 5px;
+}
+
+.p-accordion .p-accordion-content {
+    padding: none !important;
+    border: none !important;
 }
 
 .p-accordion-header-link {

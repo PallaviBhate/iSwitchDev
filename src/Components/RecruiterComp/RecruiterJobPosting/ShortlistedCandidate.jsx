@@ -8,18 +8,12 @@ import { Toast } from 'primereact/toast';
 import ProductService from '../../../Services/ProductServices.js';
 import InterviewStatusPopUp from './InterviewStatusPopUp.jsx';
 import CandidateProfileToOpen from '../CandidateProfileToOpen'
+import ApiServicesOrg from '../../../Services/ApiServicesOrg.jsx';
+
 
 
 export default class ShortlistedCandidate extends Component {
-    // emptyProduct = {
-    //     id: null,
-    //     Candidate: '',
-    //     InterviewStatus: '',
-    //     Comments: '',
-    //     LastUpdated: 0,
-      
-       
-    // };
+    
     constructor(props) {
         super(props);
         this.state = {
@@ -30,7 +24,8 @@ export default class ShortlistedCandidate extends Component {
             userDialog: false,
         };
 
-        this.productService = new ProductService();
+        // this.productService = new ProductService();
+        this.ShortlistedCandidateService=new ApiServicesOrg()
         this.editStatus = this.editStatus.bind(this);
         this.InterviewStatusBodyTemplete=this.InterviewStatusBodyTemplete.bind(this)
         this.editingCellRows = {};
@@ -42,7 +37,10 @@ export default class ShortlistedCandidate extends Component {
     componentDidMount() {
       
         this.setState({ loading: true });
-       this.productService.getProductsSmall().then(data => this.setState({candidates1: data,loading:false}));
+        this.ShortlistedCandidateService.getViewAllShortlistedCandidate()
+        .then(Response => this.setState({ candidates1: Response.data.responseObject }
+            
+        ),console.log(this.candidates1));
         setTimeout(() => {
             this.setState({
                 customers: this.loadChunk(0, 40),
@@ -78,12 +76,7 @@ export default class ShortlistedCandidate extends Component {
     }
 
     loadingText1() {
-        // return (
-         //     <Loader 
-         //     type="Circles" color="#00BFFF" height={80} width={80}>
-         //    </Loader>
-         // )
-          return <span className="loading-text"></span>;
+       return <span className="loading-text"></span>;
      }
  
    
@@ -111,15 +104,13 @@ export default class ShortlistedCandidate extends Component {
         return (
             <>
             	<div className="custom"   >
-                       <Link to= "/candidateProfileToOpen"> <h5 id="name1">{rowData.Candidate}</h5> </Link>
+                       <Link to= "/candidateProfileToOpen"> <h5 id="name2">{rowData.Candidate} </h5> </Link>
                         <p id="body1">{<span>Software developer at TCS</span>}</p>		
-                        <i className="pi pi-envelope mr-2"></i>{<label>johndoe@tcs.com</label>}<br></br>
-                        <i className="pi pi-mobile mr-2"></i>{<label>+91 1234567890</label>}<br></br>
-                        <i className="pi pi-map-marker mr-2"></i>{<label>Mumbai,India</label>}
+                        <p>  <i className="pi pi-envelope mr-2"></i>johndoe@tcs.com</p>
+                        <p>  <i className="pi pi-mobile mr-2"></i>+91 1234567890 </p>
+                        <p>  <i className="pi pi-map-marker mr-2"></i>Mumbai,India</p>
                 </div>
                  
-               
-              
             </>
         );
     }
@@ -140,7 +131,7 @@ export default class ShortlistedCandidate extends Component {
             <>
               <InterviewStatusPopUp ref={this.onEditStatusModalRef} ></InterviewStatusPopUp>
 
-                <span className="mr-2">{rowData.InterviewStatus} </span>
+               <span className="mr-2">{rowData.InterviewStatus} </span>
                 <img src="../images/ActiveJob-JobDetails/iconfinder_Edit-01_1976055.svg" onClick={()=> this.editStatus()}></img>
                
 

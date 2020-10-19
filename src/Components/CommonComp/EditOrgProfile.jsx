@@ -2,8 +2,18 @@ import React,{Component} from 'react'
 import HeaderAll from './HeaderAll'
 import Footer from './Footer'
 import {Link} from 'react-router-dom'
+import ChangePasswordOrg from '../Auth/ChangePasswordOrg'
 
 class EditProfile extends Component{
+
+    onChangePassModalRef = (obj) => { 
+        this.showModal = obj&&obj.showModal 
+     }
+    
+    changePass = () => {
+       this.showModal();
+     }
+
     render(){
         return(
             <div className="content">
@@ -21,8 +31,10 @@ class EditProfile extends Component{
                     <h4>Edit Profile</h4>
                     <div className="d-flex justify-content-between">
                     <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed</div>
-                    <div> <button className="btn btn-blue">Change Password</button>
-                    </div>
+                    <ChangePasswordOrg ref={this.onChangePassModalRef}> </ChangePasswordOrg>
+                    <button className="btn btn-blue" onClick={this.changePass}>Change Password</button>
+                    {/* <div> <button className="btn btn-blue">Change Password</button>
+                    </div> */}
                     </div>
                     <section className="white-middle-section mt-4">
                         

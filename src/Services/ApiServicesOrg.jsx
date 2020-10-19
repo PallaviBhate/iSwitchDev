@@ -69,6 +69,25 @@ class ApiServicesOrg extends Component {
             )
         }
 
+        //3.3 Get Email Setting for Organization (Provider/Recruiter)
+        getEmailSettings() {
+            const candidateId = JSON.parse(localStorage.getItem('userDetails')).id;
+            return (
+                axios
+                    .get(ApiBaseUrl + '/organization/notificationSettingForOrganization?candidateId=' + candidateId, this.getToken())
+                    .then(Response => Response)
+            )
+        }
+
+        //3.4 Post Email Setting for Organization (Provider/Recruiter)
+        putEmailSettings(data) {
+            return (
+                axios
+                    .put(ApiBaseUrl + "/organization/notificationSettingForOrganization", data, this.getToken())
+                    .then(Response => Response)
+            )
+        }
+
 // 4. Manage User Functionalities
         
         //4.1 View User list- Manage User Component
@@ -128,6 +147,36 @@ class ApiServicesOrg extends Component {
         //         .then(Response => Response)
         //     }
         // }
+
+        //5.2 Active Job- VeiwDetails- View candidate Application list- Job Details Component
+            getViewAllCandidateApplication() {
+                const jobId = JSON.parse(localStorage.getItem('userDetails')).id;
+                    return (
+                        axios
+                        .get(ApiBaseUrl + '/recruiter/listOfCandidateApplication/'+ jobId , this.getToken())
+                        .then(Response => Response)
+                    )
+                }
+
+        //5.3 Active Job- VeiwDetails- View Matching Candidate list- Job Details Component
+            getViewAllMatchingCandidate() {
+                const jobId = JSON.parse(localStorage.getItem('userDetails')).id;
+                    return (
+                        axios
+                        .get(ApiBaseUrl + '/recruiter/listOfMatchingCandidateApplication/'+ jobId , this.getToken())
+                        .then(Response => Response)
+                    )
+                }
+            
+        //5.4 View Shortlisted Candidate list- Job Details Component
+            getViewAllShortlistedCandidate() {
+                const jobId = JSON.parse(localStorage.getItem('userDetails')).id;
+                    return (
+                        axios
+                        .get(ApiBaseUrl + '/recruiter/listOfShortListedCandidate/'+ jobId , this.getToken())
+                        .then(Response => Response)
+                    )
+                }
 
 
 }

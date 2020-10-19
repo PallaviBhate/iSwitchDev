@@ -331,6 +331,31 @@ class ApiServicesOrgCandidate {
     )
   }
 
+      // Post Email notifications Settings of Candidate with Token
+      getToken() {
+        const token = JSON.parse(localStorage.getItem('userDetails')).authToken;
+        const tokenHeader = { headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token } }
+        return tokenHeader;
+      }
+
+      putCandidateEmailSettings(data) {
+        return (
+          axios
+            .put(ApiBaseUrl + "/candidate/notificationSettingForCandidate", data, this.getToken())
+            .then(Response => Response)
+        )
+      }
+
+      //Get candidate Email notifications Settings
+      getCandidateSettings() {
+        const candidateId = JSON.parse(localStorage.getItem('userDetails')).id;
+        return (
+          axios
+            .get(ApiBaseUrl + '/candidate/notificationSettingForCandidate?candidateId=' +candidateId, this.getToken())
+            .then(Response => Response)
+        )
+      }
+
 }
 
 export default new ApiServicesOrgCandidate();

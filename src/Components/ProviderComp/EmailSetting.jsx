@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import HeaderAll from '../CommonComp/HeaderAll'
 import Footer from '../CommonComp/Footer'
-import axios from 'axios'
+import ApiServicesOrg from '../../Services/ApiServicesOrg'
 import { Toast } from 'primereact/toast';
 import { Link } from 'react-router-dom';
 
@@ -9,16 +9,18 @@ class EmailSetting extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            candidateId: localStorage.getItem('candidateId'),
+            candidateId: localStorage.getItem('userId'),
             id: '',
-            providerAllowNotification: false,
-            candidateTermsAndCondition: false,
-            offeresMadeToCandidate: false,
-            recruiterAllowNotification: false,
-            succesfulJobPost: false,
-            newApplicationJobPosted: false,
-            interviewAcceptedDeclined: false
+            canAllowNotificationForProvider: false,
+            canCandidateHasAcceptedTermsAndConditions: false,
+            canOfferMadeToTheirCandidate: false,
+            canAllowNotificationForRecruite: false,
+            canSuccessfulJobPost: false,
+            camNewApplicationOnPostedJobs: false,
+            canInterviewInviteAcceptedDeclinedByCandidate: false
         };
+        this.emailSetting = new ApiServicesOrg();
+        this.onSaveSettings = this.onSaveSettings.bind(this)
         this.onProviderTogggleChange = this.onProviderTogggleChange.bind(this)
         this.onRecruiterTogggleChange = this.onRecruiterTogggleChange.bind(this)
         this.onCandidateTermsChange = this.onCandidateTermsChange.bind(this)
@@ -31,17 +33,17 @@ class EmailSetting extends Component {
     /*To handle Provider Allow Notification Toggle */
     onProviderTogggleChange = (e) => {
         this.setState({
-            providerAllowNotification: true,
-            candidateTermsAndCondition: true,
-            offeresMadeToCandidate: true
+            canAllowNotificationForProvider: true,
+            canCandidateHasAcceptedTermsAndConditions: true,
+            canOfferMadeToTheirCandidate: true
         })
 
         /*If Provider allow notifications toggler is disabled then all child togglers are disabled*/
-        if (!this.state.providerAllowNotification === false) {
+        if (!this.state.canAllowNotificationForProvider === false) {
             this.setState({
-                providerAllowNotification: false,
-                candidateTermsAndCondition: false,
-                offeresMadeToCandidate: false,
+                canAllowNotificationForProvider: false,
+                canCandidateHasAcceptedTermsAndConditions: false,
+                canOfferMadeToTheirCandidate: false,
             })
         }
     }
@@ -49,33 +51,64 @@ class EmailSetting extends Component {
     /* To handle Recruiter Allow Notification Toggle */
     onRecruiterTogggleChange = (e) => {
         this.setState({
-            recruiterAllowNotification: true,
-            succesfulJobPost: true,
-            newApplicationJobPosted: true,
-            interviewAcceptedDeclined: true
+            canAllowNotificationForRecruite: true,
+            canSuccessfulJobPost: true,
+            camNewApplicationOnPostedJobs: true,
+            canInterviewInviteAcceptedDeclinedByCandidate: true
         })
         /*If Provider allow notifications toggler is disabled then all child togglers are disabled*/
-        if (!this.state.recruiterAllowNotification === false) {
+        if (!this.state.canAllowNotificationForRecruite === false) {
             this.setState({
-                recruiterAllowNotification: false,
-                succesfulJobPost: false,
-                newApplicationJobPosted: false,
-                interviewAcceptedDeclined: false,
+                canAllowNotificationForRecruite: false,
+                canSuccessfulJobPost: false,
+                camNewApplicationOnPostedJobs: false,
+                canInterviewInviteAcceptedDeclinedByCandidate: false,
             })
         }
     }
+    // Get previous state of checkboxes
+    componentDidMount() {
+        this.emailSetting.getEmailSettings()
+            .then(Response =>
+                this.setState({
+                    id: Response.data.responseObject.id,
+                    candidateId: Response.data.responseObject.candidateId,
+                    canAllowNotificationForProvider: Response.data.responseObject.canAllowNotificationForProvider,
+                    canAllowNotificationForRecruite: Response.data.responseObject.canAllowNotificationForRecruite,
+                    canCandidateHasAcceptedTermsAndConditions: Response.data.responseObject.canCandidateHasAcceptedTermsAndConditions,
+                    canOfferMadeToTheirCandidate: Response.data.responseObject.canOfferMadeToTheirCandidate,
+                    canSuccessfulJobPost: Response.data.responseObject.canSuccessfulJobPost,
+                    camNewApplicationOnPostedJobs: Response.data.responseObject.camNewApplicationOnPostedJobs,
+                    canInterviewInviteAcceptedDeclinedByCandidate: Response.data.responseObject.canInterviewInviteAcceptedDeclinedByCandidate,
+                },
+                    //console.log(Response.data.responseObject)
+                ));
+    }
 
+    onSaveSettings = () => {
+        return (
+            this.emailSetting.putEmailSettings(this.state)
+                .then(Response => {
+                    // console.log(Response)
+                    this.toast.show({ severity: 'success',summary: 'Success Message', detail: 'Data Saved Successfully', life: 2000 })
+                })
+                .catch(error => {
+                    console.log("Error Occured..", error)
+                    this.toast.show({ severity: 'error',summary: 'Error', detail: 'Something Went Wrong', life: 2000 });
+                })
+        )
+    }
 
     /* To handle Candidate Terms and Conditions Change */
     onCandidateTermsChange = () => {
         this.setState(initialState => ({
-            candidateTermsAndCondition: !initialState.candidateTermsAndCondition,
+            canCandidateHasAcceptedTermsAndConditions: !initialState.canCandidateHasAcceptedTermsAndConditions,
         })
         )
         /* If Candidate Terms and conditions checkbox is disabled then allow notification is also disabled */
-        if (!this.state.candidateTermsAndCondition === false) {
+        if (!this.state.canCandidateHasAcceptedTermsAndConditions === false) {
             this.setState({
-                providerAllowNotification: false
+                canAllowNotificationForProvider: false
             })
         }
     }
@@ -83,13 +116,13 @@ class EmailSetting extends Component {
     /* To handle Candidate Terms and Conditions */
     onOffersMadeToCandidateChange = () => {
         this.setState(initialState => ({
-            offeresMadeToCandidate: !initialState.offeresMadeToCandidate,
+            canOfferMadeToTheirCandidate: !initialState.canOfferMadeToTheirCandidate,
         })
         )
         /* If Candidate Terms and conditions checkbox is disabled then provider allow notification is also disabled */
-        if (!this.state.offeresMadeToCandidate === false) {
+        if (!this.state.canOfferMadeToTheirCandidate === false) {
             this.setState({
-                providerAllowNotification: false
+                canAllowNotificationForProvider: false
             })
         }
     }
@@ -97,13 +130,13 @@ class EmailSetting extends Component {
     /* To handle Successful Job Post Change */
     onSuccessfulJobPostChange = () => {
         this.setState(initialState => ({
-            succesfulJobPost: !initialState.succesfulJobPost,
+            canSuccessfulJobPost: !initialState.canSuccessfulJobPost,
         })
         )
         /* If successful Job Post is disabled then recruiter allow notification is also disabled */
-        if (!this.state.succesfulJobPost === false) {
+        if (!this.state.canSuccessfulJobPost === false) {
             this.setState({
-                recruiterAllowNotification: false
+                canAllowNotificationForRecruite: false
             })
         }
     }
@@ -111,13 +144,13 @@ class EmailSetting extends Component {
     /* To handle new application Job Post */
     onNewAppJobPostChange = () => {
         this.setState(initialState => ({
-            newApplicationJobPosted: !initialState.newApplicationJobPosted,
+            camNewApplicationOnPostedJobs: !initialState.camNewApplicationOnPostedJobs,
         })
         )
         /* If new Application Job Post is disabled then allow notification is also disabled */
-        if (!this.state.newApplicationJobPosted === false) {
+        if (!this.state.camNewApplicationOnPostedJobs === false) {
             this.setState({
-                recruiterAllowNotification: false
+                canAllowNotificationForRecruite: false
             })
         }
     }
@@ -125,152 +158,117 @@ class EmailSetting extends Component {
     /* To hadle interview accepted/Declined by a candidate */
     onInterviewAcceptedDeclinedChange = () => {
         this.setState(initialState => ({
-            interviewAcceptedDeclined: !initialState.interviewAcceptedDeclined,
+            canInterviewInviteAcceptedDeclinedByCandidate: !initialState.canInterviewInviteAcceptedDeclinedByCandidate,
         })
         )
         /* If new interview accepted/declined is disabled then recruiter allow notification is also disabled */
-        if (!this.state.interviewAcceptedDeclined === false) {
+        if (!this.state.canInterviewInviteAcceptedDeclinedByCandidate === false) {
             this.setState({
-                recruiterAllowNotification: false
+                canAllowNotificationForRecruite: false
             })
         }
     }
 
-    /* To save Data */
-    saveData = () => {
-        console.log(" data saved Successfully")
-        this.toast.show({ severity: 'success', summary: 'Success Message', detail: 'Settings Updated Successfully' }, 50000);
-
-    }
-
     render() {
-        const status=localStorage.getItem('status')
-        console.log(status)
+        const status = localStorage.getItem('status')
+        // console.log(status)
         return (
-                    <div className="content">
+            <div>
+                <div className="content">
                     <Toast ref={(el) => this.toast = el} />
-                        <HeaderAll isSetting={true}></HeaderAll>
-                        <div className="content_section main">
+                    <HeaderAll isSetting={true}></HeaderAll>
+                    <div className="content_section main">
 
-                            {/* Content on the page */}
-                            <div className="mt-3 setting setting_text1">
+                        {/* Content on the page */}
+                        <div className="mt-3 setting setting_text1">
                             <div className=" mb-3">
                                 {/**  
                                  * If recruiter toggle is active then from email settings component recruiter dashboard will open else provider dashboard will open
                                  **/}
                                 {
-                                  (status==="recruiter") ?
-                                  <Link to="/recruiterDashboard">
-                            <img className="setting_arrow marR5" src="/images/EmailSettings/backward-link-arrow.svg" alt="arrow"/>
-                            </Link>  
-                            :
-                            <Link to="/providerDashboard">
-                            <img className="setting_arrow marR5" src="images/EmailSettings/backward-link-arrow.svg" alt="arrow"/>
-                            </Link>
+                                    (status === "recruiter") ?
+                                        <Link to="/recruiterDashboard">
+                                            <img className="setting_arrow marR5" src="/images/EmailSettings/backward-link-arrow.svg" alt="arrow" />
+                                        </Link>
+                                        :
+                                        <Link to="/providerDashboard">
+                                            <img className="setting_arrow marR5" src="images/EmailSettings/backward-link-arrow.svg" alt="arrow" />
+                                        </Link>
                                 }
                             Dashboard</div>
-                                <div className="setting settingTitle_text mb-2">Email Notification Preferences</div>
-                                <div className="setting setting_text">You can manage your preferences for email notifications from here</div>
-                                <section className="white-middle-section mt-4">
-                                    <div className="row">
-                                        <div className="col-md-8 offset-md-2">
+                            <div className="setting settingTitle_text mb-2">Email Notification Preferences</div>
+                            <div className="setting setting_text">You can manage your preferences for email notifications from here</div>
+                            <section className="white-middle-section mt-4">
+                                <div className="row">
+                                    <div className="col-md-8 offset-md-2">
 
-                                            {/* Allow Notication for Provider */}
+                                        {/* Allow Notication for Provider */}
+                                        <div className="d-flex justify-content-between border-bottom-thick mb-4">
+                                            <div className="settingSubtitle_text">Allow Notifications for Provider</div>
+                                            <div>
+                                                <label className="switch " >
+                                                    <input type="checkbox" className="primary"
+                                                        checked={this.state.canAllowNotificationForProvider}
+                                                        onChange={this.onProviderTogggleChange}
+                                                    />
+                                                    <span className="slider round"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            {/* Candidate has accepted terms and Conitions */}
+                                            <div className="d-flex justify-content-between mb-3">
+                                                <div className="setting_text">Candidate has accepted terms &amp; conditions for their profile to be visible in the portal</div>
+                                                <div>
+                                                    <label className="checkmark">
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={this.state.canCandidateHasAcceptedTermsAndConditions}
+                                                            onChange={this.onCandidateTermsChange}
+                                                        />
+                                                        <span className="checkmark"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            {/* Offer made to their candidate*/}
+                                            <div className="d-flex justify-content-between mb-4">
+                                                <div className="setting_text">Offer made to their candidate</div>
+                                                <div>
+                                                    <label className="checkmark">
+                                                        <input type="checkbox" className="primary"
+                                                            checked={this.state.canOfferMadeToTheirCandidate}
+                                                            onChange={this.onOffersMadeToCandidateChange}
+                                                        />
+                                                        <span className="checkmark"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            {/* Allow Notifications for Recruiter*/}
                                             <div className="d-flex justify-content-between border-bottom-thick mb-4">
-                                                <div className="settingSubtitle_text">Allow Notifications for Provider</div>
+                                                <div className="settingSubtitle_text">Allow Notifications for Recruiter</div>
                                                 <div>
                                                     <label className="switch " >
                                                         <input type="checkbox" className="primary"
-                                                            checked={this.state.providerAllowNotification}
-                                                            onChange={this.onProviderTogggleChange}
+                                                            checked={this.state.canAllowNotificationForRecruite}
+                                                            onChange={this.onRecruiterTogggleChange}
                                                         />
                                                         <span className="slider round"></span>
                                                     </label>
                                                 </div>
                                             </div>
-
+                                            {/* Successful job post */}
                                             <div>
-                                                {/* Candidate has accepted terms and Conitions */}
                                                 <div className="d-flex justify-content-between mb-3">
-                                                    <div className="setting_text">Candidate has accepted terms &amp; conditions for their profile to be visible in the portal</div>
+                                                    <div className="setting_text">Successful job post</div>
                                                     <div>
-                                                        <label className="container">
-                                                            <input
-                                                                type="checkbox"
-                                                                checked={this.state.candidateTermsAndCondition}
-                                                                onChange={this.onCandidateTermsChange}
-                                                            />
-                                                            <span className="checkmark"></span>
-                                                        </label>
-                                                    </div>
-                                                </div>
-
-                                                {/* Offer made to their candidate*/}
-                                                <div className="d-flex justify-content-between mb-4">
-                                                    <div className="setting_text">Offer made to their candidate</div>
-                                                    <div>
-                                                        <label className="container">
+                                                        <label className="checkmark">
                                                             <input type="checkbox" className="primary"
-                                                                checked={this.state.offeresMadeToCandidate}
-                                                                onChange={this.onOffersMadeToCandidateChange}
-                                                            />
-                                                            <span className="checkmark"></span>
-                                                        </label>
-                                                    </div>
-                                                </div>
+                                                                checked={this.state.canSuccessfulJobPost}
+                                                                onChange={this.onSuccessfulJobPostChange}
 
-                                                {/* Allow Notifications for Recruiter*/}
-                                                <div className="d-flex justify-content-between border-bottom-thick mb-4">
-                                                    <div className="settingSubtitle_text">Allow Notifications for Recruiter</div>
-                                                    <div>
-                                                        <label className="switch " >
-                                                            <input type="checkbox" className="primary"
-                                                                checked={this.state.recruiterAllowNotification}
-                                                                onChange={this.onRecruiterTogggleChange}
-                                                            />
-                                                            <span className="slider round"></span>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                {/* Successful job post */}
-                                                <div>
-                                                    <div className="d-flex justify-content-between mb-3">
-                                                        <div className="setting_text">Successful job post</div>
-                                                        <div>
-                                                            <label className="container">
-                                                                <input type="checkbox" className="primary"
-                                                                    checked={this.state.succesfulJobPost}
-                                                                    onChange={this.onSuccessfulJobPostChange}
-
-                                                                />
-                                                                <span className="checkmark"></span>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                {/* New Application on posted job */}
-                                                <div className="d-flex justify-content-between mb-3">
-                                                    <div className="setting_text"> New application on posted job</div>
-                                                    <div>
-                                                        <label className="container">
-                                                            <input type="checkbox" className="primary"
-                                                                checked={this.state.newApplicationJobPosted}
-                                                                onChange={this.onNewAppJobPostChange}
-                                                            />
-                                                            <span className="checkmark"></span>
-                                                        </label>
-                                                    </div>
-                                                </div>
-
-                                                {/* Interview invite accepted/declined */}
-                                                <div className="d-flex justify-content-between mb-3">
-                                                    <div className="setting_text">Interview invite accepted/declined by a candidate</div>
-                                                    <div>
-                                                        <label className="container">
-                                                            <input type="checkbox" className="primary"
-                                                                checked={this.state.interviewAcceptedDeclined}
-                                                                onChange={this.onInterviewAcceptedDeclinedChange}
                                                             />
                                                             <span className="checkmark"></span>
                                                         </label>
@@ -278,17 +276,47 @@ class EmailSetting extends Component {
                                                 </div>
                                             </div>
 
-                                            {/* Save button */}
-                                            <div className="text-right pt-3">
-                                                <button className="btn btn-blue" onClick={this.saveData}>Save</button>
+                                            {/* New Application on posted job */}
+                                            <div className="d-flex justify-content-between mb-3">
+                                                <div className="setting_text"> New application on posted job</div>
+                                                <div>
+                                                    <label className="checkmark">
+                                                        <input type="checkbox" className="primary"
+                                                            checked={this.state.camNewApplicationOnPostedJobs}
+                                                            onChange={this.onNewAppJobPostChange}
+                                                        />
+                                                        <span className="checkmark"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            {/* Interview invite accepted/declined */}
+                                            <div className="d-flex justify-content-between mb-3">
+                                                <div className="setting_text">Interview invite accepted/declined by a candidate</div>
+                                                <div>
+                                                    <label className="checkmark">
+                                                        <input type="checkbox" className="primary"
+                                                            checked={this.state.canInterviewInviteAcceptedDeclinedByCandidate}
+                                                            onChange={this.onInterviewAcceptedDeclinedChange}
+                                                        />
+                                                        <span className="checkmark"></span>
+                                                    </label>
+                                                </div>
                                             </div>
                                         </div>
+
+                                        {/* Save button */}
+                                        <div className="text-right pt-3">
+                                            <button className="btn btn-blue" onClick={this.onSaveSettings}>Save</button>
+                                        </div>
                                     </div>
-                                </section>
-                            </div>
+                                </div>
+                            </section>
                         </div>
-                        <Footer></Footer>
                     </div>
+                    <Footer></Footer>
+                </div>
+            </div>
         )
     }
 }

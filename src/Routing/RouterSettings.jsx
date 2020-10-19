@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import LoginComp from '../Components/Auth/LoginComp'
 import Signup from '../Components/Auth/Signup'
-import SetPassword from '../Components/Auth/SetPassword'
+import ChangePasswordOrg from '../Components/Auth/ChangePasswordOrg'
 import ProviderDashboard from '../Components/ProviderComp/ProviderDashboard'
 import UploadProfile from '../Components/ProviderComp/UploadProfile'
 import TermsOfUse from '../Components/Auth/TermsOfUse'
@@ -63,6 +63,9 @@ class RouterSettings extends Component {
             <Route path="/editOrgProfile" component={EditOrgProfile} />
             <Route path="/leftnavcandidate" component={LeftNavCandidate} />
             <Route path="/logout" component={Logout} />
+            <Route path="/changePasswordOrg" component={ChangePasswordOrg}/>
+
+
 
             <Route path="/candidate/dashboard" component={Dashboard} />
             {/* <Route path="/candidate/interviews/invites" component={Invites} />
